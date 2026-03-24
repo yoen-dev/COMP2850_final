@@ -1,0 +1,1309 @@
+<!DOCTYPE html>
+<!--
+/**
+ * NourishWell - Good Food & Healthy Eating Landing Page
+ * NourishWell - 健康饮食推广系统首页
+ *
+ * @description Main landing page for the NourishWell web application.
+ *              Includes hero section with feature previews, and authentication pages (login/register).
+ *              NourishWell网页应用的主着陆页。包含带功能预览的主页区域，以及认证页面（登录/注册）。
+ *
+ * @project COMP2850 Software Engineering - University of Leeds
+ * @version 2.0
+ * @date 2026-03-24
+ *
+ * @structure
+ *   - Navigation Bar / 导航栏: Fixed top nav with logo, login and register buttons
+ *   - Ticker Tape / 滚动横幅: Scrolling feature keywords below nav
+ *   - Hero Section / 主页区域: Title text (left) + feature preview cards (right) + background outline text
+ *   - Auth Pages / 认证页面: Login and Register forms with role selection (Subscriber/Professional)
+ *
+ * @fonts Bricolage Grotesque (body), Instrument Serif (headings), JetBrains Mono (labels)
+ * @palette Teal (#1e6b5e), Amber (#b8621f), Ink (#0a1410), Paper (#f5f7f5)
+ */
+-->
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NourishWell</title>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+/**
+ * CSS Custom Properties / CSS自定义变量
+ * @description Design tokens for consistent theming across the application.
+ *              用于整个应用一致主题风格的设计令牌。
+ * @property {color} --teal - Primary brand color / 主品牌色
+ * @property {color} --amber - Accent/warning color / 强调/警告色
+ * @property {color} --ink - Text and dark background color / 文字和深色背景色
+ * @property {color} --paper - Page background color / 页面背景色
+ */
+:root {
+  --teal:     #1e6b5e;
+  --teal-l:   #2f8f7f;
+  --teal-ll:  #b8ddd8;
+  --teal-lll: #e8f4f2;
+  --amber:    #b8621f;
+  --amber-l:  #d4956a;
+  --amber-ll: #faeade;
+  --ink:      #0a1410;
+  --ink-s:    #1c2e26;
+  --ink-m:    #3d5448;
+  --ink-f:    #6b8878;
+  --paper:    #f5f7f5;
+  --fog:      #dce6e0;
+  --white:    #ffffff;
+  --border:   #d4dfd8;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Bricolage Grotesque', sans-serif;
+  background: var(--paper);
+  color: var(--ink);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  font-feature-settings: 'ss01' 1;
+}
+
+/**
+ * Navigation Bar / 导航栏
+ * @description Fixed top navigation with logo, login and register buttons.
+ *              固定在顶部的导航栏，包含Logo、登录和注册按钮。
+ *              Uses backdrop blur for frosted glass effect.
+ *              使用毛玻璃模糊效果。
+ */
+/* ── NAV ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 9999;
+  min-height: 60px;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 52px;
+  background: rgba(245,247,245,0.97);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border-bottom: 1px solid var(--border);
+  overflow: visible;
+}
+.nav-bg { display: none; }
+.logo {
+  display: flex; align-items: center; gap: 9px;
+  text-decoration: none;
+}
+.logo-mark {
+  width: 28px; height: 28px;
+  background: var(--ink);
+  border-radius: 6px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px;
+}
+.logo-text {
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-size: 15px; font-weight: 700;
+  color: var(--ink); letter-spacing: -0.02em;
+}
+.nav-center {
+  display: flex; gap: 32px;
+}
+.nav-center a {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-height: 22px;
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-size: 13px; line-height: 1.1; font-weight: 500; color: var(--ink-m);
+  text-decoration: none; letter-spacing: 0.01em;
+  transition: color 0.2s;
+}
+.nav-center a:hover { color: var(--ink); }
+.nav-right { display: flex; align-items: center; gap: 32px; }
+.nav-btn-ghost {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-height: 36px;
+  padding: 0 2px;
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-size: 13px; line-height: 1.05; font-weight: 500; color: var(--ink-m);
+  text-decoration: none; letter-spacing: 0.01em;
+  transition: color 0.2s;
+}
+.nav-btn-ghost:hover { color: var(--ink); }
+.nav-btn-fill {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-height: 36px;
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-size: 13px; line-height: 1.05; font-weight: 600; color: var(--white);
+  background: var(--ink); text-decoration: none;
+  padding: 0 20px; border-radius: 8px; letter-spacing: 0.01em;
+  transition: all 0.2s;
+}
+.nav-btn-fill:hover { background: var(--teal); }
+
+/**
+ * Hero Section / 主页区域
+ * @description Full-viewport hero with two-column grid layout.
+ *              Left: title text, subtitle, CTA button.
+ *              Right: feature preview cards (trend chart, food card, nutrition donut, recipe/professional previews).
+ *              Background: Large outline "NOURISH" text at bottom-left for visual depth.
+ *              全视口高度的主页区域，双列网格布局。
+ *              左侧：标题文字、副标题、行动按钮。
+ *              右侧：功能预览卡片（趋势图、食物卡片、营养环形图、食谱/专业人士预览）。
+ *              背景：左下角大号空心"NOURISH"文字，增加视觉层次感。
+ */
+/* ── HERO ── */
+.hero {
+  min-height: 100vh;
+  padding: 90px 52px 0;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+/* BIG background text — uses SVG instead, see HTML */
+.hero-bg-text {
+  position: absolute;
+  bottom: -20px; left: 0;
+  user-select: none;
+  pointer-events: none;
+  z-index: 1;
+  line-height: 1;
+}
+
+/* Ticker tape */
+.ticker-wrap {
+  position: fixed;
+  top: 60px; left: 0; right: 0;
+  overflow: hidden;
+  border-bottom: 1px solid var(--border);
+  background: var(--ink);
+  padding: 9px 0;
+  z-index: 9998;
+}
+.ticker {
+  display: flex; gap: 0;
+  white-space: nowrap;
+  animation: ticker 35s linear infinite;
+}
+.ticker-item {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px; font-weight: 400;
+  color: rgba(255,255,255,0.45);
+  padding: 0 42px;
+  letter-spacing: 0.06em;
+  flex-shrink: 0;
+  text-transform: uppercase;
+}
+.ticker-dot { color: var(--teal-l); margin: 0 6px; }
+@keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+/* Hero main content */
+.hero-content {
+  position: relative; z-index: 10;
+  display: grid;
+  grid-template-columns: 1fr 520px;
+  align-items: start;
+  gap: 40px;
+  padding-bottom: 40px;
+  padding-top: 36px;
+}
+
+.hero-left { padding-top: 24px; }
+
+.hero-super {
+  display: inline-flex; align-items: center; gap: 10px;
+  margin-bottom: 10px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px; color: var(--teal);
+  letter-spacing: 0.1em; text-transform: uppercase;
+}
+.hero-super::before {
+  content: ''; width: 24px; height: 1px;
+  background: var(--teal);
+}
+
+h1.hero-title {
+  font-family: 'Instrument Serif', serif;
+  font-size: clamp(72px, 10vw, 150px);
+  font-weight: 400;
+  line-height: 0.90;
+  letter-spacing: -0.03em;
+  color: var(--ink);
+  margin-bottom: 0;
+}
+h1.hero-title .line-italic { font-style: italic; color: var(--teal); }
+h1.hero-title .line-outline {
+  -webkit-text-stroke: 1.5px var(--ink);
+  color: transparent;
+}
+
+.hero-bottom {
+  display: flex; align-items: flex-end;
+  gap: 40px; margin-top: 20px;
+}
+.hero-sub {
+  font-size: 14px; font-weight: 400;
+  color: var(--ink-m); line-height: 1.75;
+  max-width: 340px;
+}
+.hero-cta-group { display: flex; flex-direction: column; gap: 10px; flex-shrink: 0; }
+.hero-btn-main {
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-size: 13px; font-weight: 600;
+  color: var(--white); background: var(--ink);
+  text-decoration: none; padding: 13px 28px;
+  border-radius: 8px; letter-spacing: 0.01em;
+  transition: all 0.25s; white-space: nowrap;
+  display: inline-block;
+}
+.hero-btn-main:hover { background: var(--teal); transform: translateY(-1px); box-shadow: 0 8px 24px rgba(30,107,94,0.25); }
+.hero-btn-ghost {
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-size: 12px; font-weight: 500;
+  color: var(--ink-m); text-decoration: none;
+  letter-spacing: 0.02em; display: flex; align-items: center; gap: 6px;
+  transition: color 0.2s;
+}
+.hero-btn-ghost:hover { color: var(--ink); }
+.hero-btn-ghost span { transition: transform 0.2s; }
+.hero-btn-ghost:hover span { transform: translateX(4px); }
+
+/* ── Hero Right: Donut + Cards Layout ── */
+.hero-app-panel {
+  position: relative;
+  align-self: center;
+  width: 500px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding-bottom: 72px;
+}
+
+/* LEFT: Big donut card */
+.hero-donut-card {
+  flex-shrink: 0;
+  width: 260px;
+  background: var(--ink);
+  border-radius: 24px;
+  padding: 28px 24px 24px;
+  box-shadow: 0 32px 80px rgba(10,20,16,0.28), 0 0 0 1px rgba(255,255,255,0.05);
+  position: relative;
+  overflow: hidden;
+}
+.hero-donut-card::before {
+  content: '';
+  position: absolute; top: -60px; right: -60px;
+  width: 200px; height: 200px;
+  background: radial-gradient(circle, rgba(47,143,127,0.18) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hdc-eyebrow {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px; color: rgba(255,255,255,0.3);
+  letter-spacing: 0.1em; text-transform: uppercase;
+  margin-bottom: 20px;
+}
+.hdc-donut-wrap {
+  display: flex; justify-content: center;
+  margin-bottom: 20px;
+  position: relative;
+}
+.hdc-legend {
+  display: flex; flex-direction: column; gap: 8px;
+}
+.hdc-legend-row {
+  display: flex; align-items: center; gap: 8px;
+}
+.hdc-legend-dot {
+  width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0;
+}
+.hdc-legend-name {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px; color: rgba(255,255,255,0.4); flex: 1;
+}
+.hdc-legend-val {
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-size: 11px; font-weight: 600; color: rgba(255,255,255,0.75);
+}
+.hdc-divider {
+  height: 1px; background: rgba(255,255,255,0.06); margin: 12px 0;
+}
+.hdc-total-row {
+  display: flex; align-items: baseline; justify-content: space-between;
+}
+.hdc-total-num {
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-size: 28px; font-weight: 700; color: white; line-height: 1;
+}
+.hdc-total-unit {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px; color: rgba(255,255,255,0.3);
+}
+.hdc-total-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px; color: rgba(255,255,255,0.3); text-transform: uppercase; letter-spacing: 0.08em;
+}
+
+/* RIGHT: stacked mini cards */
+.hero-side-cards {
+  flex: 1;
+  display: flex; flex-direction: column; gap: 12px;
+}
+.hsc-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 16px 18px;
+  box-shadow: 0 8px 32px rgba(10,20,16,0.07);
+  transition: transform 0.2s;
+}
+.hsc-card:hover { transform: translateY(-2px); }
+.hsc-card.dark {
+  background: var(--ink);
+  border-color: rgba(255,255,255,0.06);
+  box-shadow: 0 8px 32px rgba(10,20,16,0.25);
+}
+.hsc-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 8px; color: var(--teal);
+  letter-spacing: 0.1em; text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.hsc-card.dark .hsc-tag { color: var(--teal-l); }
+.hsc-title {
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-size: 13px; font-weight: 700; color: var(--ink);
+  line-height: 1.3; margin-bottom: 4px;
+}
+.hsc-card.dark .hsc-title { color: white; }
+.hsc-sub {
+  font-size: 11px; color: var(--ink-f); line-height: 1.4;
+}
+.hsc-card.dark .hsc-sub { color: rgba(255,255,255,0.35); }
+.hsc-footer {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-top: 10px; padding-top: 10px;
+  border-top: 1px solid var(--border);
+}
+.hsc-card.dark .hsc-footer { border-color: rgba(255,255,255,0.06); }
+.hsc-pill {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 8px; padding: 3px 8px; border-radius: 20px;
+}
+.hsc-pill.green { background: var(--teal-lll); color: var(--teal); }
+.hsc-pill.amber { background: var(--amber-ll); color: var(--amber); }
+.hsc-pill.red   { background: rgba(192,57,43,0.1); color: #c0392b; }
+.hsc-pill.dark-green { background: rgba(47,143,127,0.2); color: var(--teal-l); }
+.hsc-arrow {
+  font-size: 11px; color: var(--ink-f);
+}
+.hsc-card.dark .hsc-arrow { color: rgba(255,255,255,0.25); }
+
+/* meal row in card */
+.hsc-meal-row {
+  display: flex; align-items: center; gap: 6px;
+  padding: 4px 0; border-bottom: 1px solid var(--fog);
+}
+.hsc-meal-row:last-child { border-bottom: none; }
+.hsc-meal-dot { width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; }
+.hsc-meal-name { flex: 1; font-size: 10px; font-weight: 600; color: var(--ink); }
+.hsc-meal-kcal { font-family: 'JetBrains Mono', monospace; font-size: 9px; color: var(--ink-f); }
+
+
+/* ── DIAGONAL BAND ── */
+.diagonal-band {
+  background: var(--ink);
+  padding: 72px 0;
+  position: relative;
+  clip-path: polygon(0 5%, 100% 0, 100% 95%, 0 100%);
+  margin: -2px 0;
+}
+.diagonal-band-inner {
+  padding: 0 52px;
+  display: flex; justify-content: space-around; align-items: center;
+}
+.d-stat { text-align: center; }
+.d-stat-num {
+  font-family: 'Instrument Serif', serif;
+  font-size: 58px; color: var(--white); line-height: 1;
+  margin-bottom: 8px;
+}
+.d-stat-num sup { font-size: 24px; }
+.d-stat-lbl {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px; color: rgba(255,255,255,0.3);
+  letter-spacing: 0.1em; text-transform: uppercase;
+}
+.d-divider { width: 1px; height: 48px; background: rgba(255,255,255,0.08); }
+
+/* ── FEATURES ── */
+.features {
+  padding: 112px 52px;
+  background: var(--paper);
+}
+.feat-header {
+  display: flex; justify-content: space-between; align-items: flex-end;
+  margin-bottom: 64px;
+}
+.feat-eyebrow {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px; color: var(--teal);
+  letter-spacing: 0.12em; text-transform: uppercase;
+  margin-bottom: 14px;
+}
+.feat-big-title {
+  font-family: 'Instrument Serif', serif;
+  font-size: clamp(36px, 4.5vw, 64px);
+  font-weight: 400; line-height: 1.05;
+  letter-spacing: -0.03em; color: var(--ink);
+}
+.feat-big-title em { font-style: italic; color: var(--teal); }
+.feat-header-sub {
+  font-size: 13px; color: var(--ink-m); line-height: 1.75;
+  max-width: 260px; text-align: right; font-weight: 400;
+}
+
+/* Horizontal scrolling feature list */
+.feat-list {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  border-top: 1px solid var(--border);
+}
+.feat-item {
+  padding: 36px 24px 36px 0;
+  border-right: 1px solid var(--border);
+  transition: background 0.3s;
+  position: relative;
+  overflow: hidden;
+}
+.feat-item:last-child { border-right: none; }
+.feat-item::after {
+  content: '';
+  position: absolute; bottom: 0; left: 0; right: 0;
+  height: 2px; background: var(--teal);
+  transform: scaleX(0); transform-origin: left;
+  transition: transform 0.35s ease;
+}
+.feat-item:hover::after { transform: scaleX(1); }
+.feat-item:hover { background: var(--teal-lll); }
+.feat-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px; color: var(--ink-f);
+  margin-bottom: 20px; letter-spacing: 0.06em;
+}
+.feat-icon { font-size: 26px; margin-bottom: 14px; display: block; }
+.feat-name { font-size: 13px; font-weight: 700; color: var(--ink); margin-bottom: 8px; letter-spacing: -0.01em; }
+.feat-desc { font-size: 12px; color: var(--ink-m); line-height: 1.7; font-weight: 400; }
+
+/* ── HOW IT WORKS: full-width alternating ── */
+.how { background: var(--white); }
+
+.how-header {
+  padding: 100px 52px 64px;
+  border-bottom: 1px solid var(--border);
+}
+.how-eyebrow {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px; color: var(--teal);
+  letter-spacing: 0.12em; text-transform: uppercase;
+  margin-bottom: 14px;
+}
+.how-big-title {
+  font-family: 'Instrument Serif', serif;
+  font-size: clamp(36px, 4.5vw, 60px);
+  line-height: 1.05; letter-spacing: -0.03em; color: var(--ink);
+}
+.how-big-title em { font-style: italic; color: var(--teal); }
+
+.how-step {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border-bottom: 1px solid var(--border);
+  min-height: 200px;
+}
+.how-step:nth-child(odd) .how-step-num { border-right: 1px solid var(--border); }
+.how-step:nth-child(even) { direction: rtl; }
+.how-step:nth-child(even) > * { direction: ltr; }
+.how-step:nth-child(even) .how-step-num { border-left: 1px solid var(--border); }
+
+.how-step-num {
+  padding: 48px;
+  display: flex; align-items: center; justify-content: center;
+  background: var(--paper);
+}
+.how-step-num-inner {
+  font-family: 'Instrument Serif', serif;
+  font-size: 72px; line-height: 1;
+  color: var(--border); font-style: italic;
+}
+.how-step-body { padding: 48px; display: flex; flex-direction: column; justify-content: center; }
+.how-step-icon { font-size: 26px; margin-bottom: 14px; }
+.how-step-title { font-size: 17px; font-weight: 700; color: var(--ink); margin-bottom: 10px; letter-spacing: -0.02em; }
+.how-step-desc  { font-size: 13px; color: var(--ink-m); line-height: 1.8; font-weight: 400; }
+
+/* ── PERSONAS: magazine grid ── */
+.personas { padding: 112px 52px; background: var(--paper); }
+.personas-header { margin-bottom: 64px; }
+.personas-eyebrow {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px; color: var(--teal);
+  letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 14px;
+}
+.personas-title {
+  font-family: 'Instrument Serif', serif;
+  font-size: clamp(36px, 4.5vw, 60px);
+  line-height: 1.05; letter-spacing: -0.03em; color: var(--ink);
+}
+.personas-title em { font-style: italic; color: var(--teal); }
+
+.persona-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  grid-template-rows: auto auto;
+  gap: 12px;
+}
+.persona-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 28px;
+  transition: all 0.3s;
+  position: relative; overflow: hidden;
+}
+.persona-card::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0;
+  height: 2px;
+  transform: scaleX(0); transform-origin: left;
+  transition: transform 0.35s ease;
+}
+.persona-card.pc-teal::before   { background: var(--teal); }
+.persona-card.pc-amber::before  { background: var(--amber); }
+.persona-card.pc-ink::before    { background: var(--ink); }
+.persona-card:hover { transform: translateY(-3px); box-shadow: 0 12px 40px rgba(10,20,16,0.07); }
+.persona-card:hover::before { transform: scaleX(1); }
+.persona-card.large { grid-row: span 2; display: flex; flex-direction: column; justify-content: space-between; }
+.persona-ava {
+  width: 48px; height: 48px; border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px; margin-bottom: 18px;
+}
+.pa-teal  { background: var(--teal-lll); }
+.pa-amber { background: var(--amber-ll); }
+.pa-fog   { background: var(--fog); }
+.persona-name  { font-size: 13px; font-weight: 700; color: var(--ink); margin-bottom: 2px; letter-spacing: -0.01em; }
+.persona-role  { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--teal); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 14px; }
+.persona-quote { font-family: 'Instrument Serif', serif; font-size: 14px; font-style: italic; color: var(--ink-m); line-height: 1.6; }
+.persona-quote.large-q { font-size: 18px; }
+
+/* ── CTA ── */
+.cta {
+  background: var(--ink);
+  padding: 0 52px 0;
+  overflow: hidden;
+  position: relative;
+}
+.cta-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 60vh;
+  align-items: center;
+}
+.cta-left { padding: 96px 0; }
+.cta-eyebrow {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px; color: var(--teal-l);
+  letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 20px;
+}
+.cta-title {
+  font-family: 'Instrument Serif', serif;
+  font-size: clamp(40px, 5.5vw, 80px);
+  color: var(--white); line-height: 1.0;
+  letter-spacing: -0.03em; margin-bottom: 32px;
+}
+.cta-title em { font-style: italic; color: var(--teal-l); }
+.cta-btns { display: flex; gap: 16px; align-items: center; flex-wrap: wrap; }
+.cta-btn-main {
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-size: 13px; font-weight: 600; color: var(--ink);
+  background: var(--white); text-decoration: none;
+  padding: 13px 32px; border-radius: 8px;
+  transition: all 0.25s; letter-spacing: 0.01em;
+}
+.cta-btn-main:hover { background: var(--teal-l); color: var(--white); transform: translateY(-1px); }
+.cta-btn-outline {
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-size: 13px; font-weight: 500; color: rgba(255,255,255,0.45);
+  text-decoration: none; letter-spacing: 0.02em;
+  border-bottom: 1px solid rgba(255,255,255,0.15);
+  padding-bottom: 2px; transition: all 0.2s;
+}
+.cta-btn-outline:hover { color: var(--white); border-color: rgba(255,255,255,0.5); }
+.cta-right {
+  position: relative; display: flex; align-items: flex-end; justify-content: center;
+}
+.cta-big-text {
+  font-family: 'Instrument Serif', serif;
+  font-size: clamp(100px, 14vw, 200px);
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(255,255,255,0.05);
+  line-height: 1; letter-spacing: -0.04em;
+  user-select: none; position: absolute; bottom: 0; right: -20px;
+  font-style: italic;
+}
+
+/* ── FOOTER ── */
+footer {
+  background: var(--ink-s);
+  padding: 32px 52px;
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 24px;
+  border-top: 1px solid rgba(255,255,255,0.05);
+}
+.ft-logo { font-family: 'Bricolage Grotesque', sans-serif; font-size: 14px; font-weight: 700; color: rgba(255,255,255,0.4); letter-spacing: -0.02em; }
+.ft-copy { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: rgba(255,255,255,0.18); }
+.ft-links { display: flex; gap: 24px; }
+.ft-links a { font-family: 'Bricolage Grotesque', sans-serif; font-size: 12px; font-weight: 500; color: rgba(255,255,255,0.28); text-decoration: none; letter-spacing: 0.02em; transition: color 0.2s; }
+.ft-links a:hover { color: rgba(255,255,255,0.75); }
+
+/* ── REVEAL ── */
+.reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.7s ease, transform 0.7s ease; }
+.reveal.in { opacity: 1; transform: translateY(0); }
+.d1 { transition-delay: 0.06s; } .d2 { transition-delay: 0.13s; }
+.d3 { transition-delay: 0.20s; } .d4 { transition-delay: 0.27s; }
+.d5 { transition-delay: 0.34s; } .d6 { transition-delay: 0.41s; }
+
+/* ── AUTH PAGE STYLES ── */
+
+
+
+
+body {
+  font-family: 'Bricolage Grotesque', sans-serif;
+  background: var(--paper);
+  color: var(--ink);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+.auth-shell {
+  display: grid;
+  grid-template-columns: 3fr 7fr;
+  min-height: 100vh;
+}
+/* LEFT */
+.panel-left {
+  background: var(--ink);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 44px 48px;
+}
+.lb { position: absolute; border-radius: 50%; filter: blur(80px); pointer-events: none; }
+.lb-1 { width: 380px; height: 380px; background: rgba(30,107,94,0.20); top: -80px; left: -60px; }
+.lb-2 { width: 280px; height: 280px; background: rgba(184,98,31,0.12); bottom: 60px; right: -40px; }
+.lb-3 { width: 180px; height: 180px; background: rgba(30,107,94,0.08); top: 50%; left: 35%; }
+.lb-grid {
+  position: absolute; inset: 0;
+  background-image: linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+  background-size: 52px 52px;
+}
+.left-logo { position: relative; z-index: 2; display: flex; align-items: center; gap: 9px; text-decoration: none; }
+.left-logo-mark { width: 30px; height: 30px; background: var(--teal); border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 13px; flex-shrink: 0; }
+.left-logo-text { font-family: 'Bricolage Grotesque', sans-serif; font-size: 15px; font-weight: 700; color: var(--white); letter-spacing: -0.02em; }
+.left-body { position: relative; z-index: 2; }
+.left-title { font-family: 'Instrument Serif', serif; font-size: clamp(28px, 2.8vw, 42px); font-style: italic; line-height: 1.1; color: var(--white); letter-spacing: -0.02em; margin-bottom: 14px; }
+.left-title em { font-style: normal; color: var(--teal-l); }
+.left-sub { font-size: 13px; color: rgba(255,255,255,0.38); line-height: 1.75; max-width: 280px; margin-bottom: 28px; }
+.feature-pills { display: flex; flex-direction: column; gap: 8px; }
+.fp { display: flex; align-items: center; gap: 11px; padding: 11px 14px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.06); border-radius: 8px; transition: background 0.2s; }
+.fp:hover { background: rgba(255,255,255,0.07); }
+.fp-icon { width: 32px; height: 32px; border-radius: 7px; display: flex; align-items: center; justify-content: center; font-size: 14px; flex-shrink: 0; }
+.fp-icon.t { background: var(--teal-lll); }
+.fp-icon.a { background: var(--amber-ll); }
+.fp-icon.s { background: rgba(255,255,255,0.07); }
+.fp-text-main { font-size: 12px; font-weight: 600; color: var(--white); }
+.fp-text-sub { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: rgba(255,255,255,0.3); margin-top: 2px; }
+.left-foot { position: relative; z-index: 2; font-family: 'JetBrains Mono', monospace; font-size: 10px; color: rgba(255,255,255,0.15); letter-spacing: 0.05em; }
+/* RIGHT */
+.panel-right {
+  background: var(--paper);
+  display: flex; flex-direction: column; justify-content: center; align-items: center;
+  padding: 60px 48px; position: relative; overflow: hidden;
+}
+.panel-right::before {
+  content: ''; position: absolute; width: 500px; height: 500px;
+  background: radial-gradient(circle, rgba(30,107,94,0.06) 0%, transparent 70%);
+  top: -150px; right: -150px; pointer-events: none;
+}
+.auth-card { width: 100%; max-width: 420px; position: relative; z-index: 1; }
+.form-title { font-family: 'Instrument Serif', serif; font-size: 32px; font-style: italic; color: var(--ink); margin-bottom: 6px; letter-spacing: -0.02em; line-height: 1.1; }
+.form-title em { font-style: normal; color: var(--teal); }
+.form-sub { font-size: 13px; color: var(--ink-f); margin-bottom: 26px; }
+.role-selector { display: grid; grid-template-columns: 3fr 7fr; gap: 8px; margin-bottom: 20px; }
+.role-card { padding: 13px; border: 1px solid var(--border); border-radius: 8px; cursor: pointer; transition: all 0.2s; background: var(--white); position: relative; overflow: hidden; }
+.role-card.active.sub { border-color: var(--teal); background: var(--teal-lll); }
+.role-card.active.pro { border-color: var(--amber); background: var(--amber-ll); }
+.role-card:hover:not(.active) { border-color: var(--ink-f); }
+.role-icon { font-size: 18px; margin-bottom: 7px; display: block; }
+.role-name { font-size: 12px; font-weight: 700; color: var(--ink); margin-bottom: 2px; }
+.role-desc { font-size: 10px; color: var(--ink-f); line-height: 1.5; }
+.role-check { position: absolute; top: 9px; right: 9px; width: 15px; height: 15px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 8px; opacity: 0; transition: opacity 0.2s; }
+.role-card.active.sub .role-check { background: var(--teal); opacity: 1; color: white; }
+.role-card.active.pro .role-check { background: var(--amber); opacity: 1; color: white; }
+.field { margin-bottom: 14px; }
+.field-row { display: grid; grid-template-columns: 3fr 7fr; gap: 10px; margin-bottom: 14px; }
+.field label { display: block; font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--ink-m); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 6px; }
+.field input { width: 100%; padding: 11px 13px; font-family: 'Bricolage Grotesque', sans-serif; font-size: 13px; color: var(--ink); background: var(--white); border: 1px solid var(--border); border-radius: 7px; outline: none; transition: all 0.2s; }
+.field input::placeholder { color: var(--ink-f); }
+.field input:focus { border-color: var(--teal); box-shadow: 0 0 0 3px rgba(30,107,94,0.1); }
+.field input.error { border-color: var(--error); }
+.pw-wrap { position: relative; }
+.pw-wrap input { padding-right: 40px; }
+.pw-toggle { position: absolute; right: 11px; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer; font-size: 14px; color: var(--ink-f); padding: 4px; transition: color 0.2s; }
+.pw-toggle:hover { color: var(--ink); }
+.pro-field { overflow: hidden; max-height: 0; opacity: 0; transition: max-height 0.35s ease, opacity 0.3s ease, margin 0.3s ease; margin-bottom: 0; }
+.pro-field.visible { max-height: 100px; opacity: 1; margin-bottom: 14px; }
+.field-error { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--error); margin-top: 5px; display: none; }
+.field-error.show { display: block; }
+.btn-submit { width: 100%; padding: 12px; background: var(--ink); color: white; font-family: 'Bricolage Grotesque', sans-serif; font-size: 13px; font-weight: 600; border: none; border-radius: 8px; cursor: pointer; transition: all 0.25s; letter-spacing: 0.02em; }
+.btn-submit:hover { background: var(--teal); transform: translateY(-1px); box-shadow: 0 6px 20px rgba(30,107,94,0.25); }
+.btn-submit:active { transform: translateY(0); }
+.btn-submit.loading { pointer-events: none; opacity: 0.65; }
+.form-terms { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--ink-f); text-align: center; margin-top: 12px; line-height: 1.7; letter-spacing: 0.02em; }
+.form-terms a { color: var(--ink-m); }
+.form-toggle { font-size: 13px; color: var(--ink-f); text-align: center; margin-top: 20px; }
+.form-toggle a { color: var(--teal); text-decoration: none; font-weight: 600; }
+.form-toggle a:hover { text-decoration: underline; }
+.forgot-link { float: right; font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--ink-f); text-decoration: none; letter-spacing: 0.03em; transition: color 0.2s; }
+.forgot-link:hover { color: var(--teal); }
+.strength-bars { display: flex; gap: 3px; margin-top: 7px; }
+.sb { flex: 1; height: 2px; border-radius: 4px; background: var(--border); transition: background 0.3s; }
+.success-overlay { display: none; flex-direction: column; align-items: center; text-align: center; gap: 12px; animation: fadeUp 0.5s ease; }
+.success-overlay.show { display: flex; }
+@keyframes fadeUp { from { opacity:0; transform:translateY(14px); } to { opacity:1; transform:translateY(0); } }
+.success-icon { width: 68px; height: 68px; background: var(--teal-lll); border: 1.5px solid var(--teal-ll); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 28px; }
+.success-title { font-family: 'Instrument Serif', serif; font-size: 26px; font-style: italic; color: var(--ink); }
+.success-sub { font-size: 13px; color: var(--ink-f); line-height: 1.7; }
+.success-btn { margin-top: 8px; padding: 11px 30px; background: var(--ink); color: white; border: none; border-radius: 8px; font-family: 'Bricolage Grotesque', sans-serif; font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.2s; letter-spacing: 0.02em; }
+.success-btn:hover { background: var(--teal); }
+.auth-back-btn {
+  position: absolute; top: 24px; left: 24px; z-index: 10;
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-size: 15px; font-weight: 600; color: var(--white);
+  text-decoration: none; padding: 12px 24px;
+  border: none; border-radius: 10px;
+  background: var(--ink);
+  transition: all 0.2s;
+}
+.auth-back-btn:hover { background: var(--teal); color: var(--white); transform: translateY(-1px); box-shadow: 0 6px 20px rgba(30,107,94,0.25); }
+.form-page.hidden { display: none; }
+
+/* ── PAGE SWITCHING ── */
+#page-landing { display: block; }
+#page-auth { display: none; }
+body.show-auth #page-landing { display: none; }
+body.show-auth #page-auth { display: block; }
+</style>
+</head>
+<body>
+
+<div id="page-landing">
+<!-- Custom cursor -->
+<!-- NAV -->
+<nav>
+  <div class="nav-bg"></div>
+  <a href="#" class="logo">
+    <div class="logo-mark">🌿</div>
+    <span class="logo-text">NourishWell</span>
+  </a>
+  <div class="nav-right">
+    <div class="nav-center">
+    </div>
+    <div style="width:1px;height:16px;background:var(--fog)"></div>
+    <a href="#" onclick="showAuth('login');return false" class="nav-btn-ghost">Log in</a>
+    <a href="#" onclick="showAuth('register');return false" class="nav-btn-fill">Get started</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg-text">
+    <svg width="66vw" height="220" viewBox="0 0 1000 220" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:70vw;">
+      <text x="0" y="190" font-family="Arial Black, Arial, sans-serif" font-weight="900" font-size="240" fill="none" stroke="rgba(30,107,94,0.12)" stroke-width="2" letter-spacing="-6">NOURISH</text>
+    </svg>
+  </div>
+
+  <!-- Ticker tape -->
+  <div class="ticker-wrap">
+    <div class="ticker">
+      <span class="ticker-item">Food Diary<span class="ticker-dot">◆</span></span>
+      <span class="ticker-item">Nutrition Tracking<span class="ticker-dot">◆</span></span>
+      <span class="ticker-item">Recipe Discovery<span class="ticker-dot">◆</span></span>
+      <span class="ticker-item">Gentle Suggestions<span class="ticker-dot">◆</span></span>
+      <span class="ticker-item">Professional Dashboard<span class="ticker-dot">◆</span></span>
+      <span class="ticker-item">Client Monitoring<span class="ticker-dot">◆</span></span>
+      <span class="ticker-item">Food Diary<span class="ticker-dot">◆</span></span>
+      <span class="ticker-item">Nutrition Tracking<span class="ticker-dot">◆</span></span>
+      <span class="ticker-item">Recipe Discovery<span class="ticker-dot">◆</span></span>
+      <span class="ticker-item">Gentle Suggestions<span class="ticker-dot">◆</span></span>
+      <span class="ticker-item">Professional Dashboard<span class="ticker-dot">◆</span></span>
+      <span class="ticker-item">Client Monitoring<span class="ticker-dot">◆</span></span>
+    </div>
+  </div>
+
+  <div class="hero-content">
+    <div class="hero-left">
+      <div class="hero-super">GOOD FOOD &amp; HEALTHY EATING</div>
+      <h1 class="hero-title">
+        <span class="line-italic">Eat with</span><br>
+        <span>intention.</span><br>
+        <span class="line-outline">Feel well.</span>
+      </h1>
+      <div class="hero-bottom">
+        <p class="hero-sub">
+          Log your meals, understand your nutrition at a glance, and discover recipes you'll actually enjoy — without the overwhelming charts.
+        </p>
+        <div class="hero-cta-group">
+          <a href="#" onclick="showAuth('register');return false" class="hero-btn-main" style="font-size:16px;padding:16px 36px;">Start for free →</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Hero right: preview cards matching wireframe layout -->
+    <div class="hero-app-panel" style="display:grid;grid-template-columns:1fr 1fr;grid-template-rows:auto auto auto;width:500px;gap:14px;padding-bottom:0;align-self:center;">
+
+      <!-- Top-left: Trend chart -->
+      <div class="preview-card" style="background:var(--white);border:1px solid var(--border);border-radius:14px;overflow:hidden;box-shadow:0 6px 24px rgba(10,20,16,0.06);">
+        <div class="preview-img-slot" style="width:100%;height:120px;background:var(--teal-lll);display:flex;align-items:center;justify-content:center;">
+          <!-- TODO: Replace with trend chart screenshot -->
+          <svg width="120" height="60" viewBox="0 0 120 60" fill="none">
+            <polyline points="5,50 25,35 45,40 65,20 85,25 115,8" stroke="var(--teal)" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+            <polyline points="5,55 25,48 45,50 65,42 85,44 115,38" stroke="var(--amber-l)" stroke-width="1.5" fill="none" stroke-dasharray="4 3" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div style="padding:10px 14px;">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:8px;color:var(--teal);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:3px;">Trends</div>
+          <div style="font-size:11px;font-weight:700;color:var(--ink);">Weekly overview</div>
+        </div>
+      </div>
+
+      <!-- Top-right: Food photo card -->
+      <div class="preview-card" style="background:var(--white);border:1px solid var(--border);border-radius:14px;overflow:hidden;box-shadow:0 6px 24px rgba(10,20,16,0.06);">
+        <div class="preview-img-slot" style="width:100%;height:80px;background:var(--fog);display:flex;align-items:center;justify-content:center;border-bottom:1px solid var(--border);">
+          <!-- TODO: Replace with food photo -->
+          <span style="font-size:28px;">🥗</span>
+        </div>
+        <div style="padding:10px 14px;">
+          <div style="font-size:11px;font-weight:700;color:var(--ink);margin-bottom:4px;">Chicken Caesar</div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--ink-f);">Calories: 520 kcal</div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--ink-f);margin-top:2px;">Time: 12:30 PM</div>
+        </div>
+      </div>
+
+      <!-- Middle: Nutrition donut (spans 2 columns) -->
+      <div class="preview-card" style="grid-column:1/3;background:var(--ink);border:1px solid rgba(255,255,255,0.06);border-radius:16px;overflow:hidden;box-shadow:0 12px 40px rgba(10,20,16,0.25);display:flex;align-items:center;gap:24px;padding:20px 24px;">
+        <div style="flex-shrink:0;">
+          <svg width="110" height="110" viewBox="0 0 110 110">
+            <circle cx="55" cy="55" r="38" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="14"/>
+            <circle cx="55" cy="55" r="38" fill="none" stroke="#2f8f7f" stroke-width="14" stroke-dasharray="100 139" stroke-linecap="butt" transform="rotate(-90 55 55)"/>
+            <circle cx="55" cy="55" r="38" fill="none" stroke="#d4956a" stroke-width="14" stroke-dasharray="67 172" stroke-linecap="butt" transform="rotate(61 55 55)"/>
+            <circle cx="55" cy="55" r="38" fill="none" stroke="#7aaad4" stroke-width="14" stroke-dasharray="43 196" stroke-linecap="butt" transform="rotate(162 55 55)"/>
+            <circle cx="55" cy="55" r="38" fill="none" stroke="#e07b78" stroke-width="14" stroke-dasharray="29 210" stroke-linecap="butt" transform="rotate(227 55 55)"/>
+            <text x="55" y="52" text-anchor="middle" font-size="16" font-weight="700" fill="white" font-family="Bricolage Grotesque,sans-serif">1,920</text>
+            <text x="55" y="66" text-anchor="middle" font-size="8" fill="rgba(255,255,255,0.35)" font-family="JetBrains Mono,monospace">kcal today</text>
+          </svg>
+        </div>
+        <div style="flex:1;">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:8px;color:rgba(255,255,255,0.3);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:10px;">Today's Nutrition</div>
+          <div style="display:flex;flex-direction:column;gap:6px;">
+            <div style="display:flex;align-items:center;gap:7px;"><div style="width:6px;height:6px;border-radius:50%;background:#2f8f7f;"></div><span style="font-family:'JetBrains Mono',monospace;font-size:9px;color:rgba(255,255,255,0.4);flex:1;">Carbs</span><span style="font-size:10px;font-weight:600;color:rgba(255,255,255,0.75);">42%</span></div>
+            <div style="display:flex;align-items:center;gap:7px;"><div style="width:6px;height:6px;border-radius:50%;background:#d4956a;"></div><span style="font-family:'JetBrains Mono',monospace;font-size:9px;color:rgba(255,255,255,0.4);flex:1;">Protein</span><span style="font-size:10px;font-weight:600;color:rgba(255,255,255,0.75);">28%</span></div>
+            <div style="display:flex;align-items:center;gap:7px;"><div style="width:6px;height:6px;border-radius:50%;background:#7aaad4;"></div><span style="font-family:'JetBrains Mono',monospace;font-size:9px;color:rgba(255,255,255,0.4);flex:1;">Fat</span><span style="font-size:10px;font-weight:600;color:rgba(255,255,255,0.75);">18%</span></div>
+            <div style="display:flex;align-items:center;gap:7px;"><div style="width:6px;height:6px;border-radius:50%;background:#e07b78;"></div><span style="font-family:'JetBrains Mono',monospace;font-size:9px;color:rgba(255,255,255,0.4);flex:1;">Sugar</span><span style="font-size:10px;font-weight:600;color:rgba(255,255,255,0.75);">12%</span></div>
+          </div>
+          <div style="height:1px;background:rgba(255,255,255,0.06);margin:10px 0;"></div>
+          <div style="display:flex;justify-content:space-between;align-items:baseline;">
+            <span style="font-size:14px;font-weight:700;color:white;">1,920 <span style="font-size:10px;font-weight:400;color:rgba(255,255,255,0.3);">/ 2,400</span></span>
+            <span style="font-size:13px;font-weight:700;color:#2f8f7f;">80%</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bottom-left: Feature preview 1 -->
+      <div class="preview-card" style="background:var(--white);border:1px solid var(--border);border-radius:14px;overflow:hidden;box-shadow:0 6px 24px rgba(10,20,16,0.06);">
+        <div class="preview-img-slot" style="width:100%;height:100px;background:var(--amber-ll);display:flex;align-items:center;justify-content:center;">
+          <!-- TODO: Replace with feature screenshot -->
+          <span style="font-size:28px;">🍳</span>
+        </div>
+        <div style="padding:10px 14px;">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:8px;color:var(--amber);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:3px;">Recipes</div>
+          <div style="font-size:11px;font-weight:700;color:var(--ink);">Discover meals</div>
+        </div>
+      </div>
+
+      <!-- Bottom-right: Feature preview 2 -->
+      <div class="preview-card" style="background:var(--white);border:1px solid var(--border);border-radius:14px;overflow:hidden;box-shadow:0 6px 24px rgba(10,20,16,0.06);">
+        <div class="preview-img-slot" style="width:100%;height:100px;background:var(--teal-lll);display:flex;align-items:center;justify-content:center;">
+          <!-- TODO: Replace with feature screenshot -->
+          <span style="font-size:28px;">👨‍⚕️</span>
+        </div>
+        <div style="padding:10px 14px;">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:8px;color:var(--teal);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:3px;">Professional</div>
+          <div style="font-size:11px;font-weight:700;color:var(--ink);">Client dashboard</div>
+        </div>
+      </div>
+
+    </div><!-- /hero-app-panel -->
+  </div><!-- /hero-content -->
+</section>
+
+</div>
+
+<!-- 
+  Authentication Pages / 认证页面
+  @description Split-screen layout: left panel (branding + features), right panel (login/register forms).
+              分屏布局：左侧面板（品牌+功能介绍），右侧面板（登录/注册表单）。
+  @contains Login form with email/password validation / 登录表单，含邮箱/密码验证
+  @contains Register form with role selection (Subscriber/Professional) / 注册表单，含角色选择（订阅者/专业人士）
+  @contains Password strength indicator / 密码强度指示器
+  @contains Professional licence field (conditional) / 专业执照号输入框（条件显示）
+-->
+<div id="page-auth">
+<div class="auth-shell">
+  <div class="panel-left">
+    <div class="lb lb-1"></div><div class="lb lb-2"></div><div class="lb lb-3"></div>
+    <div class="lb-grid"></div>
+    <a href="#" onclick="showLanding();return false" class="left-logo">
+      <div class="left-logo-mark">🌿</div>
+      <span class="left-logo-text">NourishWell</span>
+    </a>
+    <div class="left-body">
+      <h1 class="left-title">Good food,<br><em>understood.</em></h1>
+      <p class="left-sub">Log your meals, track nutrients at a glance, and get gentle suggestions — without the overwhelming numbers.</p>
+      <div class="feature-pills">
+        <div class="fp"><div class="fp-icon t">📓</div><div><div class="fp-text-main">Instant food diary</div><div class="fp-text-sub">Log any meal in under 30 seconds</div></div></div>
+        <div class="fp"><div class="fp-icon a">🎨</div><div><div class="fp-text-main">Icon-based nutrition</div><div class="fp-text-sub">Green, amber, red — know your status instantly</div></div></div>
+        <div class="fp"><div class="fp-icon s">👨‍⚕️</div><div><div class="fp-text-main">Professional tools</div><div class="fp-text-sub">Client dashboard, messaging &amp; auto alerts</div></div></div>
+      </div>
+    </div>
+    <div class="left-foot">University of Leeds · 2026</div>
+  </div>
+
+  <div class="panel-right">
+    <a href="#" onclick="showLanding();return false" class="auth-back-btn">← Back</a>
+    <div class="auth-card">
+
+      <div class="form-page" id="page-login">
+        <div class="success-overlay" id="login-success">
+          <div class="success-icon">✓</div>
+          <div class="success-title">Welcome back!</div>
+          <p class="success-sub">You're signed in. Redirecting to your dashboard…</p>
+          <button class="success-btn" onclick="goToDashboard()">Go to Dashboard →</button>
+        </div>
+        <div id="login-form-wrap">
+          <h2 class="form-title">Welcome <em>back.</em></h2>
+          <p class="form-sub">Sign in to your NourishWell account.</p>
+          <div class="field">
+            <label>Email address</label>
+            <input type="email" id="login-email" placeholder="you@example.com" autocomplete="email">
+            <div class="field-error" id="login-email-err">Please enter a valid email address.</div>
+          </div>
+          <div class="field">
+            <label>Password</label>
+            <div class="pw-wrap">
+              <input type="password" id="login-password" placeholder="Your password" autocomplete="current-password">
+              <button class="pw-toggle" onclick="togglePw('login-password', this)" tabindex="-1">👁</button>
+            </div>
+            <div class="field-error" id="login-pw-err">Incorrect email or password.</div>
+            <a href="#" class="forgot-link">Forgot password?</a>
+            <div style="clear:both;height:10px"></div>
+          </div>
+          <button class="btn-submit" id="login-btn" onclick="handleLogin()">Sign in →</button>
+          <div class="form-toggle">Don't have an account? <a href="#" onclick="switchTab('register');return false">Create one free</a></div>
+        </div>
+      </div>
+
+      <div class="form-page hidden" id="page-register">
+        <div class="success-overlay" id="register-success">
+          <div class="success-icon">🌿</div>
+          <div class="success-title">You're all set!</div>
+          <p class="success-sub">Your account has been created.<br>Time to start your healthy eating journey.</p>
+          <button class="success-btn" onclick="goToDashboard()">Go to Dashboard →</button>
+        </div>
+        <div id="register-form-wrap">
+          <h2 class="form-title">Create your <em>account.</em></h2>
+          <p class="form-sub">Who are you joining as?</p>
+          <div class="role-selector">
+            <div class="role-card sub active" id="role-sub" onclick="selectRole('subscriber')">
+              <span class="role-icon">🧑‍💼</span>
+              <div class="role-name">Subscriber</div>
+              <div class="role-desc">Track meals, discover recipes, get personal suggestions</div>
+              <div class="role-check">✓</div>
+            </div>
+            <div class="role-card pro" id="role-pro" onclick="selectRole('professional')">
+              <span class="role-icon">👨‍⚕️</span>
+              <div class="role-name">Professional</div>
+              <div class="role-desc">Manage clients, monitor progress, send nutritional advice</div>
+              <div class="role-check">✓</div>
+            </div>
+          </div>
+          <div class="field-row">
+            <div class="field" style="margin-bottom:0">
+              <label>First name</label>
+              <input type="text" id="reg-first" placeholder="Rose" autocomplete="given-name">
+              <div class="field-error" id="reg-first-err">Required.</div>
+            </div>
+            <div class="field" style="margin-bottom:0">
+              <label>Last name</label>
+              <input type="text" id="reg-last" placeholder="Thompson" autocomplete="family-name">
+              <div class="field-error" id="reg-last-err">Required.</div>
+            </div>
+          </div>
+          <div class="field" style="margin-top:16px">
+            <label>Email address</label>
+            <input type="email" id="reg-email" placeholder="you@example.com" autocomplete="email">
+            <div class="field-error" id="reg-email-err">Please enter a valid email address.</div>
+          </div>
+          <div class="pro-field" id="pro-field">
+            <div class="field" style="margin-bottom:0">
+              <label>Professional licence no.</label>
+              <input type="text" id="reg-licence" placeholder="e.g. NUT-2024-00123">
+              <div class="field-error" id="reg-licence-err">Required for health professionals.</div>
+            </div>
+          </div>
+          <div class="field">
+            <label>Password</label>
+            <div class="pw-wrap">
+              <input type="password" id="reg-password" placeholder="Min. 8 characters" autocomplete="new-password" oninput="checkStrength(this.value)">
+              <button class="pw-toggle" onclick="togglePw('reg-password', this)" tabindex="-1">👁</button>
+            </div>
+            <div class="field-error" id="reg-pw-err">Password must be at least 8 characters.</div>
+            <div class="strength-bars"><div class="sb" id="sb1"></div><div class="sb" id="sb2"></div><div class="sb" id="sb3"></div><div class="sb" id="sb4"></div></div>
+            <div style="font-family:'Geist Mono',monospace;font-size:10px;color:var(--ink-f);margin-top:4px" id="strength-label"></div>
+          </div>
+          <button class="btn-submit" id="register-btn" onclick="handleRegister()"><span id="reg-btn-text">Create account →</span></button>
+          <p class="form-terms">By creating an account you agree to our <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>.</p>
+          <div class="form-toggle">Already have an account? <a href="#" onclick="switchTab('login');return false">Sign in</a></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+</div>
+
+<script>
+/**
+ * Page Navigation / 页面导航
+ * @description Handles switching between landing page and auth page.
+ *              处理着陆页和认证页面之间的切换。
+ */
+
+/**
+ * showAuth - Show authentication page / 显示认证页面
+ * @param {string} mode - 'login' or 'register' / 登录或注册模式
+ * @description Switches view from landing to auth, sets appropriate tab.
+ *              从着陆页切换到认证页面，设置对应的标签页。
+ */
+function showAuth(mode) {
+  document.body.classList.add('show-auth');
+  document.title = 'NourishWell — ' + (mode === 'login' ? 'Sign in' : 'Get started');
+  window.scrollTo(0,0);
+  if (mode === 'register') {
+    setTimeout(() => switchTab('register'), 50);
+  } else {
+    setTimeout(() => switchTab('login'), 50);
+  }
+}
+
+/**
+ * showLanding - Return to landing page / 返回着陆页
+ * @description Switches view back to the main landing page.
+ *              切换回主着陆页。
+ */
+function showLanding() {
+  document.body.classList.remove('show-auth');
+  document.title = 'NourishWell — Good Food & Healthy Eating';
+  window.scrollTo(0,0);
+}
+
+/**
+ * Landing Page Scripts / 着陆页脚本
+ * @description Scroll reveal animations and nav shadow on scroll.
+ *              滚动显示动画和导航栏滚动阴影效果。
+ */
+
+  /** Scroll reveal observer / 滚动显示观察器 */
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+  /** Nav shadow on scroll / 导航栏滚动阴影 */
+  window.addEventListener('scroll', () => {
+    document.querySelector('.nav-bg').style.boxShadow = scrollY > 20 ? '0 2px 24px rgba(15,26,20,0.08)' : 'none';
+  });
+
+
+/**
+ * Authentication Scripts / 认证页面脚本
+ * @description Handles login/register form logic, role selection, password visibility,
+ *              password strength check, and form validation.
+ *              处理登录/注册表单逻辑、角色选择、密码显示切换、密码强度检查和表单验证。
+ */
+
+  /** @type {string} currentRole - Currently selected user role / 当前选择的用户角色 */
+  let currentRole = 'subscriber';
+
+  /**
+   * switchTab - Switch between login and register tabs / 切换登录和注册标签页
+   * @param {string} tab - 'login' or 'register'
+   */
+  function switchTab(tab) {
+    document.getElementById('page-login').classList.toggle('hidden', tab !== 'login');
+    document.getElementById('page-register').classList.toggle('hidden', tab !== 'register');
+  }
+
+  /**
+   * selectRole - Select user role during registration / 注册时选择用户角色
+   * @param {string} role - 'subscriber' or 'professional'
+   * @description Updates UI to reflect selected role. Shows professional licence field if professional.
+   *              更新UI以反映选择的角色。如果选择专业人士则显示执照号码输入框。
+   */
+  function selectRole(role) {
+    currentRole = role;
+    document.getElementById('role-sub').classList.toggle('active', role === 'subscriber');
+    document.getElementById('role-pro').classList.toggle('active', role === 'professional');
+    document.getElementById('pro-field').classList.toggle('visible', role === 'professional');
+  }
+
+  /**
+   * togglePw - Toggle password visibility / 切换密码可见性
+   * @param {string} id - Input element ID / 输入框元素ID
+   * @param {HTMLElement} btn - Toggle button element / 切换按钮元素
+   */
+  function togglePw(id, btn) {
+    const el = document.getElementById(id); const t = el.type === 'text';
+    el.type = t ? 'password' : 'text'; btn.textContent = t ? '👁' : '🙈';
+  }
+
+  /**
+   * checkStrength - Check password strength and update UI / 检查密码强度并更新UI
+   * @param {string} val - Password value / 密码值
+   * @description Evaluates password based on: length >= 8, uppercase, numbers, special chars.
+   *              Updates strength bars (4 levels) and label.
+   *              根据以下条件评估密码：长度>=8、大写字母、数字、特殊字符。
+   *              更新强度指示条（4个等级）和标签。
+   */
+  function checkStrength(val) {
+    let s = 0;
+    if (val.length >= 8) s++; if (/[A-Z]/.test(val)) s++; if (/[0-9]/.test(val)) s++; if (/[^A-Za-z0-9]/.test(val)) s++;
+    const cols = ['','#e07b78','#c97a2f','#2d7d6f','#1a6057'];
+    const labs = ['','Weak','Fair','Good','Strong'];
+    ['sb1','sb2','sb3','sb4'].forEach((id,i) => { document.getElementById(id).style.background = i < s ? cols[s] : 'var(--fog)'; });
+    const lbl = document.getElementById('strength-label');
+    lbl.textContent = val.length > 0 ? labs[s] : ''; lbl.style.color = cols[s] || 'var(--ink-f)';
+  }
+
+  /**
+   * showErr - Show or hide a field error message / 显示或隐藏字段错误信息
+   * @param {string} id - Error element ID / 错误元素ID
+   * @param {boolean} show - Whether to show the error / 是否显示错误
+   */
+  function showErr(id, show) { document.getElementById(id).classList.toggle('show', show); }
+
+  /**
+   * setErr - Add or remove error styling on an input / 在输入框上添加或移除错误样式
+   * @param {string} id - Input element ID / 输入框元素ID
+   * @param {boolean} show - Whether to show error state / 是否显示错误状态
+   */
+  function setErr(id, show) { const el = document.getElementById(id); if (el) el.classList.toggle('error', show); }
+
+  /**
+   * handleLogin - Handle login form submission / 处理登录表单提交
+   * @description Validates email format and password presence.
+   *              Shows loading state, then displays success overlay.
+   *              验证邮箱格式和密码是否填写。显示加载状态，然后显示成功界面。
+   */
+  function handleLogin() {
+    const email = document.getElementById('login-email').value.trim();
+    const pw = document.getElementById('login-password').value;
+    let ok = true;
+    const eOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    showErr('login-email-err', !eOk); setErr('login-email', !eOk); if (!eOk) ok = false;
+    showErr('login-pw-err', pw.length < 1); setErr('login-password', pw.length < 1); if (pw.length < 1) ok = false;
+    if (!ok) return;
+    const btn = document.getElementById('login-btn');
+    btn.textContent = 'Signing in…'; btn.classList.add('loading');
+    setTimeout(() => {
+      btn.textContent = 'Sign in →'; btn.classList.remove('loading');
+      document.getElementById('login-form-wrap').style.display = 'none';
+      document.getElementById('login-success').classList.add('show');
+    }, 1400);
+  }
+
+  /**
+   * handleRegister - Handle registration form submission / 处理注册表单提交
+   * @description Validates all fields: first name, last name, email, password (min 8 chars),
+   *              and professional licence (if professional role selected).
+   *              Shows loading state, then displays success overlay.
+   *              验证所有字段：名、姓、邮箱、密码（最少8位），
+   *              以及专业执照号（如果选择了专业人士角色）。
+   *              显示加载状态，然后显示成功界面。
+   */
+  function handleRegister() {
+    const first = document.getElementById('reg-first').value.trim();
+    const last  = document.getElementById('reg-last').value.trim();
+    const email = document.getElementById('reg-email').value.trim();
+    const pw    = document.getElementById('reg-password').value;
+    const lic   = document.getElementById('reg-licence').value.trim();
+    let ok = true;
+    showErr('reg-first-err', !first); setErr('reg-first', !first); if (!first) ok = false;
+    showErr('reg-last-err', !last);   setErr('reg-last', !last);   if (!last) ok = false;
+    const eOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    showErr('reg-email-err', !eOk); setErr('reg-email', !eOk); if (!eOk) ok = false;
+    if (currentRole === 'professional' && !lic) { showErr('reg-licence-err', true); setErr('reg-licence', true); ok = false; }
+    else { showErr('reg-licence-err', false); setErr('reg-licence', false); }
+    showErr('reg-pw-err', pw.length < 8); setErr('reg-password', pw.length < 8); if (pw.length < 8) ok = false;
+    if (!ok) return;
+    const btn = document.getElementById('register-btn');
+    document.getElementById('reg-btn-text').textContent = 'Creating account…'; btn.classList.add('loading');
+    setTimeout(() => {
+      document.getElementById('reg-btn-text').textContent = 'Create account →'; btn.classList.remove('loading');
+      document.getElementById('register-form-wrap').style.display = 'none';
+      document.getElementById('register-success').classList.add('show');
+    }, 1600);
+  }
+
+  /**
+   * goToDashboard - Navigate to dashboard / 跳转到仪表盘
+   * @description Placeholder function. Currently returns to landing page.
+   *              占位函数。当前返回着陆页。
+   */
+  function goToDashboard() { alert('Would navigate to /dashboard'); }
+
+  /**
+   * Keyboard event listener / 键盘事件监听
+   * @description Submits the active form when Enter key is pressed.
+   *              按下回车键时提交当前活动的表单。
+   */
+  document.addEventListener('keydown', e => {
+    if (e.key !== 'Enter') return;
+    if (!document.getElementById('page-login').classList.contains('hidden')) handleLogin();
+    else handleRegister();
+  });
+
+
+/**
+ * Override goToDashboard / 重写仪表盘跳转
+ * @description In demo mode, returns to landing page instead of navigating to dashboard.
+ *              演示模式下，返回着陆页而非跳转到仪表盘。
+ */
+function goToDashboard() { showLanding(); }
+</script>
+</body>
+</html>
