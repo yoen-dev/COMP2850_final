@@ -5,6 +5,7 @@ import com.comp2850.goodfood.auth.dto.RegisterRequest
 import com.comp2850.goodfood.auth.service.AuthService
 import jakarta.validation.Valid
 import org.springframework.web.bind.annotation.*
+import org.springframework.security.core.Authentication
 
 @RestController
 @RequestMapping("/auth")
@@ -28,7 +29,7 @@ class AuthController(
     }
 
     @GetMapping("/me")
-    fun getCurrentUser(@RequestParam email: String): Map<String, Any> {
-        return authService.getCurrentUser(email)
+    fun getCurrentUser(authentication: Authentication): Map<String, Any> {
+        return authService.getCurrentUser(authentication.name)
     }
 }

@@ -10,12 +10,14 @@ import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
 import org.springframework.web.server.ResponseStatusException
 import java.util.UUID
+import com.comp2850.goodfood.auth.jwt.JwtService
 
 @Service
 class AuthService(
     private val userRepository: InMemoryUserRepository,
-    private val passwordEncoder: PasswordEncoder
-) {
+    private val passwordEncoder: PasswordEncoder,
+    private val jwtService: JwtService
+){
 
     fun register(request: RegisterRequest): Map<String, Any> {
         val role = parseRole(request.role)
@@ -57,8 +59,11 @@ class AuthService(
             throw ResponseStatusException(HttpStatus.UNAUTHORIZED, "invalid email or password")
         }
 
+        val token = jwtService.generateToken(user.email, user.role.name)
+
         return mapOf(
             "message" to "login success",
+            "token" to token,
             "user" to mapOf(
                 "id" to user.id,
                 "name" to user.name,
