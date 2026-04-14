@@ -251,13 +251,7 @@ body{font-family:Bricolage Grotesque,sans-serif;background:var(--paper);color:va
   <button class="sp-cat" onclick="filterByTag(this,'custom')">My Recipes</button>
 </div>
 <div id="recipeEmptyMsg" style="display:none;text-align:center;padding:48px 0;color:var(--ink-f);font-size:13px">No recipes found — try a different search</div>
-<div class="recipe-grid" id="recipeGrid"></div></div>
-<div class="recipe-card" data-recipe-id="shakshuka"><div class="rc-img" style="background:var(--amber-ll)">🍳</div><div class="rc-body"><div class="rc-tag">Quick · 20 min</div><div class="rc-title">Shakshuka</div><div class="rc-meta">380 kcal · £2.40</div><div class="rc-footer"><span class="rc-rating">★★★★★</span><span class="rc-fav">❤️</span></div></div></div>
-<div class="recipe-card" data-recipe-id="grilled-salmon"><div class="rc-img" style="background:rgba(122,170,212,0.15)">🐟</div><div class="rc-body"><div class="rc-tag">Omega-3 · 25 min</div><div class="rc-title">Grilled Salmon & Greens</div><div class="rc-meta">510 kcal · £4.50</div><div class="rc-footer"><span class="rc-rating">★★★★☆</span><span class="rc-fav">🤍</span></div></div></div>
-<div class="recipe-card" data-recipe-id="avocado-toast"><div class="rc-img" style="background:var(--teal-lll)">🥑</div><div class="rc-body"><div class="rc-tag">Vegan · 10 min</div><div class="rc-title">Avocado Toast</div><div class="rc-meta">290 kcal · £1.80</div><div class="rc-footer"><span class="rc-rating">★★★★★</span><span class="rc-fav">❤️</span></div></div></div>
-<div class="recipe-card" data-recipe-id="pasta-primavera"><div class="rc-img" style="background:var(--amber-ll)">🍝</div><div class="rc-body"><div class="rc-tag">Italian · 30 min</div><div class="rc-title">Pasta Primavera</div><div class="rc-meta">460 kcal · £2.90</div><div class="rc-footer"><span class="rc-rating">★★★★☆</span><span class="rc-fav">🤍</span></div></div></div>
-<div class="recipe-card" data-recipe-id="lentil-soup"><div class="rc-img" style="background:rgba(224,123,120,0.1)">🍲</div><div class="rc-body"><div class="rc-tag">Comfort · 40 min</div><div class="rc-title">Lentil & Sweet Potato Soup</div><div class="rc-meta">320 kcal · £1.60</div><div class="rc-footer"><span class="rc-rating">★★★★★</span><span class="rc-fav">❤️</span></div></div></div>
-</div></div>
+<div class="recipe-grid" id="recipeGrid"></div>
 
 <!-- Favourites -->
 <div class="page" id="page-favourites"><div class="page-header"><div class="page-title">My <em>Favourites</em></div><div class="page-date">Your saved recipes — click remove to unfavourite</div></div>
@@ -1086,7 +1080,6 @@ function openRatingModal(id){
     starsRow.appendChild(s);
   });
 }
-
 let pendingRating=0;
 function highlightStars(n){
   pendingRating=n;
@@ -1094,7 +1087,6 @@ function highlightStars(n){
     s.style.color=parseInt(s.dataset.n)<=n?'var(--amber)':'var(--fog)';
   });
 }
-
 function submitRating(id){
   if(!pendingRating){showToast('Please select a star rating first');return;}
   const review=document.getElementById('ratingReviewText').value.trim();
@@ -1157,7 +1149,6 @@ function openAddRecipe(){
   overlay.addEventListener('click',e=>{if(e.target===overlay)overlay.remove();});
   document.body.appendChild(overlay);
 }
-
 function submitAddRecipe(){
   const name=document.getElementById('ar-name').value.trim();
   const kcal=parseInt(document.getElementById('ar-kcal').value);
