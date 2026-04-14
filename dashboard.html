@@ -1021,7 +1021,7 @@ function renderRecipeGrid(q,tag){
     const defaultStars=(r.rating||'').split('★').length-1||4;
     const displayRating=ur>0?ur:defaultStars;
     const stars='★'.repeat(displayRating)+'☆'.repeat(5-displayRating);
-    return '<div class="recipe-card" data-recipe-id="'+r.id+'"><div class="rc-img" style="background:'+( r.bg||'var(--teal-lll)')+'">'+( r.emoji||'🍽️')+'</div><div class="rc-body"><div class="rc-tag">'+(r.tag||'Custom')+(r.custom?' · My Recipe':'')+'</div><div class="rc-title">'+r.name+'</div><div class="rc-meta">'+r.kcal+' kcal'+(r.cost?' · '+r.cost:'')+'</div><div class="rc-footer"><span class="rc-rating" style="cursor:pointer" title="Click to rate" data-rating-id="+r.id+" onclick=\"openRatingModal(this.dataset.ratingId)\">'+stars+'</span><span class="rc-fav" data-id="'+r.id+'">'+(favourites.has(r.id)?'❤️':'🤍')+'</span></div></div></div>';
+    return '<div class="recipe-card" data-recipe-id="'+r.id+'"><div class="rc-img" style="background:'+( r.bg||'var(--teal-lll)')+'">'+( r.emoji||'🍽️')+'</div><div class="rc-body"><div class="rc-tag">'+(r.tag||'Custom')+(r.custom?' · My Recipe':'')+'</div><div class="rc-title">'+r.name+'</div><div class="rc-meta">'+r.kcal+' kcal'+(r.cost?' · '+r.cost:'')+'</div><div class="rc-footer"><span class="rc-rating" style="cursor:pointer" title="Click to rate" data-rating-id='+r.id+' onclick=\'openRatingModal(this.dataset.ratingId)\'>'+stars+'</span><span class="rc-fav" data-id="'+r.id+'">'+(favourites.has(r.id)?'❤️':'🤍')+'</span></div></div></div>';
   }).join('');
   grid.querySelectorAll('.recipe-card').forEach(card=>{
     const id=card.dataset.recipeId;
