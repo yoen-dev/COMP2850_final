@@ -1035,33 +1035,28 @@ function simulateUserMode() {
 const tourSteps = [
   {
     title: 'Welcome to NourishWell Pro 🌿',
-    body: "You're now in your professional dashboard. Let's take a 60-second tour of the key features.",
-    target: null,
-    cardPos: { bottom: '48px', left: '50%', transform: 'translateX(-50%)' }
+    body: "You're now in your professional dashboard. Let's take a quick tour of the key features.",
+    target: null
   },
   {
     title: 'Your Client List',
-    body: 'All your clients are listed in the sidebar with colour-coded status indicators. Click a name to open their full profile.',
-    target: '.side-nav',
-    cardPos: { top: '80px', left: '240px' }
+    body: 'All your clients are listed in the sidebar with colour-coded status badges. Click any name to open their full profile.',
+    target: '.side-nav'
   },
   {
-    title: 'Switch to User View',
-    body: 'Click this button to switch to your own personal health dashboard — log meals, track exercise, and plan your day.',
-    target: null,
-    cardPos: { bottom: '48px', right: '24px' }
+    title: 'Top Navigation',
+    body: 'Switch to User View to see your own health dashboard. The Q&A button has help guides. The envelope shows unread client messages.',
+    target: '.top-nav'
   },
   {
-    title: 'Client Analytics',
-    body: 'Click any client row to see their BMI, macro breakdown, calorie trend chart, and overall health score.',
-    target: null,
-    cardPos: { bottom: '48px', left: '50%', transform: 'translateX(-50%)' }
+    title: 'Client Snapshot',
+    body: 'This table shows all clients at a glance — their goal, average calories, protein intake, exercise days, and current status.',
+    target: '.overview-grid'
   },
   {
     title: 'Messages, Plans & Appointments',
-    body: "Inside each client's profile, use the tabs to send advice, edit their meal and training plan, and manage appointments.",
-    target: null,
-    cardPos: { bottom: '48px', left: '50%', transform: 'translate(-50%)' }
+    body: "Click any client, then use the tabs inside their profile to send advice, edit meal & training plans, and manage appointments.",
+    target: null
   }
 ];
 let tourStep = 0;
@@ -1083,23 +1078,32 @@ function renderTourStep() {
   document.getElementById('tourDots').innerHTML = tourSteps.map((_, i) =>
     `<div class="tour-dot ${i === tourStep ? 'active' : ''}"></div>`).join('');
 
-  // Position card
+  // Card: always fixed at bottom-centre, never overlaps content
   const card = document.getElementById('tourCard');
-  card.style.cssText = Object.entries(step.cardPos).map(([k, v]) => {
-    const prop = k.replace(/([A-Z])/g, '-$1').toLowerCase();
-    return `${prop}:${v}`;
-  }).join(';');
+  card.style.cssText = 'position:fixed;bottom:40px;left:50%;transform:translateX(-50%);top:auto;right:auto;width:380px;z-index:10001';
 
-  // Spotlight
+  // Spotlight: highlight target element with strong contrast
   const spot = document.getElementById('tourSpotlight');
   if (step.target) {
     const el = document.querySelector(step.target);
     if (el) {
       const r = el.getBoundingClientRect();
-      spot.style.cssText = `left:${r.left - 6}px;top:${r.top - 6}px;width:${r.width + 12}px;height:${r.height + 12}px;box-shadow:0 0 0 9999px rgba(10,20,16,0.55)`;
+      const pad = 8;
+      spot.style.display = 'block';
+      spot.style.position = 'fixed';
+      spot.style.left = (r.left - pad) + 'px';
+      spot.style.top = (r.top - pad) + 'px';
+      spot.style.width = (r.width + pad * 2) + 'px';
+      spot.style.height = (r.height + pad * 2) + 'px';
+      spot.style.boxShadow = '0 0 0 9999px rgba(10,20,16,0.85)';
+      spot.style.border = '2px solid rgba(47,143,127,0.9)';
+      spot.style.borderRadius = '12px';
+      spot.style.zIndex = '10000';
+    } else {
+      spot.style.display = 'none';
     }
   } else {
-    spot.style.cssText = 'display:none';
+    spot.style.display = 'none';
   }
 }
 
