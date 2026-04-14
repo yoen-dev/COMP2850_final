@@ -172,45 +172,11 @@ body{font-family:Bricolage Grotesque,sans-serif;background:var(--paper);color:va
 .pc-leg-item{display:flex;align-items:center;gap:4px;font-family:JetBrains Mono,monospace;font-size:9px;color:var(--ink-f)}
 .pc-leg-dot{width:6px;height:6px;border-radius:50%}
 
-/* ── Guided Tour ──────────────────────────────────────────────────────────── */
-.tour-overlay{position:fixed;inset:0;z-index:9000;pointer-events:none;display:none}
-.tour-overlay.active{display:block}
-.tour-backdrop{position:absolute;inset:0;background:rgba(10,20,16,0.82);pointer-events:all}
-.tour-spotlight{position:absolute;border-radius:12px;box-shadow:0 0 0 9999px rgba(10,20,16,0.82);pointer-events:none;transition:all .4s cubic-bezier(.4,0,.2,1);border:2px solid rgba(47,143,127,0.6)}
-.tour-card{position:absolute;width:340px;background:#fff;border-radius:16px;box-shadow:0 20px 60px rgba(10,20,16,0.3);padding:24px 26px;pointer-events:all;transition:all .4s cubic-bezier(.4,0,.2,1)}
-.tour-step-badge{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--teal);letter-spacing:.08em;text-transform:uppercase;margin-bottom:8px}
-.tour-card-title{font-size:16px;font-weight:700;color:var(--ink);margin-bottom:8px}
-.tour-card-body{font-size:13px;color:var(--ink-m);line-height:1.6;margin-bottom:18px}
-.tour-card-footer{display:flex;align-items:center;justify-content:space-between}
-.tour-dots{display:flex;gap:5px}
-.tour-dot{width:6px;height:6px;border-radius:50%;background:var(--fog);transition:background .2s}
-.tour-dot.active{background:var(--teal)}
-.tour-nav{display:flex;gap:8px}
-.tour-skip{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--ink-f);cursor:pointer;padding:6px 12px;border-radius:6px;border:none;background:var(--paper);transition:all .2s}
-.tour-skip:hover{color:var(--ink)}
-.tour-next{font-family:'Bricolage Grotesque',sans-serif;font-size:12px;font-weight:600;padding:8px 20px;border-radius:8px;border:none;background:var(--ink);color:#fff;cursor:pointer;transition:all .2s}
-.tour-next:hover{background:var(--teal)}
 
-/* ── Guided Tour ─────────────────────────────────────────────────────────── */
-.tour-overlay{position:fixed;inset:0;z-index:9000;display:none}
-.tour-overlay.active{display:block}
-.tour-backdrop{position:fixed;inset:0;background:rgba(10,20,16,0.82);pointer-events:all}
-.tour-spotlight{position:fixed;border-radius:12px;pointer-events:none;transition:all .35s cubic-bezier(.4,0,.2,1);display:none;z-index:10000}
-.tour-card{position:fixed;bottom:40px;left:50%;transform:translateX(-50%);width:380px;background:#fff;border-radius:16px;box-shadow:0 20px 60px rgba(10,20,16,0.3);padding:24px 26px;pointer-events:all;z-index:10001}
-.tour-step-badge{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--teal);letter-spacing:.08em;text-transform:uppercase;margin-bottom:8px}
-.tour-card-title{font-size:16px;font-weight:700;color:var(--ink);margin-bottom:8px}
-.tour-card-body{font-size:13px;color:var(--ink-m);line-height:1.6;margin-bottom:18px}
-.tour-card-footer{display:flex;align-items:center;justify-content:space-between}
-.tour-dots{display:flex;gap:5px}
-.tour-dot{width:6px;height:6px;border-radius:50%;background:var(--fog)}
-.tour-dot.active{background:var(--teal)}
-.tour-skip{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--ink-f);cursor:pointer;padding:6px 12px;border-radius:6px;border:none;background:var(--paper)}
-.tour-next{font-size:12px;font-weight:600;padding:8px 20px;border-radius:8px;border:none;background:var(--ink);color:#fff;cursor:pointer}
-.tour-next:hover{background:var(--teal)}
 </style>
 </head>
 <body>
-<nav class="top-nav"><div class="top-nav-left"><a href="#" class="tn-logo"><div class="tn-logo-mark">🌿</div><span class="tn-logo-text">NourishWell</span></a></div><div class="top-nav-right"><a href="#" id="proSwitchNavBtn" onclick="switchBackToPro();return false" class="tn-link" style="display:none;align-items:center;gap:6px;border-color:rgba(255,255,255,0.25);color:rgba(255,255,255,0.9)"><svg width="13" height="13" viewBox="0 0 15 15" fill="none"><path d="M1 4.5h10M8 1.5l3 3-3 3M14 10.5H4M7 7.5l-3 3 3 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg> Switch to Pro</a><a href="qa_subscriber.html" class="tn-link">Q&A</a><button onclick="startTour()" style="width:34px;height:34px;border-radius:8px;border:1px solid rgba(255,255,255,0.2);background:transparent;color:rgba(255,255,255,0.6);cursor:pointer;font-size:13px;font-weight:600;transition:all .2s" onmouseover="this.style.color='#fff';this.style.borderColor='rgba(255,255,255,0.5)'" onmouseout="this.style.color='rgba(255,255,255,0.6)';this.style.borderColor='rgba(255,255,255,0.2)'" title="Guided tour">?</button><button onclick="startTour()" style="width:36px;height:36px;border-radius:8px;border:1px solid rgba(255,255,255,0.2);background:transparent;color:rgba(255,255,255,0.6);cursor:pointer;font-size:13px;font-family:JetBrains Mono,monospace;transition:all .2s" onmouseover="this.style.color='#fff';this.style.borderColor='rgba(255,255,255,0.5)'" onmouseout="this.style.color='rgba(255,255,255,0.6)';this.style.borderColor='rgba(255,255,255,0.2)'" title="Guided tour">?</button><div class="tn-icon" id="userMailIcon" onclick="openUserMessages()" style="position:relative"><svg width="20" height="16" viewBox="0 0 20 16" fill="none"><rect x="1" y="1" width="18" height="14" rx="2" stroke="rgba(255,255,255,0.85)" stroke-width="1.5"/><path d="M1 4l9 6 9-6" stroke="rgba(255,255,255,0.85)" stroke-width="1.5"/></svg><div id="userMailDot" style="display:none;width:7px;height:7px;border-radius:50%;background:#dc2626;position:absolute;top:4px;right:4px;border:1.5px solid var(--ink)"></div></div><div class="tn-avatar-wrap"><div class="tn-avatar" onclick="toggleAvatarMenu(event)"><div class="tn-avatar-pic" id="navInitials">RC</div><span class="tn-avatar-name" id="navName">Rose C.</span></div><div class="tn-dropdown" id="avatarMenu"><a href="#" onclick="showSettingsPage('personal');return false">Personal Details</a><a href="#" onclick="showSettingsPage('preferences');return false">Preferences</a><a href="#" class="logout" onclick="event.stopPropagation();event.preventDefault();window.location.replace('index.html')">Log Out</a></div></div></div></nav>
+<nav class="top-nav"><div class="top-nav-left"><a href="#" class="tn-logo"><div class="tn-logo-mark">🌿</div><span class="tn-logo-text">NourishWell</span></a></div><div class="top-nav-right"><a href="#" id="proSwitchNavBtn" onclick="switchBackToPro();return false" class="tn-link" style="display:none;align-items:center;gap:6px;border-color:rgba(255,255,255,0.25);color:rgba(255,255,255,0.9)"><svg width="13" height="13" viewBox="0 0 15 15" fill="none"><path d="M1 4.5h10M8 1.5l3 3-3 3M14 10.5H4M7 7.5l-3 3 3 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg> Switch to Pro</a><a href="qa_subscriber.html" class="tn-link">Q&A</a><button onclick="startTour()" style="width:36px;height:36px;border-radius:8px;border:1px solid rgba(255,255,255,0.2);background:transparent;color:rgba(255,255,255,0.6);cursor:pointer;font-size:13px;font-family:JetBrains Mono,monospace;transition:all .2s" onmouseover="this.style.color='#fff';this.style.borderColor='rgba(255,255,255,0.5)'" onmouseout="this.style.color='rgba(255,255,255,0.6)';this.style.borderColor='rgba(255,255,255,0.2)'" title="Guided tour">?</button><div class="tn-icon" id="userMailIcon" onclick="openUserMessages()" style="position:relative"><svg width="20" height="16" viewBox="0 0 20 16" fill="none"><rect x="1" y="1" width="18" height="14" rx="2" stroke="rgba(255,255,255,0.85)" stroke-width="1.5"/><path d="M1 4l9 6 9-6" stroke="rgba(255,255,255,0.85)" stroke-width="1.5"/></svg><div id="userMailDot" style="display:none;width:7px;height:7px;border-radius:50%;background:#dc2626;position:absolute;top:4px;right:4px;border:1.5px solid var(--ink)"></div></div><div class="tn-avatar-wrap"><div class="tn-avatar" onclick="toggleAvatarMenu(event)"><div class="tn-avatar-pic" id="navInitials">RC</div><span class="tn-avatar-name" id="navName">Rose C.</span></div><div class="tn-dropdown" id="avatarMenu"><a href="#" onclick="showSettingsPage('personal');return false">Personal Details</a><a href="#" onclick="showSettingsPage('preferences');return false">Preferences</a><a href="#" class="logout" onclick="event.stopPropagation();event.preventDefault();window.location.replace('index.html')">Log Out</a></div></div></div></nav>
 
 <aside class="side-nav">
 <a class="sn-item active" onclick="switchPage('record',this)" href="#"><span class="sn-icon">📋</span> <span class="sn-text">Record Today</span></a>
@@ -493,41 +459,24 @@ body{font-family:Bricolage Grotesque,sans-serif;background:var(--paper);color:va
 .fadd{width:28px;height:28px;border-radius:7px;border:1px solid #d4dfd8;background:#fff;display:flex;align-items:center;justify-content:center;font-size:16px;color:#1e6b5e;flex-shrink:0;transition:all .15s}
 .frow:hover .fadd{background:#1e6b5e;color:#fff;border-color:#1e6b5e}
 
-/* ── Guided Tour ──────────────────────────────────────────────────────────── */
-.tour-overlay{position:fixed;inset:0;z-index:9000;pointer-events:none;display:none}
-.tour-overlay.active{display:block}
-.tour-backdrop{position:absolute;inset:0;background:rgba(10,20,16,0.82);pointer-events:all}
-.tour-spotlight{position:absolute;border-radius:12px;box-shadow:0 0 0 9999px rgba(10,20,16,0.82);pointer-events:none;transition:all .4s cubic-bezier(.4,0,.2,1);border:2px solid rgba(47,143,127,0.6)}
-.tour-card{position:absolute;width:340px;background:#fff;border-radius:16px;box-shadow:0 20px 60px rgba(10,20,16,0.3);padding:24px 26px;pointer-events:all;transition:all .4s cubic-bezier(.4,0,.2,1)}
-.tour-step-badge{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--teal);letter-spacing:.08em;text-transform:uppercase;margin-bottom:8px}
-.tour-card-title{font-size:16px;font-weight:700;color:var(--ink);margin-bottom:8px}
-.tour-card-body{font-size:13px;color:var(--ink-m);line-height:1.6;margin-bottom:18px}
-.tour-card-footer{display:flex;align-items:center;justify-content:space-between}
-.tour-dots{display:flex;gap:5px}
-.tour-dot{width:6px;height:6px;border-radius:50%;background:var(--fog);transition:background .2s}
-.tour-dot.active{background:var(--teal)}
-.tour-nav{display:flex;gap:8px}
-.tour-skip{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--ink-f);cursor:pointer;padding:6px 12px;border-radius:6px;border:none;background:var(--paper);transition:all .2s}
-.tour-skip:hover{color:var(--ink)}
-.tour-next{font-family:'Bricolage Grotesque',sans-serif;font-size:12px;font-weight:600;padding:8px 20px;border-radius:8px;border:none;background:var(--ink);color:#fff;cursor:pointer;transition:all .2s}
-.tour-next:hover{background:var(--teal)}
 
-/* ── Guided Tour ─────────────────────────────────────────────────────────── */
-.tour-overlay{position:fixed;inset:0;z-index:9000;display:none}
-.tour-overlay.active{display:block}
-.tour-backdrop{position:fixed;inset:0;background:rgba(10,20,16,0.82);pointer-events:all}
-.tour-spotlight{position:fixed;border-radius:12px;pointer-events:none;transition:all .35s cubic-bezier(.4,0,.2,1);display:none;z-index:10000}
-.tour-card{position:fixed;bottom:40px;left:50%;transform:translateX(-50%);width:380px;background:#fff;border-radius:16px;box-shadow:0 20px 60px rgba(10,20,16,0.3);padding:24px 26px;pointer-events:all;z-index:10001}
-.tour-step-badge{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--teal);letter-spacing:.08em;text-transform:uppercase;margin-bottom:8px}
-.tour-card-title{font-size:16px;font-weight:700;color:var(--ink);margin-bottom:8px}
-.tour-card-body{font-size:13px;color:var(--ink-m);line-height:1.6;margin-bottom:18px}
-.tour-card-footer{display:flex;align-items:center;justify-content:space-between}
-.tour-dots{display:flex;gap:5px}
+
+/* Tour */
+.tour-dim{position:fixed;inset:0;background:rgba(10,20,16,0.78);z-index:8000;display:none}
+.tour-dim.on{display:block}
+.tour-highlight{position:fixed;z-index:8001;border-radius:10px;box-shadow:0 0 0 4px #2f8f7f,0 0 0 8px rgba(47,143,127,0.25);pointer-events:none;transition:all .3s;display:none}
+.tour-box{position:fixed;z-index:8002;background:#fff;border-radius:16px;padding:22px 24px;width:360px;box-shadow:0 16px 48px rgba(10,20,16,0.25);bottom:36px;left:50%;transform:translateX(-50%);display:none}
+.tour-box.on{display:block}
+.tour-badge{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--teal);letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px}
+.tour-title{font-size:15px;font-weight:700;color:var(--ink);margin-bottom:6px}
+.tour-body{font-size:13px;color:var(--ink-m);line-height:1.6;margin-bottom:16px}
+.tour-foot{display:flex;justify-content:space-between;align-items:center}
+.tour-dots{display:flex;gap:4px}
 .tour-dot{width:6px;height:6px;border-radius:50%;background:var(--fog)}
-.tour-dot.active{background:var(--teal)}
-.tour-skip{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--ink-f);cursor:pointer;padding:6px 12px;border-radius:6px;border:none;background:var(--paper)}
-.tour-next{font-size:12px;font-weight:600;padding:8px 20px;border-radius:8px;border:none;background:var(--ink);color:#fff;cursor:pointer}
-.tour-next:hover{background:var(--teal)}
+.tour-dot.on{background:var(--teal)}
+.tour-skip{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--ink-f);background:none;border:none;cursor:pointer;padding:4px 8px}
+.tour-btn{font-size:12px;font-weight:600;padding:8px 20px;border-radius:8px;border:none;background:var(--ink);color:#fff;cursor:pointer}
+.tour-btn:hover{background:var(--teal)}
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
 <script>
@@ -1358,186 +1307,55 @@ document.addEventListener('DOMContentLoaded', () => {
 </script>
 
 
-<!-- ── Guided Tour ──────────────────────────────────────────────────────────── -->
-<div class="tour-overlay" id="tourOverlay">
-  <div class="tour-backdrop" onclick="endTour()"></div>
-  <div class="tour-spotlight" id="tourSpotlight"></div>
-  <div class="tour-card" id="tourCard">
-    <div class="tour-step-badge" id="tourStepBadge">Step 1 of 5</div>
-    <div class="tour-card-title" id="tourCardTitle">Welcome to NourishWell</div>
-    <div class="tour-card-body" id="tourCardBody">Let's take a quick tour of your dashboard.</div>
-    <div class="tour-card-footer">
-      <div class="tour-dots" id="tourDots"></div>
-      <div class="tour-nav">
-        <button class="tour-skip" onclick="endTour()">Skip tour</button>
-        <button class="tour-next" id="tourNextBtn" onclick="tourNext()">Next →</button>
-      </div>
+
+<div class="tour-dim" id="tDim" onclick="tEnd()"></div>
+<div class="tour-highlight" id="tHL"></div>
+<div class="tour-box" id="tBox">
+  <div class="tour-badge" id="tBadge"></div>
+  <div class="tour-title" id="tTitle"></div>
+  <div class="tour-body" id="tBody"></div>
+  <div class="tour-foot">
+    <div class="tour-dots" id="tDots"></div>
+    <div style="display:flex;gap:8px">
+      <button class="tour-skip" onclick="tEnd()">Skip</button>
+      <button class="tour-btn" id="tBtn" onclick="tNext()">Next →</button>
     </div>
   </div>
 </div>
-
 <script>
-const tourSteps = [
-  {
-    title: 'Welcome to NourishWell 🌿',
-    body: "Your personal health dashboard. Let's take a quick tour of what you can do here.",
-    target: null,
-    cardPos: { bottom: '48px', left: '50%', transform: 'translateX(-50%)' }
-  },
-  {
-    title: 'Record Today',
-    body: 'Log every meal and exercise session here. Your nutrition donut and calorie total update in real time as you add entries.',
-    target: '#page-record .donut-card',
-    cardPos: { top: '120px', left: '360px' }
-  },
-  {
-    title: 'Discover Recipes',
-    body: 'Browse nutritious recipes, save your favourites, rate and review meals, and even add your own custom recipes.',
-    target: null,
-    cardPos: { bottom: '48px', left: '50%', transform: 'translateX(-50%)' }
-  },
-  {
-    title: 'Meal Planner',
-    body: 'Plan your full day of meals within your calorie budget. Lock dishes you like, swap ones you don't, and confirm your plan.',
-    target: null,
-    cardPos: { bottom: '48px', left: '50%', transform: 'translateX(-50%)' }
-  },
-  {
-    title: 'Messages from your Professional',
-    body: 'The envelope icon in the top bar shows messages from your health professional. A red dot means you have unread advice.',
-    target: '#userMailIcon',
-    cardPos: { top: '80px', right: '24px' }
-  }
+const tSteps=[
+  {title:'Welcome to NourishWell 🌿',body:"Your personal health dashboard. Let's take a quick tour.",sel:null},
+  {title:'Record Today',body:'Log your meals across 6 time slots and track exercise. Your nutrition donut updates in real time.',sel:'#page-record .donut-card'},
+  {title:'Sidebar Navigation',body:'Switch between Record Today, Recipes, Favourites, Recipe Compare, and Meal Planner from the sidebar.',sel:'.side-nav'},
+  {title:'Meal Planner',body:"Plan your full day within your calorie budget. Lock meals you like, swap the rest, then confirm your plan.",sel:null},
+  {title:'Messages from your Professional',body:'The envelope icon shows messages from your health professional. A red dot means unread advice is waiting.',sel:'#userMailIcon'}
 ];
-let tourStep = 0;
-
-function startTour() {
-  tourStep = 0;
-  document.getElementById('tourOverlay').classList.add('active');
-  renderTourStep();
-}
-
-function renderTourStep() {
-  const step = tourSteps[tourStep];
-  document.getElementById('tourStepBadge').textContent = 'Step ' + (tourStep + 1) + ' of ' + tourSteps.length;
-  document.getElementById('tourCardTitle').textContent = step.title;
-  document.getElementById('tourCardBody').textContent = step.body;
-  document.getElementById('tourNextBtn').textContent = tourStep === tourSteps.length - 1 ? 'Done ✓' : 'Next →';
-  document.getElementById('tourDots').innerHTML = tourSteps.map((_, i) =>
-    '<div class="tour-dot' + (i === tourStep ? ' active' : '') + '"></div>'
-  ).join('');
-
-  const card = document.getElementById('tourCard');
-  Object.assign(card.style, { top:'', left:'', right:'', bottom:'', transform:'' });
-  Object.assign(card.style, step.cardPos);
-
-  const spot = document.getElementById('tourSpotlight');
-  if (step.target) {
-    const el = document.querySelector(step.target);
-    if (el) {
-      const r = el.getBoundingClientRect();
-      spot.style.cssText = 'left:' + (r.left - 6) + 'px;top:' + (r.top - 6) + 'px;width:' + (r.width + 12) + 'px;height:' + (r.height + 12) + 'px;box-shadow:0 0 0 9999px rgba(10,20,16,0.82);border:2px solid rgba(47,143,127,0.6);border-radius:12px';
-    }
-  } else {
-    spot.style.cssText = 'display:none';
-  }
-}
-
-function tourNext() {
-  if (tourStep < tourSteps.length - 1) {
-    tourStep++;
-    renderTourStep();
-  } else {
-    endTour();
-  }
-}
-
-function endTour() {
-  document.getElementById('tourOverlay').classList.remove('active');
-}
-</script>
-
-
-<!-- Guided Tour -->
-<div class="tour-overlay" id="tourOverlay">
-  <div class="tour-backdrop" onclick="endTour()"></div>
-  <div class="tour-spotlight" id="tourSpotlight"></div>
-  <div class="tour-card" id="tourCard">
-    <div class="tour-step-badge" id="tourStepBadge">Step 1 of 5</div>
-    <div class="tour-card-title" id="tourCardTitle"></div>
-    <div class="tour-card-body" id="tourCardBody"></div>
-    <div class="tour-card-footer">
-      <div class="tour-dots" id="tourDots"></div>
-      <div style="display:flex;gap:8px">
-        <button class="tour-skip" onclick="endTour()">Skip tour</button>
-        <button class="tour-next" id="tourNextBtn" onclick="tourNext()">Next →</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<script>
-const tourSteps = [
-  {
-    title: 'Welcome to NourishWell 🌿',
-    body: "This is your personal health dashboard. Let's take a quick tour of the key features.",
-    target: null
-  },
-  {
-    title: 'Record Today',
-    body: 'Log every meal across 6 time slots and record your exercise. Your nutrition donut and calorie total update in real time.',
-    target: '#page-record .donut-card'
-  },
-  {
-    title: 'Recipe Library',
-    body: 'Browse recipes, save favourites, rate and review meals, and add your own custom recipes. Filter by tag or search by ingredient.',
-    target: '.side-nav'
-  },
-  {
-    title: 'Meal Planner',
-    body: 'Plan your full day within your calorie budget. Lock dishes you like, swap ones you don't, then confirm your plan.',
-    target: '.side-nav'
-  },
-  {
-    title: 'Messages from your Professional',
-    body: 'The envelope icon in the top bar shows messages from your health professional. A red dot means you have unread advice.',
-    target: '#userMailIcon'
-  }
-];
-let tourStep = 0;
-
+let tI=0;
 function startTour(){
-  tourStep = 0;
-  document.getElementById('tourOverlay').classList.add('active');
-  renderTourStep();
+  tI=0;document.getElementById('tDim').classList.add('on');
+  document.getElementById('tBox').classList.add('on');tRender();
 }
-
-function renderTourStep(){
-  const step = tourSteps[tourStep];
-  document.getElementById('tourStepBadge').textContent = 'Step ' + (tourStep+1) + ' of ' + tourSteps.length;
-  document.getElementById('tourCardTitle').textContent = step.title;
-  document.getElementById('tourCardBody').textContent = step.body;
-  document.getElementById('tourNextBtn').textContent = tourStep === tourSteps.length-1 ? 'Done ✓' : 'Next →';
-  document.getElementById('tourDots').innerHTML = tourSteps.map((_,i) =>
-    '<div class="tour-dot' + (i===tourStep?' active':'') + '"></div>').join('');
-
-  const spot = document.getElementById('tourSpotlight');
-  if (step.target) {
-    const el = document.querySelector(step.target);
-    if (el) {
-      const r = el.getBoundingClientRect(), pad = 8;
-      spot.style.cssText = 'display:block;position:fixed;left:'+(r.left-pad)+'px;top:'+(r.top-pad)+'px;width:'+(r.width+pad*2)+'px;height:'+(r.height+pad*2)+'px;box-shadow:0 0 0 9999px rgba(10,20,16,0.85);border:2px solid rgba(47,143,127,0.9);border-radius:12px;z-index:10000';
-    } else { spot.style.display='none'; }
-  } else { spot.style.display='none'; }
+function tRender(){
+  const s=tSteps[tI];
+  document.getElementById('tBadge').textContent='Step '+(tI+1)+' of '+tSteps.length;
+  document.getElementById('tTitle').textContent=s.title;
+  document.getElementById('tBody').textContent=s.body;
+  document.getElementById('tBtn').textContent=tI===tSteps.length-1?'Done ✓':'Next →';
+  document.getElementById('tDots').innerHTML=tSteps.map((_,i)=>'<div class="tour-dot'+(i===tI?' on':'')+'"></div>').join('');
+  const hl=document.getElementById('tHL');
+  if(s.sel){
+    const el=document.querySelector(s.sel);
+    if(el){
+      const r=el.getBoundingClientRect(),p=6;
+      hl.style.cssText='display:block;left:'+(r.left-p)+'px;top:'+(r.top-p)+'px;width:'+(r.width+p*2)+'px;height:'+(r.height+p*2)+'px';
+    } else hl.style.display='none';
+  } else hl.style.display='none';
 }
-
-function tourNext(){
-  if (tourStep < tourSteps.length-1) { tourStep++; renderTourStep(); }
-  else endTour();
-}
-
-function endTour(){
-  document.getElementById('tourOverlay').classList.remove('active');
+function tNext(){tI<tSteps.length-1?tRender(++tI,tI):tEnd();}
+function tEnd(){
+  document.getElementById('tDim').classList.remove('on');
+  document.getElementById('tBox').classList.remove('on');
+  document.getElementById('tHL').style.display='none';
 }
 </script>
 

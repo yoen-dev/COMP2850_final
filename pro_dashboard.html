@@ -187,8 +187,8 @@ body{font-family:'Bricolage Grotesque',sans-serif;background:var(--paper);color:
 .user-view-frame{flex:1;width:100%;border:none;background:var(--paper)}
 
 /* ── ONBOARDING TOUR ── */
-.tour-overlay{position:fixed;inset:0;z-index:2000;pointer-events:none;display:none}
-.tour-overlay.active{display:block}
+
+
 .tour-backdrop{position:absolute;inset:0;background:rgba(10,20,16,0.82);pointer-events:all}
 .tour-spotlight{position:absolute;border-radius:12px;box-shadow:0 0 0 9999px rgba(10,20,16,0.82);pointer-events:none;transition:all .4s cubic-bezier(.4,0,.2,1);border:2px solid rgba(47,143,127,0.6)}
 .tour-card{position:absolute;width:320px;background:#fff;border-radius:16px;box-shadow:0 20px 60px rgba(10,20,16,0.25);padding:22px 24px;pointer-events:all;transition:all .4s cubic-bezier(.4,0,.2,1)}
@@ -231,27 +231,30 @@ body{font-family:'Bricolage Grotesque',sans-serif;background:var(--paper);color:
 ::-webkit-scrollbar{width:5px;height:5px}
 ::-webkit-scrollbar-track{background:transparent}
 ::-webkit-scrollbar-thumb{background:var(--fog);border-radius:10px}
+
+/* Tour */
+.tour-dim{position:fixed;inset:0;background:rgba(10,20,16,0.82);z-index:8000;display:none}
+.tour-dim.on{display:block}
+.tour-highlight{position:fixed;z-index:8001;border-radius:10px;box-shadow:0 0 0 4px #2f8f7f,0 0 0 8px rgba(47,143,127,0.25);pointer-events:none;display:none}
+.tour-box{position:fixed;z-index:8002;background:#fff;border-radius:16px;padding:22px 24px;width:360px;box-shadow:0 16px 48px rgba(10,20,16,0.25);bottom:36px;left:50%;transform:translateX(-50%);display:none}
+.tour-box.on{display:block}
+.tour-badge{font-family:'JetBrains Mono',monospace;font-size:9px;color:#7c3aed;letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px}
+.tour-title{font-size:15px;font-weight:700;color:#0a1410;margin-bottom:6px}
+.tour-body{font-size:13px;color:#3d5448;line-height:1.6;margin-bottom:16px}
+.tour-foot{display:flex;justify-content:space-between;align-items:center}
+.tour-dots{display:flex;gap:4px}
+.tour-dot{width:6px;height:6px;border-radius:50%;background:#dce6e0}
+.tour-dot.on{background:#7c3aed}
+.tour-skip{font-family:'JetBrains Mono',monospace;font-size:10px;color:#6b8878;background:none;border:none;cursor:pointer;padding:4px 8px}
+.tour-btn{font-size:12px;font-weight:600;padding:8px 20px;border-radius:8px;border:none;background:#0a1410;color:#fff;cursor:pointer}
+.tour-btn:hover{background:#1e6b5e}
 </style>
 </head>
 <body>
 
 
 <!-- ONBOARDING TOUR OVERLAY -->
-<div class="tour-overlay" id="tourOverlay">
-  <div class="tour-backdrop" onclick="endTour()"></div>
-  <div class="tour-spotlight" id="tourSpotlight"></div>
-  <div class="tour-card" id="tourCard">
-    <div class="tour-step-badge" id="tourStepBadge">Step 1 of 5</div>
-    <div class="tour-card-title" id="tourCardTitle">Welcome to NourishWell Pro</div>
-    <div class="tour-card-body" id="tourCardBody">Let's take a quick tour of your dashboard. You can skip at any time.</div>
-    <div class="tour-card-footer">
-      <div class="tour-dots" id="tourDots"></div>
-      <div class="tour-nav">
-        <button class="tour-skip" onclick="endTour()">Skip tour</button>
-        <button class="tour-next" id="tourNextBtn" onclick="tourNext()">Next →</button>
-      </div>
-    </div>
-  </div>
+
 </div>
 
 <!-- TOP NAV -->
@@ -1032,108 +1035,7 @@ function simulateUserMode() {
 }
 
 // ── ONBOARDING TOUR ──
-const tourSteps = [
-  {
-    title: 'Welcome to NourishWell Pro 🌿',
-    body: "You're now in your professional dashboard. Let's take a quick tour of the key features.",
-    target: null
-  },
-  {
-    title: 'Your Client List',
-    body: 'All your clients are listed in the sidebar with colour-coded status badges. Click any name to open their full profile.',
-    target: '.side-nav'
-  },
-  {
-    title: 'Top Navigation',
-    body: 'Switch to User View to see your own health dashboard. The Q&A button has help guides. The envelope shows unread client messages.',
-    target: '.top-nav'
-  },
-  {
-    title: 'Client Snapshot',
-    body: 'This table shows all clients at a glance — their goal, average calories, protein intake, exercise days, and current status.',
-    target: '.overview-grid'
-  },
-  {
-    title: 'Messages, Plans & Appointments',
-    body: "Click any client, then use the tabs inside their profile to send advice, edit meal & training plans, and manage appointments.",
-    target: null
-  }
-];
-let tourStep = 0;
 
-function startTour() {
-  tourStep = 0;
-  document.getElementById('tourOverlay').classList.add('active');
-  renderTourStep();
-}
-
-function renderTourStep() {
-  const step = tourSteps[tourStep];
-  document.getElementById('tourStepBadge').textContent = `Step ${tourStep + 1} of ${tourSteps.length}`;
-  document.getElementById('tourCardTitle').textContent = step.title;
-  document.getElementById('tourCardBody').textContent = step.body;
-  document.getElementById('tourNextBtn').textContent = tourStep === tourSteps.length - 1 ? 'Done ✓' : 'Next →';
-
-  // Dots
-  document.getElementById('tourDots').innerHTML = tourSteps.map((_, i) =>
-    `<div class="tour-dot ${i === tourStep ? 'active' : ''}"></div>`).join('');
-
-  // Card: always fixed at bottom-centre, never overlaps content
-  const card = document.getElementById('tourCard');
-  card.style.cssText = 'position:fixed;bottom:40px;left:50%;transform:translateX(-50%);top:auto;right:auto;width:380px;z-index:10001';
-
-  // Spotlight: highlight target element with strong contrast
-  const spot = document.getElementById('tourSpotlight');
-  if (step.target) {
-    const el = document.querySelector(step.target);
-    if (el) {
-      const r = el.getBoundingClientRect();
-      const pad = 8;
-      spot.style.display = 'block';
-      spot.style.position = 'fixed';
-      spot.style.left = (r.left - pad) + 'px';
-      spot.style.top = (r.top - pad) + 'px';
-      spot.style.width = (r.width + pad * 2) + 'px';
-      spot.style.height = (r.height + pad * 2) + 'px';
-      spot.style.boxShadow = '0 0 0 9999px rgba(10,20,16,0.85)';
-      spot.style.border = '2px solid rgba(47,143,127,0.9)';
-      spot.style.borderRadius = '12px';
-      spot.style.zIndex = '10000';
-    } else {
-      spot.style.display = 'none';
-    }
-  } else {
-    spot.style.display = 'none';
-  }
-}
-
-function tourNext() {
-  if (tourStep < tourSteps.length - 1) {
-    tourStep++;
-    renderTourStep();
-  } else {
-    endTour();
-  }
-}
-
-// Avatar menu toggle
-document.addEventListener('DOMContentLoaded', function(){
-  const toggle = document.getElementById('proAvatarToggle');
-  const menu = document.getElementById('proAvatarMenu');
-  if(toggle && menu){
-    toggle.addEventListener('click', function(e){
-      e.stopPropagation();
-      menu.style.display = menu.style.display === 'none' ? 'block' : 'none';
-    });
-    document.addEventListener('click', function(){
-      if(menu) menu.style.display = 'none';
-    });
-  }
-});
-
-function endTour() {
-  document.getElementById('tourOverlay').classList.remove('active');
-}
 
 // ── Toast ─────────────────────────────────────────────────────────────────────
 function proToast(msg, color) {
@@ -1649,5 +1551,57 @@ function proSettingsSaved(btn) {
   setTimeout(() => { btn.textContent = orig; btn.style.background = 'var(--ink)'; }, 2000);
 }
 </script>
+
+<div class="tour-dim" id="tDim" onclick="tEnd()"></div>
+<div class="tour-highlight" id="tHL"></div>
+<div class="tour-box" id="tBox">
+  <div class="tour-badge" id="tBadge"></div>
+  <div class="tour-title" id="tTitle"></div>
+  <div class="tour-body" id="tBody"></div>
+  <div class="tour-foot">
+    <div class="tour-dots" id="tDots"></div>
+    <div style="display:flex;gap:8px">
+      <button class="tour-skip" onclick="tEnd()">Skip</button>
+      <button class="tour-btn" id="tBtn" onclick="tNext()">Next →</button>
+    </div>
+  </div>
+</div>
+<script>
+const tSteps=[
+  {title:'Welcome to NourishWell Pro 🌿',body:"You're in your professional dashboard. Let's take a quick tour of the key features.",sel:null},
+  {title:'Your Client List',body:'All clients are listed here with colour-coded status badges. Click any name to open their full profile.',sel:'.side-nav'},
+  {title:'Top Navigation',body:'Switch to User View to see your own health dashboard. Q&A has help guides. The envelope shows unread client messages.',sel:'.top-nav'},
+  {title:'Client Snapshot',body:'This table shows all clients at a glance — goal, average calories, protein, exercise days, and status.',sel:'.overview-grid'},
+  {title:'Messages, Plans & Appointments',body:"Inside each client profile, use the tabs to send advice, edit their meal and training plans, and manage appointments.",sel:null}
+];
+let tI=0;
+function startTour(){
+  tI=0;document.getElementById('tDim').classList.add('on');
+  document.getElementById('tBox').classList.add('on');tRender();
+}
+function tRender(){
+  const s=tSteps[tI];
+  document.getElementById('tBadge').textContent='Step '+(tI+1)+' of '+tSteps.length;
+  document.getElementById('tTitle').textContent=s.title;
+  document.getElementById('tBody').textContent=s.body;
+  document.getElementById('tBtn').textContent=tI===tSteps.length-1?'Done ✓':'Next →';
+  document.getElementById('tDots').innerHTML=tSteps.map((_,i)=>'<div class="tour-dot'+(i===tI?' on':'')+'"></div>').join('');
+  const hl=document.getElementById('tHL');
+  if(s.sel){
+    const el=document.querySelector(s.sel);
+    if(el){
+      const r=el.getBoundingClientRect(),p=6;
+      hl.style.cssText='display:block;position:fixed;left:'+(r.left-p)+'px;top:'+(r.top-p)+'px;width:'+(r.width+p*2)+'px;height:'+(r.height+p*2)+'px';
+    } else hl.style.display='none';
+  } else hl.style.display='none';
+}
+function tNext(){if(tI<tSteps.length-1){tI++;tRender();}else tEnd();}
+function tEnd(){
+  document.getElementById('tDim').classList.remove('on');
+  document.getElementById('tBox').classList.remove('on');
+  document.getElementById('tHL').style.display='none';
+}
+</script>
+
 </body>
 </html>
