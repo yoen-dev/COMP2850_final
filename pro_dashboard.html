@@ -31,13 +31,6 @@ body{font-family:'Bricolage Grotesque',sans-serif;background:var(--paper);color:
 .switch-btn-icon{font-size:13px}
 .tn-icon{width:38px;height:38px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:18px;cursor:pointer;transition:all .2s;color:rgba(255,255,255,0.9)}
 .tn-icon:hover{background:rgba(255,255,255,0.1)}
-.tn-dropdown{display:none;position:absolute;top:50px;right:0;background:#fff;border:1px solid #d4dfd8;border-radius:10px;min-width:180px;box-shadow:0 12px 40px rgba(10,20,16,0.12);overflow:hidden;z-index:100}
-.tn-dropdown.open{display:block}
-.tn-dropdown a{display:block;padding:11px 16px;font-size:13px;color:#0a1410;text-decoration:none;border-bottom:1px solid #dce6e0;transition:background .15s;font-family:'Bricolage Grotesque',sans-serif}
-.tn-dropdown a:last-child{border-bottom:none}
-.tn-dropdown a:hover{background:#e8f4f2}
-.tn-dropdown a.logout{color:#c0392b}
-.tn-dropdown a.active{background:#0a1410;color:#fff}
 .tn-avatar{display:flex;align-items:center;gap:10px;cursor:pointer;padding:6px 12px 6px 6px;border-radius:10px;transition:background .2s}
 .tn-avatar:hover{background:rgba(255,255,255,0.08)}
 .tn-avatar-pic{width:34px;height:34px;border-radius:50%;background:var(--pro);color:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0}
@@ -282,15 +275,15 @@ body{font-family:'Bricolage Grotesque',sans-serif;background:var(--paper);color:
       <svg width="20" height="16" viewBox="0 0 20 16" fill="none"><rect x="1" y="1" width="18" height="14" rx="2" stroke="rgba(255,255,255,0.85)" stroke-width="1.5"/><path d="M1 4l9 6 9-6" stroke="rgba(255,255,255,0.85)" stroke-width="1.5"/></svg>
       <div id="mailDot" style="width:7px;height:7px;border-radius:50%;background:#dc2626;position:absolute;top:4px;right:4px;border:1.5px solid var(--ink)"></div>
     </div>
-    <div class="tn-avatar-wrap">
-      <div class="tn-avatar" onclick="toggleProMenu(event)">
+    <div style="position:relative">
+      <div class="tn-avatar" id="proAvatarToggle" style="cursor:pointer">
         <div class="tn-avatar-pic">DR</div>
         <span class="tn-avatar-name">Dr. Rivera</span>
       </div>
-      <div class="tn-dropdown" id="proAvatarMenu">
-        <a href="#" id="proLink-personal" onclick="openProSettings('personal');return false">Personal Details</a>
-        <a href="#" id="proLink-preferences" onclick="openProSettings('preferences');return false">Preferences</a>
-        <a href="#" class="logout" onclick="event.stopPropagation();event.preventDefault();window.location.replace('index.html')">Log Out</a>
+      <div id="proAvatarMenu" style="display:none;position:absolute;top:50px;right:0;background:#fff;border:1px solid #d4dfd8;border-radius:10px;min-width:180px;box-shadow:0 12px 40px rgba(10,20,16,0.12);overflow:hidden;z-index:100">
+        <a href="#" onclick="event.stopPropagation();openProSettings('personal')" style="display:block;padding:11px 16px;font-size:13px;color:#0a1410;text-decoration:none;border-bottom:1px solid #f5f7f5">Personal Details</a>
+        <a href="#" onclick="event.stopPropagation();openProSettings('preferences')" style="display:block;padding:11px 16px;font-size:13px;color:#0a1410;text-decoration:none;border-bottom:1px solid #f5f7f5">Preferences</a>
+        <a href="#" onclick="event.stopPropagation();event.preventDefault();window.location.replace('index.html')" style="display:block;padding:11px 16px;font-size:13px;color:#c0392b;text-decoration:none">Log Out</a>
       </div>
     </div>
   </div>
@@ -299,7 +292,7 @@ body{font-family:'Bricolage Grotesque',sans-serif;background:var(--paper);color:
 <!-- SIDE NAV -->
 <aside class="side-nav">
   <div class="sn-section-label">Overview</div>
-  <a class="sn-item active" onclick="selectClient('overview', this)" href="#">
+  <a class="sn-item active" onclick="closeProSettings();selectClient('overview', this)" href="#">
     <span style="font-size:16px">📊</span>
     <span class="sn-name">Dashboard</span>
   </a>
@@ -310,7 +303,7 @@ body{font-family:'Bricolage Grotesque',sans-serif;background:var(--paper);color:
       style="width:100%;padding:6px 10px;border:1px solid var(--border);border-radius:7px;font-size:11px;font-family:'Bricolage Grotesque',sans-serif;color:var(--ink);outline:none;background:var(--paper)">
   </div>
 
-  <a class="sn-item" onclick="selectClient('rose', this)" data-client="rose" href="#">
+  <a class="sn-item" onclick="closeProSettings();selectClient('rose', this)" data-client="rose" href="#">
     <div class="sn-avatar" style="background:#2f8f7f">RC</div>
     <div style="flex:1">
       <div class="sn-name">Rose Campbell</div>
@@ -319,7 +312,7 @@ body{font-family:'Bricolage Grotesque',sans-serif;background:var(--paper);color:
     <span class="sn-status warn" onclick="cycleStatus('rose', this)">⚡ Low protein</span>
   </a>
 
-  <a class="sn-item" onclick="selectClient('james', this)" data-client="james" href="#">
+  <a class="sn-item" onclick="closeProSettings();selectClient('james', this)" data-client="james" href="#">
     <div class="sn-avatar" style="background:#7aaad4">JT</div>
     <div style="flex:1">
       <div class="sn-name">James Tang</div>
@@ -328,7 +321,7 @@ body{font-family:'Bricolage Grotesque',sans-serif;background:var(--paper);color:
     <span class="sn-status ok" onclick="cycleStatus('james', this)">✓ On track</span>
   </a>
 
-  <a class="sn-item" onclick="selectClient('sara', this)" data-client="sara" href="#">
+  <a class="sn-item" onclick="closeProSettings();selectClient('sara', this)" data-client="sara" href="#">
     <div class="sn-avatar" style="background:#e07b78">SL</div>
     <div style="flex:1">
       <div class="sn-name">Sara Lim</div>
@@ -337,7 +330,7 @@ body{font-family:'Bricolage Grotesque',sans-serif;background:var(--paper);color:
     <span class="sn-status urgent" onclick="cycleStatus('sara', this)">! Missed 3 days</span>
   </a>
 
-  <a class="sn-item" onclick="selectClient('mike', this)" data-client="mike" href="#">
+  <a class="sn-item" onclick="closeProSettings();selectClient('mike', this)" data-client="mike" href="#">
     <div class="sn-avatar" style="background:#b8621f">MW</div>
     <div style="flex:1">
       <div class="sn-name">Mike Walsh</div>
@@ -346,7 +339,7 @@ body{font-family:'Bricolage Grotesque',sans-serif;background:var(--paper);color:
     <span class="sn-status ok" onclick="cycleStatus('mike', this)">✓ On track</span>
   </a>
 
-  <a class="sn-item" onclick="selectClient('priya', this)" data-client="priya" href="#">
+  <a class="sn-item" onclick="closeProSettings();selectClient('priya', this)" data-client="priya" href="#">
     <div class="sn-avatar" style="background:#7c3aed">PK</div>
     <div style="flex:1">
       <div class="sn-name">Priya Kapoor</div>
@@ -1119,8 +1112,20 @@ function tourNext() {
   }
 }
 
-function toggleProMenu(e){e.stopPropagation();document.getElementById('proAvatarMenu').classList.toggle('open');}
-document.addEventListener('click',function(){document.getElementById('proAvatarMenu')?.classList.remove('open');});
+// Avatar menu toggle
+document.addEventListener('DOMContentLoaded', function(){
+  const toggle = document.getElementById('proAvatarToggle');
+  const menu = document.getElementById('proAvatarMenu');
+  if(toggle && menu){
+    toggle.addEventListener('click', function(e){
+      e.stopPropagation();
+      menu.style.display = menu.style.display === 'none' ? 'block' : 'none';
+    });
+    document.addEventListener('click', function(){
+      if(menu) menu.style.display = 'none';
+    });
+  }
+});
 
 function endTour() {
   document.getElementById('tourOverlay').classList.remove('active');
@@ -1448,13 +1453,10 @@ function renderScoreRing(c) {
 <div id="proToast" style="position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(12px);background:var(--ink);color:#fff;padding:10px 22px;border-radius:10px;font-size:13px;font-weight:600;z-index:9999;opacity:0;transition:all .3s;pointer-events:none;white-space:nowrap;font-family:'Bricolage Grotesque',sans-serif"></div>
 
 <!-- ── Pro Settings Overlays ─────────────────────────────────────────────── -->
-<div id="proSettingsOverlay" style="display:none;position:fixed;inset:0;background:var(--paper);z-index:1500;overflow-y:auto">
-  <div style="max-width:900px;margin:0 auto;padding:32px 40px">
+<div id="proSettingsOverlay" style="display:none;position:fixed;top:60px;left:220px;right:0;bottom:0;background:var(--paper);z-index:996;overflow-y:auto">
+  <div style="max-width:900px;margin:0 auto;padding:32px 36px">
 
-    <!-- Back button -->
-    <div style="margin-bottom:24px">
-      <button onclick="closeProSettings()" style="display:inline-flex;align-items:center;gap:6px;padding:10px 20px;background:var(--ink);color:#fff;border:none;border-radius:8px;font-family:'Bricolage Grotesque',sans-serif;font-size:13px;font-weight:600;cursor:pointer" onmouseover="this.style.background='var(--teal)'" onmouseout="this.style.background='var(--ink)'">← Back to Dashboard</button>
-    </div>
+
 
     <!-- Personal Details panel -->
     <div id="proPanel-personal" style="display:none">
@@ -1624,19 +1626,13 @@ function renderScoreRing(c) {
 
 <script>
 function openProSettings(panel) {
-  // Active state on menu item
-  document.querySelectorAll('#proAvatarMenu a').forEach(a=>a.classList.remove('active'));
-  const link = document.getElementById('proLink-' + panel);
-  if(link) link.classList.add('active');
-  // Close dropdown, open overlay
-  document.getElementById('proAvatarMenu').classList.remove('open');
+  document.getElementById('proAvatarMenu').style.display = 'none';
   document.getElementById('proSettingsOverlay').style.display = 'block';
   document.getElementById('proPanel-personal').style.display = 'none';
   document.getElementById('proPanel-preferences').style.display = 'none';
   document.getElementById('proPanel-' + panel).style.display = 'block';
 }
 function closeProSettings() {
-  document.querySelectorAll('#proAvatarMenu a').forEach(a=>a.classList.remove('active'));
   document.getElementById('proSettingsOverlay').style.display = 'none';
 }
 function proSettingsSaved(btn) {
