@@ -1319,15 +1319,11 @@ body.show-auth #page-auth { display: block; }
  *              从着陆页切换到认证页面，设置对应的标签页。
  */
 function showAuth(mode) {
+  switchTab(mode === 'register' ? 'register' : 'login');
   document.documentElement.scrollTop = 0;
   document.body.scrollTop = 0;
   document.body.classList.add('show-auth');
   document.title = 'NourishWell — ' + (mode === 'login' ? 'Sign in' : 'Get started');
-  if (mode === 'register') {
-    setTimeout(() => switchTab('register'), 50);
-  } else {
-    setTimeout(() => switchTab('login'), 50);
-  }
 }
 
 /**
