@@ -268,6 +268,7 @@ body{font-family:'Bricolage Grotesque',sans-serif;background:var(--paper);color:
       <svg width="14" height="14" viewBox="0 0 14 14" fill="none" style="flex-shrink:0"><path d="M1 4h9M7 1l3 3-3 3M13 10H4M7 7l-3 3 3 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
       Switch to User View
     </button>
+    <a href="qa_pro.html" class="switch-btn" style="text-decoration:none">Q&A</a>
     <button class="switch-btn" onclick="startTour()" style="border-color:rgba(255,255,255,0.15);color:rgba(255,255,255,0.55);padding:8px 12px;min-width:unset" title="Guided tour">
       <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6" stroke="currentColor" stroke-width="1.4"/><text x="7" y="11" text-anchor="middle" font-size="9" fill="currentColor" font-family="JetBrains Mono,monospace">?</text></svg>
     </button>
@@ -292,7 +293,7 @@ body{font-family:'Bricolage Grotesque',sans-serif;background:var(--paper);color:
 <!-- SIDE NAV -->
 <aside class="side-nav">
   <div class="sn-section-label">Overview</div>
-  <a class="sn-item active" onclick="closeProSettings();selectClient('overview', this)" href="#">
+  <a class="sn-item active" onclick="selectClient('overview', this)" href="#">
     <span style="font-size:16px">📊</span>
     <span class="sn-name">Dashboard</span>
   </a>
@@ -303,7 +304,7 @@ body{font-family:'Bricolage Grotesque',sans-serif;background:var(--paper);color:
       style="width:100%;padding:6px 10px;border:1px solid var(--border);border-radius:7px;font-size:11px;font-family:'Bricolage Grotesque',sans-serif;color:var(--ink);outline:none;background:var(--paper)">
   </div>
 
-  <a class="sn-item" onclick="closeProSettings();selectClient('rose', this)" data-client="rose" href="#">
+  <a class="sn-item" onclick="selectClient('rose', this)" data-client="rose" href="#">
     <div class="sn-avatar" style="background:#2f8f7f">RC</div>
     <div style="flex:1">
       <div class="sn-name">Rose Campbell</div>
@@ -312,7 +313,7 @@ body{font-family:'Bricolage Grotesque',sans-serif;background:var(--paper);color:
     <span class="sn-status warn" onclick="cycleStatus('rose', this)">⚡ Low protein</span>
   </a>
 
-  <a class="sn-item" onclick="closeProSettings();selectClient('james', this)" data-client="james" href="#">
+  <a class="sn-item" onclick="selectClient('james', this)" data-client="james" href="#">
     <div class="sn-avatar" style="background:#7aaad4">JT</div>
     <div style="flex:1">
       <div class="sn-name">James Tang</div>
@@ -321,7 +322,7 @@ body{font-family:'Bricolage Grotesque',sans-serif;background:var(--paper);color:
     <span class="sn-status ok" onclick="cycleStatus('james', this)">✓ On track</span>
   </a>
 
-  <a class="sn-item" onclick="closeProSettings();selectClient('sara', this)" data-client="sara" href="#">
+  <a class="sn-item" onclick="selectClient('sara', this)" data-client="sara" href="#">
     <div class="sn-avatar" style="background:#e07b78">SL</div>
     <div style="flex:1">
       <div class="sn-name">Sara Lim</div>
@@ -330,7 +331,7 @@ body{font-family:'Bricolage Grotesque',sans-serif;background:var(--paper);color:
     <span class="sn-status urgent" onclick="cycleStatus('sara', this)">! Missed 3 days</span>
   </a>
 
-  <a class="sn-item" onclick="closeProSettings();selectClient('mike', this)" data-client="mike" href="#">
+  <a class="sn-item" onclick="selectClient('mike', this)" data-client="mike" href="#">
     <div class="sn-avatar" style="background:#b8621f">MW</div>
     <div style="flex:1">
       <div class="sn-name">Mike Walsh</div>
@@ -339,7 +340,7 @@ body{font-family:'Bricolage Grotesque',sans-serif;background:var(--paper);color:
     <span class="sn-status ok" onclick="cycleStatus('mike', this)">✓ On track</span>
   </a>
 
-  <a class="sn-item" onclick="closeProSettings();selectClient('priya', this)" data-client="priya" href="#">
+  <a class="sn-item" onclick="selectClient('priya', this)" data-client="priya" href="#">
     <div class="sn-avatar" style="background:#7c3aed">PK</div>
     <div style="flex:1">
       <div class="sn-name">Priya Kapoor</div>
@@ -1453,10 +1454,13 @@ function renderScoreRing(c) {
 <div id="proToast" style="position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(12px);background:var(--ink);color:#fff;padding:10px 22px;border-radius:10px;font-size:13px;font-weight:600;z-index:9999;opacity:0;transition:all .3s;pointer-events:none;white-space:nowrap;font-family:'Bricolage Grotesque',sans-serif"></div>
 
 <!-- ── Pro Settings Overlays ─────────────────────────────────────────────── -->
-<div id="proSettingsOverlay" style="display:none;position:fixed;top:60px;left:220px;right:0;bottom:0;background:var(--paper);z-index:996;overflow-y:auto">
-  <div style="max-width:900px;margin:0 auto;padding:32px 36px">
+<div id="proSettingsOverlay" style="display:none;position:fixed;inset:0;background:var(--paper);z-index:1500;overflow-y:auto">
+  <div style="max-width:900px;margin:0 auto;padding:32px 40px">
 
-
+    <!-- Back button -->
+    <div style="margin-bottom:24px">
+      <button onclick="closeProSettings()" style="display:inline-flex;align-items:center;gap:6px;padding:10px 20px;background:var(--ink);color:#fff;border:none;border-radius:8px;font-family:'Bricolage Grotesque',sans-serif;font-size:13px;font-weight:600;cursor:pointer" onmouseover="this.style.background='var(--teal)'" onmouseout="this.style.background='var(--ink)'">← Back to Dashboard</button>
+    </div>
 
     <!-- Personal Details panel -->
     <div id="proPanel-personal" style="display:none">
