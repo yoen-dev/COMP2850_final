@@ -1025,7 +1025,7 @@ function fillMsg(text) {
 function simulateUserMode() {
   // Pass user=professional so dashboard loads Dr. Rivera's own data
   // Also pass from=pro so the Switch Back button appears
-  window.location.replace('dashboard.html?user=professional&from=pro');
+  window.location.replace('/COMP2850_final/dashboard.html?user=professional&from=pro');
 }
 
 // ── ONBOARDING TOUR ──
@@ -1565,17 +1565,27 @@ function proSettingsSaved(btn) {
 </div>
 <script>
 const tSteps=[
-  {title:'Welcome to NourishWell Pro 🌿',body:"You're in the professional dashboard — manage clients, track their progress, and provide personalised guidance. Let's take a quick tour.",sel:null,pos:'center'},
-  {title:'Your Client List',body:'All clients are listed here with colour-coded status badges. Click any name to open their full profile with analytics, messages, and plans.',sel:'.side-nav',pos:'right'},
-  {title:'Client Snapshot',body:'This table gives you an at-a-glance view of all clients — their goals, average calories, protein intake, exercise days, and current status.',sel:'.overview-grid',pos:'left'},
-  {title:'Client Analytics',body:"When viewing a client's profile, the Analytics tab shows their calorie trend, BMI, macro breakdown, and health score with detailed category scores.",sel:null,pos:'center'},
-  {title:'Messages & Quick Tags',body:"Send advice via the Messages tab. Use quick-tag buttons for common messages like 'Great progress' or 'Protein reminder' — you can edit before sending.",sel:null,pos:'center'},
-  {title:'Top Navigation',body:'Switch to User View to see your own dashboard. The Help button opens the full Q&A. The envelope shows unread client messages.',sel:'.top-nav',pos:'bottom'},
-  {title:'Plans & Appointments',body:"Inside each client profile, use the Fitness Plan tab to edit meal and training plans, and the Appointments tab to book and manage sessions. You're all set!",sel:null,pos:'center'}
+  // ── Overview page ──
+  {title:'Welcome to NourishWell Pro 🌿',body:"You're in the professional dashboard — manage clients, track their progress, and provide personalised guidance. Let's take a quick tour.",sel:null,pos:'center',onEnter:null},
+  {title:'Your Client List',body:'All your clients are listed here with colour-coded status badges. You can search and click any name to open their full profile.',sel:'.side-nav',pos:'right',onEnter:null},
+  {title:'Client Snapshot',body:'This table gives you an at-a-glance overview — goals, average calories, protein intake, exercise frequency, and current status. Click any row to open that client.',sel:'.overview-grid',pos:'top',onEnter:null},
+
+  // ── Navigate into Rose Campbell's profile ──
+  {title:'Client Profile',body:"We've opened Rose Campbell's profile. You can see her weight, height, goal, and age at a glance. Use the Message and Edit Plan buttons for quick actions.",sel:'#clientHeader',pos:'bottom',onEnter:function(){selectClientFromTable('rose');window.scrollTo({top:0,behavior:'smooth'});}},
+  {title:'Data Analysis',body:"The Data Analysis tab shows calorie trends, BMI gauge, macro breakdown, exercise frequency, and an overall health score — everything you need to monitor progress.",sel:'.tab-bar',pos:'bottom',onEnter:null},
+  {title:'Messages & Quick Tags',body:"Switch to the Messages tab to send advice directly. Use quick-tag buttons like 'Great progress' or 'Protein reminder' — you can edit before sending.",sel:'.tab-bar',pos:'bottom',onEnter:function(){var tabs=document.querySelectorAll('.tab-item');switchTab('chat',tabs[1]);window.scrollTo({top:0,behavior:'smooth'});}},
+  {title:'Fitness Plan',body:'The Fitness Plan tab lets you set personalised meal and training plans — calorie targets, exercise schedules, and dietary notes for each client.',sel:'.tab-bar',pos:'bottom',onEnter:function(){var tabs=document.querySelectorAll('.tab-item');switchTab('plan',tabs[2]);window.scrollTo({top:0,behavior:'smooth'});}},
+  {title:'Appointments',body:'The Appointments tab lets you book and manage consultation sessions — upcoming, completed, and cancelled appointments are all tracked here.',sel:'.tab-bar',pos:'bottom',onEnter:function(){var tabs=document.querySelectorAll('.tab-item');switchTab('appointments',tabs[3]);window.scrollTo({top:0,behavior:'smooth'});}},
+
+  // ── Return to overview, highlight Switch to User View ──
+  {title:'Switch to User View',body:'Click here to switch to your own subscriber dashboard — see your personal food diary, nutritional trends, and meal plans as a regular user.',sel:'.switch-btn',pos:'bottom',onEnter:function(){selectClient('overview',document.querySelector('.sn-item'));window.scrollTo({top:0,behavior:'smooth'});}},
+  {title:'Help & Messages',body:"The Help button opens the full Q&A page. The envelope icon shows unread client messages. Replay this tour any time with the Tour button. You're all set!",sel:'.top-nav-right',pos:'bottom',onEnter:null}
 ];
 let tI=0;
 function startTour(){
   tI=0;
+  selectClient('overview',document.querySelector('.sn-item'));
+  window.scrollTo({top:0,behavior:'smooth'});
   const card=document.getElementById('tCard');
   card.setAttribute('data-pos','center');
   card.style.left='50%';card.style.top='50%';card.style.transform='translate(-50%,-50%)';
@@ -1588,37 +1598,40 @@ function startTour(){
 }
 function tRender(){
   const s=tSteps[tI];
-  document.getElementById('tLabel').textContent='Step '+(tI+1)+' of '+tSteps.length;
-  document.getElementById('tTitle').textContent=s.title;
-  document.getElementById('tBody').textContent=s.body;
-  document.getElementById('tBtn').innerHTML=tI===tSteps.length-1?'Done ✓':'Next <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M4.5 2.5L8 6l-3.5 3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>';
-  document.getElementById('tPips').innerHTML=tSteps.map((_,i)=>'<div class="tour-pip'+(i<tI?' done':'')+(i===tI?' active':'')+'"></div>').join('');
-  const hl=document.getElementById('tHL');
-  const card=document.getElementById('tCard');
-  const hole=document.getElementById('tHole');
-  if(s.sel){
-    const el=document.querySelector(s.sel);
-    if(el){
-      const r=el.getBoundingClientRect(),pad=8;
-      const hx=r.left-pad,hy=r.top-pad,hw=r.width+pad*2,hh=r.height+pad*2;
-      hole.setAttribute('x',hx);hole.setAttribute('y',hy);hole.setAttribute('width',hw);hole.setAttribute('height',hh);
-      hl.style.cssText='display:block;left:'+hx+'px;top:'+hy+'px;width:'+hw+'px;height:'+hh+'px';
-      hl.classList.add('on');
-      const cw=340,ch=card.offsetHeight||200,gap=16,vw=window.innerWidth,vh=window.innerHeight;
-      let cx,cy,pos=s.pos||'bottom';
-      if(pos==='right'&&r.right+gap+cw<vw){cx=r.right+gap;cy=Math.max(12,Math.min(r.top,vh-ch-12));}
-      else if(pos==='left'&&r.left-gap-cw>0){cx=r.left-gap-cw;cy=Math.max(12,Math.min(r.top,vh-ch-12));}
-      else if(pos==='top'&&r.top-gap-ch>60){cx=Math.max(12,Math.min(r.left,vw-cw-12));cy=r.top-gap-ch;}
-      else{cx=Math.max(12,Math.min(r.left,vw-cw-12));cy=r.bottom+gap;pos='bottom';}
-      card.setAttribute('data-pos',pos);
-      card.style.left=cx+'px';card.style.top=cy+'px';
-      card.style.transform='none';
-    } else { hole.setAttribute('width',0);hole.setAttribute('height',0);hl.classList.remove('on');hl.style.display='none';tCenterCard(card);}
-  } else {
-    hole.setAttribute('width',0);hole.setAttribute('height',0);
-    hl.classList.remove('on');hl.style.display='none';
-    tCenterCard(card);
-  }
+  if(s.onEnter) s.onEnter();
+  setTimeout(function(){
+    document.getElementById('tLabel').textContent='Step '+(tI+1)+' of '+tSteps.length;
+    document.getElementById('tTitle').textContent=s.title;
+    document.getElementById('tBody').textContent=s.body;
+    document.getElementById('tBtn').innerHTML=tI===tSteps.length-1?'Done ✓':'Next <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M4.5 2.5L8 6l-3.5 3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+    document.getElementById('tPips').innerHTML=tSteps.map((_,i)=>'<div class="tour-pip'+(i<tI?' done':'')+(i===tI?' active':'')+'"></div>').join('');
+    const hl=document.getElementById('tHL');
+    const card=document.getElementById('tCard');
+    const hole=document.getElementById('tHole');
+    if(s.sel){
+      const el=document.querySelector(s.sel);
+      if(el){
+        const r=el.getBoundingClientRect(),pad=8;
+        const hx=r.left-pad,hy=r.top-pad,hw=r.width+pad*2,hh=r.height+pad*2;
+        hole.setAttribute('x',hx);hole.setAttribute('y',hy);hole.setAttribute('width',hw);hole.setAttribute('height',hh);
+        hl.style.cssText='display:block;left:'+hx+'px;top:'+hy+'px;width:'+hw+'px;height:'+hh+'px';
+        hl.classList.add('on');
+        const cw=340,ch=card.offsetHeight||200,gap=16,vw=window.innerWidth,vh=window.innerHeight;
+        let cx,cy,pos=s.pos||'bottom';
+        if(pos==='right'&&r.right+gap+cw<vw){cx=r.right+gap;cy=Math.max(12,Math.min(r.top,vh-ch-12));}
+        else if(pos==='left'&&r.left-gap-cw>0){cx=r.left-gap-cw;cy=Math.max(12,Math.min(r.top,vh-ch-12));}
+        else if(pos==='top'&&r.top-gap-ch>60){cx=Math.max(12,Math.min(r.left,vw-cw-12));cy=r.top-gap-ch;}
+        else{cx=Math.max(12,Math.min(r.left,vw-cw-12));cy=r.bottom+gap;pos='bottom';}
+        card.setAttribute('data-pos',pos);
+        card.style.left=cx+'px';card.style.top=cy+'px';
+        card.style.transform='none';
+      } else { hole.setAttribute('width',0);hole.setAttribute('height',0);hl.classList.remove('on');hl.style.display='none';tCenterCard(card);}
+    } else {
+      hole.setAttribute('width',0);hole.setAttribute('height',0);
+      hl.classList.remove('on');hl.style.display='none';
+      tCenterCard(card);
+    }
+  },100);
 }
 function tCenterCard(card){
   card.setAttribute('data-pos','center');
@@ -1631,6 +1644,8 @@ function tEnd(){
   document.getElementById('tHL').classList.remove('on');
   document.getElementById('tHL').style.display='none';
   document.body.style.overflow='';
+  selectClient('overview',document.querySelector('.sn-item'));
+  window.scrollTo({top:0,behavior:'smooth'});
 }
 document.getElementById('tSvg').addEventListener('click',function(e){
   const card=document.getElementById('tCard');
