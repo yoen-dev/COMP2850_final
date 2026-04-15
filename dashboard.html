@@ -564,6 +564,9 @@ function closeExPanel(){document.getElementById('exDim').style.display='none';do
 
 // ── Avatar menu (v3 feature) ──────────────────────────────────────────────────
 function toggleAvatarMenu(e){e.stopPropagation();document.getElementById('avatarMenu').classList.toggle('open')}
+function switchBackToPro(){
+  window.location.replace('/COMP2850_final/pro_dashboard.html');
+}
 function closeAvatarMenu(){document.getElementById('avatarMenu').classList.remove('open')}
 document.addEventListener('click',function(){closeAvatarMenu()});
 
@@ -946,6 +949,12 @@ function initCompareModal(){
 }
 
 // ── Init ──────────────────────────────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', function(){
+  if(new URLSearchParams(window.location.search).get('from')==='pro'){
+    var btn=document.getElementById('proSwitchNavBtn');
+    if(btn) btn.style.display='flex';
+  }
+});
 document.addEventListener('DOMContentLoaded',()=>{
   initExerciseChart();
   renderMealLog();
