@@ -235,12 +235,12 @@ body{font-family:'Bricolage Grotesque',sans-serif;background:var(--paper);color:
 .tour-step-label::after{content:'';flex:1;height:1px;background:var(--pro-ll)}
 .tour-card-title{font-size:15px;font-weight:700;color:var(--ink);margin-bottom:6px;line-height:1.3}
 .tour-card-body{font-size:13px;color:var(--ink-m);line-height:1.65;margin-bottom:16px}
-.tour-card-foot{display:flex;align-items:center;justify-content:space-between}
+.tour-card-foot{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px}
 .tour-progress{display:flex;gap:4px;align-items:center}
-.tour-pip{width:20px;height:3px;border-radius:2px;background:var(--fog);transition:all .3s}
+.tour-pip{width:16px;height:3px;border-radius:2px;background:var(--fog);transition:all .3s}
 .tour-pip.done{background:var(--pro)}
-.tour-pip.active{background:var(--pro);width:28px}
-.tour-actions{display:flex;gap:8px;align-items:center}
+.tour-pip.active{background:var(--pro);width:22px}
+.tour-actions{display:flex;gap:8px;align-items:center;margin-left:auto}
 .tour-skip-btn{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--ink-f);background:none;border:none;cursor:pointer;padding:6px 10px;border-radius:6px;transition:all .2s}
 .tour-skip-btn:hover{color:var(--ink);background:var(--paper)}
 .tour-next-btn{font-size:12px;font-weight:600;padding:8px 18px;border-radius:8px;border:none;background:var(--pro);color:#fff;cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:5px}
@@ -1572,12 +1572,12 @@ const tSteps=[
 
   // ── Navigate into Rose Campbell's profile ──
   {title:'Client Profile',body:"We've opened Rose Campbell's profile. You can see her weight, height, goal, and age at a glance. Use the Message and Edit Plan buttons for quick actions.",sel:'#clientHeader',pos:'bottom',onEnter:function(){selectClientFromTable('rose');window.scrollTo({top:0,behavior:'smooth'});}},
-  {title:'Data Analysis',body:"The Data Analysis tab shows calorie trends, BMI gauge, macro breakdown, exercise frequency, and an overall health score — everything you need to monitor progress.",sel:'.tab-bar',pos:'bottom',onEnter:null},
-  {title:'Messages & Quick Tags',body:"Switch to the Messages tab to send advice directly. Use quick-tag buttons like 'Great progress' or 'Protein reminder' — you can edit before sending.",sel:'.tab-bar',pos:'bottom',onEnter:function(){var tabs=document.querySelectorAll('.tab-item');switchTab('chat',tabs[1]);window.scrollTo({top:0,behavior:'smooth'});}},
-  {title:'Fitness Plan',body:'The Fitness Plan tab lets you set personalised meal and training plans — calorie targets, exercise schedules, and dietary notes for each client.',sel:'.tab-bar',pos:'bottom',onEnter:function(){var tabs=document.querySelectorAll('.tab-item');switchTab('plan',tabs[2]);window.scrollTo({top:0,behavior:'smooth'});}},
-  {title:'Appointments',body:'The Appointments tab lets you book and manage consultation sessions — upcoming, completed, and cancelled appointments are all tracked here.',sel:'.tab-bar',pos:'bottom',onEnter:function(){var tabs=document.querySelectorAll('.tab-item');switchTab('appointments',tabs[3]);window.scrollTo({top:0,behavior:'smooth'});}},
+  {title:'Data Analysis',body:"The Data Analysis tab shows calorie trends, BMI gauge, macro breakdown, exercise frequency, and an overall health score — everything you need to monitor progress.",sel:'.tab-item:nth-child(1)',pos:'bottom',onEnter:function(){var tabs=document.querySelectorAll('.tab-item');switchTab('analytics',tabs[0]);window.scrollTo({top:0,behavior:'smooth'});}},
+  {title:'Messages & Quick Tags',body:"The Messages tab lets you send advice directly. Use quick-tag buttons like 'Great progress' or 'Protein reminder' — you can edit before sending.",sel:'.tab-item:nth-child(2)',pos:'bottom',onEnter:function(){var tabs=document.querySelectorAll('.tab-item');switchTab('chat',tabs[1]);window.scrollTo({top:0,behavior:'smooth'});}},
+  {title:'Fitness Plan',body:'The Fitness Plan tab lets you set personalised meal and training plans — calorie targets, exercise schedules, and dietary notes for each client.',sel:'.tab-item:nth-child(3)',pos:'bottom',onEnter:function(){var tabs=document.querySelectorAll('.tab-item');switchTab('plan',tabs[2]);window.scrollTo({top:0,behavior:'smooth'});}},
+  {title:'Appointments',body:'The Appointments tab lets you book and manage consultation sessions — upcoming, completed, and cancelled appointments are all tracked here.',sel:'.tab-item:nth-child(4)',pos:'bottom',onEnter:function(){var tabs=document.querySelectorAll('.tab-item');switchTab('appointments',tabs[3]);window.scrollTo({top:0,behavior:'smooth'});}},
 
-  // ── Return to overview, highlight Switch to User View ──
+  // ── Return to overview, highlight nav ──
   {title:'Switch to User View',body:'Click here to switch to your own subscriber dashboard — see your personal food diary, nutritional trends, and meal plans as a regular user.',sel:'.switch-btn',pos:'bottom',onEnter:function(){selectClient('overview',document.querySelector('.sn-item'));window.scrollTo({top:0,behavior:'smooth'});}},
   {title:'Help & Messages',body:"The Help button opens the full Q&A page. The envelope icon shows unread client messages. Replay this tour any time with the Tour button. You're all set!",sel:'.top-nav-right',pos:'bottom',onEnter:null}
 ];
