@@ -494,7 +494,7 @@ body{font-family:Bricolage Grotesque,sans-serif;background:var(--paper);color:va
 .tour-next-btn{font-size:12px;font-weight:600;padding:8px 18px;border-radius:8px;border:none;background:var(--teal);color:#fff;cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:5px}
 .tour-next-btn:hover{background:var(--teal-l)}
 </style>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js" onload="if(typeof initExerciseChart==='function')try{initExerciseChart();}catch(e){}"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js" onload="if(typeof initExerciseChart==='function')try{initExerciseChart();}catch(e){}"></script>
 <script>
 /* Exercise Chart */
 const EX_TARGET = 350;
@@ -1233,17 +1233,17 @@ function switchBackToPro(){
 
 // ── Init ──────────────────────────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded',()=>{
-  try { initExerciseChart(); } catch(e) { console.warn('Chart init deferred:', e.message); window.addEventListener('load', ()=>{ try{initExerciseChart();}catch(e2){} }); }
-  renderMealLog();
-  updateDonut();
-  renderExerciseLog();
-  initRecipeGrid();
-  initCompareModal();
-  renderComparePage();
-  initMacroSliders();
-  initSaveBtns();
-  // Apply user profile data
-  applyUser(currentUser);
+  const safeCall = (fn, name) => { try { fn(); } catch(e) { console.warn(name + ' failed:', e.message); } };
+  safeCall(initExerciseChart, 'initExerciseChart');
+  safeCall(renderMealLog, 'renderMealLog');
+  safeCall(updateDonut, 'updateDonut');
+  safeCall(renderExerciseLog, 'renderExerciseLog');
+  safeCall(initRecipeGrid, 'initRecipeGrid');
+  safeCall(initCompareModal, 'initCompareModal');
+  safeCall(renderComparePage, 'renderComparePage');
+  safeCall(initMacroSliders, 'initMacroSliders');
+  safeCall(initSaveBtns, 'initSaveBtns');
+  safeCall(()=>applyUser(currentUser), 'applyUser');
   // Show pro switch button if coming from pro dashboard
   const params = new URLSearchParams(window.location.search);
   if(params.get('from')==='pro' || params.get('user')==='professional'){
@@ -1251,6 +1251,8 @@ document.addEventListener('DOMContentLoaded',()=>{
     if(btn) btn.style.display='flex';
   }
 });
+// Fallback: re-init chart after all resources loaded
+window.addEventListener('load', ()=>{ try{initExerciseChart();}catch(e){} });
 </script>
 
 <!-- ── User Messages Panel ──────────────────────────────────────────────── -->
@@ -1318,8 +1320,10 @@ function sendUserMessage() {
 
 // Show unread dot on load if there are unread messages
 document.addEventListener('DOMContentLoaded', () => {
-  const hasUnread = userMessages.some(m => !m.read);
-  if (hasUnread) document.getElementById('userMailDot').style.display = 'block';
+  try {
+    const hasUnread = userMessages.some(m => !m.read);
+    if (hasUnread) document.getElementById('userMailDot').style.display = 'block';
+  } catch(e) { console.warn('Mail dot init failed:', e.message); }
 });
 </script>
 
