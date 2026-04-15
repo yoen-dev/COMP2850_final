@@ -470,8 +470,8 @@ body{font-family:Bricolage Grotesque,sans-serif;background:var(--paper);color:va
 .tour-highlight{position:fixed;z-index:8001;border-radius:12px;pointer-events:none;transition:all .35s cubic-bezier(.4,0,.2,1);display:none}
 .tour-highlight.on{display:block;box-shadow:0 0 0 3px #2f8f7f,0 0 0 7px rgba(47,143,127,0.35),0 0 24px rgba(47,143,127,0.2);animation:tourPulse 2s ease-in-out infinite}
 @keyframes tourPulse{0%,100%{box-shadow:0 0 0 3px #2f8f7f,0 0 0 7px rgba(47,143,127,0.35),0 0 24px rgba(47,143,127,0.2)}50%{box-shadow:0 0 0 4px #2f8f7f,0 0 0 10px rgba(47,143,127,0.25),0 0 32px rgba(47,143,127,0.15)}}
-.tour-card{position:fixed;z-index:8002;background:#fff;border-radius:14px;padding:20px 22px;width:340px;box-shadow:0 12px 40px rgba(10,20,16,0.3),0 0 0 1px rgba(30,107,94,0.15);display:none;pointer-events:all;transition:opacity .25s,transform .25s}
-.tour-card.on{display:block;animation:tourCardIn .3s ease-out}
+.tour-card{position:fixed;z-index:8002;background:#fff;border-radius:14px;padding:20px 22px;width:340px;box-shadow:0 12px 40px rgba(10,20,16,0.3),0 0 0 1px rgba(30,107,94,0.15);display:none;pointer-events:all;transition:opacity .25s,transform .25s,left .3s,top .3s}
+.tour-card.on{display:block}
 @keyframes tourCardIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
 .tour-card::before{content:'';position:absolute;width:12px;height:12px;background:#fff;transform:rotate(45deg);box-shadow:-1px -1px 0 rgba(30,107,94,0.12)}
 .tour-card[data-pos="bottom"]::before{top:-6px;left:28px}
@@ -1346,7 +1346,7 @@ document.addEventListener('DOMContentLoaded', () => {
 const tSteps=[
   {title:'Welcome to NourishWell 🌿',body:"Your personal health dashboard — track meals, explore recipes, and plan your nutrition. Let's walk through the key areas.",sel:null,pos:'center'},
   {title:'Your Daily Tracker',body:'This is where you log meals across 6 time slots. The donut chart shows your macro breakdown and updates in real time as you add food.',sel:'#page-record .donut-card',pos:'right'},
-  {title:'Log Food & Exercise',body:'Click Record Meal to open the food panel, or switch to Exercise to log workouts. Your calories and activity chart update instantly.',sel:'#page-record .meal-log-card',pos:'left'},
+  {title:'Log Food & Exercise',body:'Click Record Meal to open the food panel, or switch to Exercise to log workouts. Your calories and activity chart update instantly.',sel:'.action-row',pos:'bottom'},
   {title:'Sidebar Navigation',body:'Switch between pages here: Record Today for logging, Recipe to browse meals, Favourites for saved recipes, Compare to contrast nutrition, and Meal Planner to plan your day.',sel:'.side-nav',pos:'right'},
   {title:'Meal Planner',body:"Plan your full day's meals within your calorie budget. Lock meals you like, swap the rest, then confirm your plan.",sel:'.side-nav a:nth-child(5)',pos:'right'},
   {title:'Messages & Settings',body:'The envelope icon shows messages from your health professional — a red dot means unread. Click your avatar to update Personal Details or Preferences.',sel:'#userMailIcon',pos:'bottom'},
@@ -1355,10 +1355,17 @@ const tSteps=[
 let tI=0;
 function startTour(){
   tI=0;
+  const card=document.getElementById('tCard');
+  // Pre-position to center before showing to avoid flash
+  card.setAttribute('data-pos','center');
+  card.style.left='50%';card.style.top='50%';card.style.transform='translate(-50%,-50%)';
+  card.style.opacity='0';
   document.getElementById('tSvg').style.display='block';
-  document.getElementById('tCard').classList.add('on');
+  card.classList.add('on');
   document.body.style.overflow='hidden';
+  // Render first step then fade in
   tRender();
+  requestAnimationFrame(()=>{requestAnimationFrame(()=>{card.style.opacity='1';});});
 }
 function tRender(){
   const s=tSteps[tI];

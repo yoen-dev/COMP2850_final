@@ -222,8 +222,8 @@ body{font-family:'Bricolage Grotesque',sans-serif;background:var(--paper);color:
 .tour-highlight{position:fixed;z-index:8001;border-radius:12px;pointer-events:none;transition:all .35s cubic-bezier(.4,0,.2,1);display:none}
 .tour-highlight.on{display:block;box-shadow:0 0 0 3px #7c3aed,0 0 0 7px rgba(124,58,237,0.3),0 0 24px rgba(124,58,237,0.15);animation:tourPulsePro 2s ease-in-out infinite}
 @keyframes tourPulsePro{0%,100%{box-shadow:0 0 0 3px #7c3aed,0 0 0 7px rgba(124,58,237,0.3),0 0 24px rgba(124,58,237,0.15)}50%{box-shadow:0 0 0 4px #7c3aed,0 0 0 10px rgba(124,58,237,0.2),0 0 32px rgba(124,58,237,0.1)}}
-.tour-card{position:fixed;z-index:8002;background:#fff;border-radius:14px;padding:20px 22px;width:340px;box-shadow:0 12px 40px rgba(10,20,16,0.3),0 0 0 1px rgba(124,58,237,0.15);display:none;pointer-events:all;transition:opacity .25s,transform .25s}
-.tour-card.on{display:block;animation:tourCardIn .3s ease-out}
+.tour-card{position:fixed;z-index:8002;background:#fff;border-radius:14px;padding:20px 22px;width:340px;box-shadow:0 12px 40px rgba(10,20,16,0.3),0 0 0 1px rgba(124,58,237,0.15);display:none;pointer-events:all;transition:opacity .25s,transform .25s,left .3s,top .3s}
+.tour-card.on{display:block}
 @keyframes tourCardIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
 .tour-card::before{content:'';position:absolute;width:12px;height:12px;background:#fff;transform:rotate(45deg);box-shadow:-1px -1px 0 rgba(124,58,237,0.1)}
 .tour-card[data-pos="bottom"]::before{top:-6px;left:28px}
@@ -1576,10 +1576,15 @@ const tSteps=[
 let tI=0;
 function startTour(){
   tI=0;
+  const card=document.getElementById('tCard');
+  card.setAttribute('data-pos','center');
+  card.style.left='50%';card.style.top='50%';card.style.transform='translate(-50%,-50%)';
+  card.style.opacity='0';
   document.getElementById('tSvg').style.display='block';
-  document.getElementById('tCard').classList.add('on');
+  card.classList.add('on');
   document.body.style.overflow='hidden';
   tRender();
+  requestAnimationFrame(()=>{requestAnimationFrame(()=>{card.style.opacity='1';});});
 }
 function tRender(){
   const s=tSteps[tI];
