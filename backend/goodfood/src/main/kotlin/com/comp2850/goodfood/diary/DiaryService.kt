@@ -29,11 +29,16 @@ class DiaryService(
     fun getMyDiaryEntries(authentication: Authentication, date: LocalDate?): List<DiaryEntry> {
         val userEmail = authentication.name
 
-        return if (date == null) {
+        val entries = if (date == null) {
             diaryRepository.findByUserEmail(userEmail)
         } else {
             diaryRepository.findByUserEmailAndDate(userEmail, date)
         }
+
+        return entries.sortedWith(
+            compareByDescending<DiaryEntry> { it.diaryDate }
+                .thenBy { it.mealType.ordinal }
+        )
     }
 
     fun deleteMyDiaryEntry(id: Long, authentication: Authentication) {
