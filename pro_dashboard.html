@@ -1478,8 +1478,50 @@ function renderScoreRing(c) {
                 <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--ink-f);letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px">Max Clients</div>
                 <input type="number" value="20" style="width:100%;padding:10px 14px;border:1px solid var(--border);border-radius:8px;font-family:'Bricolage Grotesque',sans-serif;font-size:13px;color:var(--ink);outline:none">
               </div>
+              <div style="grid-column:1/-1">
+                <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--ink-f);letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px">Bio / About</div>
+                <textarea rows="3" style="width:100%;padding:10px 14px;border:1px solid var(--border);border-radius:8px;font-family:'Bricolage Grotesque',sans-serif;font-size:13px;color:var(--ink);outline:none;resize:vertical" onfocus="this.style.borderColor='var(--teal)'" onblur="this.style.borderColor='var(--border)'">Registered nutritionist with 12 years of experience helping clients achieve sustainable dietary goals. Specialising in sports nutrition and weight management.</textarea>
+              </div>
             </div>
             <button onclick="proSettingsSaved(this)" style="margin-top:16px;padding:11px 28px;background:var(--ink);color:#fff;border:none;border-radius:8px;font-family:'Bricolage Grotesque',sans-serif;font-size:13px;font-weight:600;cursor:pointer" onmouseover="this.style.background='var(--teal)'" onmouseout="this.style.background='var(--ink)'">Update Profile</button>
+          </div>
+          <!-- Consultation Availability -->
+          <div style="background:var(--white);border:1px solid var(--border);border-radius:16px;padding:28px;box-shadow:0 4px 16px rgba(10,20,16,0.04)">
+            <div style="font-size:14px;font-weight:700;color:var(--ink);margin-bottom:6px">Consultation Availability</div>
+            <div style="font-size:11px;color:var(--ink-f);margin-bottom:16px">Set your available time slots for client bookings</div>
+            <div style="display:flex;flex-direction:column;gap:10px">
+              <div style="display:flex;align-items:center;gap:12px;padding:8px 0;border-bottom:1px solid var(--fog)">
+                <label style="display:flex;align-items:center;gap:6px;width:90px;font-size:12px;font-weight:600;color:var(--ink)"><input type="checkbox" checked style="accent-color:var(--teal)"> Mon</label>
+                <input type="time" value="09:00" style="padding:6px 10px;border:1px solid var(--border);border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--ink);outline:none">
+                <span style="font-size:11px;color:var(--ink-f)">to</span>
+                <input type="time" value="17:00" style="padding:6px 10px;border:1px solid var(--border);border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--ink);outline:none">
+              </div>
+              <div style="display:flex;align-items:center;gap:12px;padding:8px 0;border-bottom:1px solid var(--fog)">
+                <label style="display:flex;align-items:center;gap:6px;width:90px;font-size:12px;font-weight:600;color:var(--ink)"><input type="checkbox" checked style="accent-color:var(--teal)"> Tue</label>
+                <input type="time" value="09:00" style="padding:6px 10px;border:1px solid var(--border);border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--ink);outline:none">
+                <span style="font-size:11px;color:var(--ink-f)">to</span>
+                <input type="time" value="17:00" style="padding:6px 10px;border:1px solid var(--border);border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--ink);outline:none">
+              </div>
+              <div style="display:flex;align-items:center;gap:12px;padding:8px 0;border-bottom:1px solid var(--fog)">
+                <label style="display:flex;align-items:center;gap:6px;width:90px;font-size:12px;font-weight:600;color:var(--ink)"><input type="checkbox" checked style="accent-color:var(--teal)"> Wed</label>
+                <input type="time" value="09:00" style="padding:6px 10px;border:1px solid var(--border);border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--ink);outline:none">
+                <span style="font-size:11px;color:var(--ink-f)">to</span>
+                <input type="time" value="17:00" style="padding:6px 10px;border:1px solid var(--border);border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--ink);outline:none">
+              </div>
+              <div style="display:flex;align-items:center;gap:12px;padding:8px 0;border-bottom:1px solid var(--fog)">
+                <label style="display:flex;align-items:center;gap:6px;width:90px;font-size:12px;font-weight:600;color:var(--ink)"><input type="checkbox" checked style="accent-color:var(--teal)"> Thu</label>
+                <input type="time" value="09:00" style="padding:6px 10px;border:1px solid var(--border);border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--ink);outline:none">
+                <span style="font-size:11px;color:var(--ink-f)">to</span>
+                <input type="time" value="17:00" style="padding:6px 10px;border:1px solid var(--border);border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--ink);outline:none">
+              </div>
+              <div style="display:flex;align-items:center;gap:12px;padding:8px 0">
+                <label style="display:flex;align-items:center;gap:6px;width:90px;font-size:12px;font-weight:600;color:var(--ink)"><input type="checkbox" style="accent-color:var(--teal)"> Fri</label>
+                <input type="time" value="09:00" style="padding:6px 10px;border:1px solid var(--border);border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--ink);outline:none">
+                <span style="font-size:11px;color:var(--ink-f)">to</span>
+                <input type="time" value="13:00" style="padding:6px 10px;border:1px solid var(--border);border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--ink);outline:none">
+              </div>
+            </div>
+            <button onclick="proSettingsSaved(this)" style="margin-top:16px;padding:11px 28px;background:var(--ink);color:#fff;border:none;border-radius:8px;font-family:'Bricolage Grotesque',sans-serif;font-size:13px;font-weight:600;cursor:pointer" onmouseover="this.style.background='var(--teal)'" onmouseout="this.style.background='var(--ink)'">Save Availability</button>
           </div>
           <div style="background:var(--white);border:1px solid var(--border);border-radius:16px;padding:28px;box-shadow:0 4px 16px rgba(10,20,16,0.04)">
             <div style="font-size:14px;font-weight:700;color:var(--ink);margin-bottom:18px">Change Password</div>

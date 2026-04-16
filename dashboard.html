@@ -202,6 +202,14 @@ body.dark-mode .fadd { background:#142420; border-color:#2a3e34; }
 body.dark-mode .bar-chart-card { background:#142420; border-color:#2a3e34; }
 
 /* ── RESPONSIVE ── */
+
+/* ── FILTER DROPDOWN ── */
+.filter-check-label { display:flex; align-items:center; gap:8px; padding:6px 8px; border-radius:8px; font-size:12px; font-weight:500; color:var(--ink); cursor:pointer; transition:background .15s; }
+.filter-check-label:hover { background:var(--paper); }
+.filter-check-label input[type=checkbox] { accent-color:var(--teal); width:16px; height:16px; cursor:pointer; }
+body.dark-mode .filter-dropdown { background:#142420 !important; border-color:#2a3e34 !important; }
+body.dark-mode .filter-check-label:hover { background:#1e3028; }
+
 @media (max-width:1024px) {
   .side-nav { width:60px; overflow:hidden; }
   .sn-item .sn-text { display:none; }
@@ -377,7 +385,34 @@ body.dark-mode .add-recipe-modal { background:#142420; }
 </div><!-- end page-record -->
 
 <div class="page" id="page-recipe" role="tabpanel" aria-label="Recipes"><div class="page-header"><div class="page-title">Discover <em>Recipes</em></div></div>
-<div class="recipe-top-bar" role="search"><div class="recipe-search"><span style="font-size:18px;color:var(--ink-f)">🔍</span><input class="rs-input" type="text" placeholder="Search by ingredient, cuisine, or recipe name..." aria-label="Search recipes" oninput="filterRecipes(this.value)"></div><a href="#" class="fav-link" onclick="switchPage('favourites',document.querySelectorAll('.sn-item')[2]);return false">❤️ My Favourites</a><button onclick="openAddRecipeModal()" class="fav-link" style="background:var(--teal);color:#fff;border-color:var(--teal)" aria-label="Add new recipe">+ Add Recipe</button></div>
+<div class="recipe-top-bar" style="display:flex;gap:10px;margin-bottom:24px;align-items:center">
+<!-- Filter dropdown -->
+<div class="filter-dropdown-wrap" style="position:relative">
+  <button onclick="toggleFilterDropdown()" class="fav-link" id="filterToggleBtn" style="display:flex;align-items:center;gap:6px" aria-label="Filter recipes" aria-expanded="false" aria-haspopup="true">
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M1.5 2h13L9.5 8.5V13l-3 1.5V8.5L1.5 2z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/></svg>
+    Filter <span id="filterCount" style="font-family:'JetBrains Mono',monospace;font-size:9px;padding:1px 6px;border-radius:10px;background:var(--teal-lll);color:var(--teal);display:none">0</span>
+  </button>
+  <div class="filter-dropdown" id="filterDropdown" style="display:none;position:absolute;top:48px;left:0;background:var(--white);border:1px solid var(--border);border-radius:14px;padding:16px 18px;min-width:280px;box-shadow:0 12px 40px rgba(10,20,16,0.12);z-index:100" role="menu">
+    <div style="font-size:13px;font-weight:700;color:var(--ink);margin-bottom:4px">Exclude ingredients</div>
+    <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--ink-f);margin-bottom:12px">Hide recipes containing these</div>
+    <div style="display:flex;flex-direction:column;gap:8px" id="filterCheckboxes">
+      <label class="filter-check-label"><input type="checkbox" value="nuts" onchange="applyIngredientFilter()"> 🥜 Nuts</label>
+      <label class="filter-check-label"><input type="checkbox" value="dairy" onchange="applyIngredientFilter()"> 🧀 Dairy</label>
+      <label class="filter-check-label"><input type="checkbox" value="gluten" onchange="applyIngredientFilter()"> 🌾 Gluten</label>
+      <label class="filter-check-label"><input type="checkbox" value="eggs" onchange="applyIngredientFilter()"> 🥚 Eggs</label>
+      <label class="filter-check-label"><input type="checkbox" value="fish" onchange="applyIngredientFilter()"> 🐟 Fish / Seafood</label>
+      <label class="filter-check-label"><input type="checkbox" value="meat" onchange="applyIngredientFilter()"> 🥩 Meat</label>
+      <label class="filter-check-label"><input type="checkbox" value="soy" onchange="applyIngredientFilter()"> 🫘 Soy</label>
+    </div>
+    <div style="border-top:1px solid var(--fog);margin-top:12px;padding-top:10px;display:flex;justify-content:space-between;align-items:center">
+      <button onclick="clearAllFilters()" style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--ink-f);background:none;border:none;cursor:pointer;padding:4px 0;transition:color .2s" onmouseover="this.style.color='var(--teal)'" onmouseout="this.style.color='var(--ink-f)'">Clear all</button>
+      <button onclick="toggleFilterDropdown()" style="padding:7px 16px;background:var(--ink);color:#fff;border:none;border-radius:8px;font-family:'Bricolage Grotesque',sans-serif;font-size:11px;font-weight:600;cursor:pointer;transition:background .2s" onmouseover="this.style.background='var(--teal)'" onmouseout="this.style.background='var(--ink)'">Done</button>
+    </div>
+  </div>
+</div>
+<a href="#" class="fav-link" onclick="switchPage('favourites',document.querySelectorAll('.sn-item')[2]);return false">❤️ My Favourites</a>
+<button onclick="openAddRecipeModal()" class="fav-link" style="background:var(--teal);color:#fff;border-color:var(--teal)" aria-label="Add new recipe">+ Add Recipe</button>
+</div>
 <div class="recipe-filters" role="toolbar" aria-label="Filter recipes"><button class="rf-tag active" onclick="filterRecipeTag(this,'all')" aria-pressed="true">All</button><button class="rf-tag" onclick="filterRecipeTag(this,'healthy')" aria-pressed="false">Healthy</button><button class="rf-tag" onclick="filterRecipeTag(this,'quick')" aria-pressed="false">Quick</button><button class="rf-tag" onclick="filterRecipeTag(this,'vegan')" aria-pressed="false">Vegan</button><button class="rf-tag" onclick="filterRecipeTag(this,'high-protein')" aria-pressed="false">High Protein</button><button class="rf-tag" onclick="filterRecipeTag(this,'comfort')" aria-pressed="false">Comfort</button><button class="rf-tag" onclick="filterRecipeTag(this,'my-recipes')" aria-pressed="false">My Recipes</button></div>
 <div class="recipe-grid">
 <div class="recipe-card" data-recipe-id="mediterranean-quinoa"><div class="rc-img" style="background:var(--teal-lll)">🥗</div><div class="rc-body"><div class="rc-tag">Healthy · 15 min</div><div class="rc-title">Mediterranean Quinoa Bowl</div><div class="rc-meta">420 kcal · £3.20</div><div class="rc-footer"><span class="rc-rating">★★★★☆</span><span class="rc-fav">🤍</span></div></div></div>
@@ -1743,6 +1778,78 @@ document.addEventListener('DOMContentLoaded', function(){
 
 // Save state before leaving
 window.addEventListener('beforeunload', saveState);
+</script>
+
+
+<script>
+// ══════════════════════════════════════════════════════════════
+// FEATURE: Ingredient Exclusion Filter (Funnel)
+// ══════════════════════════════════════════════════════════════
+
+// Allergen/ingredient tags for built-in recipes
+var recipeAllergens = {
+  'mediterranean-quinoa': ['dairy','gluten'],
+  'shakshuka': ['eggs'],
+  'grilled-salmon': ['fish'],
+  'avocado-toast': ['gluten'],
+  'pasta-primavera': ['gluten','dairy'],
+  'lentil-soup': []
+};
+
+function toggleFilterDropdown(){
+  var dd = document.getElementById('filterDropdown');
+  var btn = document.getElementById('filterToggleBtn');
+  var isOpen = dd.style.display !== 'none';
+  dd.style.display = isOpen ? 'none' : 'block';
+  btn.setAttribute('aria-expanded', !isOpen);
+}
+
+// Close dropdown when clicking outside
+document.addEventListener('click', function(e){
+  var wrap = document.querySelector('.filter-dropdown-wrap');
+  if(wrap && !wrap.contains(e.target)){
+    document.getElementById('filterDropdown').style.display = 'none';
+    document.getElementById('filterToggleBtn').setAttribute('aria-expanded','false');
+  }
+});
+
+function getExcludedIngredients(){
+  var excluded = [];
+  document.querySelectorAll('#filterCheckboxes input[type=checkbox]:checked').forEach(function(cb){
+    excluded.push(cb.value);
+  });
+  return excluded;
+}
+
+function applyIngredientFilter(){
+  var excluded = getExcludedIngredients();
+  // Update count badge
+  var countEl = document.getElementById('filterCount');
+  if(excluded.length > 0){
+    countEl.textContent = excluded.length;
+    countEl.style.display = 'inline';
+  } else {
+    countEl.style.display = 'none';
+  }
+  // Filter recipe cards
+  document.querySelectorAll('.recipe-card').forEach(function(card){
+    var id = card.dataset.recipeId;
+    if(!id){ card.style.display = ''; return; }
+    var allergens = recipeAllergens[id] || [];
+    // Also check custom recipes - if they have allergen data
+    var recipe = RECIPES[id];
+    if(recipe && recipe.allergens) allergens = recipe.allergens;
+    var shouldHide = excluded.some(function(ex){ return allergens.indexOf(ex) !== -1; });
+    card.style.display = shouldHide ? 'none' : '';
+  });
+}
+
+function clearAllFilters(){
+  document.querySelectorAll('#filterCheckboxes input[type=checkbox]').forEach(function(cb){
+    cb.checked = false;
+  });
+  applyIngredientFilter();
+}
 </script>
 
 </body></html>
