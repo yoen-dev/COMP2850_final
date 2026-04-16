@@ -758,7 +758,7 @@ body {
 .field label { display: block; font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--ink-m); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 6px; }
 .field input { width: 100%; padding: 11px 13px; font-family: 'Bricolage Grotesque', sans-serif; font-size: 13px; color: var(--ink); background: var(--white); border: 1px solid var(--border); border-radius: 7px; outline: none; transition: all 0.2s; }
 .field input::placeholder { color: var(--ink-f); }
-.field input:focus { border-color: var(--teal); box-shadow: 0 0 0 3px rgba(30,107,94,0.1); }
+.field input:focus { border-color: var(--border); box-shadow: 0 1px 4px rgba(10,20,16,0.08); }
 .field input.error { border-color: var(--error); }
 .pw-wrap { position: relative; }
 .pw-wrap input { padding-right: 40px; }
@@ -807,14 +807,202 @@ body {
 #page-auth { display: none; }
 body.show-auth #page-landing { display: none; }
 body.show-auth #page-auth { display: block; }
+
+/* ── RESPONSIVE ── */
+@media (max-width:1024px) {
+  .hero-content { grid-template-columns:1fr !important; gap:32px; }
+  .hero-app-panel { width:100% !important; max-width:500px; margin:0 auto; }
+  .hero { padding:90px 32px 0; }
+  .feat-list { grid-template-columns:repeat(3,1fr); }
+  .persona-grid { grid-template-columns:1fr 1fr; }
+  .cta-grid { grid-template-columns:1fr; }
+  .persona-card.large { grid-row:auto; }
+}
+@media (max-width:768px) {
+  nav { padding:0 16px; }
+  .hero { padding:90px 16px 0; min-height:auto; }
+  h1.hero-title { font-size:clamp(48px,8vw,100px); }
+  .hero-bottom { flex-direction:column; gap:20px; }
+  .feat-list { grid-template-columns:repeat(2,1fr); }
+  .feat-item { border-right:none; border-bottom:1px solid var(--border); }
+  .persona-grid { grid-template-columns:1fr; }
+  .how-step { grid-template-columns:1fr !important; }
+  .how-step:nth-child(even) { direction:ltr; }
+  .how-step-num { padding:24px; }
+  .diagonal-band-inner { flex-direction:column; gap:24px; }
+  .d-divider { width:48px; height:1px; }
+  .auth-shell { grid-template-columns:1fr !important; }
+  .panel-left { display:none; }
+  .panel-right { padding:40px 24px; }
+  .role-selector { grid-template-columns:1fr 1fr !important; }
+  section[style*="grid-template-columns:repeat(3"] > div { grid-template-columns:1fr !important; }
+  section[style*="grid-template-columns:1fr 1fr"] > div { grid-template-columns:1fr !important; }
+}
+@media (max-width:480px) {
+  .nav-center { display:none; }
+  .hero-bg-text { display:none; }
+  .feat-list { grid-template-columns:1fr; }
+  h1.hero-title { font-size:42px; }
+  .hero-app-panel { display:none !important; }
+  .cta-btns { flex-direction:column; }
+}
+
+/* ── ACCESSIBILITY ── */
+*:focus-visible { outline:2px solid var(--fog); outline-offset:2px; border-radius:4px; } input:focus-visible, textarea:focus-visible, select:focus-visible { outline:none; box-shadow:0 1px 4px rgba(10,20,16,0.08); }
+.skip-link { position:absolute; top:-40px; left:0; background:var(--teal); color:#fff; padding:8px 16px; z-index:99999; font-size:14px; font-weight:600; border-radius:0 0 8px 0; transition:top .2s; }
+.skip-link:focus { top:0; }
+
+/* ── PRINT ── */
+@media print { nav, .ticker-wrap, .auth-shell, footer { display:none !important; } .hero { min-height:auto; padding-top:20px; } }
+
+
+/* ═════════════════════════════════════════════════════════════════
+ * NOURISHWELL PATCH — A11y & Polish (inline)
+ * Added: WCAG AA fixes, focus, reduced-motion, sr-only, insights,
+ *        fridge mode, cooked toggle, cooking mode, shortcuts modal.
+ * ═════════════════════════════════════════════════════════════════ */
+
+:root {
+  --ink-f: #5a7267;                 /* was #6b8878 — now passes AA */
+  --ink-f-decorative: #6b8878;
+  --focus-ring: #1e6b5e;
+  --error: #b3261e;
+  --r-xs: 4px; --r-sm: 6px; --r-md: 10px; --r-lg: 14px; --r-xl: 20px;
+  --shadow-sm: 0 2px 8px rgba(10,20,16,0.04);
+  --shadow-md: 0 4px 16px rgba(10,20,16,0.06);
+  --shadow-lg: 0 12px 36px rgba(10,20,16,0.10);
+  --shadow-xl: 0 24px 80px rgba(10,20,16,0.18);
+}
+body.dark-mode { --ink-f: #9fb5aa; --ink-f-decorative: #7a9488; --focus-ring: #5fb8a5; }
+
+*:focus { outline: none; }
+*:focus-visible {
+  outline: 2px solid var(--focus-ring) !important;
+  outline-offset: 2px !important;
+  border-radius: 4px;
+  box-shadow: 0 0 0 4px rgba(30,107,94,0.15) !important;
+}
+input:focus-visible, textarea:focus-visible, select:focus-visible {
+  outline: none !important;
+  border-color: var(--focus-ring) !important;
+  box-shadow: 0 0 0 2px rgba(30,107,94,0.18) !important;
+}
+.qa-search-input:focus-visible,
+.rs-input:focus-visible,
+.fridge-input input:focus-visible,
+.comment-input-wrap input:focus-visible {
+  box-shadow: none !important;
+  border-color: transparent !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .ticker { animation: none !important; }
+  .reveal { opacity: 1 !important; transform: none !important; }
+  .recipe-card:hover, .fav-card:hover, .action-btn:hover { transform: none !important; }
+}
+
+.sr-only {
+  position: absolute !important; width: 1px !important; height: 1px !important;
+  padding: 0 !important; margin: -1px !important; overflow: hidden !important;
+  clip: rect(0,0,0,0) !important; white-space: nowrap !important; border: 0 !important;
+}
+
+.empty-state { text-align: center; padding: 48px 24px; background: var(--white); border: 1px dashed var(--border); border-radius: var(--r-lg); }
+.empty-state-icon { font-size: 42px; margin-bottom: 12px; opacity: 0.7; }
+.empty-state-title { font-size: 16px; font-weight: 700; color: var(--ink); margin-bottom: 6px; }
+.empty-state-body { font-size: 13px; color: var(--ink-f); max-width: 320px; margin: 0 auto; line-height: 1.6; }
+
+.insight-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--r-lg); padding: 16px 18px; box-shadow: var(--shadow-sm); margin-bottom: 0; border-left: 4px solid var(--teal); }
+.insight-card.warn { border-left-color: var(--amber); }
+.insight-card.alert { border-left-color: var(--error); }
+.insight-card.good { border-left-color: var(--teal); }
+.insight-title { font-size: 12px; font-weight: 700; color: var(--ink); display: flex; align-items: center; gap: 8px; margin-bottom: 4px; }
+.insight-title .insight-icon { font-size: 16px; }
+.insight-body { font-size: 13px; color: var(--ink-f); line-height: 1.55; }
+.insight-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px; margin-bottom: 20px; }
+body.dark-mode .insight-card { background: #142420; border-color: #2a3e34; }
+
+.fridge-panel { background: var(--teal-lll); border: 1px solid var(--teal-ll); border-radius: var(--r-lg); padding: 18px 20px; margin-bottom: 20px; }
+body.dark-mode .fridge-panel { background: rgba(30,107,94,0.15); border-color: rgba(30,107,94,0.4); }
+.fridge-title { font-size: 13px; font-weight: 700; color: var(--ink); margin-bottom: 4px; display: flex; align-items: center; gap: 8px; }
+.fridge-sub { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--ink-f); margin-bottom: 14px; }
+.fridge-chips { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
+.fridge-chip { display: inline-flex; align-items: center; gap: 4px; padding: 6px 12px; background: var(--white); border: 1px solid var(--border); border-radius: 20px; font-family: 'Bricolage Grotesque', sans-serif; font-size: 12px; font-weight: 500; color: var(--ink-m); cursor: pointer; transition: all 0.2s; }
+.fridge-chip:hover { border-color: var(--teal); color: var(--teal); }
+.fridge-chip.selected { background: var(--teal); color: white; border-color: var(--teal); }
+.fridge-chip .chip-x { font-size: 14px; opacity: 0.7; margin-left: 2px; }
+.fridge-input { display: flex; gap: 6px; align-items: center; }
+.fridge-input input { flex: 1; padding: 8px 12px; border: 1px solid var(--border); border-radius: var(--r-md); font-family: 'Bricolage Grotesque', sans-serif; font-size: 12px; background: var(--white); color: var(--ink); outline: none; }
+.fridge-input button { padding: 8px 16px; background: var(--teal); color: white; border: none; border-radius: var(--r-md); font-family: 'Bricolage Grotesque', sans-serif; font-size: 12px; font-weight: 600; cursor: pointer; transition: background 0.2s; }
+.fridge-input button:hover { background: var(--ink); }
+
+.recipe-card { position: relative; }
+.recipe-card .rc-match-badge { position: absolute; top: 8px; left: 8px; background: var(--teal); color: white; font-family: 'JetBrains Mono', monospace; font-size: 9px; padding: 3px 8px; border-radius: 12px; font-weight: 600; z-index: 2; }
+
+.cooked-toggle { display: inline-flex; align-items: center; gap: 5px; padding: 4px 10px; font-family: 'JetBrains Mono', monospace; font-size: 9px; font-weight: 600; letter-spacing: 0.04em; border-radius: 12px; border: 1px solid var(--border); background: var(--white); color: var(--ink-f); cursor: pointer; transition: all 0.15s; }
+.cooked-toggle:hover { border-color: var(--teal); color: var(--teal); }
+.cooked-toggle.cooked { background: var(--teal-lll); color: var(--teal); border-color: var(--teal-ll); }
+
+.cooking-mode { position: fixed; inset: 0; background: var(--paper); z-index: 10000; display: none; flex-direction: column; padding: 24px; }
+.cooking-mode.active { display: flex; }
+.cook-header { display: flex; align-items: center; justify-content: space-between; padding-bottom: 20px; border-bottom: 1px solid var(--border); margin-bottom: 32px; }
+.cook-title { font-family: 'Instrument Serif', serif; font-size: 28px; font-style: italic; color: var(--ink); }
+.cook-close { width: 40px; height: 40px; border-radius: var(--r-md); border: 1px solid var(--border); background: var(--white); font-size: 18px; cursor: pointer; color: var(--ink-m); }
+.cook-body { flex: 1; display: flex; align-items: center; justify-content: center; max-width: 800px; margin: 0 auto; width: 100%; }
+.cook-step { text-align: center; }
+.cook-step-counter { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--teal); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 20px; }
+.cook-step-text { font-family: 'Instrument Serif', serif; font-size: 42px; font-style: italic; color: var(--ink); line-height: 1.3; letter-spacing: -0.02em; margin-bottom: 24px; }
+.cook-ingredient-list { font-size: 15px; color: var(--ink-f); line-height: 1.9; background: var(--white); border: 1px solid var(--border); border-radius: var(--r-lg); padding: 24px 32px; max-width: 480px; margin: 0 auto; text-align: left; }
+.cook-footer { display: flex; align-items: center; justify-content: space-between; padding-top: 24px; border-top: 1px solid var(--border); }
+.cook-nav-btn { padding: 14px 28px; background: var(--ink); color: white; border: none; border-radius: var(--r-md); font-family: 'Bricolage Grotesque', sans-serif; font-size: 14px; font-weight: 600; cursor: pointer; transition: background 0.2s; }
+.cook-nav-btn:hover { background: var(--teal); }
+.cook-nav-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+.cook-nav-btn.ghost { background: transparent; color: var(--ink-m); border: 1px solid var(--border); }
+.cook-progress { flex: 1; margin: 0 24px; height: 6px; background: var(--fog); border-radius: 3px; overflow: hidden; }
+.cook-progress-fill { height: 100%; background: var(--teal); transition: width 0.3s ease; }
+body.dark-mode .cooking-mode { background: #0d1a14; }
+body.dark-mode .cook-ingredient-list { background: #142420; border-color: #2a3e34; }
+
+.shortcuts-overlay { position: fixed; inset: 0; background: rgba(10,20,16,0.5); z-index: 10001; display: none; align-items: center; justify-content: center; }
+.shortcuts-overlay.open { display: flex; }
+.shortcuts-modal { background: var(--white); border-radius: var(--r-xl); padding: 32px; max-width: 480px; width: 90vw; box-shadow: var(--shadow-xl); }
+body.dark-mode .shortcuts-modal { background: #142420; }
+.shortcut-row { display: flex; align-items: center; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid var(--fog); font-size: 13px; color: var(--ink); }
+.shortcut-row:last-child { border-bottom: none; }
+.shortcut-keys { display: flex; gap: 4px; }
+.shortcut-key { font-family: 'JetBrains Mono', monospace; font-size: 11px; padding: 4px 8px; background: var(--paper); border: 1px solid var(--border); border-radius: 4px; color: var(--ink-m); min-width: 22px; text-align: center; }
+
+@media print {
+  .insight-card { page-break-inside: avoid; border: 1px solid #999; box-shadow: none; }
+  .skip-link, .shortcuts-overlay, .cooking-mode { display: none !important; }
+}
+
+@media (max-width: 768px) {
+  .auth-shell { grid-template-columns: 1fr !important; }
+  .panel-left { min-height: 220px; padding: 28px 24px !important; }
+  .panel-left .feature-pills { display: none; }
+  .panel-right { padding: 32px 20px !important; }
+  .qa-title { font-size: 28px !important; }
+  .qa-search { padding: 10px 14px !important; }
+}
+
 </style>
 </head>
 <body>
+<a href="#page-landing" class="skip-link">Skip to content</a>
+
+
 
 <div id="page-landing">
 <!-- Custom cursor -->
 <!-- NAV -->
-<nav>
+<nav role="navigation" aria-label="Main navigation">
   <div class="nav-bg"></div>
   <a href="#" class="logo">
     <div class="logo-mark">🌿</div>
@@ -830,7 +1018,7 @@ body.show-auth #page-auth { display: block; }
 </nav>
 
 <!-- HERO -->
-<section class="hero">
+<section class="hero" role="banner">
   <div class="hero-bg-text">
     <svg width="66vw" height="220" viewBox="0 0 1000 220" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:70vw;">
       <text x="0" y="190" font-family="Arial Black, Arial, sans-serif" font-weight="900" font-size="240" fill="none" stroke="rgba(30,107,94,0.12)" stroke-width="2" letter-spacing="-6">NOURISH</text>
@@ -876,31 +1064,39 @@ body.show-auth #page-auth { display: block; }
     <!-- Hero right: preview cards matching wireframe layout -->
     <div class="hero-app-panel" style="display:grid;grid-template-columns:1fr 1fr;grid-template-rows:auto auto auto;width:500px;gap:14px;padding-bottom:0;align-self:center;">
 
-      <!-- Top-left: Trend chart -->
+      <!-- Top-left: Exercise activity chart -->
       <div class="preview-card" style="background:var(--white);border:1px solid var(--border);border-radius:14px;overflow:hidden;box-shadow:0 6px 24px rgba(10,20,16,0.06);">
-        <div class="preview-img-slot" style="width:100%;height:120px;background:var(--teal-lll);display:flex;align-items:center;justify-content:center;">
-          <!-- TODO: Replace with trend chart screenshot -->
-          <svg width="120" height="60" viewBox="0 0 120 60" fill="none">
-            <polyline points="5,50 25,35 45,40 65,20 85,25 115,8" stroke="var(--teal)" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-            <polyline points="5,55 25,48 45,50 65,42 85,44 115,38" stroke="var(--amber-l)" stroke-width="1.5" fill="none" stroke-dasharray="4 3" stroke-linecap="round"/>
-          </svg>
+        <div style="width:100%;height:120px;background:var(--teal-lll);display:flex;flex-direction:column;justify-content:flex-end;padding:12px 14px;gap:4px;">
+          <div style="display:flex;align-items:flex-end;gap:5px;height:70px;">
+            <div style="flex:1;background:var(--teal);border-radius:3px 3px 0 0;height:55%"></div>
+            <div style="flex:1;background:var(--teal);border-radius:3px 3px 0 0;height:75%"></div>
+            <div style="flex:1;background:var(--fog);border-radius:3px 3px 0 0;height:30%"></div>
+            <div style="flex:1;background:var(--teal);border-radius:3px 3px 0 0;height:85%"></div>
+            <div style="flex:1;background:var(--teal);border-radius:3px 3px 0 0;height:65%"></div>
+            <div style="flex:1;background:var(--teal-l);border-radius:3px 3px 0 0;height:95%"></div>
+            <div style="flex:1;background:var(--teal-ll);border-radius:3px 3px 0 0;height:40%"></div>
+          </div>
+          <div style="display:flex;justify-content:space-between;font-family:'JetBrains Mono',monospace;font-size:7px;color:var(--teal)">
+            <span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span><span>S</span>
+          </div>
         </div>
         <div style="padding:10px 14px;">
-          <div style="font-family:'JetBrains Mono',monospace;font-size:8px;color:var(--teal);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:3px;">Trends</div>
-          <div style="font-size:11px;font-weight:700;color:var(--ink);">Weekly overview</div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:8px;color:var(--teal);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:3px;">Exercise</div>
+          <div style="font-size:11px;font-weight:700;color:var(--ink);">Weekly activity</div>
         </div>
       </div>
 
-      <!-- Top-right: Food photo card -->
+      <!-- Top-right: Meal log entry -->
       <div class="preview-card" style="background:var(--white);border:1px solid var(--border);border-radius:14px;overflow:hidden;box-shadow:0 6px 24px rgba(10,20,16,0.06);">
-        <div class="preview-img-slot" style="width:100%;height:80px;background:var(--fog);display:flex;align-items:center;justify-content:center;border-bottom:1px solid var(--border);">
-          <!-- TODO: Replace with food photo -->
-          <span style="font-size:28px;">🥗</span>
+        <div style="width:100%;height:80px;background:var(--amber-ll);display:flex;align-items:center;justify-content:center;border-bottom:1px solid var(--border);">
+          <span style="font-size:32px;">🍳</span>
         </div>
         <div style="padding:10px 14px;">
-          <div style="font-size:11px;font-weight:700;color:var(--ink);margin-bottom:4px;">Chicken Caesar</div>
-          <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--ink-f);">Calories: 520 kcal</div>
-          <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--ink-f);margin-top:2px;">Time: 12:30 PM</div>
+          <div style="font-size:11px;font-weight:700;color:var(--ink);margin-bottom:3px;">Shakshuka</div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--ink-f);">380 kcal · Breakfast</div>
+          <div style="display:flex;gap:3px;margin-top:4px;">
+            <span style="font-size:10px;color:var(--amber)">★★★★★</span>
+          </div>
         </div>
       </div>
 
@@ -933,23 +1129,41 @@ body.show-auth #page-auth { display: block; }
         </div>
       </div>
 
-      <!-- Bottom-left: Feature preview 1 -->
+      <!-- Bottom-left: Meal planner -->
       <div class="preview-card" style="background:var(--white);border:1px solid var(--border);border-radius:14px;overflow:hidden;box-shadow:0 6px 24px rgba(10,20,16,0.06);">
-        <div class="preview-img-slot" style="width:100%;height:100px;background:var(--amber-ll);display:flex;align-items:center;justify-content:center;">
-          <!-- TODO: Replace with feature screenshot -->
-          <span style="font-size:28px;">🍳</span>
+        <div style="width:100%;height:100px;background:var(--teal-lll);padding:12px;display:flex;flex-direction:column;gap:6px;">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:7px;color:var(--teal);text-transform:uppercase;letter-spacing:.08em">Today's Plan</div>
+          <div style="display:flex;align-items:center;gap:6px;background:#fff;border-radius:8px;padding:5px 8px;border:1px solid var(--teal-ll)">
+            <span style="font-size:14px">🥑</span>
+            <div style="flex:1"><div style="font-size:9px;font-weight:700;color:var(--ink)">Avocado Toast</div><div style="font-size:8px;color:var(--ink-f)">290 kcal</div></div>
+            <div style="font-size:8px;color:var(--teal);font-weight:700">🔒</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:6px;background:rgba(255,255,255,0.6);border-radius:8px;padding:5px 8px;border:1px dashed var(--teal-ll)">
+            <span style="font-size:14px">🐟</span>
+            <div style="flex:1"><div style="font-size:9px;font-weight:700;color:var(--ink)">Grilled Salmon</div><div style="font-size:8px;color:var(--ink-f)">510 kcal</div></div>
+            <div style="font-size:8px;color:var(--amber)">✨</div>
+          </div>
         </div>
         <div style="padding:10px 14px;">
-          <div style="font-family:'JetBrains Mono',monospace;font-size:8px;color:var(--amber);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:3px;">Recipes</div>
-          <div style="font-size:11px;font-weight:700;color:var(--ink);">Discover meals</div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:8px;color:var(--teal);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:3px;">Meal Planner</div>
+          <div style="font-size:11px;font-weight:700;color:var(--ink);">Plan your day</div>
         </div>
       </div>
 
-      <!-- Bottom-right: Feature preview 2 -->
+      <!-- Bottom-right: Pro client dashboard -->
       <div class="preview-card" style="background:var(--white);border:1px solid var(--border);border-radius:14px;overflow:hidden;box-shadow:0 6px 24px rgba(10,20,16,0.06);">
-        <div class="preview-img-slot" style="width:100%;height:100px;background:var(--teal-lll);display:flex;align-items:center;justify-content:center;">
-          <!-- TODO: Replace with feature screenshot -->
-          <span style="font-size:28px;">👨‍⚕️</span>
+        <div style="width:100%;height:100px;background:var(--ink);padding:12px;display:flex;flex-direction:column;gap:5px;">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:7px;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:.08em">5 Active Clients</div>
+          <div style="display:flex;gap:4px;">
+            <div style="width:28px;height:28px;border-radius:50%;background:var(--teal);display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:#fff">RC</div>
+            <div style="width:28px;height:28px;border-radius:50%;background:#7aaad4;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:#fff">JT</div>
+            <div style="width:28px;height:28px;border-radius:50%;background:#e07b78;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:#fff">SL</div>
+            <div style="width:28px;height:28px;border-radius:50%;background:#b8621f;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:#fff">MW</div>
+          </div>
+          <div style="display:flex;gap:4px;">
+            <span style="font-size:8px;padding:2px 6px;border-radius:6px;background:rgba(47,143,127,0.2);color:#2f8f7f">✓ On track ×3</span>
+            <span style="font-size:8px;padding:2px 6px;border-radius:6px;background:rgba(220,38,38,0.15);color:#ef4444">! Alert ×1</span>
+          </div>
         </div>
         <div style="padding:10px 14px;">
           <div style="font-family:'JetBrains Mono',monospace;font-size:8px;color:var(--teal);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:3px;">Professional</div>
@@ -961,7 +1175,186 @@ body.show-auth #page-auth { display: block; }
   </div><!-- /hero-content -->
 </section>
 
-</div>
+
+<!-- ── Features Section ──────────────────────────────────────────────────── -->
+<section style="background:var(--white);padding:96px 40px;">
+  <div style="max-width:1100px;margin:0 auto;">
+    <div style="text-align:center;margin-bottom:64px;">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--teal);letter-spacing:.12em;text-transform:uppercase;margin-bottom:12px;">What NourishWell does</div>
+      <h2 style="font-family:'Instrument Serif',serif;font-size:clamp(32px,4vw,48px);font-style:italic;color:var(--ink);margin-bottom:16px;letter-spacing:-0.02em">Everything you need to eat <em style="color:var(--teal)">better</em></h2>
+      <p style="font-size:16px;color:var(--ink-f);max-width:540px;margin:0 auto;line-height:1.7">From logging your first meal to getting personalised advice from a health professional — NourishWell covers the full journey.</p>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;">
+      <!-- Feature 1 -->
+      <div style="padding:28px;border:1px solid var(--border);border-radius:20px;background:var(--paper);transition:all .2s" onmouseover="this.style.boxShadow='0 12px 40px rgba(10,20,16,0.08)';this.style.transform='translateY(-2px)'" onmouseout="this.style.boxShadow='none';this.style.transform='none'">
+        <div style="width:48px;height:48px;border-radius:14px;background:var(--teal-lll);display:flex;align-items:center;justify-content:center;font-size:22px;margin-bottom:18px;">📋</div>
+        <div style="font-size:16px;font-weight:700;color:var(--ink);margin-bottom:8px;">Food Diary</div>
+        <p style="font-size:13px;color:var(--ink-f);line-height:1.6;margin-bottom:14px;">Log every meal across 6 time slots — breakfast, snacks, lunch, dinner. See your daily calorie and macro totals update in real time.</p>
+        <div style="display:flex;flex-wrap:wrap;gap:6px;">
+          <span style="font-family:'JetBrains Mono',monospace;font-size:9px;padding:3px 8px;border-radius:20px;background:var(--teal-lll);color:var(--teal)">Real-time totals</span>
+          <span style="font-family:'JetBrains Mono',monospace;font-size:9px;padding:3px 8px;border-radius:20px;background:var(--teal-lll);color:var(--teal)">6 meal slots</span>
+        </div>
+      </div>
+      <!-- Feature 2 -->
+      <div style="padding:28px;border:1px solid var(--border);border-radius:20px;background:var(--paper);transition:all .2s" onmouseover="this.style.boxShadow='0 12px 40px rgba(10,20,16,0.08)';this.style.transform='translateY(-2px)'" onmouseout="this.style.boxShadow='none';this.style.transform='none'">
+        <div style="width:48px;height:48px;border-radius:14px;background:var(--amber-ll);display:flex;align-items:center;justify-content:center;font-size:22px;margin-bottom:18px;">🥗</div>
+        <div style="font-size:16px;font-weight:700;color:var(--ink);margin-bottom:8px;">Recipe Library</div>
+        <p style="font-size:13px;color:var(--ink-f);line-height:1.6;margin-bottom:14px;">Browse nutritious recipes, save favourites, rate and review meals, and add your own creations. Filter by tag, ingredient, or prep time.</p>
+        <div style="display:flex;flex-wrap:wrap;gap:6px;">
+          <span style="font-family:'JetBrains Mono',monospace;font-size:9px;padding:3px 8px;border-radius:20px;background:var(--amber-ll);color:var(--amber)">Star ratings</span>
+          <span style="font-family:'JetBrains Mono',monospace;font-size:9px;padding:3px 8px;border-radius:20px;background:var(--amber-ll);color:var(--amber)">Add your own</span>
+        </div>
+      </div>
+      <!-- Feature 3 -->
+      <div style="padding:28px;border:1px solid var(--border);border-radius:20px;background:var(--paper);transition:all .2s" onmouseover="this.style.boxShadow='0 12px 40px rgba(10,20,16,0.08)';this.style.transform='translateY(-2px)'" onmouseout="this.style.boxShadow='none';this.style.transform='none'">
+        <div style="width:48px;height:48px;border-radius:14px;background:var(--teal-lll);display:flex;align-items:center;justify-content:center;font-size:22px;margin-bottom:18px;">🧠</div>
+        <div style="font-size:16px;font-weight:700;color:var(--ink);margin-bottom:8px;">Meal Planner</div>
+        <p style="font-size:13px;color:var(--ink-f);line-height:1.6;margin-bottom:14px;">Plan your meals for the day with your calorie budget in mind. Lock dishes you love, swap the rest, and confirm a plan that fits your goals.</p>
+        <div style="display:flex;flex-wrap:wrap;gap:6px;">
+          <span style="font-family:'JetBrains Mono',monospace;font-size:9px;padding:3px 8px;border-radius:20px;background:var(--teal-lll);color:var(--teal)">Calorie budget</span>
+          <span style="font-family:'JetBrains Mono',monospace;font-size:9px;padding:3px 8px;border-radius:20px;background:var(--teal-lll);color:var(--teal)">Lock & swap</span>
+        </div>
+      </div>
+      <!-- Feature 4 -->
+      <div style="padding:28px;border:1px solid var(--border);border-radius:20px;background:var(--paper);transition:all .2s" onmouseover="this.style.boxShadow='0 12px 40px rgba(10,20,16,0.08)';this.style.transform='translateY(-2px)'" onmouseout="this.style.boxShadow='none';this.style.transform='none'">
+        <div style="width:48px;height:48px;border-radius:14px;background:rgba(122,170,212,0.15);display:flex;align-items:center;justify-content:center;font-size:22px;margin-bottom:18px;">📊</div>
+        <div style="font-size:16px;font-weight:700;color:var(--ink);margin-bottom:8px;">Nutrition Charts</div>
+        <p style="font-size:13px;color:var(--ink-f);line-height:1.6;margin-bottom:14px;">Visual donut charts show your macro split at a glance. Compare up to 4 recipes side by side to make smarter food choices.</p>
+        <div style="display:flex;flex-wrap:wrap;gap:6px;">
+          <span style="font-family:'JetBrains Mono',monospace;font-size:9px;padding:3px 8px;border-radius:20px;background:rgba(122,170,212,0.15);color:var(--blue)">Donut chart</span>
+          <span style="font-family:'JetBrains Mono',monospace;font-size:9px;padding:3px 8px;border-radius:20px;background:rgba(122,170,212,0.15);color:var(--blue)">Recipe compare</span>
+        </div>
+      </div>
+      <!-- Feature 5 -->
+      <div style="padding:28px;border:1px solid var(--border);border-radius:20px;background:var(--paper);transition:all .2s" onmouseover="this.style.boxShadow='0 12px 40px rgba(10,20,16,0.08)';this.style.transform='translateY(-2px)'" onmouseout="this.style.boxShadow='none';this.style.transform='none'">
+        <div style="width:48px;height:48px;border-radius:14px;background:rgba(224,123,120,0.1);display:flex;align-items:center;justify-content:center;font-size:22px;margin-bottom:18px;">🏃</div>
+        <div style="font-size:16px;font-weight:700;color:var(--ink);margin-bottom:8px;">Exercise Tracking</div>
+        <p style="font-size:13px;color:var(--ink-f);line-height:1.6;margin-bottom:14px;">Log workouts and see calories burned alongside your intake. Weekly activity bar chart shows your consistency over time.</p>
+        <div style="display:flex;flex-wrap:wrap;gap:6px;">
+          <span style="font-family:'JetBrains Mono',monospace;font-size:9px;padding:3px 8px;border-radius:20px;background:rgba(224,123,120,0.1);color:var(--pink)">Calories burned</span>
+          <span style="font-family:'JetBrains Mono',monospace;font-size:9px;padding:3px 8px;border-radius:20px;background:rgba(224,123,120,0.1);color:var(--pink)">Weekly chart</span>
+        </div>
+      </div>
+      <!-- Feature 6 -->
+      <div style="padding:28px;border:1px solid var(--ink);border-radius:20px;background:var(--ink);transition:all .2s" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='none'">
+        <div style="width:48px;height:48px;border-radius:14px;background:rgba(255,255,255,0.1);display:flex;align-items:center;justify-content:center;font-size:22px;margin-bottom:18px;">👨‍⚕️</div>
+        <div style="font-size:16px;font-weight:700;color:#fff;margin-bottom:8px;">Professional Tools</div>
+        <p style="font-size:13px;color:rgba(255,255,255,0.55);line-height:1.6;margin-bottom:14px;">Health professionals get a full client dashboard — monitor progress, send personalised advice, book appointments, and edit meal plans.</p>
+        <div style="display:flex;flex-wrap:wrap;gap:6px;">
+          <span style="font-family:'JetBrains Mono',monospace;font-size:9px;padding:3px 8px;border-radius:20px;background:rgba(47,143,127,0.25);color:#2f8f7f">Client analytics</span>
+          <span style="font-family:'JetBrains Mono',monospace;font-size:9px;padding:3px 8px;border-radius:20px;background:rgba(47,143,127,0.25);color:#2f8f7f">Messaging</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── How it works ────────────────────────────────────────────────────────── -->
+<section style="background:var(--paper);padding:96px 40px;">
+  <div style="max-width:900px;margin:0 auto;">
+    <div style="text-align:center;margin-bottom:64px;">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--teal);letter-spacing:.12em;text-transform:uppercase;margin-bottom:12px;">Get started in minutes</div>
+      <h2 style="font-family:'Instrument Serif',serif;font-size:clamp(28px,3.5vw,42px);font-style:italic;color:var(--ink);letter-spacing:-0.02em">How it <em style="color:var(--teal)">works</em></h2>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:48px;">
+      <!-- Step 1 -->
+      <div style="display:grid;grid-template-columns:80px 1fr;gap:32px;align-items:start;">
+        <div style="width:64px;height:64px;border-radius:50%;background:var(--teal);display:flex;align-items:center;justify-content:center;font-family:'Instrument Serif',serif;font-size:28px;font-style:italic;color:#fff;flex-shrink:0;">1</div>
+        <div style="padding-top:12px;">
+          <div style="font-size:18px;font-weight:700;color:var(--ink);margin-bottom:8px;">Create your account & set up your profile</div>
+          <p style="font-size:14px;color:var(--ink-f);line-height:1.7;max-width:560px;">Sign up as a subscriber or health professional. Enter your height, weight, and daily calorie target — our onboarding guide walks you through everything in under 2 minutes.</p>
+        </div>
+      </div>
+      <!-- Step 2 -->
+      <div style="display:grid;grid-template-columns:80px 1fr;gap:32px;align-items:start;">
+        <div style="width:64px;height:64px;border-radius:50%;background:var(--ink);display:flex;align-items:center;justify-content:center;font-family:'Instrument Serif',serif;font-size:28px;font-style:italic;color:#fff;flex-shrink:0;">2</div>
+        <div style="padding-top:12px;">
+          <div style="font-size:18px;font-weight:700;color:var(--ink);margin-bottom:8px;">Log your meals and exercise daily</div>
+          <p style="font-size:14px;color:var(--ink-f);line-height:1.7;max-width:560px;">Use the food diary to record what you eat across breakfast, lunch, dinner and snacks. Log workouts to see your calories in vs. out. Your nutrition donut updates with every entry.</p>
+        </div>
+      </div>
+      <!-- Step 3 -->
+      <div style="display:grid;grid-template-columns:80px 1fr;gap:32px;align-items:start;">
+        <div style="width:64px;height:64px;border-radius:50%;background:var(--teal);display:flex;align-items:center;justify-content:center;font-family:'Instrument Serif',serif;font-size:28px;font-style:italic;color:#fff;flex-shrink:0;">3</div>
+        <div style="padding-top:12px;">
+          <div style="font-size:18px;font-weight:700;color:var(--ink);margin-bottom:8px;">Discover recipes and plan ahead</div>
+          <p style="font-size:14px;color:var(--ink-f);line-height:1.7;max-width:560px;">Browse the recipe library, save favourites, and use the meal planner to build a day that fits your calorie budget. Compare dishes side by side to make smarter choices.</p>
+        </div>
+      </div>
+      <!-- Step 4 -->
+      <div style="display:grid;grid-template-columns:80px 1fr;gap:32px;align-items:start;">
+        <div style="width:64px;height:64px;border-radius:50%;background:var(--ink);display:flex;align-items:center;justify-content:center;font-family:'Instrument Serif',serif;font-size:28px;font-style:italic;color:#fff;flex-shrink:0;">4</div>
+        <div style="padding-top:12px;">
+          <div style="font-size:18px;font-weight:700;color:var(--ink);margin-bottom:8px;">Get support from a health professional</div>
+          <p style="font-size:14px;color:var(--ink-f);line-height:1.7;max-width:560px;">Your assigned professional monitors your progress, sends personalised advice through the messaging system, and adjusts your meal and training plan as you improve.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Who it's for ───────────────────────────────────────────────────────── -->
+<section style="background:var(--white);padding:96px 40px;">
+  <div style="max-width:1100px;margin:0 auto;">
+    <div style="text-align:center;margin-bottom:64px;">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--teal);letter-spacing:.12em;text-transform:uppercase;margin-bottom:12px;">Made for two kinds of people</div>
+      <h2 style="font-family:'Instrument Serif',serif;font-size:clamp(28px,3.5vw,42px);font-style:italic;color:var(--ink);letter-spacing:-0.02em">Who uses <em style="color:var(--teal)">NourishWell</em></h2>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;">
+      <!-- Subscriber card -->
+      <div style="border:1px solid var(--border);border-radius:24px;overflow:hidden;">
+        <div style="background:var(--teal-lll);padding:32px 32px 24px;">
+          <div style="width:56px;height:56px;border-radius:50%;background:var(--teal);display:flex;align-items:center;justify-content:center;font-size:24px;margin-bottom:16px;">🧑‍💼</div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--teal);letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px;">Subscriber</div>
+          <div style="font-family:'Instrument Serif',serif;font-size:24px;font-style:italic;color:var(--ink);">The health-conscious individual</div>
+        </div>
+        <div style="padding:28px 32px;">
+          <p style="font-size:14px;color:var(--ink-f);line-height:1.7;margin-bottom:20px;">You want to eat better but don't know where to start. NourishWell gives you a clear picture of your diet without overwhelming spreadsheets or expensive apps.</p>
+          <div style="display:flex;flex-direction:column;gap:10px;">
+            <div style="display:flex;align-items:center;gap:10px;font-size:13px;color:var(--ink)"><span style="color:var(--teal);font-weight:700">✓</span> Log meals in seconds</div>
+            <div style="display:flex;align-items:center;gap:10px;font-size:13px;color:var(--ink)"><span style="color:var(--teal);font-weight:700">✓</span> See your macro breakdown visually</div>
+            <div style="display:flex;align-items:center;gap:10px;font-size:13px;color:var(--ink)"><span style="color:var(--teal);font-weight:700">✓</span> Discover and save nutritious recipes</div>
+            <div style="display:flex;align-items:center;gap:10px;font-size:13px;color:var(--ink)"><span style="color:var(--teal);font-weight:700">✓</span> Plan your meals to hit your daily targets</div>
+            <div style="display:flex;align-items:center;gap:10px;font-size:13px;color:var(--ink)"><span style="color:var(--teal);font-weight:700">✓</span> Receive guidance from your professional</div>
+          </div>
+        </div>
+      </div>
+      <!-- Professional card -->
+      <div style="border:1px solid var(--border);border-radius:24px;overflow:hidden;">
+        <div style="background:var(--ink);padding:32px 32px 24px;">
+          <div style="width:56px;height:56px;border-radius:50%;background:rgba(255,255,255,0.1);display:flex;align-items:center;justify-content:center;font-size:24px;margin-bottom:16px;">👨‍⚕️</div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--teal-l);letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px;">Professional</div>
+          <div style="font-family:'Instrument Serif',serif;font-size:24px;font-style:italic;color:#fff;">The health & nutrition expert</div>
+        </div>
+        <div style="padding:28px 32px;">
+          <p style="font-size:14px;color:var(--ink-f);line-height:1.7;margin-bottom:20px;">You work with clients to improve their diet and lifestyle. NourishWell gives you a professional dashboard to monitor progress, send advice, and manage appointments — all in one place.</p>
+          <div style="display:flex;flex-direction:column;gap:10px;">
+            <div style="display:flex;align-items:center;gap:10px;font-size:13px;color:var(--ink)"><span style="color:var(--teal);font-weight:700">✓</span> Monitor all clients from one overview</div>
+            <div style="display:flex;align-items:center;gap:10px;font-size:13px;color:var(--ink)"><span style="color:var(--teal);font-weight:700">✓</span> View BMI, macros, calories & health scores</div>
+            <div style="display:flex;align-items:center;gap:10px;font-size:13px;color:var(--ink)"><span style="color:var(--teal);font-weight:700">✓</span> Send messages and nutritional advice</div>
+            <div style="display:flex;align-items:center;gap:10px;font-size:13px;color:var(--ink)"><span style="color:var(--teal);font-weight:700">✓</span> Edit personalised meal & training plans</div>
+            <div style="display:flex;align-items:center;gap:10px;font-size:13px;color:var(--ink)"><span style="color:var(--teal);font-weight:700">✓</span> Book and manage client appointments</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── CTA ────────────────────────────────────────────────────────────────── -->
+<section style="background:var(--ink);padding:96px 40px;">
+  <div style="max-width:700px;margin:0 auto;text-align:center;">
+    <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:rgba(255,255,255,0.3);letter-spacing:.12em;text-transform:uppercase;margin-bottom:16px;">Start today — it's free</div>
+    <h2 style="font-family:'Instrument Serif',serif;font-size:clamp(32px,4vw,52px);font-style:italic;color:#fff;margin-bottom:16px;letter-spacing:-0.02em;">Ready to eat <em style="color:var(--teal-l)">smarter?</em></h2>
+    <p style="font-size:16px;color:rgba(255,255,255,0.5);line-height:1.7;margin-bottom:40px;max-width:480px;margin-left:auto;margin-right:auto;">Join NourishWell today and take the first step towards a healthier relationship with food. No calorie obsession — just clear, actionable insights.</p>
+    <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap;">
+      <a href="#" onclick="showAuth('register');return false" style="display:inline-flex;align-items:center;gap:8px;padding:16px 36px;background:var(--teal);color:#fff;border:none;border-radius:10px;font-family:'Bricolage Grotesque',sans-serif;font-size:15px;font-weight:700;cursor:pointer;text-decoration:none;transition:all .2s" onmouseover="this.style.background='var(--teal-l)'" onmouseout="this.style.background='var(--teal)'">Get started free →</a>
+      <a href="#" onclick="showAuth('login');return false" style="display:inline-flex;align-items:center;gap:8px;padding:16px 32px;background:transparent;color:rgba(255,255,255,0.7);border:1px solid rgba(255,255,255,0.2);border-radius:10px;font-family:'Bricolage Grotesque',sans-serif;font-size:15px;font-weight:600;cursor:pointer;text-decoration:none;transition:all .2s" onmouseover="this.style.borderColor='rgba(255,255,255,0.5)';this.style.color='#fff'" onmouseout="this.style.borderColor='rgba(255,255,255,0.2)';this.style.color='rgba(255,255,255,0.7)'">Sign in</a>
+    </div>
+    <div style="margin-top:32px;font-family:'JetBrains Mono',monospace;font-size:10px;color:rgba(255,255,255,0.2);letter-spacing:.06em;">University of Leeds · COMP2850 · 2026</div>
+  </div>
+</section>
+</div><!-- end page-landing -->
 
 <!-- 
   Authentication Pages / 认证页面
@@ -972,6 +1365,8 @@ body.show-auth #page-auth { display: block; }
   @contains Password strength indicator / 密码强度指示器
   @contains Professional licence field (conditional) / 专业执照号输入框（条件显示）
 -->
+</div><!-- end page-landing -->
+
 <div id="page-auth">
 <div class="auth-shell">
   <div class="panel-left">
@@ -997,55 +1392,55 @@ body.show-auth #page-auth { display: block; }
     <a href="#" onclick="showLanding();return false" class="auth-back-btn">← Back</a>
     <div class="auth-card">
 
-      <div class="form-page" id="page-login">
+      <div class="form-page" id="page-login" role="form" aria-label="Login form">
         <div class="success-overlay" id="login-success">
           <div class="success-icon">✓</div>
           <div class="success-title">Welcome back!</div>
           <p class="success-sub">You're signed in. Redirecting to your dashboard…</p>
           <button class="success-btn" onclick="goToDashboard()">Go to Dashboard →</button>
         </div>
-        <div id="login-form-wrap">
+        <form id="login-form-wrap" onsubmit="event.preventDefault();handleLogin();" novalidate aria-label="Sign in form">
           <h2 class="form-title">Welcome <em>back.</em></h2>
           <p class="form-sub">Sign in to your NourishWell account.</p>
           <div class="field">
             <label>Email address</label>
-            <input type="email" id="login-email" placeholder="you@example.com" autocomplete="email">
-            <div class="field-error" id="login-email-err">Please enter a valid email address.</div>
+            <input type="email" id="login-email" aria-label="Email address" placeholder="you@example.com" autocomplete="email" aria-describedby="login-email-err" aria-invalid="false">
+            <div class="field-error" id="login-email-err" role="alert">Please enter a valid email address.</div>
           </div>
           <div class="field">
             <label>Password</label>
             <div class="pw-wrap">
-              <input type="password" id="login-password" placeholder="Your password" autocomplete="current-password">
-              <button class="pw-toggle" onclick="togglePw('login-password', this)" tabindex="-1">👁</button>
+              <input type="password" id="login-password" aria-label="Password" placeholder="Your password" autocomplete="current-password" aria-describedby="login-pw-err" aria-invalid="false">
+              <button type="button" class="pw-toggle" onclick="togglePw('login-password', this)" tabindex="-1" aria-label="Show password" aria-pressed="false"><span aria-hidden="true">👁</span></button>
             </div>
-            <div class="field-error" id="login-pw-err">Incorrect email or password.</div>
+            <div class="field-error" id="login-pw-err" role="alert">Incorrect email or password.</div>
             <a href="#" class="forgot-link">Forgot password?</a>
             <div style="clear:both;height:10px"></div>
           </div>
-          <button class="btn-submit" id="login-btn" onclick="handleLogin()">Sign in →</button>
+          <button type="submit" class="btn-submit" id="login-btn">Sign in <span aria-hidden="true">→</span></button>
           <div class="form-toggle">Don't have an account? <a href="#" onclick="switchTab('register');return false">Create one free</a></div>
-        </div>
+        </form>
       </div>
 
-      <div class="form-page hidden" id="page-register">
+      <div class="form-page hidden" id="page-register" role="form" aria-label="Registration form">
         <div class="success-overlay" id="register-success">
           <div class="success-icon">🌿</div>
           <div class="success-title">You're all set!</div>
           <p class="success-sub">Your account has been created.<br>Time to start your healthy eating journey.</p>
           <button class="success-btn" onclick="goToDashboard()">Go to Dashboard →</button>
         </div>
-        <div id="register-form-wrap">
+        <form id="register-form-wrap" onsubmit="event.preventDefault();handleRegister();" novalidate aria-label="Create account form">
           <h2 class="form-title">Create your <em>account.</em></h2>
           <p class="form-sub">Who are you joining as?</p>
-          <div class="role-selector">
-            <div class="role-card sub active" id="role-sub" onclick="selectRole('subscriber')">
-              <span class="role-icon">🧑‍💼</span>
+          <div class="role-selector" role="radiogroup" aria-label="Select account type">
+            <div class="role-card sub active" id="role-sub" onclick="selectRole('subscriber')" role="radio" tabindex="0" aria-checked="true">
+              <span class="role-icon" aria-hidden="true">🧑‍💼</span>
               <div class="role-name">Subscriber</div>
               <div class="role-desc">Track meals, discover recipes, get personal suggestions</div>
               <div class="role-check">✓</div>
             </div>
-            <div class="role-card pro" id="role-pro" onclick="selectRole('professional')">
-              <span class="role-icon">👨‍⚕️</span>
+            <div class="role-card pro" id="role-pro" onclick="selectRole('professional')" role="radio" tabindex="0" aria-checked="false">
+              <span class="role-icon" aria-hidden="true">👨‍⚕️</span>
               <div class="role-name">Professional</div>
               <div class="role-desc">Manage clients, monitor progress, send nutritional advice</div>
               <div class="role-check">✓</div>
@@ -1054,41 +1449,41 @@ body.show-auth #page-auth { display: block; }
           <div class="field-row">
             <div class="field" style="margin-bottom:0">
               <label>First name</label>
-              <input type="text" id="reg-first" placeholder="Rose" autocomplete="given-name">
-              <div class="field-error" id="reg-first-err">Required.</div>
+              <input type="text" id="reg-first" aria-label="First name" placeholder="Rose" autocomplete="given-name">
+              <div class="field-error" id="reg-first-err" role="alert">Required.</div>
             </div>
             <div class="field" style="margin-bottom:0">
               <label>Last name</label>
-              <input type="text" id="reg-last" placeholder="Thompson" autocomplete="family-name">
-              <div class="field-error" id="reg-last-err">Required.</div>
+              <input type="text" id="reg-last" aria-label="Last name" placeholder="Thompson" autocomplete="family-name">
+              <div class="field-error" id="reg-last-err" role="alert">Required.</div>
             </div>
           </div>
           <div class="field" style="margin-top:16px">
             <label>Email address</label>
-            <input type="email" id="reg-email" placeholder="you@example.com" autocomplete="email">
-            <div class="field-error" id="reg-email-err">Please enter a valid email address.</div>
+            <input type="email" id="reg-email" aria-label="Email address" placeholder="you@example.com" autocomplete="email">
+            <div class="field-error" id="reg-email-err" role="alert">Please enter a valid email address.</div>
           </div>
           <div class="pro-field" id="pro-field">
             <div class="field" style="margin-bottom:0">
               <label>Professional licence no.</label>
-              <input type="text" id="reg-licence" placeholder="e.g. NUT-2024-00123">
-              <div class="field-error" id="reg-licence-err">Required for health professionals.</div>
+              <input type="text" id="reg-licence" aria-label="Professional licence number" placeholder="e.g. NUT-2024-00123">
+              <div class="field-error" id="reg-licence-err" role="alert">Required for health professionals.</div>
             </div>
           </div>
           <div class="field">
             <label>Password</label>
             <div class="pw-wrap">
-              <input type="password" id="reg-password" placeholder="Min. 8 characters" autocomplete="new-password" oninput="checkStrength(this.value)">
-              <button class="pw-toggle" onclick="togglePw('reg-password', this)" tabindex="-1">👁</button>
+              <input type="password" id="reg-password" aria-label="Password" placeholder="Min. 8 characters" autocomplete="new-password" oninput="checkStrength(this.value)">
+              <button type="button" class="pw-toggle" onclick="togglePw('reg-password', this)" tabindex="-1" aria-label="Show password" aria-pressed="false"><span aria-hidden="true">👁</span></button>
             </div>
-            <div class="field-error" id="reg-pw-err">Password must be at least 8 characters.</div>
+            <div class="field-error" id="reg-pw-err" role="alert">Password must be at least 8 characters.</div>
             <div class="strength-bars"><div class="sb" id="sb1"></div><div class="sb" id="sb2"></div><div class="sb" id="sb3"></div><div class="sb" id="sb4"></div></div>
             <div style="font-family:'Geist Mono',monospace;font-size:10px;color:var(--ink-f);margin-top:4px" id="strength-label"></div>
           </div>
-          <button class="btn-submit" id="register-btn" onclick="handleRegister()"><span id="reg-btn-text">Create account →</span></button>
+          <button type="submit" class="btn-submit" id="register-btn"><span id="reg-btn-text">Create account <span aria-hidden="true">→</span></span></button>
           <p class="form-terms">By creating an account you agree to our <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>.</p>
           <div class="form-toggle">Already have an account? <a href="#" onclick="switchTab('login');return false">Sign in</a></div>
-        </div>
+        </form>
       </div>
 
     </div>
@@ -1110,14 +1505,11 @@ body.show-auth #page-auth { display: block; }
  *              从着陆页切换到认证页面，设置对应的标签页。
  */
 function showAuth(mode) {
+  switchTab(mode === 'register' ? 'register' : 'login');
+  document.documentElement.scrollTop = 0;
+  document.body.scrollTop = 0;
   document.body.classList.add('show-auth');
   document.title = 'NourishWell — ' + (mode === 'login' ? 'Sign in' : 'Get started');
-  window.scrollTo(0,0);
-  if (mode === 'register') {
-    setTimeout(() => switchTab('register'), 50);
-  } else {
-    setTimeout(() => switchTab('login'), 50);
-  }
 }
 
 /**
@@ -1178,6 +1570,8 @@ function showLanding() {
     currentRole = role;
     document.getElementById('role-sub').classList.toggle('active', role === 'subscriber');
     document.getElementById('role-pro').classList.toggle('active', role === 'professional');
+    document.getElementById('role-sub').setAttribute('aria-checked', role === 'subscriber');
+    document.getElementById('role-pro').setAttribute('aria-checked', role === 'professional');
     document.getElementById('pro-field').classList.toggle('visible', role === 'professional');
   }
 
@@ -1188,7 +1582,10 @@ function showLanding() {
    */
   function togglePw(id, btn) {
     const el = document.getElementById(id); const t = el.type === 'text';
-    el.type = t ? 'password' : 'text'; btn.textContent = t ? '👁' : '🙈';
+    el.type = t ? 'password' : 'text';
+    btn.innerHTML = '<span aria-hidden="true">' + (t ? '👁' : '🙈') + '</span>';
+    btn.setAttribute('aria-pressed', !t);
+    btn.setAttribute('aria-label', t ? 'Show password' : 'Hide password');
   }
 
   /**
@@ -1221,7 +1618,7 @@ function showLanding() {
    * @param {string} id - Input element ID / 输入框元素ID
    * @param {boolean} show - Whether to show error state / 是否显示错误状态
    */
-  function setErr(id, show) { const el = document.getElementById(id); if (el) el.classList.toggle('error', show); }
+  function setErr(id, show) { const el = document.getElementById(id); if (el) { el.classList.toggle('error', show); el.setAttribute('aria-invalid', show ? 'true' : 'false'); } }
 
   /**
    * handleLogin - Handle login form submission / 处理登录表单提交
@@ -1239,11 +1636,14 @@ function showLanding() {
     if (!ok) return;
     const btn = document.getElementById('login-btn');
     btn.textContent = 'Signing in…'; btn.classList.add('loading');
+    // Demo: route by role selection or backdoor accounts
+    const isPro = email === 'test@pro.com' || currentRole === 'professional';
+    window._redirectTo = isPro ? 'pro_dashboard.html' : 'dashboard.html';
     setTimeout(() => {
       btn.textContent = 'Sign in →'; btn.classList.remove('loading');
       document.getElementById('login-form-wrap').style.display = 'none';
       document.getElementById('login-success').classList.add('show');
-    }, 1400);
+    }, 1000);
   }
 
   /**
@@ -1272,11 +1672,12 @@ function showLanding() {
     if (!ok) return;
     const btn = document.getElementById('register-btn');
     document.getElementById('reg-btn-text').textContent = 'Creating account…'; btn.classList.add('loading');
+    window._redirectTo = currentRole === 'professional' ? 'pro_dashboard.html' : 'dashboard.html';
     setTimeout(() => {
       document.getElementById('reg-btn-text').textContent = 'Create account →'; btn.classList.remove('loading');
       document.getElementById('register-form-wrap').style.display = 'none';
       document.getElementById('register-success').classList.add('show');
-    }, 1600);
+    }, 1200);
   }
 
   /**
@@ -1284,18 +1685,14 @@ function showLanding() {
    * @description Placeholder function. Currently returns to landing page.
    *              占位函数。当前返回着陆页。
    */
-  function goToDashboard() { alert('Would navigate to /dashboard'); }
+  function goToDashboard() { window.location.href = window._redirectTo || 'dashboard.html'; }
 
   /**
    * Keyboard event listener / 键盘事件监听
    * @description Submits the active form when Enter key is pressed.
    *              按下回车键时提交当前活动的表单。
    */
-  document.addEventListener('keydown', e => {
-    if (e.key !== 'Enter') return;
-    if (!document.getElementById('page-login').classList.contains('hidden')) handleLogin();
-    else handleRegister();
-  });
+  /* Enter key handled natively by <form> onsubmit */
 
 
 /**
@@ -1303,7 +1700,7 @@ function showLanding() {
  * @description In demo mode, returns to landing page instead of navigating to dashboard.
  *              演示模式下，返回着陆页而非跳转到仪表盘。
  */
-function goToDashboard() { showLanding(); }
+function goToDashboard() { window.location.href = window._redirectTo || 'dashboard.html'; }
 </script>
 </body>
 </html>
