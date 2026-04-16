@@ -124,8 +124,8 @@ body{font-family:'Bricolage Grotesque',sans-serif;background:var(--paper);color:
 
 /* Recipe */
 .recipe-top-bar{display:flex;gap:12px;margin-bottom:24px;align-items:center}
-.recipe-search{display:flex;align-items:center;gap:10px;background:var(--white);border:1px solid var(--border);border-radius:12px;padding:12px 18px;flex:1;transition:border-color .2s}
-.recipe-search:focus-within{border-color:var(--teal)}
+.recipe-search{display:flex;align-items:center;gap:10px;background:var(--white);border:1px solid var(--border);border-radius:12px;padding:10px 16px;flex:1;transition:all .25s}
+.recipe-search:focus-within{border-color:var(--border);box-shadow:0 2px 12px rgba(10,20,16,0.06)}
 .rs-input{flex:1;border:none;outline:none;font-family:'Bricolage Grotesque',sans-serif;font-size:14px;color:var(--ink);background:transparent}
 .rs-input::placeholder{color:var(--ink-f)}
 .fav-link{display:flex;align-items:center;gap:6px;padding:12px 20px;background:var(--white);border:1px solid var(--border);border-radius:12px;font-size:13px;font-weight:600;color:var(--ink);cursor:pointer;transition:all .2s;text-decoration:none;white-space:nowrap}
@@ -305,7 +305,7 @@ body.dark-mode .add-recipe-modal { background:#142420; }
 </head>
 <body>
 <a href="#main-content" class="skip-link">Skip to main content</a>
-<nav class="top-nav" role="navigation" aria-label="Main navigation"><div class="top-nav-left"><a href="#" class="tn-logo"><div class="tn-logo-mark">🌿</div><span class="tn-logo-text">NourishWell</span></a></div><div class="top-nav-right"><a href="#" id="proSwitchNavBtn" onclick="switchBackToPro();return false" class="tn-link" style="display:none;align-items:center;gap:6px;border-color:rgba(255,255,255,0.25);color:rgba(255,255,255,0.9)"><svg width="13" height="13" viewBox="0 0 15 15" fill="none"><path d="M1 4.5h10M8 1.5l3 3-3 3M14 10.5H4M7 7.5l-3 3 3 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg> Switch to Pro</a><a href="qa_subscriber.html" class="tn-link" id="helpLink" style="display:flex;align-items:center;gap:5px"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6" stroke="currentColor" stroke-width="1.3"/><text x="7" y="10.5" text-anchor="middle" font-size="8.5" fill="currentColor" font-weight="600" font-family="JetBrains Mono,monospace">?</text></svg> Help</a><button onclick="startTour()" class="tour-trigger-btn" title="Guided tour"><svg width="15" height="15" viewBox="0 0 15 15" fill="none"><path d="M3 7.5h9M9 4.5l3 3-3 3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="3" cy="7.5" r="1.5" fill="currentColor"/></svg> Tour</button><div class="tn-icon" id="userMailIcon" onclick="openUserMessages()" style="position:relative;cursor:pointer" aria-label="Messages" role="button" tabindex="0"><svg width="20" height="16" viewBox="0 0 20 16" fill="none"><rect x="1" y="1" width="18" height="14" rx="2" stroke="rgba(255,255,255,0.85)" stroke-width="1.5"/><path d="M1 4l9 6 9-6" stroke="rgba(255,255,255,0.85)" stroke-width="1.5"/></svg><div id="userMailDot" style="display:block;width:7px;height:7px;border-radius:50%;background:#dc2626;position:absolute;top:4px;right:4px;border:1.5px solid #0a1410"></div></div><div class="tn-avatar-wrap"><div class="tn-avatar" onclick="toggleAvatarMenu(event)" aria-label="User menu" aria-expanded="false" aria-haspopup="true"><div class="tn-avatar-pic">RC</div><span class="tn-avatar-name">Rose C.</span></div><div class="tn-dropdown" id="avatarMenu"><a href="#" onclick="showSettingsPage('personal');return false">Personal Details</a><a href="#" onclick="showSettingsPage('preferences');return false">Preferences</a><a href="#" onclick="toggleDarkMode();return false">🌙 Dark Mode</a>
+<nav class="top-nav" role="navigation" aria-label="Main navigation"><div class="top-nav-left"><a href="#" class="tn-logo"><div class="tn-logo-mark">🌿</div><span class="tn-logo-text">NourishWell</span></a></div><div class="top-nav-right"><a href="#" id="proSwitchNavBtn" onclick="switchBackToPro();return false" class="tn-link" style="display:none;align-items:center;gap:6px;border-color:rgba(255,255,255,0.25);color:rgba(255,255,255,0.9)"><svg width="13" height="13" viewBox="0 0 15 15" fill="none"><path d="M1 4.5h10M8 1.5l3 3-3 3M14 10.5H4M7 7.5l-3 3 3 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg> Switch to Pro</a><a href="qa_subscriber.html" class="tn-link" id="helpLink" style="display:flex;align-items:center;gap:5px"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6" stroke="currentColor" stroke-width="1.3"/><text x="7" y="10.5" text-anchor="middle" font-size="8.5" fill="currentColor" font-weight="600" font-family="JetBrains Mono,monospace">?</text></svg> Help</a><button onclick="startTour()" class="tour-trigger-btn" title="Guided tour"><svg width="15" height="15" viewBox="0 0 15 15" fill="none"><path d="M3 7.5h9M9 4.5l3 3-3 3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="3" cy="7.5" r="1.5" fill="currentColor"/></svg> Tour</button><div class="tn-icon" id="userMailIcon" onclick="openUserMessages()" style="position:relative;cursor:pointer" aria-label="Messages" role="button" tabindex="0"><svg width="20" height="16" viewBox="0 0 20 16" fill="none"><rect x="1" y="1" width="18" height="14" rx="2" stroke="rgba(255,255,255,0.85)" stroke-width="1.5"/><path d="M1 4l9 6 9-6" stroke="rgba(255,255,255,0.85)" stroke-width="1.5"/></svg><div id="userMailDot" style="display:block;width:7px;height:7px;border-radius:50%;background:#dc2626;position:absolute;top:4px;right:4px;border:1.5px solid #0a1410"></div></div><div class="tn-icon" onclick="toggleDarkMode()" style="cursor:pointer" aria-label="Toggle dark mode" role="button" tabindex="0" title="Toggle dark mode"><span id="subDarkModeIcon" style="font-size:16px">🌙</span></div><div class="tn-avatar-wrap"><div class="tn-avatar" onclick="toggleAvatarMenu(event)" aria-label="User menu" aria-expanded="false" aria-haspopup="true"><div class="tn-avatar-pic">RC</div><span class="tn-avatar-name">Rose C.</span></div><div class="tn-dropdown" id="avatarMenu"><a href="#" onclick="showSettingsPage('personal');return false">Personal Details</a><a href="#" onclick="showSettingsPage('preferences');return false">Preferences</a>
 <a href="#" class="logout" onclick="event.preventDefault();window.location.href='/COMP2850_final/index.html'">Log Out</a></div></div></div></nav>
 
 <aside class="side-nav" role="navigation" aria-label="Page navigation">
@@ -392,24 +392,33 @@ body.dark-mode .add-recipe-modal { background:#142420; }
     <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M1.5 2h13L9.5 8.5V13l-3 1.5V8.5L1.5 2z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/></svg>
     Filter <span id="filterCount" style="font-family:'JetBrains Mono',monospace;font-size:9px;padding:1px 6px;border-radius:10px;background:var(--teal-lll);color:var(--teal);display:none">0</span>
   </button>
-  <div class="filter-dropdown" id="filterDropdown" style="display:none;position:absolute;top:48px;left:0;background:var(--white);border:1px solid var(--border);border-radius:14px;padding:16px 18px;min-width:280px;box-shadow:0 12px 40px rgba(10,20,16,0.12);z-index:100" role="menu">
+  <div class="filter-dropdown" id="filterDropdown" style="display:none;position:absolute;top:48px;left:0;background:var(--white);border:1px solid var(--border);border-radius:14px;padding:16px 18px;min-width:300px;box-shadow:0 12px 40px rgba(10,20,16,0.12);z-index:100" role="menu">
     <div style="font-size:13px;font-weight:700;color:var(--ink);margin-bottom:4px">Exclude ingredients</div>
-    <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--ink-f);margin-bottom:12px">Hide recipes containing these</div>
-    <div style="display:flex;flex-direction:column;gap:8px" id="filterCheckboxes">
-      <label class="filter-check-label"><input type="checkbox" value="nuts" onchange="applyIngredientFilter()"> 🥜 Nuts</label>
-      <label class="filter-check-label"><input type="checkbox" value="dairy" onchange="applyIngredientFilter()"> 🧀 Dairy</label>
-      <label class="filter-check-label"><input type="checkbox" value="gluten" onchange="applyIngredientFilter()"> 🌾 Gluten</label>
-      <label class="filter-check-label"><input type="checkbox" value="eggs" onchange="applyIngredientFilter()"> 🥚 Eggs</label>
-      <label class="filter-check-label"><input type="checkbox" value="fish" onchange="applyIngredientFilter()"> 🐟 Fish / Seafood</label>
-      <label class="filter-check-label"><input type="checkbox" value="meat" onchange="applyIngredientFilter()"> 🥩 Meat</label>
-      <label class="filter-check-label"><input type="checkbox" value="soy" onchange="applyIngredientFilter()"> 🫘 Soy</label>
+    <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--ink-f);margin-bottom:12px">Recipes containing these in their ingredients will be hidden</div>
+    <div style="display:flex;flex-direction:column;gap:6px" id="filterCheckboxes">
+      <label class="filter-check-label"><input type="checkbox" value="nuts" onchange="applyAllFilters()"> 🥜 Nuts</label>
+      <label class="filter-check-label"><input type="checkbox" value="dairy" onchange="applyAllFilters()"> 🧀 Dairy (milk, cheese, feta, parmesan)</label>
+      <label class="filter-check-label"><input type="checkbox" value="gluten" onchange="applyAllFilters()"> 🌾 Gluten (bread, pasta, penne, sourdough)</label>
+      <label class="filter-check-label"><input type="checkbox" value="eggs" onchange="applyAllFilters()"> 🥚 Eggs</label>
+      <label class="filter-check-label"><input type="checkbox" value="fish" onchange="applyAllFilters()"> 🐟 Fish / Seafood (salmon)</label>
+      <label class="filter-check-label"><input type="checkbox" value="meat" onchange="applyAllFilters()"> 🥩 Meat (chicken, beef, pork)</label>
+      <label class="filter-check-label"><input type="checkbox" value="soy" onchange="applyAllFilters()"> 🫘 Soy</label>
     </div>
-    <div style="border-top:1px solid var(--fog);margin-top:12px;padding-top:10px;display:flex;justify-content:space-between;align-items:center">
+    <div style="border-top:1px solid var(--fog);margin-top:12px;padding-top:10px">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--ink-f);letter-spacing:.06em;text-transform:uppercase;margin-bottom:6px">Custom exclusions</div>
+      <div style="display:flex;gap:6px;margin-bottom:6px">
+        <input type="text" id="customExcludeInput" placeholder="e.g. tomato, onion..." style="flex:1;padding:7px 10px;border:1px solid var(--border);border-radius:8px;font-family:'Bricolage Grotesque',sans-serif;font-size:12px;color:var(--ink);outline:none;background:var(--paper)" onfocus="this.style.borderColor='var(--teal)'" onblur="this.style.borderColor='var(--border)'" onkeydown="if(event.key==='Enter'){addCustomExclusion();event.preventDefault();}">
+        <button onclick="addCustomExclusion()" style="padding:7px 12px;background:var(--ink);color:#fff;border:none;border-radius:8px;font-size:11px;font-weight:600;cursor:pointer;flex-shrink:0;transition:background .2s" onmouseover="this.style.background='var(--teal)'" onmouseout="this.style.background='var(--ink)'">Add</button>
+      </div>
+      <div id="customExcludeTags" style="display:flex;flex-wrap:wrap;gap:5px"></div>
+    </div>
+    <div style="border-top:1px solid var(--fog);margin-top:10px;padding-top:10px;display:flex;justify-content:space-between;align-items:center">
       <button onclick="clearAllFilters()" style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--ink-f);background:none;border:none;cursor:pointer;padding:4px 0;transition:color .2s" onmouseover="this.style.color='var(--teal)'" onmouseout="this.style.color='var(--ink-f)'">Clear all</button>
       <button onclick="toggleFilterDropdown()" style="padding:7px 16px;background:var(--ink);color:#fff;border:none;border-radius:8px;font-family:'Bricolage Grotesque',sans-serif;font-size:11px;font-weight:600;cursor:pointer;transition:background .2s" onmouseover="this.style.background='var(--teal)'" onmouseout="this.style.background='var(--ink)'">Done</button>
     </div>
   </div>
 </div>
+<div class="recipe-search"><span style="font-size:16px;color:var(--ink-f)">🔍</span><input class="rs-input" type="text" placeholder="Search recipes..." aria-label="Search recipes" oninput="filterRecipes(this.value)"></div>
 <a href="#" class="fav-link" onclick="switchPage('favourites',document.querySelectorAll('.sn-item')[2]);return false">❤️ My Favourites</a>
 <button onclick="openAddRecipeModal()" class="fav-link" style="background:var(--teal);color:#fff;border-color:var(--teal)" aria-label="Add new recipe">+ Add Recipe</button>
 </div>
@@ -1330,22 +1339,17 @@ function toggleDarkMode(){
   document.body.classList.toggle('dark-mode');
   const isDark = document.body.classList.contains('dark-mode');
   try { localStorage.setItem('nw-dark-mode', isDark ? '1' : '0'); } catch(e){}
+  var icon = document.getElementById('subDarkModeIcon');
+  if(icon) icon.textContent = isDark ? '☀️' : '🌙';
   showToast(isDark ? '🌙 Dark mode on' : '☀️ Light mode on');
 }
-(function(){try{if(localStorage.getItem('nw-dark-mode')==='1') document.body.classList.add('dark-mode');}catch(e){}})();
+(function(){try{if(localStorage.getItem('nw-dark-mode')==='1'){document.body.classList.add('dark-mode');var i=document.getElementById('subDarkModeIcon');if(i)i.textContent='☀️';}}catch(e){}})();
 
 // ══════════════════════════════════════════════════════════════
 // FEATURE: Recipe Search (actually working)
 // ══════════════════════════════════════════════════════════════
 function filterRecipes(q){
-  const term = q.toLowerCase().trim();
-  document.querySelectorAll('.recipe-card').forEach(card=>{
-    const id = card.dataset.recipeId;
-    const r = RECIPES[id];
-    if(!r){ card.style.display = term ? 'none' : ''; return; }
-    const haystack = (r.name + ' ' + r.tag + ' ' + (r.ingredients||[]).join(' ')).toLowerCase();
-    card.style.display = (!term || haystack.includes(term)) ? '' : 'none';
-  });
+  applyAllFilters();
 }
 
 // ══════════════════════════════════════════════════════════════
@@ -1354,16 +1358,7 @@ function filterRecipes(q){
 function filterRecipeTag(btn, tag){
   document.querySelectorAll('.rf-tag').forEach(b=>{ b.classList.remove('active'); b.setAttribute('aria-pressed','false'); });
   btn.classList.add('active'); btn.setAttribute('aria-pressed','true');
-  document.querySelectorAll('.recipe-card').forEach(card=>{
-    if(tag==='all'){ card.style.display=''; return; }
-    const id = card.dataset.recipeId;
-    const r = RECIPES[id];
-    if(!r){ card.style.display='none'; return; }
-    if(tag==='my-recipes'){ card.style.display = r.custom ? '' : 'none'; return; }
-    const t = (r.tag||'').toLowerCase();
-    const matches = t.includes(tag.replace('-',' '));
-    card.style.display = matches ? '' : 'none';
-  });
+  applyAllFilters();
 }
 
 // ══════════════════════════════════════════════════════════════
@@ -1783,18 +1778,23 @@ window.addEventListener('beforeunload', saveState);
 
 <script>
 // ══════════════════════════════════════════════════════════════
-// FEATURE: Ingredient Exclusion Filter (Funnel)
+// FEATURE: Ingredient Exclusion Filter (Funnel) + Search
+// All filters work together: search + tag + checkbox + custom
 // ══════════════════════════════════════════════════════════════
 
-// Allergen/ingredient tags for built-in recipes
-var recipeAllergens = {
-  'mediterranean-quinoa': ['dairy','gluten'],
-  'shakshuka': ['eggs'],
-  'grilled-salmon': ['fish'],
-  'avocado-toast': ['gluten'],
-  'pasta-primavera': ['gluten','dairy'],
-  'lentil-soup': []
+// Keyword→ingredient mappings: when user checks "dairy", match these words in ingredients
+var ingredientKeywords = {
+  'nuts': ['nuts','almond','almonds','walnut','walnuts','peanut','peanuts','cashew','cashews','pecan','pecans','pistachio','hazelnut'],
+  'dairy': ['milk','cheese','feta','parmesan','cream','yogurt','yoghurt','butter','mozzarella','cheddar','ricotta'],
+  'gluten': ['bread','pasta','penne','sourdough','flour','wheat','noodle','noodles','toast','spaghetti','couscous','tortilla','wrap'],
+  'eggs': ['egg','eggs'],
+  'fish': ['salmon','tuna','cod','fish','prawn','prawns','shrimp','anchovy','anchovies','mackerel','sardine','seafood'],
+  'meat': ['chicken','beef','pork','lamb','turkey','bacon','sausage','ham','steak','mince'],
+  'soy': ['soy','soya','tofu','edamame','tempeh','soy sauce']
 };
+
+// Custom exclusion words added by user
+var customExclusions = [];
 
 function toggleFilterDropdown(){
   var dd = document.getElementById('filterDropdown');
@@ -1804,7 +1804,6 @@ function toggleFilterDropdown(){
   btn.setAttribute('aria-expanded', !isOpen);
 }
 
-// Close dropdown when clicking outside
 document.addEventListener('click', function(e){
   var wrap = document.querySelector('.filter-dropdown-wrap');
   if(wrap && !wrap.contains(e.target)){
@@ -1813,42 +1812,117 @@ document.addEventListener('click', function(e){
   }
 });
 
-function getExcludedIngredients(){
-  var excluded = [];
-  document.querySelectorAll('#filterCheckboxes input[type=checkbox]:checked').forEach(function(cb){
-    excluded.push(cb.value);
-  });
-  return excluded;
+// Check if a recipe's ingredients contain any excluded keyword
+function recipeContainsExcluded(recipe, excludedWords){
+  if(!recipe || !recipe.ingredients || excludedWords.length === 0) return false;
+  var allIngredients = recipe.ingredients.join(' ').toLowerCase();
+  // Also check steps for hidden ingredients
+  var allSteps = (recipe.steps || []).join(' ').toLowerCase();
+  var fullText = allIngredients + ' ' + allSteps;
+  for(var i = 0; i < excludedWords.length; i++){
+    if(fullText.indexOf(excludedWords[i]) !== -1) return true;
+  }
+  return false;
 }
 
-function applyIngredientFilter(){
-  var excluded = getExcludedIngredients();
-  // Update count badge
+// Master filter: combines search + tag + checkbox exclusions + custom exclusions
+function applyAllFilters(){
+  // 1. Gather checkbox exclusions → expand to keyword lists
+  var excludedWords = [];
+  document.querySelectorAll('#filterCheckboxes input[type=checkbox]:checked').forEach(function(cb){
+    var keywords = ingredientKeywords[cb.value] || [cb.value];
+    keywords.forEach(function(kw){ if(excludedWords.indexOf(kw) === -1) excludedWords.push(kw); });
+  });
+
+  // 2. Add custom exclusions
+  customExclusions.forEach(function(word){
+    if(excludedWords.indexOf(word) === -1) excludedWords.push(word);
+  });
+
+  // 3. Get search term
+  var searchInput = document.querySelector('.rs-input');
+  var searchTerm = searchInput ? searchInput.value.toLowerCase().trim() : '';
+
+  // 4. Get active tag filter
+  var activeTag = 'all';
+  var activeTagBtn = document.querySelector('.rf-tag.active');
+  if(activeTagBtn) activeTag = activeTagBtn.textContent.toLowerCase().trim().replace(' ','-').replace('my-recipes','my-recipes');
+
+  // 5. Update filter count badge
+  var totalFilters = document.querySelectorAll('#filterCheckboxes input[type=checkbox]:checked').length + customExclusions.length;
   var countEl = document.getElementById('filterCount');
-  if(excluded.length > 0){
-    countEl.textContent = excluded.length;
-    countEl.style.display = 'inline';
-  } else {
-    countEl.style.display = 'none';
-  }
-  // Filter recipe cards
+  if(totalFilters > 0){ countEl.textContent = totalFilters; countEl.style.display = 'inline'; }
+  else { countEl.style.display = 'none'; }
+
+  // 6. Apply to all cards
   document.querySelectorAll('.recipe-card').forEach(function(card){
     var id = card.dataset.recipeId;
-    if(!id){ card.style.display = ''; return; }
-    var allergens = recipeAllergens[id] || [];
-    // Also check custom recipes - if they have allergen data
     var recipe = RECIPES[id];
-    if(recipe && recipe.allergens) allergens = recipe.allergens;
-    var shouldHide = excluded.some(function(ex){ return allergens.indexOf(ex) !== -1; });
-    card.style.display = shouldHide ? 'none' : '';
+    if(!recipe){ card.style.display = 'none'; return; }
+
+    var show = true;
+
+    // Search filter
+    if(searchTerm){
+      var haystack = (recipe.name + ' ' + recipe.tag + ' ' + (recipe.ingredients||[]).join(' ')).toLowerCase();
+      if(haystack.indexOf(searchTerm) === -1) show = false;
+    }
+
+    // Tag filter
+    if(show && activeTag !== 'all'){
+      if(activeTag === 'my-recipes'){ if(!recipe.custom) show = false; }
+      else { if(!(recipe.tag||'').toLowerCase().replace('-',' ').includes(activeTag.replace('-',' '))) show = false; }
+    }
+
+    // Ingredient exclusion filter
+    if(show && excludedWords.length > 0){
+      if(recipeContainsExcluded(recipe, excludedWords)) show = false;
+    }
+
+    card.style.display = show ? '' : 'none';
   });
+}
+
+// Custom exclusion: add a tag
+function addCustomExclusion(){
+  var input = document.getElementById('customExcludeInput');
+  var text = input.value.trim().toLowerCase();
+  if(!text) return;
+  // Support comma-separated
+  text.split(',').forEach(function(word){
+    word = word.trim();
+    if(word && customExclusions.indexOf(word) === -1){
+      customExclusions.push(word);
+    }
+  });
+  input.value = '';
+  renderCustomTags();
+  applyAllFilters();
+}
+
+function removeCustomExclusion(word){
+  customExclusions = customExclusions.filter(function(w){ return w !== word; });
+  renderCustomTags();
+  applyAllFilters();
+}
+
+function renderCustomTags(){
+  var container = document.getElementById('customExcludeTags');
+  container.innerHTML = customExclusions.map(function(word){
+    return '<span style="display:inline-flex;align-items:center;gap:4px;padding:3px 8px 3px 10px;background:var(--paper);border:1px solid var(--border);border-radius:12px;font-family:\'JetBrains Mono\',monospace;font-size:10px;color:var(--ink-m)">'
+      + word
+      + '<span onclick="removeCustomExclusion(\'' + word + '\')" style="cursor:pointer;color:var(--ink-f);font-size:13px;line-height:1;margin-left:2px" title="Remove">×</span>'
+      + '</span>';
+  }).join('');
 }
 
 function clearAllFilters(){
-  document.querySelectorAll('#filterCheckboxes input[type=checkbox]').forEach(function(cb){
-    cb.checked = false;
-  });
-  applyIngredientFilter();
+  document.querySelectorAll('#filterCheckboxes input[type=checkbox]').forEach(function(cb){ cb.checked = false; });
+  customExclusions = [];
+  renderCustomTags();
+  var searchInput = document.querySelector('.rs-input');
+  if(searchInput) searchInput.value = '';
+  applyAllFilters();
 }
 </script>
 
