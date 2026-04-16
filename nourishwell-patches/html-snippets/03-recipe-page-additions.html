@@ -1,0 +1,34 @@
+<!--
+  SNIPPET 03 — dashboard.html · Recipe page
+
+  Location: Find the Recipe page opening tag
+    <div class="page" id="page-recipe" role="tabpanel" aria-label="Recipes">
+  (around line 387)
+
+  The line after the page-header div, paste this block BEFORE
+    <div class="recipe-top-bar" ...>
+-->
+
+<!-- Fridge Mode — ingredient-based recipe filtering
+     (populated by patch.js → renderFridgePanel())
+     Directly addresses spec requirement:
+       "ability to search for recommendations that make use of
+        specific ingredients" -->
+<div id="fridge-panel-host"></div>
+
+
+<!--
+  BONUS SMALL EDIT: Update the search placeholder so users know
+  ingredient search also works.
+
+  FIND (around line 421):
+    <input class="rs-input" type="text" placeholder="Search recipes..."
+           aria-label="Search recipes" oninput="filterRecipes(this.value)">
+
+  REPLACE WITH:
+    <label for="recipe-search-input" class="sr-only">Search recipes by name or ingredient</label>
+    <input id="recipe-search-input" class="rs-input" type="text"
+           placeholder="Search by name or ingredient (e.g. salmon, lentils)"
+           aria-label="Search recipes by name or ingredient"
+           oninput="filterRecipes(this.value)">
+-->

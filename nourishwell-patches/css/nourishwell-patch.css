@@ -1,0 +1,488 @@
+/**
+ * NourishWell — A11y & Polish Patch
+ * =================================================
+ * Load this file AFTER all existing <style> blocks on every page:
+ *   <link rel="stylesheet" href="css/nourishwell-patch.css">
+ *
+ * What this file does:
+ *   1. Raises WCAG AA contrast (fixes --ink-f low contrast)
+ *   2. Proper focus-visible ring (replaces near-invisible one)
+ *   3. Unified radius + shadow tokens
+ *   4. prefers-reduced-motion support
+ *   5. Screen-reader-only utility
+ *   6. Consistent form label style
+ *   7. Empty-state utility
+ *   8. Skeleton loader
+ *   9. High-contrast dark-mode tweaks
+ *  10. Print polish
+ */
+
+/* ─────────────────────────────────────────────────────────────────
+ * 1.  COLOUR — WCAG AA compliance
+ *     Previous --ink-f (#6b8878) on --paper (#f5f7f5) ≈ 3.5:1  → FAIL
+ *     New #5a7267  on --paper ≈ 4.7:1  → PASS AA for body text
+ * ─────────────────────────────────────────────────────────────── */
+:root {
+  --ink-f: #5a7267;          /* was #6b8878 — now passes AA */
+  --ink-f-decorative: #6b8878; /* keep old value only for large/decorative text */
+  --focus-ring: #1e6b5e;     /* teal for visible focus */
+  --error: #b3261e;          /* WCAG AA red */
+
+  /* Unified radius scale */
+  --r-xs: 4px;
+  --r-sm: 6px;
+  --r-md: 10px;
+  --r-lg: 14px;
+  --r-xl: 20px;
+
+  /* Unified elevation scale */
+  --shadow-sm: 0 2px 8px rgba(10, 20, 16, 0.04);
+  --shadow-md: 0 4px 16px rgba(10, 20, 16, 0.06);
+  --shadow-lg: 0 12px 36px rgba(10, 20, 16, 0.10);
+  --shadow-xl: 0 24px 80px rgba(10, 20, 16, 0.18);
+}
+
+body.dark-mode {
+  --ink-f: #9fb5aa;           /* higher contrast than original #7a9488 */
+  --ink-f-decorative: #7a9488;
+  --focus-ring: #5fb8a5;
+}
+
+/* ─────────────────────────────────────────────────────────────────
+ * 2.  FOCUS — keyboard users can see where they are
+ *     WCAG 2.4.7 Focus Visible (AA)
+ * ─────────────────────────────────────────────────────────────── */
+*:focus { outline: none; }
+
+*:focus-visible {
+  outline: 2px solid var(--focus-ring) !important;
+  outline-offset: 2px !important;
+  border-radius: 4px;
+  box-shadow: 0 0 0 4px rgba(30, 107, 94, 0.15) !important;
+}
+
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: 2px solid var(--focus-ring) !important;
+  outline-offset: 0 !important;
+  border-color: var(--focus-ring) !important;
+}
+
+/* ─────────────────────────────────────────────────────────────────
+ * 3.  REDUCED MOTION — WCAG 2.3.3
+ *     Users with vestibular disorders can opt out of animation
+ * ─────────────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .ticker { animation: none !important; }
+  .reveal { opacity: 1 !important; transform: none !important; }
+  .recipe-card:hover, .fav-card:hover, .action-btn:hover {
+    transform: none !important;
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────────
+ * 4.  SCREEN-READER-ONLY UTILITY
+ *     Use for visually hiding but keeping for screen readers.
+ *     e.g.  <label for="searchInput" class="sr-only">Search recipes</label>
+ * ─────────────────────────────────────────────────────────────── */
+.sr-only {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+/* ─────────────────────────────────────────────────────────────────
+ * 5.  EMPTY STATE
+ *     Use:
+ *       <div class="empty-state">
+ *         <div class="empty-state-icon" aria-hidden="true">🌱</div>
+ *         <div class="empty-state-title">No favourites yet</div>
+ *         <div class="empty-state-body">Tap the heart on any recipe to save it here.</div>
+ *       </div>
+ * ─────────────────────────────────────────────────────────────── */
+.empty-state {
+  text-align: center;
+  padding: 48px 24px;
+  background: var(--white);
+  border: 1px dashed var(--border);
+  border-radius: var(--r-lg);
+}
+.empty-state-icon { font-size: 42px; margin-bottom: 12px; opacity: 0.7; }
+.empty-state-title { font-size: 16px; font-weight: 700; color: var(--ink); margin-bottom: 6px; }
+.empty-state-body { font-size: 13px; color: var(--ink-f); max-width: 320px; margin: 0 auto; line-height: 1.6; }
+
+/* ─────────────────────────────────────────────────────────────────
+ * 6.  SKELETON LOADER
+ *     Use:
+ *       <div class="skeleton skeleton-card"></div>
+ * ─────────────────────────────────────────────────────────────── */
+.skeleton {
+  background: linear-gradient(90deg, var(--fog) 0%, var(--border) 50%, var(--fog) 100%);
+  background-size: 200% 100%;
+  animation: skeleton-shimmer 1.4s infinite;
+  border-radius: var(--r-md);
+}
+.skeleton-card { height: 200px; width: 100%; border-radius: var(--r-lg); }
+.skeleton-line { height: 12px; margin-bottom: 8px; }
+.skeleton-line:last-child { width: 60%; }
+
+@keyframes skeleton-shimmer {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* ─────────────────────────────────────────────────────────────────
+ * 7.  INSIGHT CARD (proactive nutrition feedback)
+ *     Use with patch.js renderInsights()
+ * ─────────────────────────────────────────────────────────────── */
+.insight-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  padding: 16px 18px;
+  box-shadow: var(--shadow-sm);
+  margin-bottom: 16px;
+  border-left: 4px solid var(--teal);
+}
+.insight-card.warn   { border-left-color: var(--amber); }
+.insight-card.alert  { border-left-color: var(--error); }
+.insight-card.good   { border-left-color: var(--teal); }
+.insight-title {
+  font-size: 12px; font-weight: 700; color: var(--ink);
+  display: flex; align-items: center; gap: 8px;
+  margin-bottom: 4px;
+}
+.insight-title .insight-icon {
+  font-size: 16px;
+}
+.insight-body {
+  font-size: 13px; color: var(--ink-f); line-height: 1.55;
+}
+.insight-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+/* ─────────────────────────────────────────────────────────────────
+ * 8.  FRIDGE MODE PANEL
+ * ─────────────────────────────────────────────────────────────── */
+.fridge-panel {
+  background: var(--teal-lll);
+  border: 1px solid var(--teal-ll);
+  border-radius: var(--r-lg);
+  padding: 18px 20px;
+  margin-bottom: 20px;
+}
+body.dark-mode .fridge-panel {
+  background: rgba(30, 107, 94, 0.15);
+  border-color: rgba(30, 107, 94, 0.4);
+}
+.fridge-title {
+  font-size: 13px; font-weight: 700; color: var(--ink);
+  margin-bottom: 4px;
+  display: flex; align-items: center; gap: 8px;
+}
+.fridge-sub {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px; color: var(--ink-f);
+  margin-bottom: 14px;
+}
+.fridge-chips {
+  display: flex; flex-wrap: wrap; gap: 6px;
+  margin-bottom: 12px;
+}
+.fridge-chip {
+  display: inline-flex; align-items: center; gap: 4px;
+  padding: 6px 12px;
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  font-size: 12px; font-weight: 500;
+  color: var(--ink-m);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.fridge-chip:hover {
+  border-color: var(--teal);
+  color: var(--teal);
+}
+.fridge-chip.selected {
+  background: var(--teal);
+  color: white;
+  border-color: var(--teal);
+}
+.fridge-chip .chip-x {
+  font-size: 14px;
+  opacity: 0.7;
+  margin-left: 2px;
+}
+.fridge-input {
+  display: flex; gap: 6px; align-items: center;
+}
+.fridge-input input {
+  flex: 1;
+  padding: 8px 12px;
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-size: 12px;
+  background: var(--white);
+  color: var(--ink);
+  outline: none;
+}
+.fridge-input button {
+  padding: 8px 16px;
+  background: var(--teal);
+  color: white;
+  border: none;
+  border-radius: var(--r-md);
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.fridge-input button:hover { background: var(--ink); }
+
+/* Recipe card "match badge" shown when fridge mode is active */
+.recipe-card .rc-match-badge {
+  position: absolute;
+  top: 8px; left: 8px;
+  background: var(--teal);
+  color: white;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  padding: 3px 8px;
+  border-radius: 12px;
+  font-weight: 600;
+  z-index: 2;
+}
+.recipe-card { position: relative; }
+
+/* ─────────────────────────────────────────────────────────────────
+ * 9.  COOKED / TRIED TOGGLE on favourite cards
+ * ─────────────────────────────────────────────────────────────── */
+.cooked-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 10px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: var(--white);
+  color: var(--ink-f);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.cooked-toggle:hover { border-color: var(--teal); color: var(--teal); }
+.cooked-toggle.cooked {
+  background: var(--teal-lll);
+  color: var(--teal);
+  border-color: var(--teal-ll);
+}
+
+/* ─────────────────────────────────────────────────────────────────
+ * 10. COOKING MODE (full-screen recipe walkthrough)
+ * ─────────────────────────────────────────────────────────────── */
+.cooking-mode {
+  position: fixed; inset: 0;
+  background: var(--paper);
+  z-index: 10000;
+  display: none;
+  flex-direction: column;
+  padding: 24px;
+}
+.cooking-mode.active { display: flex; }
+.cook-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 32px;
+}
+.cook-title {
+  font-family: 'Instrument Serif', serif;
+  font-size: 28px;
+  font-style: italic;
+  color: var(--ink);
+}
+.cook-close {
+  width: 40px; height: 40px;
+  border-radius: var(--r-md);
+  border: 1px solid var(--border);
+  background: var(--white);
+  font-size: 18px;
+  cursor: pointer;
+  color: var(--ink-m);
+}
+.cook-body {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 800px;
+  margin: 0 auto;
+  width: 100%;
+}
+.cook-step {
+  text-align: center;
+}
+.cook-step-counter {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  color: var(--teal);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+.cook-step-text {
+  font-family: 'Instrument Serif', serif;
+  font-size: 42px;
+  font-style: italic;
+  color: var(--ink);
+  line-height: 1.3;
+  letter-spacing: -0.02em;
+  margin-bottom: 24px;
+}
+.cook-ingredient-list {
+  font-size: 15px;
+  color: var(--ink-f);
+  line-height: 1.9;
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  padding: 24px 32px;
+  max-width: 480px;
+  margin: 0 auto;
+  text-align: left;
+}
+.cook-footer {
+  display: flex; align-items: center; justify-content: space-between;
+  padding-top: 24px;
+  border-top: 1px solid var(--border);
+}
+.cook-nav-btn {
+  padding: 14px 28px;
+  background: var(--ink);
+  color: white;
+  border: none;
+  border-radius: var(--r-md);
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.cook-nav-btn:hover { background: var(--teal); }
+.cook-nav-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+.cook-nav-btn.ghost {
+  background: transparent;
+  color: var(--ink-m);
+  border: 1px solid var(--border);
+}
+.cook-progress {
+  flex: 1;
+  margin: 0 24px;
+  height: 6px;
+  background: var(--fog);
+  border-radius: 3px;
+  overflow: hidden;
+}
+.cook-progress-fill {
+  height: 100%;
+  background: var(--teal);
+  transition: width 0.3s ease;
+}
+
+/* ─────────────────────────────────────────────────────────────────
+ * 11. SHORTCUT HELP OVERLAY
+ * ─────────────────────────────────────────────────────────────── */
+.shortcuts-overlay {
+  position: fixed; inset: 0;
+  background: rgba(10, 20, 16, 0.5);
+  z-index: 10001;
+  display: none;
+  align-items: center; justify-content: center;
+}
+.shortcuts-overlay.open { display: flex; }
+.shortcuts-modal {
+  background: var(--white);
+  border-radius: var(--r-xl);
+  padding: 32px;
+  max-width: 480px;
+  width: 90vw;
+  box-shadow: var(--shadow-xl);
+}
+body.dark-mode .shortcuts-modal { background: #142420; }
+.shortcut-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--fog);
+  font-size: 13px;
+  color: var(--ink);
+}
+.shortcut-row:last-child { border-bottom: none; }
+.shortcut-keys {
+  display: flex;
+  gap: 4px;
+}
+.shortcut-key {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  padding: 4px 8px;
+  background: var(--paper);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  color: var(--ink-m);
+  min-width: 22px;
+  text-align: center;
+}
+
+/* ─────────────────────────────────────────────────────────────────
+ * 12. PRINT POLISH
+ * ─────────────────────────────────────────────────────────────── */
+@media print {
+  .insight-card { page-break-inside: avoid; border: 1px solid #999; box-shadow: none; }
+  .skip-link, .shortcuts-overlay, .cooking-mode { display: none !important; }
+}
+
+/* ─────────────────────────────────────────────────────────────────
+ * 13. MOBILE FIX — dashboard grids already responsive,
+ *     but the auth page and QA pages were not.
+ * ─────────────────────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .auth-shell { grid-template-columns: 1fr !important; }
+  .panel-left { min-height: 220px; padding: 28px 24px !important; }
+  .panel-left .feature-pills { display: none; }
+  .panel-right { padding: 32px 20px !important; }
+
+  .qa-title { font-size: 28px !important; }
+  .qa-search { padding: 10px 14px !important; }
+  .main { padding: 16px 14px !important; }
+}
+
+/* ─────────────────────────────────────────────────────────────────
+ * 14. FIX: existing focus-visible rule in dashboard.html had
+ *     outline:2px solid var(--fog) — nearly invisible.
+ *     This OVERRIDES that, above.
+ * ─────────────────────────────────────────────────────────────── */
