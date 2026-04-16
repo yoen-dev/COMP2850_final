@@ -116,9 +116,18 @@ body.dark-mode { --ink-f: #9fb5aa; --ink-f-decorative: #7a9488; --focus-ring: #5
   box-shadow: 0 0 0 4px rgba(30,107,94,0.15) !important;
 }
 input:focus-visible, textarea:focus-visible, select:focus-visible {
-  outline: 2px solid var(--focus-ring) !important;
-  outline-offset: 0 !important;
+  outline: none !important;
   border-color: var(--focus-ring) !important;
+  box-shadow: 0 0 0 2px rgba(30,107,94,0.18) !important;
+}
+/* Borderless inputs that live inside their own container (qa-search, recipe-search)
+   — don't add a ring here, the parent handles focus-within styling */
+.qa-search-input:focus-visible,
+.rs-input:focus-visible,
+.fridge-input input:focus-visible,
+.comment-input-wrap input:focus-visible {
+  box-shadow: none !important;
+  border-color: transparent !important;
 }
 
 @media (prefers-reduced-motion: reduce) {
