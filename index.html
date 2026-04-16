@@ -1399,27 +1399,27 @@ body.dark-mode .shortcuts-modal { background: #142420; }
           <p class="success-sub">You're signed in. Redirecting to your dashboard…</p>
           <button class="success-btn" onclick="goToDashboard()">Go to Dashboard →</button>
         </div>
-        <div id="login-form-wrap">
+        <form id="login-form-wrap" onsubmit="event.preventDefault();handleLogin();" novalidate aria-label="Sign in form">
           <h2 class="form-title">Welcome <em>back.</em></h2>
           <p class="form-sub">Sign in to your NourishWell account.</p>
           <div class="field">
             <label>Email address</label>
-            <input type="email" id="login-email" aria-label="Email address" placeholder="you@example.com" autocomplete="email">
-            <div class="field-error" id="login-email-err">Please enter a valid email address.</div>
+            <input type="email" id="login-email" aria-label="Email address" placeholder="you@example.com" autocomplete="email" aria-describedby="login-email-err" aria-invalid="false">
+            <div class="field-error" id="login-email-err" role="alert">Please enter a valid email address.</div>
           </div>
           <div class="field">
             <label>Password</label>
             <div class="pw-wrap">
-              <input type="password" id="login-password" aria-label="Password" placeholder="Your password" autocomplete="current-password">
-              <button class="pw-toggle" onclick="togglePw('login-password', this)" tabindex="-1">👁</button>
+              <input type="password" id="login-password" aria-label="Password" placeholder="Your password" autocomplete="current-password" aria-describedby="login-pw-err" aria-invalid="false">
+              <button type="button" class="pw-toggle" onclick="togglePw('login-password', this)" tabindex="-1" aria-label="Show password" aria-pressed="false"><span aria-hidden="true">👁</span></button>
             </div>
-            <div class="field-error" id="login-pw-err">Incorrect email or password.</div>
+            <div class="field-error" id="login-pw-err" role="alert">Incorrect email or password.</div>
             <a href="#" class="forgot-link">Forgot password?</a>
             <div style="clear:both;height:10px"></div>
           </div>
-          <button class="btn-submit" id="login-btn" onclick="handleLogin()">Sign in →</button>
+          <button type="submit" class="btn-submit" id="login-btn">Sign in <span aria-hidden="true">→</span></button>
           <div class="form-toggle">Don't have an account? <a href="#" onclick="switchTab('register');return false">Create one free</a></div>
-        </div>
+        </form>
       </div>
 
       <div class="form-page hidden" id="page-register" role="form" aria-label="Registration form">
@@ -1429,18 +1429,18 @@ body.dark-mode .shortcuts-modal { background: #142420; }
           <p class="success-sub">Your account has been created.<br>Time to start your healthy eating journey.</p>
           <button class="success-btn" onclick="goToDashboard()">Go to Dashboard →</button>
         </div>
-        <div id="register-form-wrap">
+        <form id="register-form-wrap" onsubmit="event.preventDefault();handleRegister();" novalidate aria-label="Create account form">
           <h2 class="form-title">Create your <em>account.</em></h2>
           <p class="form-sub">Who are you joining as?</p>
-          <div class="role-selector">
-            <div class="role-card sub active" id="role-sub" onclick="selectRole('subscriber')">
-              <span class="role-icon">🧑‍💼</span>
+          <div class="role-selector" role="radiogroup" aria-label="Select account type">
+            <div class="role-card sub active" id="role-sub" onclick="selectRole('subscriber')" role="radio" tabindex="0" aria-checked="true">
+              <span class="role-icon" aria-hidden="true">🧑‍💼</span>
               <div class="role-name">Subscriber</div>
               <div class="role-desc">Track meals, discover recipes, get personal suggestions</div>
               <div class="role-check">✓</div>
             </div>
-            <div class="role-card pro" id="role-pro" onclick="selectRole('professional')">
-              <span class="role-icon">👨‍⚕️</span>
+            <div class="role-card pro" id="role-pro" onclick="selectRole('professional')" role="radio" tabindex="0" aria-checked="false">
+              <span class="role-icon" aria-hidden="true">👨‍⚕️</span>
               <div class="role-name">Professional</div>
               <div class="role-desc">Manage clients, monitor progress, send nutritional advice</div>
               <div class="role-check">✓</div>
@@ -1450,40 +1450,40 @@ body.dark-mode .shortcuts-modal { background: #142420; }
             <div class="field" style="margin-bottom:0">
               <label>First name</label>
               <input type="text" id="reg-first" aria-label="First name" placeholder="Rose" autocomplete="given-name">
-              <div class="field-error" id="reg-first-err">Required.</div>
+              <div class="field-error" id="reg-first-err" role="alert">Required.</div>
             </div>
             <div class="field" style="margin-bottom:0">
               <label>Last name</label>
               <input type="text" id="reg-last" aria-label="Last name" placeholder="Thompson" autocomplete="family-name">
-              <div class="field-error" id="reg-last-err">Required.</div>
+              <div class="field-error" id="reg-last-err" role="alert">Required.</div>
             </div>
           </div>
           <div class="field" style="margin-top:16px">
             <label>Email address</label>
             <input type="email" id="reg-email" aria-label="Email address" placeholder="you@example.com" autocomplete="email">
-            <div class="field-error" id="reg-email-err">Please enter a valid email address.</div>
+            <div class="field-error" id="reg-email-err" role="alert">Please enter a valid email address.</div>
           </div>
           <div class="pro-field" id="pro-field">
             <div class="field" style="margin-bottom:0">
               <label>Professional licence no.</label>
               <input type="text" id="reg-licence" aria-label="Professional licence number" placeholder="e.g. NUT-2024-00123">
-              <div class="field-error" id="reg-licence-err">Required for health professionals.</div>
+              <div class="field-error" id="reg-licence-err" role="alert">Required for health professionals.</div>
             </div>
           </div>
           <div class="field">
             <label>Password</label>
             <div class="pw-wrap">
               <input type="password" id="reg-password" aria-label="Password" placeholder="Min. 8 characters" autocomplete="new-password" oninput="checkStrength(this.value)">
-              <button class="pw-toggle" onclick="togglePw('reg-password', this)" tabindex="-1">👁</button>
+              <button type="button" class="pw-toggle" onclick="togglePw('reg-password', this)" tabindex="-1" aria-label="Show password" aria-pressed="false"><span aria-hidden="true">👁</span></button>
             </div>
-            <div class="field-error" id="reg-pw-err">Password must be at least 8 characters.</div>
+            <div class="field-error" id="reg-pw-err" role="alert">Password must be at least 8 characters.</div>
             <div class="strength-bars"><div class="sb" id="sb1"></div><div class="sb" id="sb2"></div><div class="sb" id="sb3"></div><div class="sb" id="sb4"></div></div>
             <div style="font-family:'Geist Mono',monospace;font-size:10px;color:var(--ink-f);margin-top:4px" id="strength-label"></div>
           </div>
-          <button class="btn-submit" id="register-btn" onclick="handleRegister()"><span id="reg-btn-text">Create account →</span></button>
+          <button type="submit" class="btn-submit" id="register-btn"><span id="reg-btn-text">Create account <span aria-hidden="true">→</span></span></button>
           <p class="form-terms">By creating an account you agree to our <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>.</p>
           <div class="form-toggle">Already have an account? <a href="#" onclick="switchTab('login');return false">Sign in</a></div>
-        </div>
+        </form>
       </div>
 
     </div>
@@ -1570,6 +1570,8 @@ function showLanding() {
     currentRole = role;
     document.getElementById('role-sub').classList.toggle('active', role === 'subscriber');
     document.getElementById('role-pro').classList.toggle('active', role === 'professional');
+    document.getElementById('role-sub').setAttribute('aria-checked', role === 'subscriber');
+    document.getElementById('role-pro').setAttribute('aria-checked', role === 'professional');
     document.getElementById('pro-field').classList.toggle('visible', role === 'professional');
   }
 
@@ -1580,7 +1582,10 @@ function showLanding() {
    */
   function togglePw(id, btn) {
     const el = document.getElementById(id); const t = el.type === 'text';
-    el.type = t ? 'password' : 'text'; btn.textContent = t ? '👁' : '🙈';
+    el.type = t ? 'password' : 'text';
+    btn.innerHTML = '<span aria-hidden="true">' + (t ? '👁' : '🙈') + '</span>';
+    btn.setAttribute('aria-pressed', !t);
+    btn.setAttribute('aria-label', t ? 'Show password' : 'Hide password');
   }
 
   /**
@@ -1613,7 +1618,7 @@ function showLanding() {
    * @param {string} id - Input element ID / 输入框元素ID
    * @param {boolean} show - Whether to show error state / 是否显示错误状态
    */
-  function setErr(id, show) { const el = document.getElementById(id); if (el) el.classList.toggle('error', show); }
+  function setErr(id, show) { const el = document.getElementById(id); if (el) { el.classList.toggle('error', show); el.setAttribute('aria-invalid', show ? 'true' : 'false'); } }
 
   /**
    * handleLogin - Handle login form submission / 处理登录表单提交
@@ -1687,11 +1692,7 @@ function showLanding() {
    * @description Submits the active form when Enter key is pressed.
    *              按下回车键时提交当前活动的表单。
    */
-  document.addEventListener('keydown', e => {
-    if (e.key !== 'Enter') return;
-    if (!document.getElementById('page-login').classList.contains('hidden')) handleLogin();
-    else handleRegister();
-  });
+  /* Enter key handled natively by <form> onsubmit */
 
 
 /**
