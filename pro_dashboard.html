@@ -471,7 +471,7 @@ body.dark-mode .shortcuts-modal { background: #142420; }
     </div>
     </div>
     <div style="position:relative">
-      <div class="tn-avatar" id="proAvatarToggle" style="cursor:pointer" role="button" tabindex="0" aria-label="Open profile menu" aria-haspopup="true" aria-expanded="false">
+      <div class="tn-avatar" id="proAvatarToggle" style="cursor:pointer" role="button" tabindex="0" aria-label="Open profile menu" aria-haspopup="true" aria-expanded="false" onclick="event.stopPropagation();toggleProAvatarMenu()">
         <div class="tn-avatar-pic" aria-hidden="true">DR</div>
         <span class="tn-avatar-name">Dr. Rivera</span>
       </div>
@@ -1780,6 +1780,21 @@ function openProSettings(panel) {
 function closeProSettings() {
   document.getElementById('proSettingsOverlay').style.display = 'none';
 }
+function toggleProAvatarMenu() {
+  const menu = document.getElementById('proAvatarMenu');
+  const toggle = document.getElementById('proAvatarToggle');
+  const isOpen = menu.style.display === 'block';
+  menu.style.display = isOpen ? 'none' : 'block';
+  toggle.setAttribute('aria-expanded', !isOpen);
+}
+document.addEventListener('click', function(e) {
+  const menu = document.getElementById('proAvatarMenu');
+  const toggle = document.getElementById('proAvatarToggle');
+  if (menu && toggle && !toggle.contains(e.target) && !menu.contains(e.target)) {
+    menu.style.display = 'none';
+    toggle.setAttribute('aria-expanded', 'false');
+  }
+});
 function proSettingsSaved(btn) {
   const orig = btn.textContent;
   btn.textContent = '✓ Saved!';
