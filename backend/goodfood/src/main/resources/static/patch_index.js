@@ -12,9 +12,13 @@
 
 // ── 如果已登录，直接跳转 ──────────────────────────────────────
 (function () {
-  if (NW.auth.isLoggedIn()) {
-    window.location.href = NW.auth.isPro() ? 'pro_dashboard.html' : 'dashboard.html';
-  }
+if (NW.auth.isLoggedIn()) {
+    NW.getMe().then(me => {
+        window.location.replace(me.role === 'professional' ? 'pro_dashboard.html' : 'dashboard.html');
+    }).catch(() => {
+        NW.logout(); // token 无效，清掉
+    });
+}
 })();
 
 // ── 注入密码要求清单到注册表单 ─────────────────────────────────

@@ -15,15 +15,24 @@
  * ══════════════════════════════════════════════════════════════
  */
 
-// ── 0. 鉴权守卫：未登录跳回首页 ──────────────────────────────
-(function () {
+// ── 0. 鉴权守卫：验证 token 有效性，无效则清除并跳回首页 ─────
+(async function () {
   if (!NW.auth.isLoggedIn()) {
-    window.location.href = 'index.html';
+    window.location.replace('index.html');
     return;
   }
-  // 如果是专业人士误入，跳到正确页面
-  if (NW.auth.isPro()) {
-    window.location.href = 'pro_dashboard.html';
+  try {
+    const me = await NW.getMe();
+    // token 有效 → 检查角色
+    if (me.role === 'professional') {
+      window.location.replace('pro_dashboard.html');
+      return;
+    }
+  } catch (e) {
+    // token 无效或过期 → 清除并跳回登录
+    NW.logout();
+    window.location.replace('index.html');
+    return;
   }
 })();
 
