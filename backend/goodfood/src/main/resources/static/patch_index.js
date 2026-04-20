@@ -17,6 +17,59 @@
   }
 })();
 
+// ── 注入密码要求提示到注册表单 ─────────────────────────────────
+(function () {
+  const pwField = document.getElementById('reg-password');
+  if (!pwField) return;
+
+  const hint = document.createElement('div');
+  hint.id = 'pw-requirements';
+  hint.setAttribute('aria-live', 'polite');
+  hint.innerHTML =
+    '<ul style="list-style:none;padding:0;margin:6px 0 0 0;display:flex;flex-wrap:wrap;gap:4px 12px">' +
+      '<li id="pw-req-len" style="font-size:11px;color:var(--ink-f,#6b6b6b)">✕ 8+ characters</li>' +
+      '<li id="pw-req-upper" style="font-size:11px;color:var(--ink-f,#6b6b6b)">✕ Uppercase</li>' +
+      '<li id="pw-req-lower" style="font-size:11px;color:var(--ink-f,#6b6b6b)">✕ Lowercase</li>' +
+      '<li id="pw-req-digit" style="font-size:11px;color:var(--ink-f,#6b6b6b)">✕ Number</li>' +
+      '<li id="pw-req-special" style="font-size:11px;color:var(--ink-f,#6b6b6b)">✕ Special char</li>' +
+    '</ul>';
+
+  // Insert after the strength bars (or after the password wrapper)
+  const strengthBars = pwField.closest('.field').querySelector('.strength-bars');
+  if (strengthBars) {
+    strengthBars.insertAdjacentElement('afterend', hint);
+  } else {
+    pwField.closest('.pw-wrap').insertAdjacentElement('afterend', hint);
+  }
+
+  // Live-update requirement checks as user types
+  pwField.addEventListener('input', function () {
+    const val = this.value;
+    updateReq('pw-req-len',     val.length >= 8);
+    updateReq('pw-req-upper',   /[A-Z]/.test(val));
+    updateReq('pw-req-lower',   /[a-z]/.test(val));
+    updateReq('pw-req-digit',   /[0-9]/.test(val));
+    updateReq('pw-req-special', /[^A-Za-z0-9]/.test(val));
+  });
+
+  function updateReq(id, met) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    const label = el.textContent.replace(/^[✓✕]\s*/, '');
+    el.textContent = (met ? '✓ ' : '✕ ') + label;
+    el.style.color = met ? 'var(--teal, #1e6b5e)' : 'var(--ink-f, #6b6b6b)';
+  }
+})();
+
+// ── 密码前端验证（与后端 PasswordValidator 一致）───────────────
+function isPasswordValid(pw) {
+  return pw.length >= 8 &&
+    /[A-Z]/.test(pw) &&
+    /[a-z]/.test(pw) &&
+    /[0-9]/.test(pw) &&
+    /[^A-Za-z0-9]/.test(pw);
+}
+
 // ── 覆盖 handleLogin ──────────────────────────────────────────
 window.handleLogin = async function () {
   const email = document.getElementById('login-email').value.trim();
@@ -85,8 +138,19 @@ window.handleRegister = async function () {
   } else {
     showErr('reg-licence-err', false); setErr('reg-licence', false);
   }
-  showErr('reg-pw-err', pw.length < 8); setErr('reg-password', pw.length < 8);
-  if (pw.length < 8) ok = false;
+
+  // 密码验证（与后端 PasswordValidator 规则一致）
+  if (!isPasswordValid(pw)) {
+    showErr('reg-pw-err', true);
+    setErr('reg-password', true);
+    document.getElementById('reg-pw-err').textContent =
+      'Password needs 8+ chars, uppercase, lowercase, number, and special character.';
+    ok = false;
+  } else {
+    showErr('reg-pw-err', false);
+    setErr('reg-password', false);
+  }
+
   if (!ok) return;
 
   const btn = document.getElementById('register-btn');
@@ -112,6 +176,11 @@ window.handleRegister = async function () {
       showErr('reg-email-err', true);
       setErr('reg-email', true);
       document.getElementById('reg-email-err').textContent = 'This email is already registered.';
+    } else if (err.status === 400) {
+      // 后端验证失败（含密码不符合要求）
+      const msg = err.data?.message || 'Invalid input — please check your details.';
+      showErr('reg-pw-err', true);
+      document.getElementById('reg-pw-err').textContent = msg;
     } else {
       showErr('reg-pw-err', true);
       document.getElementById('reg-pw-err').textContent = 'Server error — please try again.';
