@@ -1011,7 +1011,7 @@ const d=new Date(),days=['Sunday','Monday','Tuesday','Wednesday','Thursday','Fri
 document.getElementById('today-date').textContent=days[d.getDay()]+', '+d.getDate()+' '+months[d.getMonth()]+' '+d.getFullYear();
 
 // ── State ─────────────────────────────────────────────────────────────────────
-const DAILY_TARGET=2400;
+let DAILY_TARGET=2400;
 let foodAdded=[];
 let favourites=new Set(['shakshuka','avocado-toast','lentil-soup']);
 let compareSelected=new Set(['shakshuka','avocado-toast','lentil-soup']);
@@ -2574,7 +2574,7 @@ function clearAllFilters(){
 // MEAL PLANNER ENGINE v2 — empty start + favourites + smart fill
 // ═══════════════════════════════════════════════════════════════
 (function(){
-  var TARGET_KCAL = 2400;
+  var TARGET_KCAL = window.DAILY_TARGET || 2400;
   var mpFillMode = 'balanced'; // 'light' = ~50%, 'balanced' = ~75%, 'full' = 100%
   var mpPlan = { breakfast:[], lunch:[], dinner:[] };
   var mpLocked = new Set();
