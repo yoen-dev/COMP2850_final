@@ -1553,12 +1553,12 @@ function saveCustomRecipes(){
   try{
     const custom = {};
     Object.entries(RECIPES).forEach(([k,v])=>{ if(v.custom) custom[k]=v; });
-    localStorage.setItem('nw-custom-recipes', JSON.stringify(custom));
+    localStorage.setItem(_nwKey('custom-recipes'), JSON.stringify(custom));
   }catch(e){}
 }
 function loadCustomRecipes(){
   try{
-    const data = localStorage.getItem('nw-custom-recipes');
+    const data = localStorage.getItem(_nwKey('custom-recipes'));
     if(!data) return;
     const custom = JSON.parse(data);
     Object.entries(custom).forEach(([k,v])=>{
@@ -1675,11 +1675,11 @@ var diaryHistory = {};
 
 function saveDiaryForDate(){
   diaryHistory[currentDiaryDate] = JSON.parse(JSON.stringify(mealLog));
-  try{ localStorage.setItem('nw-diary-history', JSON.stringify(diaryHistory)); }catch(e){}
+  try{ localStorage.setItem(_nwKey('diary-history'), JSON.stringify(diaryHistory)); }catch(e){}
 }
 function loadDiaryHistory(){
   try{
-    const data = localStorage.getItem('nw-diary-history');
+    const data = localStorage.getItem(_nwKey('diary-history'));
     if(data) diaryHistory = JSON.parse(data);
   }catch(e){}
 }
@@ -1781,24 +1781,25 @@ switchChartTab = function(el){
 // ══════════════════════════════════════════════════════════════
 // FEATURE: localStorage Persistence
 // ══════════════════════════════════════════════════════════════
+function _nwKey(k){ var uid = (typeof NW !== 'undefined' && NW.auth) ? NW.auth.userId : ''; return uid ? 'nw-' + uid + '-' + k : 'nw-' + k; }
 function saveState(){
   saveDiaryForDate();
   try{
-    localStorage.setItem('nw-favourites', JSON.stringify([...favourites]));
-    localStorage.setItem('nw-compare', JSON.stringify([...compareSelected]));
-    localStorage.setItem('nw-exlog', JSON.stringify(exLog));
-    localStorage.setItem('nw-exdata', JSON.stringify(exChartData));
+    localStorage.setItem(_nwKey('favourites'), JSON.stringify([...favourites]));
+    localStorage.setItem(_nwKey('compare'), JSON.stringify([...compareSelected]));
+    localStorage.setItem(_nwKey('exlog'), JSON.stringify(exLog));
+    localStorage.setItem(_nwKey('exdata'), JSON.stringify(exChartData));
   }catch(e){}
 }
 function loadState(){
   try{
-    const f = localStorage.getItem('nw-favourites');
+    const f = localStorage.getItem(_nwKey('favourites'));
     if(f){ favourites = new Set(JSON.parse(f)); }
-    const c = localStorage.getItem('nw-compare');
+    const c = localStorage.getItem(_nwKey('compare'));
     if(c){ compareSelected = new Set(JSON.parse(c)); }
-    const el = localStorage.getItem('nw-exlog');
+    const el = localStorage.getItem(_nwKey('exlog'));
     if(el){ const parsed = JSON.parse(el); exLog.length=0; parsed.forEach(e=>exLog.push(e)); }
-    const ed = localStorage.getItem('nw-exdata');
+    const ed = localStorage.getItem(_nwKey('exdata'));
     if(ed){ const parsed = JSON.parse(ed); parsed.forEach((v,i)=>exChartData[i]=v); }
   }catch(e){}
   loadDiaryHistory();
@@ -2103,7 +2104,7 @@ function clearAllFilters(){
       out.push({ type:'warn', icon:'⏰', title:'Front-loaded intake', body:'You\'ve consumed ' + Math.round(kcalPct) + '% of today\'s target by lunch. Consider a lighter dinner.' });
     }
     try {
-      const diary = JSON.parse(localStorage.getItem('nw-diary-history') || '{}');
+      const diary = JSON.parse(localStorage.getItem(_nwKey('diary-history')) || '{}');
       const days = Object.keys(diary).length;
       if (days >= 7 && days % 7 === 0) {
         out.push({ type:'good', icon:'🌟', title:days + '-day logging streak', body:'Consistency is the single best predictor of nutritional improvement. Keep going.' });
@@ -2367,7 +2368,7 @@ function clearAllFilters(){
   // ── EXPORT CSV ─────────────────────────────────────────────────
   function exportWeeklyReportCSV() {
     let history = {};
-    try { history = JSON.parse(localStorage.getItem('nw-diary-history') || '{}'); } catch (e) {}
+    try { history = JSON.parse(localStorage.getItem(_nwKey('diary-history')) || '{}'); } catch (e) {}
     const rows = [['Date','Calories','Protein (g)','Carbs (g)','Fat (g)','Sugar (g)']];
     for (let i = 6; i >= 0; i--) {
       const d = new Date(); d.setDate(d.getDate() - i);
@@ -2477,7 +2478,7 @@ function clearAllFilters(){
 
   // Load saved plan
   try {
-    var saved = localStorage.getItem('nw-meal-plan-v2');
+    var saved = localStorage.getItem(_nwKey('meal-plan-v2'));
     if (saved) {
       var parsed = JSON.parse(saved);
       mpPlan = parsed.plan || mpPlan;
@@ -2486,7 +2487,7 @@ function clearAllFilters(){
   } catch(e){}
 
   function mpSave(){
-    try { localStorage.setItem('nw-meal-plan-v2', JSON.stringify({ plan:mpPlan, locked:[...mpLocked] })); } catch(e){}
+    try { localStorage.setItem(_nwKey('meal-plan-v2'), JSON.stringify({ plan:mpPlan, locked:[...mpLocked] })); } catch(e){}
   }
 
   function mpGetRecipes(){

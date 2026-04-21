@@ -19,14 +19,17 @@
   'use strict';
 
   // ── Storage ──────────────────────────────────────────────────
-  var PROFILE_KEY = 'nw-user-profile';
+  function profileKey() {
+    var uid = (typeof NW !== 'undefined' && NW.auth) ? NW.auth.userId : '';
+    return uid ? 'nw-' + uid + '-profile' : 'nw-user-profile';
+  }
 
   function getProfile() {
-    try { return JSON.parse(localStorage.getItem(PROFILE_KEY)); }
+    try { return JSON.parse(localStorage.getItem(profileKey())); }
     catch (e) { return null; }
   }
   function saveProfile(p) {
-    localStorage.setItem(PROFILE_KEY, JSON.stringify(p));
+    localStorage.setItem(profileKey(), JSON.stringify(p));
   }
   function isProfileComplete(p) {
     return p && p.gender && p.heightCm && p.weightKg && p.activityLevel && p.goal && p.dateOfBirth;
