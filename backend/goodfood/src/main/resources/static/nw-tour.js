@@ -287,23 +287,23 @@
     s.textContent = '\
 #nw-tour-overlay{position:fixed;top:0;left:0;right:0;bottom:0;z-index:99998;background:rgba(10,20,16,0.75);backdrop-filter:blur(8px);display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .3s}\
 #nw-tour-overlay.visible{opacity:1}\
-#nw-tour-card{background:var(--white,#fff);border-radius:24px;width:480px;max-width:92vw;max-height:88vh;overflow:hidden;box-shadow:0 32px 80px rgba(10,20,16,0.3);display:flex;flex-direction:column;transform:scale(0.95);transition:transform .3s}\
+#nw-tour-card{background:var(--white,#fff);border-radius:24px;width:520px;max-width:92vw;height:480px;max-height:88vh;box-shadow:0 32px 80px rgba(10,20,16,0.3);display:flex;flex-direction:column;transform:scale(0.95);transition:transform .3s}\
 #nw-tour-overlay.visible #nw-tour-card{transform:scale(1)}\
-#nw-tour-illust{background:var(--paper,#f5f7f5);border-bottom:1px solid var(--fog,#dce6e0);padding:16px 24px;min-height:100px;display:flex;align-items:center;justify-content:center}\
-#nw-tour-body{padding:24px 28px 20px;flex:1;overflow-y:auto}\
+#nw-tour-illust{background:var(--paper,#f5f7f5);border-bottom:1px solid var(--fog,#dce6e0);padding:20px 28px;height:180px;min-height:180px;max-height:180px;display:flex;align-items:center;justify-content:center;border-radius:24px 24px 0 0;overflow:hidden}\
+#nw-tour-body{padding:24px 28px 16px;flex:1;overflow-y:auto}\
 #nw-tour-title{font-family:"Instrument Serif",serif;font-size:22px;font-style:italic;color:var(--ink,#0a1410);margin-bottom:8px}\
-#nw-tour-text{font-size:13px;color:var(--ink-m,#3d5448);line-height:1.65;margin-bottom:16px}\
-#nw-tour-footer{display:flex;align-items:center;justify-content:space-between;padding:0 28px 20px}\
-.nw-tour-pips{display:flex;gap:4px;align-items:center}\
-.nw-tour-pip{width:16px;height:3px;border-radius:2px;background:var(--fog,#dce6e0);transition:all .3s}\
+#nw-tour-text{font-size:13px;color:var(--ink-m,#3d5448);line-height:1.65}\
+#nw-tour-footer{display:flex;align-items:center;justify-content:space-between;padding:16px 28px 22px;border-top:1px solid var(--fog,#dce6e0);flex-shrink:0}\
+.nw-tour-pips{display:flex;gap:3px;align-items:center;flex-shrink:0}\
+.nw-tour-pip{width:14px;height:3px;border-radius:2px;background:var(--fog,#dce6e0);transition:all .3s}\
 .nw-tour-pip.done{background:var(--teal-l,#2f8f7f)}\
-.nw-tour-pip.active{background:var(--teal,#1e6b5e);width:24px}\
-.nw-tour-actions{display:flex;gap:8px;align-items:center}\
-.nw-tour-skip{font-family:"JetBrains Mono",monospace;font-size:10px;color:var(--ink-f,#6b8878);background:none;border:none;cursor:pointer;padding:6px 10px;border-radius:6px;transition:all .2s}\
+.nw-tour-pip.active{background:var(--teal,#1e6b5e);width:22px}\
+.nw-tour-actions{display:flex;gap:12px;align-items:center;flex-shrink:0}\
+.nw-tour-skip{font-family:"JetBrains Mono",monospace;font-size:10px;color:var(--ink-f,#6b8878);background:none;border:none;cursor:pointer;padding:6px 12px;border-radius:6px;transition:all .2s;white-space:nowrap}\
 .nw-tour-skip:hover{color:var(--ink);background:var(--paper)}\
-.nw-tour-next{font-size:12px;font-weight:600;padding:9px 20px;border-radius:8px;border:none;background:var(--teal,#1e6b5e);color:#fff;cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:5px}\
+.nw-tour-next{font-size:12px;font-weight:600;padding:9px 22px;border-radius:8px;border:none;background:var(--teal,#1e6b5e);color:#fff;cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:6px;white-space:nowrap}\
 .nw-tour-next:hover{background:var(--teal-l,#2f8f7f)}\
-.nw-tour-counter{font-family:"JetBrains Mono",monospace;font-size:9px;color:var(--ink-f,#6b8878);letter-spacing:.06em}\
+.nw-tour-counter{font-family:"JetBrains Mono",monospace;font-size:10px;color:var(--ink-f,#6b8878);letter-spacing:.04em;white-space:nowrap}\
 ';
     document.head.appendChild(s);
   }
@@ -327,9 +327,9 @@
         '</div>' +
         '<div id="nw-tour-footer">' +
           '<div class="nw-tour-pips" id="nw-tour-pips"></div>' +
+          '<div class="nw-tour-counter" id="nw-tour-counter"></div>' +
           '<div class="nw-tour-actions">' +
-            '<div class="nw-tour-counter" id="nw-tour-counter"></div>' +
-            '<button class="nw-tour-skip" id="nw-tour-skip">Skip</button>' +
+            '<button class="nw-tour-skip" id="nw-tour-skip">Skip tour</button>' +
             '<button class="nw-tour-next" id="nw-tour-next">Next →</button>' +
           '</div>' +
         '</div>' +
