@@ -492,10 +492,16 @@ body.dark-mode .shortcuts-modal { background: #142420; }
     <span class="sn-name">Dashboard</span>
   </a>
 
+  <a class="sn-item" href="pro_community.html" style="margin-bottom:2px">
+    <span style="font-size:16px">💬</span>
+    <span class="sn-name">Community</span>
+  </a>
+  <div class="sn-divider"></div>
   <div class="sn-section-label" style="margin-top:4px">My Clients</div>
   <div style="padding:6px 16px 2px">
     <label for="client-search-input" class="sr-only">Search clients by name</label>
-    <input type="text" id="client-search-input" placeholder="Search clients..." aria-label="Search clients by name" oninput="filterClients(this.value)"
+    <input type="search" id="client-search-input" placeholder="Search clients..." aria-label="Search clients by name" oninput="filterClients(this.value)"
+      autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" name="nw-client-search"
       style="width:100%;padding:6px 10px;border:1px solid var(--border);border-radius:7px;font-size:11px;font-family:'Bricolage Grotesque',sans-serif;color:var(--ink);outline:none;background:var(--paper)">
   </div>
 
@@ -1224,9 +1230,9 @@ function fillMsg(text) {
 }
 
 function simulateUserMode() {
-  // Pass user=professional so dashboard loads Dr. Rivera's own data
-  // Also pass from=pro so the Switch Back button appears
-  window.location.replace('/COMP2850_final/dashboard.html?user=professional&from=pro');
+  // Mark as coming from pro dashboard, so dashboard shows a "Back to Pro" button
+  try { sessionStorage.setItem('nw-from-pro', '1'); } catch(e) {}
+  window.location.replace('dashboard.html');
 }
 
 // ── ONBOARDING TOUR ──
