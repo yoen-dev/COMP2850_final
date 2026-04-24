@@ -793,6 +793,10 @@ body.dark-mode .shortcuts-modal { background: #142420; }
       </div>
     </div>
   </div>
+
+  <!-- ── PRO COMMUNITY PAGE ── -->
+  <div class="page" id="page-community" role="tabpanel" aria-label="Community Hub"></div>
+
 </div>
 
 <script>
@@ -1559,8 +1563,6 @@ function renderScoreRing(c) {
   </div>
 </div>
 
-<!-- ── PRO COMMUNITY PAGE ── -->
-<div class="page" id="page-community" role="tabpanel" aria-label="Community Hub"></div>
 
 <!-- Toast -->
 <div id="proToast" style="position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(12px);background:var(--ink);color:#fff;padding:10px 22px;border-radius:10px;font-size:13px;font-weight:600;z-index:9999;opacity:0;transition:all .3s;pointer-events:none;white-space:nowrap;font-family:'Bricolage Grotesque',sans-serif"></div>
@@ -2323,7 +2325,9 @@ function initProCommunity() {
   if (!page || page.dataset.init) return;
   page.dataset.init = "1";
 
-  if (typeof NW !== "undefined" && NW.auth && NW.auth.name) {
+  // Only override if NW.auth has a professional-looking name (contains space)
+  // Otherwise keep the default "Dr. Rivera" / "DR"
+  if (typeof NW !== "undefined" && NW.auth && NW.auth.name && NW.auth.name.indexOf(" ") > 0) {
     PRO_NAME = NW.auth.name;
     PRO_INITIALS = PRO_NAME.split(" ").map(function(w){return(w[0]||"").toUpperCase();}).join("").substring(0,2) || "DR";
   }
