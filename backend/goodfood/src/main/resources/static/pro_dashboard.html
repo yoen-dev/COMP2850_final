@@ -9,11 +9,11 @@
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --teal:#1e6b5e;--teal-l:#2f8f7f;--teal-ll:#b8ddd8;--teal-lll:#e8f4f2;
-  --amber:#b8621f;--amber-l:#d4956a;--amber-ll:#faeade;
-  --ink:#0a1410;--ink-s:#1c2e26;--ink-m:#3d5448;--ink-f:#6b8878;
+  --teal:#1e6b5e;--teal-l:#1a7a6a;--teal-ll:#b8ddd8;--teal-lll:#e8f4f2;
+  --amber:#955018;--amber-l:#d4956a;--amber-ll:#faeade;
+  --ink:#0a1410;--ink-s:#1c2e26;--ink-m:#3d5448;--ink-f:#4d6e5e;
   --paper:#f5f7f5;--fog:#dce6e0;--white:#fff;--border:#d4dfd8;
-  --blue:#7aaad4;--pink:#e07b78;
+  --blue:#7aaad4;--pink:#b5413e;
   --pro:#7c3aed;--pro-l:#a78bfa;--pro-ll:#ede9fe;--pro-lll:#f5f3ff;
 }
 body{font-family:'Bricolage Grotesque',sans-serif;background:var(--paper);color:var(--ink);display:flex;min-height:100vh;-webkit-font-smoothing:antialiased}
@@ -495,7 +495,7 @@ body.dark-mode .shortcuts-modal { background: #142420; }
   </div>
 
   <a class="sn-item" onclick="selectClient('rose', this)" data-client="rose" href="#">
-    <div class="sn-avatar" style="background:#2f8f7f" aria-hidden="true">RC</div>
+    <div class="sn-avatar" style="background:#1a7a6a" aria-hidden="true">RC</div>
     <div style="flex:1">
       <div class="sn-name">Rose Campbell</div>
       <div style="font-family:'JetBrains Mono',monospace;font-size:8px;color:var(--ink-f)">62kg · Active</div>
@@ -513,7 +513,7 @@ body.dark-mode .shortcuts-modal { background: #142420; }
   </a>
 
   <a class="sn-item" onclick="selectClient('sara', this)" data-client="sara" href="#">
-    <div class="sn-avatar" style="background:#e07b78" aria-hidden="true">SL</div>
+    <div class="sn-avatar" style="background:#b5413e" aria-hidden="true">SL</div>
     <div style="flex:1">
       <div class="sn-name">Sara Lim</div>
       <div style="font-family:'JetBrains Mono',monospace;font-size:8px;color:var(--ink-f)">55kg · Cut</div>
@@ -556,8 +556,8 @@ body.dark-mode .shortcuts-modal { background: #142420; }
         <div class="ov-label">Messages Pending</div>
         <div class="ov-sub">Rose, Sara, Priya waiting on replies</div>
         <div style="margin-top:12px;display:flex;gap:6px">
-          <div style="width:28px;height:28px;border-radius:50%;background:#2f8f7f;color:#fff;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700">RC</div>
-          <div style="width:28px;height:28px;border-radius:50%;background:#e07b78;color:#fff;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700">SL</div>
+          <div style="width:28px;height:28px;border-radius:50%;background:#1a7a6a;color:#fff;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700">RC</div>
+          <div style="width:28px;height:28px;border-radius:50%;background:#b5413e;color:#fff;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700">SL</div>
           <div style="width:28px;height:28px;border-radius:50%;background:#7c3aed;color:#fff;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700">PK</div>
         </div>
       </div>
@@ -593,15 +593,15 @@ body.dark-mode .shortcuts-modal { background: #142420; }
           </tr>
         </thead>
         <tbody id="snapshotTable">
-          <tr onclick="selectClientFromTable('rose')" style="cursor:pointer;transition:background .15s" onmouseover="this.style.background='var(--paper)'" onmouseout="this.style.background='transparent'">
-            <td style="padding:12px 0"><div style="display:flex;align-items:center;gap:10px"><div style="width:32px;height:32px;border-radius:50%;background:#2f8f7f;color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700">RC</div><div><div style="font-size:13px;font-weight:600;color:var(--ink)">Rose Campbell</div><div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--ink-f)">62 kg · F · 29</div></div></div></td>
+          <tr tabindex="0" role="button" onclick="selectClientFromTable('rose')" style="cursor:pointer;transition:background .15s" onmouseover="this.style.background='var(--paper)'" onmouseout="this.style.background='transparent'">
+            <td style="padding:12px 0"><div style="display:flex;align-items:center;gap:10px"><div style="width:32px;height:32px;border-radius:50%;background:#1a7a6a;color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700">RC</div><div><div style="font-size:13px;font-weight:600;color:var(--ink)">Rose Campbell</div><div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--ink-f)">62 kg · F · 29</div></div></div></td>
             <td style="text-align:center;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--ink-m)">Weight loss</td>
             <td style="text-align:center;font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;color:var(--teal)">1,920</td>
             <td style="text-align:center"><span style="font-family:'JetBrains Mono',monospace;font-size:10px;padding:2px 8px;border-radius:8px;background:var(--amber-ll);color:var(--amber)">68g ↓</span></td>
             <td style="text-align:center"><div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--ink-m)">5/7 days</div></td>
             <td style="text-align:center"><span style="font-family:'JetBrains Mono',monospace;font-size:9px;padding:3px 10px;border-radius:8px;background:var(--amber-ll);color:var(--amber)">⚡ Low protein</span></td>
           </tr>
-          <tr onclick="selectClientFromTable('james')" style="cursor:pointer;transition:background .15s" onmouseover="this.style.background='var(--paper)'" onmouseout="this.style.background='transparent'">
+          <tr tabindex="0" role="button" onclick="selectClientFromTable('james')" style="cursor:pointer;transition:background .15s" onmouseover="this.style.background='var(--paper)'" onmouseout="this.style.background='transparent'">
             <td style="padding:12px 0"><div style="display:flex;align-items:center;gap:10px"><div style="width:32px;height:32px;border-radius:50%;background:#7aaad4;color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700">JT</div><div><div style="font-size:13px;font-weight:600;color:var(--ink)">James Tang</div><div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--ink-f)">78 kg · M · 25</div></div></div></td>
             <td style="text-align:center;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--ink-m)">Muscle gain</td>
             <td style="text-align:center;font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;color:var(--teal)">2,850</td>
@@ -609,15 +609,15 @@ body.dark-mode .shortcuts-modal { background: #142420; }
             <td style="text-align:center"><div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--ink-m)">6/7 days</div></td>
             <td style="text-align:center"><span style="font-family:'JetBrains Mono',monospace;font-size:9px;padding:3px 10px;border-radius:8px;background:var(--teal-lll);color:var(--teal)">✓ On track</span></td>
           </tr>
-          <tr onclick="selectClientFromTable('sara')" style="cursor:pointer;transition:background .15s" onmouseover="this.style.background='var(--paper)'" onmouseout="this.style.background='transparent'">
-            <td style="padding:12px 0"><div style="display:flex;align-items:center;gap:10px"><div style="width:32px;height:32px;border-radius:50%;background:#e07b78;color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700">SL</div><div><div style="font-size:13px;font-weight:600;color:var(--ink)">Sara Lim</div><div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--ink-f)">55 kg · F · 32</div></div></div></td>
+          <tr tabindex="0" role="button" onclick="selectClientFromTable('sara')" style="cursor:pointer;transition:background .15s" onmouseover="this.style.background='var(--paper)'" onmouseout="this.style.background='transparent'">
+            <td style="padding:12px 0"><div style="display:flex;align-items:center;gap:10px"><div style="width:32px;height:32px;border-radius:50%;background:#b5413e;color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700">SL</div><div><div style="font-size:13px;font-weight:600;color:var(--ink)">Sara Lim</div><div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--ink-f)">55 kg · F · 32</div></div></div></td>
             <td style="text-align:center;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--ink-m)">Fat cut</td>
             <td style="text-align:center;font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;color:var(--pink)">1,200</td>
             <td style="text-align:center"><span style="font-family:'JetBrains Mono',monospace;font-size:10px;padding:2px 8px;border-radius:8px;background:#fee2e2;color:#dc2626">42g ↓↓</span></td>
             <td style="text-align:center"><div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#dc2626">2/7 days</div></td>
             <td style="text-align:center"><span style="font-family:'JetBrains Mono',monospace;font-size:9px;padding:3px 10px;border-radius:8px;background:#fee2e2;color:#dc2626">! Missed 3 days</span></td>
           </tr>
-          <tr onclick="selectClientFromTable('mike')" style="cursor:pointer;transition:background .15s" onmouseover="this.style.background='var(--paper)'" onmouseout="this.style.background='transparent'">
+          <tr tabindex="0" role="button" onclick="selectClientFromTable('mike')" style="cursor:pointer;transition:background .15s" onmouseover="this.style.background='var(--paper)'" onmouseout="this.style.background='transparent'">
             <td style="padding:12px 0"><div style="display:flex;align-items:center;gap:10px"><div style="width:32px;height:32px;border-radius:50%;background:#b8621f;color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700">MW</div><div><div style="font-size:13px;font-weight:600;color:var(--ink)">Mike Walsh</div><div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--ink-f)">90 kg · M · 41</div></div></div></td>
             <td style="text-align:center;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--ink-m)">Maintain</td>
             <td style="text-align:center;font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;color:var(--teal)">2,400</td>
@@ -625,7 +625,7 @@ body.dark-mode .shortcuts-modal { background: #142420; }
             <td style="text-align:center"><div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--ink-m)">4/7 days</div></td>
             <td style="text-align:center"><span style="font-family:'JetBrains Mono',monospace;font-size:9px;padding:3px 10px;border-radius:8px;background:var(--teal-lll);color:var(--teal)">✓ On track</span></td>
           </tr>
-          <tr onclick="selectClientFromTable('priya')" style="cursor:pointer;transition:background .15s" onmouseover="this.style.background='var(--paper)'" onmouseout="this.style.background='transparent'">
+          <tr tabindex="0" role="button" onclick="selectClientFromTable('priya')" style="cursor:pointer;transition:background .15s" onmouseover="this.style.background='var(--paper)'" onmouseout="this.style.background='transparent'">
             <td style="padding:12px 0"><div style="display:flex;align-items:center;gap:10px"><div style="width:32px;height:32px;border-radius:50%;background:#7c3aed;color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700">PK</div><div><div style="font-size:13px;font-weight:600;color:var(--ink)">Priya Kapoor</div><div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--ink-f)">58 kg · F · 27</div></div></div></td>
             <td style="text-align:center;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--ink-m)">Lean gain</td>
             <td style="text-align:center;font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;color:var(--teal)">1,750</td>
@@ -757,7 +757,7 @@ body.dark-mode .shortcuts-modal { background: #142420; }
           <div id="trainingPlanRows"></div>
           <div style="margin-top:14px;padding:12px;background:var(--teal-lll);border-radius:10px">
             <div style="font-size:12px;font-weight:600;color:var(--teal);margin-bottom:4px">📝 Pro Notes</div>
-            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px"><div style="font-size:12px;font-weight:700;color:var(--ink)">📝 Pro Notes</div><span id="notesEditBtn" onclick="toggleNotesEdit()" style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--teal);cursor:pointer;padding:3px 8px;border:1px solid var(--teal-ll);border-radius:5px">Edit</span></div><div id="proNotes" style="font-size:12px;color:var(--ink-m);line-height:1.55"></div><textarea id="proNotesEdit" style="display:none;width:100%;padding:10px 12px;border:1.5px solid var(--teal);border-radius:8px;font-family:'Bricolage Grotesque',sans-serif;font-size:12px;color:var(--ink);resize:vertical;min-height:80px;outline:none;margin-top:6px"></textarea>
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px"><div style="font-size:12px;font-weight:700;color:var(--ink)">📝 Pro Notes</div><span id="notesEditBtn" tabindex="0" role="button" onclick="toggleNotesEdit()" style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--teal);cursor:pointer;padding:3px 8px;border:1px solid var(--teal-ll);border-radius:5px">Edit</span></div><div id="proNotes" style="font-size:12px;color:var(--ink-m);line-height:1.55"></div><textarea aria-label="Edit client notes" id="proNotesEdit" style="display:none;width:100%;padding:10px 12px;border:1.5px solid var(--teal);border-radius:8px;font-family:'Bricolage Grotesque',sans-serif;font-size:12px;color:var(--ink);resize:vertical;min-height:80px;outline:none;margin-top:6px"></textarea>
           </div>
         </div>
       </div>
@@ -1354,7 +1354,7 @@ function renderAppointments(c) {
       <div class="appt-time"><div class="at-hour">${a.time}</div><div class="at-label">${a.date}</div></div>
       <div class="appt-info"><div class="ai-name">${c.name}</div><div class="ai-type">${a.type}</div></div>
       <span class="appt-status ${a.status}">${a.status === 'confirmed' ? '✓ Confirmed' : '⏳ Pending'}</span>
-      <span onclick="event.stopPropagation();deleteAppt(${i})" style="font-size:11px;color:var(--ink-f);cursor:pointer;margin-left:6px;opacity:.5" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=.5">✕</span>
+      <span tabindex="0" role="button" onclick="event.stopPropagation();deleteAppt(${i})" style="font-size:11px;color:var(--ink-f);cursor:pointer;margin-left:6px;opacity:.5" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=.5">✕</span>
     </div>`).join('');
 
   document.getElementById('sessionHistory').innerHTML = c.history.map(h =>
@@ -1498,7 +1498,7 @@ function renderScoreRing(c) {
   const labels = { nutrition: 'Nutrition Quality', consistency: 'Log Consistency', hydration: 'Hydration', exercise: 'Exercise' };
   const barColors = { nutrition: '#1e6b5e', consistency: '#7aaad4', hydration: '#d4956a', exercise: '#e07b78' };
   document.getElementById('scoreLabels').innerHTML = Object.entries(c.scores).map(([k, v]) =>
-    `<div class="sl-row" style="cursor:pointer" onclick="toggleScoreDetail('${k}', this)">
+    `<div class="sl-row" style="cursor:pointer" tabindex="0" role="button" onclick="toggleScoreDetail('${k}', this)">
       <span class="sl-name">${labels[k]}</span>
       <div class="sl-bar-wrap"><div class="sl-bar" style="width:${v}%;background:${barColors[k]}"></div></div>
       <span class="sl-score">${v}</span>
@@ -1525,15 +1525,15 @@ function renderScoreRing(c) {
     <div style="display:flex;flex-direction:column;gap:14px">
       <div>
         <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--ink-f);text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px">Date</div>
-        <input type="date" id="apptDate" style="width:100%;padding:9px 12px;border:1px solid var(--border);border-radius:8px;font-family:'Bricolage Grotesque',sans-serif;font-size:13px;color:var(--ink);outline:none">
+        <input aria-label="Appointment date" type="date" id="apptDate" style="width:100%;padding:9px 12px;border:1px solid var(--border);border-radius:8px;font-family:'Bricolage Grotesque',sans-serif;font-size:13px;color:var(--ink);outline:none">
       </div>
       <div>
         <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--ink-f);text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px">Time</div>
-        <input type="time" id="apptTime" value="09:00" style="width:100%;padding:9px 12px;border:1px solid var(--border);border-radius:8px;font-family:'Bricolage Grotesque',sans-serif;font-size:13px;color:var(--ink);outline:none">
+        <input aria-label="Appointment time" type="time" id="apptTime" value="09:00" style="width:100%;padding:9px 12px;border:1px solid var(--border);border-radius:8px;font-family:'Bricolage Grotesque',sans-serif;font-size:13px;color:var(--ink);outline:none">
       </div>
       <div>
         <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--ink-f);text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px">Type</div>
-        <select id="apptType" style="width:100%;padding:9px 12px;border:1px solid var(--border);border-radius:8px;font-family:'Bricolage Grotesque',sans-serif;font-size:13px;color:var(--ink);outline:none;background:var(--white)">
+        <select aria-label="Appointment type" id="apptType" style="width:100%;padding:9px 12px;border:1px solid var(--border);border-radius:8px;font-family:'Bricolage Grotesque',sans-serif;font-size:13px;color:var(--ink);outline:none;background:var(--white)">
           <option>Monthly Check-in</option>
           <option>Plan Review</option>
           <option>Initial Assessment</option>
@@ -1581,11 +1581,11 @@ function renderScoreRing(c) {
           <div style="display:flex;flex-direction:column;gap:16px">
             <div>
               <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--ink-f);letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px">First Name</div>
-              <input type="text" value="Dr." style="width:100%;padding:10px 14px;border:1px solid var(--border);border-radius:8px;font-family:'Bricolage Grotesque',sans-serif;font-size:13px;color:var(--ink);outline:none" onfocus="this.style.boxShadow='0 1px 4px rgba(10,20,16,0.08)'" onblur="this.style.boxShadow='none'">
+              <input aria-label="Text input" type="text" value="Dr." style="width:100%;padding:10px 14px;border:1px solid var(--border);border-radius:8px;font-family:'Bricolage Grotesque',sans-serif;font-size:13px;color:var(--ink);outline:none" onfocus="this.style.boxShadow='0 1px 4px rgba(10,20,16,0.08)'" onblur="this.style.boxShadow='none'">
             </div>
             <div>
               <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--ink-f);letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px">Last Name</div>
-              <input type="text" value="Rivera" style="width:100%;padding:10px 14px;border:1px solid var(--border);border-radius:8px;font-family:'Bricolage Grotesque',sans-serif;font-size:13px;color:var(--ink);outline:none" onfocus="this.style.boxShadow='0 1px 4px rgba(10,20,16,0.08)'" onblur="this.style.boxShadow='none'">
+              <input aria-label="Text input" type="text" value="Rivera" style="width:100%;padding:10px 14px;border:1px solid var(--border);border-radius:8px;font-family:'Bricolage Grotesque',sans-serif;font-size:13px;color:var(--ink);outline:none" onfocus="this.style.boxShadow='0 1px 4px rgba(10,20,16,0.08)'" onblur="this.style.boxShadow='none'">
             </div>
             <div>
               <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--ink-f);letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px">Email Address</div>
@@ -1593,7 +1593,7 @@ function renderScoreRing(c) {
             </div>
             <div>
               <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--ink-f);letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px">Licence Number</div>
-              <input type="text" value="NW-PRO-2024-0042" style="width:100%;padding:10px 14px;border:1px solid var(--border);border-radius:8px;font-family:'Bricolage Grotesque',sans-serif;font-size:13px;color:var(--ink);outline:none" onfocus="this.style.boxShadow='0 1px 4px rgba(10,20,16,0.08)'" onblur="this.style.boxShadow='none'">
+              <input aria-label="Text input" type="text" value="NW-PRO-2024-0042" style="width:100%;padding:10px 14px;border:1px solid var(--border);border-radius:8px;font-family:'Bricolage Grotesque',sans-serif;font-size:13px;color:var(--ink);outline:none" onfocus="this.style.boxShadow='0 1px 4px rgba(10,20,16,0.08)'" onblur="this.style.boxShadow='none'">
             </div>
           </div>
           <button onclick="proSettingsSaved(this)" style="margin-top:20px;padding:11px 28px;background:var(--ink);color:#fff;border:none;border-radius:8px;font-family:'Bricolage Grotesque',sans-serif;font-size:13px;font-weight:600;cursor:pointer" onmouseover="this.style.background='var(--teal)'" onmouseout="this.style.background='var(--ink)'">Save Changes</button>
@@ -1614,11 +1614,11 @@ function renderScoreRing(c) {
               </div>
               <div>
                 <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--ink-f);letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px">Years of Experience</div>
-                <input type="number" value="12" style="width:100%;padding:10px 14px;border:1px solid var(--border);border-radius:8px;font-family:'Bricolage Grotesque',sans-serif;font-size:13px;color:var(--ink);outline:none">
+                <input aria-label="Enter number" type="number" value="12" style="width:100%;padding:10px 14px;border:1px solid var(--border);border-radius:8px;font-family:'Bricolage Grotesque',sans-serif;font-size:13px;color:var(--ink);outline:none">
               </div>
               <div style="grid-column:1/-1">
                 <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--ink-f);letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px">Max Clients</div>
-                <input type="number" value="20" style="width:100%;padding:10px 14px;border:1px solid var(--border);border-radius:8px;font-family:'Bricolage Grotesque',sans-serif;font-size:13px;color:var(--ink);outline:none">
+                <input aria-label="Enter number" type="number" value="20" style="width:100%;padding:10px 14px;border:1px solid var(--border);border-radius:8px;font-family:'Bricolage Grotesque',sans-serif;font-size:13px;color:var(--ink);outline:none">
               </div>
               <div style="grid-column:1/-1">
                 <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--ink-f);letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px">Bio / About</div>
@@ -1634,33 +1634,33 @@ function renderScoreRing(c) {
             <div style="display:flex;flex-direction:column;gap:10px">
               <div style="display:flex;align-items:center;gap:12px;padding:8px 0;border-bottom:1px solid var(--fog)">
                 <label style="display:flex;align-items:center;gap:6px;width:90px;font-size:12px;font-weight:600;color:var(--ink)"><input type="checkbox" checked style="accent-color:var(--teal)"> Mon</label>
-                <input type="time" value="09:00" style="padding:6px 10px;border:1px solid var(--border);border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--ink);outline:none">
+                <input aria-label="Select time" type="time" value="09:00" style="padding:6px 10px;border:1px solid var(--border);border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--ink);outline:none">
                 <span style="font-size:11px;color:var(--ink-f)">to</span>
-                <input type="time" value="17:00" style="padding:6px 10px;border:1px solid var(--border);border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--ink);outline:none">
+                <input aria-label="Select time" type="time" value="17:00" style="padding:6px 10px;border:1px solid var(--border);border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--ink);outline:none">
               </div>
               <div style="display:flex;align-items:center;gap:12px;padding:8px 0;border-bottom:1px solid var(--fog)">
                 <label style="display:flex;align-items:center;gap:6px;width:90px;font-size:12px;font-weight:600;color:var(--ink)"><input type="checkbox" checked style="accent-color:var(--teal)"> Tue</label>
-                <input type="time" value="09:00" style="padding:6px 10px;border:1px solid var(--border);border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--ink);outline:none">
+                <input aria-label="Select time" type="time" value="09:00" style="padding:6px 10px;border:1px solid var(--border);border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--ink);outline:none">
                 <span style="font-size:11px;color:var(--ink-f)">to</span>
-                <input type="time" value="17:00" style="padding:6px 10px;border:1px solid var(--border);border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--ink);outline:none">
+                <input aria-label="Select time" type="time" value="17:00" style="padding:6px 10px;border:1px solid var(--border);border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--ink);outline:none">
               </div>
               <div style="display:flex;align-items:center;gap:12px;padding:8px 0;border-bottom:1px solid var(--fog)">
                 <label style="display:flex;align-items:center;gap:6px;width:90px;font-size:12px;font-weight:600;color:var(--ink)"><input type="checkbox" checked style="accent-color:var(--teal)"> Wed</label>
-                <input type="time" value="09:00" style="padding:6px 10px;border:1px solid var(--border);border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--ink);outline:none">
+                <input aria-label="Select time" type="time" value="09:00" style="padding:6px 10px;border:1px solid var(--border);border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--ink);outline:none">
                 <span style="font-size:11px;color:var(--ink-f)">to</span>
-                <input type="time" value="17:00" style="padding:6px 10px;border:1px solid var(--border);border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--ink);outline:none">
+                <input aria-label="Select time" type="time" value="17:00" style="padding:6px 10px;border:1px solid var(--border);border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--ink);outline:none">
               </div>
               <div style="display:flex;align-items:center;gap:12px;padding:8px 0;border-bottom:1px solid var(--fog)">
                 <label style="display:flex;align-items:center;gap:6px;width:90px;font-size:12px;font-weight:600;color:var(--ink)"><input type="checkbox" checked style="accent-color:var(--teal)"> Thu</label>
-                <input type="time" value="09:00" style="padding:6px 10px;border:1px solid var(--border);border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--ink);outline:none">
+                <input aria-label="Select time" type="time" value="09:00" style="padding:6px 10px;border:1px solid var(--border);border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--ink);outline:none">
                 <span style="font-size:11px;color:var(--ink-f)">to</span>
-                <input type="time" value="17:00" style="padding:6px 10px;border:1px solid var(--border);border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--ink);outline:none">
+                <input aria-label="Select time" type="time" value="17:00" style="padding:6px 10px;border:1px solid var(--border);border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--ink);outline:none">
               </div>
               <div style="display:flex;align-items:center;gap:12px;padding:8px 0">
                 <label style="display:flex;align-items:center;gap:6px;width:90px;font-size:12px;font-weight:600;color:var(--ink)"><input type="checkbox" style="accent-color:var(--teal)"> Fri</label>
-                <input type="time" value="09:00" style="padding:6px 10px;border:1px solid var(--border);border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--ink);outline:none">
+                <input aria-label="Select time" type="time" value="09:00" style="padding:6px 10px;border:1px solid var(--border);border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--ink);outline:none">
                 <span style="font-size:11px;color:var(--ink-f)">to</span>
-                <input type="time" value="13:00" style="padding:6px 10px;border:1px solid var(--border);border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--ink);outline:none">
+                <input aria-label="Select time" type="time" value="13:00" style="padding:6px 10px;border:1px solid var(--border);border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--ink);outline:none">
               </div>
             </div>
             <button onclick="proSettingsSaved(this)" style="margin-top:16px;padding:11px 28px;background:var(--ink);color:#fff;border:none;border-radius:8px;font-family:'Bricolage Grotesque',sans-serif;font-size:13px;font-weight:600;cursor:pointer" onmouseover="this.style.background='var(--teal)'" onmouseout="this.style.background='var(--ink)'">Save Availability</button>
@@ -1723,11 +1723,11 @@ function renderScoreRing(c) {
             <div style="display:flex;flex-direction:column;gap:14px">
               <div>
                 <div style="display:flex;justify-content:space-between;margin-bottom:6px"><span style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--ink-f);text-transform:uppercase;letter-spacing:.08em">Flag if calories below (%)</span><span style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--teal);font-weight:600">70%</span></div>
-                <input type="range" min="50" max="90" value="70" style="width:100%;accent-color:var(--teal)">
+                <input aria-label="Adjust value" type="range" min="50" max="90" value="70" style="width:100%;accent-color:var(--teal)">
               </div>
               <div>
                 <div style="display:flex;justify-content:space-between;margin-bottom:6px"><span style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--ink-f);text-transform:uppercase;letter-spacing:.08em">Missed log days before alert</span><span style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--teal);font-weight:600">2 days</span></div>
-                <input type="range" min="1" max="7" value="2" style="width:100%;accent-color:var(--teal)">
+                <input aria-label="Adjust value" type="range" min="1" max="7" value="2" style="width:100%;accent-color:var(--teal)">
               </div>
             </div>
           </div>
@@ -1812,7 +1812,7 @@ var proSlides = [
   { title:"Your Client List", body:"All your clients are listed in the sidebar with colour-coded status badges — green for on track, amber for warnings, red for missed days. Click any name to open their full profile.",
     illust:function(){return '<div style="display:flex;flex-direction:column;gap:6px;padding:10px 0">'+mc("RC","Rose C.","#2f8f7f","Active")+mc("JT","James T.","#7aaad4","Bulking")+mc("SL","Sara L.","#e07b78","Missed 3d")+'</div>';}},
   { title:"Client Snapshot", body:"The overview table gives you an at-a-glance summary — goals, average calories, protein intake, exercise frequency, and current status. Click any row to open that client.",
-    illust:function(){return '<div style="background:var(--white);border:1px solid var(--border);border-radius:10px;padding:12px 14px"><div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:6px;font-size:9px;font-family:JetBrains Mono,monospace;font-weight:700;color:var(--ink);margin-bottom:8px"><span>Client</span><span>Goal</span><span>Avg kcal</span><span>Status</span></div><div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:6px;font-size:9px;color:var(--ink-f)"><span>Rose C.</span><span>Weight loss</span><span>1,920</span><span style="color:#b8621f">Low protein</span></div><div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:6px;font-size:9px;color:var(--ink-f);margin-top:4px"><span>James T.</span><span>Muscle gain</span><span>2,850</span><span style="color:#2f8f7f">On track</span></div></div>';}},
+    illust:function(){return '<div style="background:var(--white);border:1px solid var(--border);border-radius:10px;padding:12px 14px"><div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:6px;font-size:9px;font-family:JetBrains Mono,monospace;font-weight:700;color:var(--ink);margin-bottom:8px"><span>Client</span><span>Goal</span><span>Avg kcal</span><span>Status</span></div><div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:6px;font-size:9px;color:var(--ink-f)"><span>Rose C.</span><span>Weight loss</span><span>1,920</span><span style="color:#955018">Low protein</span></div><div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:6px;font-size:9px;color:var(--ink-f);margin-top:4px"><span>James T.</span><span>Muscle gain</span><span>2,850</span><span style="color:#1a7a6a">On track</span></div></div>';}},
   { title:"Client Profile & Tabs", body:"Each client profile has four tabs: Data Analysis (calorie trends, BMI, macros), Messages (send advice with quick-tag buttons), Fitness Plan (meal and training plans), and Appointments (book and manage sessions).",
     illust:function(){return '<div style="display:flex;gap:8px;justify-content:center;padding:10px 0;flex-wrap:wrap">'+mt("📊","Analysis")+mt("💬","Messages")+mt("📋","Plan")+mt("📅","Appts")+'</div>';}},
   { title:"Community Hub", body:"Engage with the community — post expert advice, answer subscriber questions, and manage client connection requests. Your posts automatically get a PRO badge.",

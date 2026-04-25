@@ -41,10 +41,10 @@
             '<text x="45" y="55" text-anchor="middle" font-size="7" fill="var(--ink-f)" font-family="JetBrains Mono,monospace">kcal</text>' +
           '</svg>' +
           '<div style="font-size:11px;color:var(--ink-f);line-height:1.7">' +
-            '<div><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#2f8f7f;margin-right:5px"></span>Carbs</div>' +
+            '<div><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#1a7a6a;margin-right:5px"></span>Carbs</div>' +
             '<div><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#d4956a;margin-right:5px"></span>Protein</div>' +
             '<div><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#7aaad4;margin-right:5px"></span>Fat</div>' +
-            '<div><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#e07b78;margin-right:5px"></span>Sugar</div>' +
+            '<div><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#b5413e;margin-right:5px"></span>Sugar</div>' +
           '</div>' +
         '</div>';
       }

@@ -7,7 +7,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{--teal:#1e6b5e;--teal-l:#2f8f7f;--teal-ll:#b8ddd8;--teal-lll:#e8f4f2;--amber:#b8621f;--amber-l:#d4956a;--amber-ll:#faeade;--ink:#0a1410;--ink-s:#1c2e26;--ink-m:#3d5448;--ink-f:#6b8878;--paper:#f5f7f5;--fog:#dce6e0;--white:#fff;--border:#d4dfd8;--blue:#7aaad4;--pink:#e07b78;--pro:#7c3aed;--pro-l:#a78bfa;--pro-ll:#ede9fe;--pro-lll:#f5f3ff}
+:root{--teal:#1e6b5e;--teal-l:#1a7a6a;--teal-ll:#b8ddd8;--teal-lll:#e8f4f2;--amber:#955018;--amber-l:#d4956a;--amber-ll:#faeade;--ink:#0a1410;--ink-s:#1c2e26;--ink-m:#3d5448;--ink-f:#4d6e5e;--paper:#f5f7f5;--fog:#dce6e0;--white:#fff;--border:#d4dfd8;--blue:#7aaad4;--pink:#b5413e;--pro:#7c3aed;--pro-l:#a78bfa;--pro-ll:#ede9fe;--pro-lll:#f5f3ff}
 body{font-family:'Bricolage Grotesque',sans-serif;background:var(--paper);color:var(--ink);display:flex;min-height:100vh;-webkit-font-smoothing:antialiased}
 
 /* ── TOP NAV ── */
@@ -163,9 +163,9 @@ body.dark-mode{--paper:#0d1a14;--white:#142420;--ink:#e8f0ec;--ink-s:#d0ddd4;--i
       <svg width="14" height="14" viewBox="0 0 14 14" fill="none" style="flex-shrink:0"><path d="M1 4h9M7 1l3 3-3 3M13 10H4M7 7l-3 3 3 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
       Switch to User View
     </button>
-    <div class="tn-icon" onclick="toggleDarkMode()" style="cursor:pointer" title="Toggle dark mode"><span id="proDarkModeIcon" style="font-size:16px">🌙</span></div>
+    <div class="tn-icon" tabindex="0" role="button" onclick="toggleDarkMode()" style="cursor:pointer" title="Toggle dark mode"><span id="proDarkModeIcon" style="font-size:16px">🌙</span></div>
     <div style="position:relative">
-      <div class="tn-avatar" id="proAvatarToggle" onclick="event.stopPropagation();toggleProMenu()" style="cursor:pointer">
+      <div class="tn-avatar" id="proAvatarToggle" tabindex="0" role="button" onclick="event.stopPropagation();toggleProMenu()" style="cursor:pointer">
         <div class="tn-avatar-pic" id="nav-avatar-pic" aria-hidden="true">DR</div>
         <span class="tn-avatar-name" id="nav-avatar-name">Dr. Rivera</span>
       </div>
@@ -196,7 +196,7 @@ body.dark-mode{--paper:#0d1a14;--white:#142420;--ink:#e8f0ec;--ink-s:#d0ddd4;--i
       style="width:100%;padding:6px 10px;border:1px solid var(--border);border-radius:7px;font-size:11px;font-family:'Bricolage Grotesque',sans-serif;color:var(--ink);outline:none;background:var(--paper)">
   </div>
   <a class="sn-item" href="pro_dashboard.html#rose" data-client="rose">
-    <div class="sn-avatar" style="background:#2f8f7f;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;color:#fff">RC</div>
+    <div class="sn-avatar" style="background:#1a7a6a;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;color:#fff">RC</div>
     <div style="flex:1"><div class="sn-name">Rose Campbell</div><div style="font-family:'JetBrains Mono',monospace;font-size:8px;color:var(--ink-f)">62kg · Active</div></div>
     <span class="sn-status warn">⚡ Low protein</span>
   </a>
@@ -206,7 +206,7 @@ body.dark-mode{--paper:#0d1a14;--white:#142420;--ink:#e8f0ec;--ink-s:#d0ddd4;--i
     <span class="sn-status ok">✓ On track</span>
   </a>
   <a class="sn-item" href="pro_dashboard.html#sara" data-client="sara">
-    <div class="sn-avatar" style="background:#e07b78;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;color:#fff">SL</div>
+    <div class="sn-avatar" style="background:#b5413e;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;color:#fff">SL</div>
     <div style="flex:1"><div class="sn-name">Sara Lim</div><div style="font-family:'JetBrains Mono',monospace;font-size:8px;color:var(--ink-f)">55kg · Cut</div></div>
     <span class="sn-status urgent">! Missed 3 days</span>
   </a>
