@@ -457,14 +457,14 @@ body.dark-mode .shortcuts-modal { background: #142420; }
     </div>
     </div>
     <div style="position:relative">
-      <div class="tn-avatar" id="proAvatarToggle" style="cursor:pointer" role="button" tabindex="0" aria-label="Open profile menu" aria-haspopup="true" aria-expanded="false" onclick="event.stopPropagation();toggleProAvatarMenu()">
+      <div class="tn-avatar" id="proAvatarToggle" style="cursor:pointer" role="button" tabindex="0" aria-label="Open profile menu" aria-haspopup="true" aria-expanded="false" onclick="event.stopPropagation();toggleProAvatarMenu()" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();event.stopPropagation();toggleProAvatarMenu()}">
         <div class="tn-avatar-pic" aria-hidden="true">DR</div>
         <span class="tn-avatar-name">Dr. Rivera</span>
       </div>
       <div id="proAvatarMenu" style="display:none;position:absolute;top:50px;right:0;background:#fff;border:1px solid #d4dfd8;border-radius:10px;min-width:180px;box-shadow:0 12px 40px rgba(10,20,16,0.12);overflow:hidden;z-index:100">
-        <a href="#" onclick="event.stopPropagation();openProSettings('personal')" style="display:block;padding:11px 16px;font-size:13px;color:#0a1410;text-decoration:none;border-bottom:1px solid #f5f7f5">Personal Details</a>
-        <a href="#" onclick="event.stopPropagation();openProSettings('preferences')" style="display:block;padding:11px 16px;font-size:13px;color:#0a1410;text-decoration:none;border-bottom:1px solid #f5f7f5">Preferences</a>
-        <a href="#" onclick="event.stopPropagation();event.preventDefault();(typeof NW!=='undefined'&&NW.logout?NW.logout():null);window.location.replace('index.html')" style="display:block;padding:11px 16px;font-size:13px;color:#c0392b;text-decoration:none">Log Out</a>
+        <a href="#" tabindex="0" onclick="event.stopPropagation();openProSettings('personal')" onkeydown="if(event.key==='Enter'){event.preventDefault();openProSettings('personal')}" style="display:block;padding:11px 16px;font-size:13px;color:#0a1410;text-decoration:none;border-bottom:1px solid #f5f7f5">Personal Details</a>
+        <a href="#" tabindex="0" onclick="event.stopPropagation();openProSettings('preferences')" onkeydown="if(event.key==='Enter'){event.preventDefault();openProSettings('preferences')}" style="display:block;padding:11px 16px;font-size:13px;color:#0a1410;text-decoration:none;border-bottom:1px solid #f5f7f5">Preferences</a>
+        <a href="#" tabindex="0" onclick="event.stopPropagation();event.preventDefault();(typeof NW!=='undefined'&&NW.logout?NW.logout():null);window.location.replace('index.html')" onkeydown="if(event.key==='Enter'){event.preventDefault();(typeof NW!=='undefined'&&NW.logout?NW.logout():null);window.location.replace('index.html')}" style="display:block;padding:11px 16px;font-size:13px;color:#c0392b;text-decoration:none">Log Out</a>
       </div>
     </div>
   </div>
@@ -1807,6 +1807,7 @@ function toggleProAvatarMenu() {
   const isOpen = menu.style.display === 'block';
   menu.style.display = isOpen ? 'none' : 'block';
   toggle.setAttribute('aria-expanded', !isOpen);
+  if (!isOpen) { var first = menu.querySelector('a'); if (first) setTimeout(function(){ first.focus(); }, 50); }
 }
 document.addEventListener('click', function(e) {
   const menu = document.getElementById('proAvatarMenu');
