@@ -975,24 +975,31 @@ function renderClientHeader(c) {
 
 function renderStats(c) {
   const bmi = (c.weight && c.height) ? (c.weight / ((c.height / 100) ** 2)).toFixed(1) : '—';
+  // Defaults for bind clients missing detailed stats
+  var avgKcal = (c.stats && typeof c.stats.avg_kcal === 'number') ? c.stats.avg_kcal : 0;
+  var targetKcal = c.target_kcal || 2000;
+  var protein = (c.stats && typeof c.stats.protein === 'number') ? c.stats.protein : 0;
+  var targetProtein = c.target_protein || 50;
+  var exDays = (c.stats && typeof c.stats.exercise_days === 'number') ? c.stats.exercise_days : 0;
+  var status = (c.stats && c.stats.status) ? c.stats.status : 'New';
   document.getElementById('statsRow').innerHTML = `
     <div class="stat-card">
       <div class="sc-label">Avg Daily Kcal</div>
-      <div class="sc-value">${c.stats.avg_kcal.toLocaleString()}</div>
-      <div class="sc-sub">Target: ${c.target_kcal.toLocaleString()} kcal</div>
-      <div class="sc-trend ${c.stats.avg_kcal < c.target_kcal ? 'down' : 'up'}">${c.stats.avg_kcal < c.target_kcal ? '↓' : '↑'} ${Math.abs(c.target_kcal - c.stats.avg_kcal)} below target</div>
+      <div class="sc-value">${avgKcal.toLocaleString()}</div>
+      <div class="sc-sub">Target: ${targetKcal.toLocaleString()} kcal</div>
+      <div class="sc-trend ${avgKcal < targetKcal ? 'down' : 'up'}">${avgKcal < targetKcal ? '↓' : '↑'} ${Math.abs(targetKcal - avgKcal)} below target</div>
     </div>
     <div class="stat-card">
       <div class="sc-label">Avg Protein</div>
-      <div class="sc-value" style="color:${c.stats.protein < c.target_protein * 0.8 ? '#dc2626' : 'var(--teal)'}">${c.stats.protein}g</div>
-      <div class="sc-sub">Target: ${c.target_protein}g/day</div>
-      <div class="sc-trend ${c.stats.protein >= c.target_protein * 0.9 ? 'up' : 'down'}">${Math.round(c.stats.protein / c.target_protein * 100)}% of target</div>
+      <div class="sc-value" style="color:${protein < targetProtein * 0.8 ? '#dc2626' : 'var(--teal)'}">${protein}g</div>
+      <div class="sc-sub">Target: ${targetProtein}g/day</div>
+      <div class="sc-trend ${protein >= targetProtein * 0.9 ? 'up' : 'down'}">${Math.round(protein / targetProtein * 100)}% of target</div>
     </div>
     <div class="stat-card">
       <div class="sc-label">Exercise Days</div>
-      <div class="sc-value">${c.stats.exercise_days}<span style="font-size:14px;font-weight:400;color:var(--ink-f)">/7</span></div>
+      <div class="sc-value">${exDays}<span style="font-size:14px;font-weight:400;color:var(--ink-f)">/7</span></div>
       <div class="sc-sub">This week</div>
-      <div class="sc-trend ${c.stats.exercise_days >= 4 ? 'up' : 'neutral'}">${c.stats.exercise_days >= 5 ? '✓ Excellent' : c.stats.exercise_days >= 3 ? '~ Moderate' : '↓ Low'}</div>
+      <div class="sc-trend ${exDays >= 4 ? 'up' : 'neutral'}">${exDays >= 5 ? '✓ Excellent' : exDays >= 3 ? '~ Moderate' : '↓ Low'}</div>
     </div>
     <div class="stat-card">
       <div class="sc-label">Log Streak</div>
@@ -1054,6 +1061,7 @@ function renderBMI(c) {
 }
 
 function renderMacros(c) {
+  if (!c.macros) { document.getElementById("macroTable").innerHTML = "<div style=\"text-align:center;padding:24px;color:var(--ink-f);font-size:13px\">No macro data available</div>"; return; }
   const m = c.macros;
   const rows = Object.entries(m).map(([name, d]) => {
     const pct = Math.min(d.actual / (d.target * 1.2) * 100, 100);
@@ -1099,6 +1107,7 @@ function renderCalorieTrend(c) {
 
 function renderExerciseChart(c) {
   if (exChart) exChart.destroy();
+  if (!c.exercise || !c.exercise.length) { return; }
   const labels = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
   const ctx = document.getElementById('exerciseFreqChart').getContext('2d');
   exChart = new Chart(ctx, {
@@ -1119,6 +1128,7 @@ function renderExerciseChart(c) {
 }
 
 function renderScoreRing(c) {
+  if (!c.scores) { document.getElementById("scoreRing").innerHTML = "<div style=\"text-align:center;padding:24px;color:var(--ink-f);font-size:13px\">No score data</div>"; return; }
   const total = Math.round(Object.values(c.scores).reduce((a, b) => a + b, 0) / Object.keys(c.scores).length);
   const color = total >= 80 ? '#1e6b5e' : total >= 60 ? '#b8621f' : '#dc2626';
   const pct = total / 100;
@@ -1155,6 +1165,7 @@ function renderChat(c) {
 }
 
 function renderPlan(c) {
+  if (!c.plan) { document.getElementById("planGrid").innerHTML = "<div style=\"text-align:center;padding:24px;color:var(--ink-f);font-size:13px\">No fitness plan set yet</div>"; return; }
   const days = ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'];
   const mealColors = [c.color, '#7aaad4', '#b8621f', '#2f8f7f', '#7c3aed', '#e07b78', '#d4956a'];
   document.getElementById('mealPlanRows').innerHTML = days.map((d, i) =>
@@ -1492,6 +1503,7 @@ function toggleScoreDetail(key, el) {
 
 // ── Override renderScoreRing to add clickable rows ────────────────────────────
 function renderScoreRing(c) {
+  if (!c.scores) { document.getElementById("scoreRing").innerHTML = "<div style=\"text-align:center;padding:24px;color:var(--ink-f);font-size:13px\">No score data</div>"; return; }
   const total = Math.round(Object.values(c.scores).reduce((a, b) => a + b, 0) / Object.keys(c.scores).length);
   const color = total >= 80 ? '#1e6b5e' : total >= 60 ? '#b8621f' : '#dc2626';
   const pct = total / 100;
