@@ -1,5 +1,6 @@
 package com.comp2850.goodfood.messages
 
+import com.comp2850.goodfood.notifications.NotificationPublisher
 import com.comp2850.goodfood.user.Role
 import com.comp2850.goodfood.user.User
 import com.comp2850.goodfood.user.repository.UserStore
@@ -24,7 +25,8 @@ import java.time.format.DateTimeFormatter
 @RequestMapping("/api/messages")
 class ApiMessagesController(
     private val messageJpaRepository: MessageJpaRepository,
-    private val userStore: UserStore
+    private val userStore: UserStore,
+    private val notificationPublisher: NotificationPublisher
 ) {
 
     @Transactional
@@ -85,6 +87,15 @@ class ApiMessagesController(
                 text = cleanedText,
                 isRead = 0
             )
+        )
+
+        // 发送实时通知
+        notificationPublisher.publishMessage(
+            userId = receiver.id,
+            messageId = saved.id ?: 0L,
+            senderId = currentUser.id,
+            senderName = currentUser.name,
+            messageText = cleanedText
         )
 
         return ResponseEntity.status(HttpStatus.CREATED).body(

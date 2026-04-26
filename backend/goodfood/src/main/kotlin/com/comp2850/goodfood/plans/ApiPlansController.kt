@@ -1,5 +1,6 @@
 package com.comp2850.goodfood.plans
 
+import com.comp2850.goodfood.notifications.NotificationPublisher
 import com.comp2850.goodfood.user.Role
 import com.comp2850.goodfood.user.repository.UserStore
 import jakarta.validation.Valid
@@ -15,7 +16,8 @@ import java.time.LocalDateTime
 @RequestMapping("/api/plans")
 class ApiPlansController(
     private val planJpaRepository: PlanJpaRepository,
-    private val userStore: UserStore
+    private val userStore: UserStore,
+    private val notificationPublisher: NotificationPublisher
 ) {
 
     /**
@@ -100,8 +102,54 @@ class ApiPlansController(
 
         val saved = planJpaRepository.save(entity)
 
+        // 发送实时通知
+        notificationPublisher.publishPlanUpdate(
+            userId = client.id,
+            planId = saved.id ?: 0L,
+            planType = planType,
+            proName = currentUser.name
+        )
+
         return ResponseEntity.status(if (existing != null) HttpStatus.OK else HttpStatus.CREATED)
             .body(saved.toResponse())
+    }
+
+    /**
+     * DELETE /api/plans/{planId} — delete a plan
+     * Only accessible by the assigned professional.
+     */
+    @DeleteMapping("/{planId}")
+    fun deletePlan(
+        authentication: Authentication,
+        @PathVariable planId: Long
+    ): ResponseEntity<Void> {
+        val currentUser = userStore.findByEmail(authentication.name)
+            ?: throw ResponseStatusException(HttpStatus.NOT_FOUND, "user not found")
+
+        if (currentUser.role != Role.HEALTH_PROFESSIONAL) {
+            throw ResponseStatusException(HttpStatus.FORBIDDEN, "only professionals can delete plans")
+        }
+
+        val plan = planJpaRepository.findById(planId)
+            .orElseThrow { ResponseStatusException(HttpStatus.NOT_FOUND, "plan not found") }
+
+        if (plan.proId != currentUser.id) {
+            throw ResponseStatusException(HttpStatus.FORBIDDEN, "not your plan")
+        }
+
+        val client = userStore.findById(plan.clientId)
+            ?: throw ResponseStatusException(HttpStatus.NOT_FOUND, "client not found")
+
+        // 发送删除通知
+        notificationPublisher.publishPlanDeleted(
+            userId = plan.clientId,
+            planId = planId,
+            planType = plan.planType,
+            proName = currentUser.name
+        )
+
+        planJpaRepository.deleteById(planId)
+        return ResponseEntity.noContent().build()
     }
 
     private fun PlanEntity.toResponse(): ApiPlanResponse {

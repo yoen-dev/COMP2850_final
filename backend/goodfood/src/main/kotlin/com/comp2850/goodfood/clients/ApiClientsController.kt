@@ -1,6 +1,7 @@
 package com.comp2850.goodfood.clients
 
 import com.comp2850.goodfood.diary.DiaryStore
+import com.comp2850.goodfood.notifications.NotificationPublisher
 import com.comp2850.goodfood.user.Role
 import com.comp2850.goodfood.user.repository.UserStore
 import org.springframework.http.HttpStatus
@@ -18,7 +19,8 @@ import org.springframework.web.server.ResponseStatusException
 @RequestMapping("/api/clients")
 class ApiClientsController(
     private val userStore: UserStore,
-    private val diaryStore: DiaryStore
+    private val diaryStore: DiaryStore,
+    private val notificationPublisher: NotificationPublisher
 ) {
 
     @GetMapping
@@ -120,6 +122,13 @@ class ApiClientsController(
         if (target.proId != currentUser.id) {
             throw ResponseStatusException(HttpStatus.FORBIDDEN, "this user is not your client")
         }
+
+        // 发送解绑通知给客户
+        notificationPublisher.publishUserUnbound(
+            userId = currentUser.id,
+            clientId = target.id,
+            clientName = target.name
+        )
 
         userStore.save(target.copy(proId = null))
     }
