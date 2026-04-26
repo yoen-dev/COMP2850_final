@@ -2918,6 +2918,45 @@ var DEMO_APPTS = [
 var _myProMessages = DEMO_MESSAGES.slice(); // start with demo, replaced by API data
 var _myProMsgsLoaded = false;
 var _myProAppts = DEMO_APPTS.slice();
+var _myProActiveTab = "messages";
+var _myProPlansLoaded = false;
+var _myProPlanMeals = ['','','','','','',''];
+var _myProPlanTraining = ['','','','','','',''];
+var _myProPlanTargetKcal = null;
+var _myProPlanTargetProtein = null;
+var _myProPlanNotes = null;
+
+/** Switch tab in My Nutritionist page */
+window._myProSwitchTab = function(tab) {
+  _myProActiveTab = tab;
+  renderMyPro();
+};
+
+/** Load fitness/meal plans from backend API */
+async function _loadProPlans() {
+  if (typeof NW === "undefined" || !NW.plans || !NW.auth || !NW.auth.userId) return;
+  try {
+    var plans = await NW.plans.get(NW.auth.userId);
+    if (Array.isArray(plans)) {
+      plans.forEach(function(p) {
+        try {
+          var days = JSON.parse(p.daysJson || "[]");
+          if (p.planType === "meal") {
+            _myProPlanMeals = days.length === 7 ? days : ['','','','','','',''];
+            if (p.targetKcal) _myProPlanTargetKcal = p.targetKcal;
+            if (p.targetProtein) _myProPlanTargetProtein = p.targetProtein;
+            if (p.notes) _myProPlanNotes = p.notes;
+          } else if (p.planType === "training") {
+            _myProPlanTraining = days.length === 7 ? days : ['','','','','','',''];
+          }
+        } catch(e) {}
+      });
+      renderMyPro();
+    }
+  } catch(e) {
+    console.warn("[NW] load plans failed:", e.message);
+  }
+}
 
 /** Load messages from API between current user and their pro */
 async function _loadProMessages(boundProId) {
@@ -3073,38 +3112,88 @@ function renderMyPro() {
     return;
   }
 
-  // ── ACCEPTED ──
+  // ── ACCEPTED — 3-tab interface ──
   if (sub) sub.textContent = "Your personalised nutrition support";
 
-  // Load messages from API if not yet loaded
+  // Load data from API if not yet loaded
   if (!_myProMsgsLoaded) {
     _myProMsgsLoaded = true;
     _loadProMessages(boundId);
   }
+  if (!_myProPlansLoaded) {
+    _myProPlansLoaded = true;
+    _loadProPlans();
+  }
 
-  var msgsHtml = _myProMessages.map(function(m) {
-    var isMe = m.from === "user";
-    return `<div style="display:flex;justify-content:${isMe?"flex-end":"flex-start"};margin-bottom:10px">
-      <div style="max-width:75%;background:${isMe?"var(--ink)":"var(--paper)"};color:${isMe?"#fff":"var(--ink)"};padding:10px 14px;border-radius:${isMe?"14px 14px 4px 14px":"14px 14px 14px 4px"};font-size:13px;line-height:1.55">
-        ${m.text}
-        <div style="font-family:'JetBrains Mono',monospace;font-size:9px;opacity:.5;margin-top:4px;text-align:right">${m.time}</div>
-      </div>
-    </div>`;
-  }).join("");
+  var currentTab = _myProActiveTab || "messages";
 
-  var apptsHtml = _myProAppts.map(function(a) {
-    var badge = a.status === "confirmed"
-      ? `<span style="font-family:'JetBrains Mono',monospace;font-size:9px;padding:2px 8px;border-radius:8px;background:var(--teal-lll);color:var(--teal)">✓ Confirmed</span>`
-      : `<span style="font-family:'JetBrains Mono',monospace;font-size:9px;padding:2px 8px;border-radius:8px;background:#fffbeb;color:#92400e">Pending</span>`;
-    return `<div style="display:flex;align-items:center;gap:14px;padding:12px 0;border-bottom:1px solid var(--fog)">
-      <div style="width:42px;height:42px;border-radius:8px;background:var(--teal-lll);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0">📅</div>
-      <div style="flex:1">
-        <div style="font-size:13px;font-weight:600;color:var(--ink)">${a.type}</div>
-        <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--ink-f);margin-top:2px">${a.date} · ${a.time}</div>
-      </div>
-      ${badge}
-    </div>`;
-  }).join("");
+  // Build tab content based on active tab
+  var tabContent = "";
+
+  if (currentTab === "messages") {
+    var msgsHtml = _myProMessages.map(function(m) {
+      var isMe = m.from === "user";
+      return `<div style="display:flex;justify-content:${isMe?"flex-end":"flex-start"};margin-bottom:10px">
+        <div style="max-width:75%;background:${isMe?"var(--ink)":"var(--paper)"};color:${isMe?"#fff":"var(--ink)"};padding:10px 14px;border-radius:${isMe?"14px 14px 4px 14px":"14px 14px 14px 4px"};font-size:13px;line-height:1.55">
+          ${escapeHtml(m.text)}
+          <div style="font-family:'JetBrains Mono',monospace;font-size:9px;opacity:.5;margin-top:4px;text-align:right">${m.time}</div>
+        </div>
+      </div>`;
+    }).join("");
+    tabContent = `
+      <div style="max-height:360px;overflow-y:auto;margin-bottom:12px;padding:4px">${msgsHtml || '<div style="text-align:center;padding:40px;color:var(--ink-f);font-size:13px">No messages yet. Start a conversation!</div>'}</div>
+      <div style="display:flex;gap:8px;padding-top:10px;border-top:1px solid var(--fog)">
+        <input id="mypro-msg-inp" type="text" placeholder="Send a message..." aria-label="Send message to nutritionist" onkeydown="if(event.key==='Enter')window._nwSendProMsg()" style="flex:1;padding:10px 14px;border:1px solid var(--border);border-radius:8px;font-family:'Bricolage Grotesque',sans-serif;font-size:13px;outline:none;background:var(--paper);color:var(--ink)">
+        <button onclick="window._nwSendProMsg()" style="padding:10px 18px;background:var(--ink);color:#fff;border:none;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer">Send →</button>
+      </div>`;
+  } else if (currentTab === "plan") {
+    var DAYS = ['MON','TUE','WED','THU','FRI','SAT','SUN'];
+    var mealHtml = DAYS.map(function(d,i) {
+      var val = (_myProPlanMeals[i] || '');
+      var dot = val ? 'var(--teal)' : 'var(--fog)';
+      return '<div style="display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--fog)"><span style="font-family:JetBrains Mono,monospace;font-size:11px;font-weight:700;color:var(--ink);width:36px">'+d+'</span><span style="width:8px;height:8px;border-radius:50%;background:'+dot+';flex-shrink:0"></span><span style="font-size:13px;color:var(--ink)">'+escapeHtml(val || '—')+'</span></div>';
+    }).join('');
+    var trainHtml = DAYS.map(function(d,i) {
+      var val = (_myProPlanTraining[i] || '');
+      var dot = val ? 'var(--teal)' : 'var(--fog)';
+      return '<div style="display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--fog)"><span style="font-family:JetBrains Mono,monospace;font-size:11px;font-weight:700;color:var(--ink);width:36px">'+d+'</span><span style="width:8px;height:8px;border-radius:50%;background:'+dot+';flex-shrink:0"></span><span style="font-size:13px;color:var(--ink)">'+escapeHtml(val || '—')+'</span></div>';
+    }).join('');
+
+    var targetsHtml = '';
+    if (_myProPlanTargetKcal || _myProPlanTargetProtein) {
+      targetsHtml = '<div style="margin-top:16px;padding:14px;background:var(--paper);border-radius:10px"><div style="font-family:JetBrains Mono,monospace;font-size:10px;color:var(--ink-f);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px">Daily Targets</div>';
+      if (_myProPlanTargetKcal) targetsHtml += '<div style="font-size:13px;color:var(--ink)">🔥 '+_myProPlanTargetKcal+' kcal</div>';
+      if (_myProPlanTargetProtein) targetsHtml += '<div style="font-size:13px;color:var(--ink);margin-top:4px">🥩 '+_myProPlanTargetProtein+'g protein</div>';
+      targetsHtml += '</div>';
+    }
+
+    var notesHtml = _myProPlanNotes ? '<div style="margin-top:16px;padding:14px;background:#fffbeb;border:1px solid #fde68a;border-radius:10px"><div style="font-family:JetBrains Mono,monospace;font-size:10px;color:#92400e;text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px">📝 Pro Notes</div><div style="font-size:13px;color:#78350f;line-height:1.6">'+escapeHtml(_myProPlanNotes)+'</div></div>' : '';
+
+    tabContent = '<div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">'
+      + '<div><div style="font-family:JetBrains Mono,monospace;font-size:10px;color:var(--ink-f);text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px">🍽️ Weekly Meal Plan</div>'+mealHtml+'</div>'
+      + '<div><div style="font-family:JetBrains Mono,monospace;font-size:10px;color:var(--ink-f);text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px">🏋️ Training Schedule</div>'+trainHtml+'</div>'
+      + '</div>'
+      + targetsHtml + notesHtml;
+
+    if (!_myProPlanMeals.some(function(v){return v;}) && !_myProPlanTraining.some(function(v){return v;})) {
+      tabContent = '<div style="text-align:center;padding:40px;color:var(--ink-f);font-size:13px">Your nutritionist hasn\'t set a plan yet. Check back soon!</div>';
+    }
+  } else if (currentTab === "appointments") {
+    var apptsHtml = _myProAppts.map(function(a) {
+      var badge = a.status === "confirmed"
+        ? '<span style="font-family:JetBrains Mono,monospace;font-size:9px;padding:3px 10px;border-radius:8px;background:var(--teal-lll);color:var(--teal)">✓ Confirmed</span>'
+        : '<span style="font-family:JetBrains Mono,monospace;font-size:9px;padding:3px 10px;border-radius:8px;background:#fffbeb;color:#92400e">⏳ Pending</span>';
+      return '<div style="display:flex;align-items:center;gap:14px;padding:14px 0;border-bottom:1px solid var(--fog)">'
+        + '<div style="width:48px;height:48px;border-radius:10px;background:var(--teal-lll);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0">📅</div>'
+        + '<div style="flex:1"><div style="font-size:14px;font-weight:600;color:var(--ink)">'+escapeHtml(a.type || 'Appointment')+'</div>'
+        + '<div style="font-family:JetBrains Mono,monospace;font-size:11px;color:var(--ink-f);margin-top:3px">'+escapeHtml(a.date)+' · '+escapeHtml(a.time)+'</div></div>'
+        + badge + '</div>';
+    }).join("");
+    tabContent = apptsHtml || '<div style="text-align:center;padding:40px;color:var(--ink-f);font-size:13px">No upcoming appointments. Your nutritionist will schedule sessions here.</div>';
+    tabContent += '<div style="padding-top:14px;font-size:12px;color:var(--ink-f)">Appointments are managed by your nutritionist.</div>';
+  }
+
+  function tabCls(t) { return currentTab === t ? 'background:var(--ink);color:#fff' : 'background:var(--paper);color:var(--ink-f)'; }
 
   el.innerHTML = `
     <!-- Pro card -->
@@ -3114,7 +3203,6 @@ function renderMyPro() {
         <div style="flex:1">
           <div style="font-size:17px;font-weight:700;color:var(--ink)">${exp.name}</div>
           <div style="font-size:12px;color:var(--ink-f);margin-top:2px">${exp.title} · ${exp.specialty}</div>
-          <div style="font-size:11px;color:var(--ink-f);margin-top:1px;font-family:'JetBrains Mono',monospace">${exp.bio}</div>
         </div>
         <div style="display:flex;flex-direction:column;gap:6px;flex-shrink:0">
           <span style="font-family:'JetBrains Mono',monospace;font-size:9px;padding:3px 10px;border-radius:8px;background:var(--teal-lll);color:var(--teal)">✓ Connected</span>
@@ -3123,23 +3211,16 @@ function renderMyPro() {
       </div>
     </div>
 
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
-      <!-- Messages -->
-      <div style="background:var(--white);border:1px solid var(--border);border-radius:16px;padding:20px;box-shadow:0 4px 16px rgba(10,20,16,0.04)">
-        <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--ink-f);text-transform:uppercase;letter-spacing:.08em;margin-bottom:14px">Messages</div>
-        <div style="max-height:280px;overflow-y:auto;margin-bottom:12px">${msgsHtml}</div>
-        <div style="display:flex;gap:8px;padding-top:10px;border-top:1px solid var(--fog)">
-          <input id="mypro-msg-inp" type="text" placeholder="Send a message..." style="flex:1;padding:8px 12px;border:1px solid var(--border);border-radius:8px;font-family:'Bricolage Grotesque',sans-serif;font-size:12px;outline:none;background:var(--paper);color:var(--ink)">
-          <button onclick="window._nwSendProMsg()" style="padding:8px 14px;background:var(--ink);color:#fff;border:none;border-radius:8px;font-size:12px;cursor:pointer">Send</button>
-        </div>
-      </div>
+    <!-- Tabs -->
+    <div style="display:flex;gap:6px;margin-bottom:16px">
+      <button onclick="window._myProSwitchTab('messages')" style="padding:9px 18px;border:none;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;font-family:'Bricolage Grotesque',sans-serif;${tabCls('messages')}">💬 Messages</button>
+      <button onclick="window._myProSwitchTab('plan')" style="padding:9px 18px;border:none;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;font-family:'Bricolage Grotesque',sans-serif;${tabCls('plan')}">📋 Fitness Plan</button>
+      <button onclick="window._myProSwitchTab('appointments')" style="padding:9px 18px;border:none;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;font-family:'Bricolage Grotesque',sans-serif;${tabCls('appointments')}">📅 Appointments</button>
+    </div>
 
-      <!-- Appointments -->
-      <div style="background:var(--white);border:1px solid var(--border);border-radius:16px;padding:20px;box-shadow:0 4px 16px rgba(10,20,16,0.04)">
-        <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--ink-f);text-transform:uppercase;letter-spacing:.08em;margin-bottom:14px">Upcoming Appointments</div>
-        ${apptsHtml}
-        <div style="padding-top:14px;font-size:12px;color:var(--ink-f)">Appointments are set by your nutritionist and will appear here automatically.</div>
-      </div>
+    <!-- Tab content -->
+    <div style="background:var(--white);border:1px solid var(--border);border-radius:16px;padding:22px;box-shadow:0 4px 16px rgba(10,20,16,0.04)">
+      ${tabContent}
     </div>`;
 }
 
@@ -3198,7 +3279,7 @@ window._nwSendProMsg = async function() {
 var _origSwitchPagePro = window.switchPage;
 window.switchPage = function(p, el) {
   if (_origSwitchPagePro) _origSwitchPagePro(p, el);
-  if (p === "mypro") { _myProMsgsLoaded = false; _backendCheckDone = false; setTimeout(renderMyPro, 50); }
+  if (p === "mypro") { _myProMsgsLoaded = false; _myProPlansLoaded = false; _backendCheckDone = false; setTimeout(renderMyPro, 50); }
 };
 
 document.addEventListener("DOMContentLoaded", function() {

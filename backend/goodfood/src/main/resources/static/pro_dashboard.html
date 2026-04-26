@@ -1422,7 +1422,7 @@ function openEditPlan(btn) {
   card.appendChild(overlay);
 }
 
-function savePlanEdit(btn) {
+async function savePlanEdit(btn) {
   const overlay = btn.closest('.plan-edit-overlay');
   const card = overlay.parentElement;
   const inputs = overlay.querySelectorAll('.plan-edit-input');
@@ -1437,6 +1437,27 @@ function savePlanEdit(btn) {
   if (editBtn) editBtn.textContent = 'Edit Plan';
   renderPlan(c);
   proToast('✓ Plan saved', '#1e6b5e');
+
+  // Persist to backend API
+  var apiId = c._apiId;
+  if (apiId && typeof NW !== 'undefined' && NW.plans) {
+    try {
+      var days = editingPlanType === 'meal' ? c.meals : c.training;
+      var planData = {
+        planType: editingPlanType,
+        daysJson: JSON.stringify(days),
+        targetKcal: c.target_kcal || null,
+        targetProtein: c.target_protein || null,
+        targetCarbsPct: c.macros ? c.macros.carbs : null,
+        targetFatPct: c.macros ? c.macros.fat : null,
+        notes: c.notes || null
+      };
+      await NW.plans.save(apiId, planData);
+    } catch(e) {
+      console.warn('[NW] plan save failed:', e.message);
+      proToast('Plan saved locally (backend sync failed)', '#b8621f');
+    }
+  }
 }
 
 // ── Pro Notes Edit ────────────────────────────────────────────────────────────
@@ -1458,6 +1479,12 @@ function toggleNotesEdit() {
     btn.textContent = 'Edit';
     btn.style.background = ''; btn.style.color = ''; btn.style.borderColor = '';
     proToast('✓ Notes saved', '#1e6b5e');
+    // Sync notes to backend (save with meal plan)
+    var apiId = clients[currentClient] ? clients[currentClient]._apiId : null;
+    if (apiId && typeof NW !== 'undefined' && NW.plans) {
+      var meals = clients[currentClient].meals || ['','','','','','',''];
+      NW.plans.save(apiId, {planType:'meal', daysJson:JSON.stringify(meals), notes:textarea.value}).catch(function(e){console.warn('[NW] notes sync failed:',e.message);});
+    }
   }
 }
 
