@@ -114,9 +114,19 @@ class AuthService(
             "name" to user.name,
             "email" to user.email,
             "role" to user.role.name,
-            "licence" to user.licence
+            "licence" to user.licence,
+            "proId" to user.proId,
+            "height" to user.height,
+            "weight" to user.weight,
+            "age" to user.age,
+            "targetKcal" to user.targetKcal,
+            "goal" to user.goal
         )
     }
+
+    fun getUserByEmail(email: String): User? = userRepository.findByEmail(email)
+
+    fun saveUser(user: User): User = userRepository.save(user)
 
     private fun parseRole(role: String): Role {
         return when (role.trim().uppercase()) {

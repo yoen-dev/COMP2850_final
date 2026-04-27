@@ -9,6 +9,7 @@ import jakarta.validation.constraints.NotBlank
 import org.springframework.security.core.Authentication
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.PutMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
@@ -114,8 +115,33 @@ class AuthController(
             "firstName" to firstName,
             "lastName" to lastName,
             "licenceNo" to currentUser["licence"]?.toString(),
-            "name" to fullName
+            "name" to fullName,
+            "proId" to currentUser["proId"]?.toString(),
+            "height" to currentUser["height"],
+            "weight" to currentUser["weight"],
+            "age" to currentUser["age"],
+            "targetKcal" to currentUser["targetKcal"],
+            "goal" to currentUser["goal"]?.toString()
         )
+    }
+
+    @PutMapping("/api/auth/profile")
+    fun updateProfile(
+        authentication: Authentication,
+        @RequestBody body: Map<String, Any?>
+    ): Map<String, Any?> {
+        val user = authService.getUserByEmail(authentication.name)
+            ?: return mapOf("error" to "user not found")
+
+        val updated = user.copy(
+            height = (body["height"] as? Number)?.toDouble() ?: user.height,
+            weight = (body["weight"] as? Number)?.toDouble() ?: user.weight,
+            age = (body["age"] as? Number)?.toInt() ?: user.age,
+            targetKcal = (body["targetKcal"] as? Number)?.toInt() ?: user.targetKcal,
+            goal = body["goal"]?.toString()?.takeIf { it.isNotBlank() } ?: user.goal
+        )
+        authService.saveUser(updated)
+        return mapOf("message" to "profile updated")
     }
 
     private fun buildFullName(firstName: String, lastName: String): String {

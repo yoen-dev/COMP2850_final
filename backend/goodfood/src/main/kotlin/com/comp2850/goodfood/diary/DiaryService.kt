@@ -16,14 +16,28 @@ class DiaryService(
     fun createDiary(request: CreateDiaryRequest, authentication: Authentication): DiarySaveResponse {
         val userEmail = authentication.name
 
+        // Use provided nutrition values; fall back to nutrition DB if not supplied
+        val nutrition = foodNutritionRepository.findByFoodName(request.foodName)
+        val srv = request.servings!!
+        val kcal    = request.kcal    ?: nutrition?.let { ((it.calories) * srv).toInt() }
+        val protein = request.protein ?: nutrition?.let { (it.protein  * srv) }
+        val sugar   = request.sugar   ?: nutrition?.let { (it.sugar    * srv) }
+        val carbs   = request.carbs
+        val fat     = request.fat
+
         val entry = DiaryEntry(
             id = 0L,
             userEmail = userEmail,
             foodName = request.foodName,
             quantity = request.quantity,
-            servings = request.servings!!,
+            servings = srv,
             mealType = request.mealType!!,
-            diaryDate = request.diaryDate!!
+            diaryDate = request.diaryDate!!,
+            kcal = kcal,
+            protein = protein,
+            carbs = carbs,
+            fat = fat,
+            sugar = sugar
         )
 
         val savedEntry = diaryRepository.save(entry)

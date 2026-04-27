@@ -1,0 +1,3 @@
+2026-04-26 21:25:40.100546+01:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "[*]NW.login('13716720719@163.com', '你的密码').then(d => console.log(d))"; SQL statement:
+NW.login('13716720719@163.com', '你的密码').then(d => console.log(d)) [42000-240]

@@ -33,5 +33,20 @@ class UserEntity(
     var licence: String? = null,
 
     @Column(nullable = true)
-    var proId: String? = null
+    var proId: String? = null,
+
+    @Column(nullable = true)
+    var height: Double? = null,
+
+    @Column(nullable = true)
+    var weight: Double? = null,
+
+    @Column(nullable = true)
+    var age: Int? = null,
+
+    @Column(nullable = true)
+    var targetKcal: Int? = null,
+
+    @Column(nullable = true)
+    var goal: String? = null
 )

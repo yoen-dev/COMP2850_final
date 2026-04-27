@@ -7,7 +7,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{--teal:#1e6b5e;--teal-l:#2f8f7f;--teal-ll:#b8ddd8;--teal-lll:#e8f4f2;--amber:#b8621f;--amber-l:#d4956a;--amber-ll:#faeade;--ink:#0a1410;--ink-s:#1c2e26;--ink-m:#3d5448;--ink-f:#6b8878;--paper:#f5f7f5;--fog:#dce6e0;--white:#fff;--border:#d4dfd8;--blue:#7aaad4;--pink:#e07b78}
+:root{--teal:#1e6b5e;--teal-l:#1a7a6a;--teal-ll:#b8ddd8;--teal-lll:#e8f4f2;--amber:#955018;--amber-l:#d4956a;--amber-ll:#faeade;--ink:#0a1410;--ink-s:#1c2e26;--ink-m:#3d5448;--ink-f:#4d6e5e;--paper:#f5f7f5;--fog:#dce6e0;--white:#fff;--border:#d4dfd8;--blue:#7aaad4;--pink:#b5413e}
 body{font-family:'Bricolage Grotesque',sans-serif;background:var(--paper);color:var(--ink);display:flex;min-height:100vh;-webkit-font-smoothing:antialiased}
 
 .top-nav{position:fixed;top:0;left:0;right:0;z-index:999;height:60px;display:flex;align-items:center;justify-content:space-between;padding:0 24px 0 0;background:var(--ink)}
@@ -443,7 +443,10 @@ body.dark-mode .shortcuts-modal { background: #142420; }
 </head>
 <body>
 <a href="#main-content" class="skip-link">Skip to main content</a>
-<nav class="top-nav" role="navigation" aria-label="Main navigation"><div class="top-nav-left"><a href="#" class="tn-logo"><div class="tn-logo-mark" aria-hidden="true">🌿</div><span class="tn-logo-text">NourishWell</span></a></div><div class="top-nav-right"><a href="#" id="proSwitchNavBtn" onclick="switchBackToPro();return false" class="tn-link" style="display:none;align-items:center;gap:6px;border-color:rgba(255,255,255,0.25);color:rgba(255,255,255,0.9)"><svg width="13" height="13" viewBox="0 0 15 15" fill="none"><path d="M1 4.5h10M8 1.5l3 3-3 3M14 10.5H4M7 7.5l-3 3 3 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg> Switch to Pro</a><a href="qa_subscriber.html" class="tn-link" id="helpLink" style="display:flex;align-items:center;gap:5px"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6" stroke="currentColor" stroke-width="1.3"/><text x="7" y="10.5" text-anchor="middle" font-size="8.5" fill="currentColor" font-weight="600" font-family="JetBrains Mono,monospace">?</text></svg> Help</a><button onclick="toggleShortcutHelp(true)" class="tn-link" aria-label="Show keyboard shortcuts" title="Keyboard shortcuts (press ?)" style="display:flex;align-items:center;gap:5px"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><rect x="1" y="3" width="12" height="8" rx="1.5" stroke="currentColor" stroke-width="1.3"/><path d="M3.5 6.5h.01M5.5 6.5h.01M7.5 6.5h.01M9.5 6.5h.01M3.5 8.5h7" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg> Shortcuts</button><button onclick="exportWeeklyReportCSV()" class="tn-link" aria-label="Download last 7 days of diary data as CSV" title="Export weekly report" style="display:flex;align-items:center;gap:5px"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M7 1v8M4 6l3 3 3-3M2 12h10" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg> Export</button><button onclick="startTour()" class="tour-trigger-btn" title="Guided tour"><svg width="15" height="15" viewBox="0 0 15 15" fill="none"><path d="M3 7.5h9M9 4.5l3 3-3 3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="3" cy="7.5" r="1.5" fill="currentColor"/></svg> Tour</button><div class="tn-icon" id="userMailIcon" onclick="openUserMessages()" style="position:relative;cursor:pointer" aria-label="Messages" role="button" tabindex="0"><svg width="20" height="16" viewBox="0 0 20 16" fill="none"><rect x="1" y="1" width="18" height="14" rx="2" stroke="rgba(255,255,255,0.85)" stroke-width="1.5"/><path d="M1 4l9 6 9-6" stroke="rgba(255,255,255,0.85)" stroke-width="1.5"/></svg><div id="userMailDot" style="display:block;width:7px;height:7px;border-radius:50%;background:#dc2626;position:absolute;top:4px;right:4px;border:1.5px solid #0a1410"></div></div><div class="tn-icon" onclick="toggleDarkMode()" style="cursor:pointer" aria-label="Toggle dark mode" role="button" tabindex="0" title="Toggle dark mode"><span id="subDarkModeIcon" style="font-size:16px">🌙</span></div><div class="tn-avatar-wrap"><div class="tn-avatar" onclick="toggleAvatarMenu(event)" aria-label="User menu" aria-expanded="false" aria-haspopup="true"><div class="tn-avatar-pic">RC</div><span class="tn-avatar-name">Rose C.</span></div><div class="tn-dropdown" id="avatarMenu"><a href="#" onclick="showSettingsPage('personal');return false">Personal Details</a><a href="#" onclick="showSettingsPage('preferences');return false">Preferences</a>
+<nav class="top-nav" role="navigation" aria-label="Main navigation"><div class="top-nav-left"><a href="#" class="tn-logo"><div class="tn-logo-mark" aria-hidden="true">🌿</div><span class="tn-logo-text">NourishWell</span></a></div><div class="top-nav-right">
+<div id="back-to-pro-wrap" style="display:none">
+  <button class="tn-link" onclick="backToPro()" style="background:rgba(124,58,237,0.15);border-color:rgba(124,58,237,0.4);color:rgba(200,180,255,0.95)">← Back to Pro Dashboard</button>
+</div><a href="#" id="proSwitchNavBtn" onclick="switchBackToPro();return false" class="tn-link" style="display:none;align-items:center;gap:6px;border-color:rgba(255,255,255,0.25);color:rgba(255,255,255,0.9)"><svg width="13" height="13" viewBox="0 0 15 15" fill="none"><path d="M1 4.5h10M8 1.5l3 3-3 3M14 10.5H4M7 7.5l-3 3 3 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg> Switch to Pro</a><a href="qa_subscriber.html" class="tn-link" id="helpLink" style="display:flex;align-items:center;gap:5px"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6" stroke="currentColor" stroke-width="1.3"/><text x="7" y="10.5" text-anchor="middle" font-size="8.5" fill="currentColor" font-weight="600" font-family="JetBrains Mono,monospace">?</text></svg> Help</a><button onclick="toggleShortcutHelp(true)" class="tn-link" aria-label="Show keyboard shortcuts" title="Keyboard shortcuts (press ?)" style="display:flex;align-items:center;gap:5px"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><rect x="1" y="3" width="12" height="8" rx="1.5" stroke="currentColor" stroke-width="1.3"/><path d="M3.5 6.5h.01M5.5 6.5h.01M7.5 6.5h.01M9.5 6.5h.01M3.5 8.5h7" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg> Shortcuts</button><button onclick="exportWeeklyReportCSV()" class="tn-link" aria-label="Download last 7 days of diary data as CSV" title="Export weekly report" style="display:flex;align-items:center;gap:5px"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M7 1v8M4 6l3 3 3-3M2 12h10" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg> Export</button><button onclick="startTour()" class="tn-link" title="Guided tour" style="display:flex;align-items:center;gap:5px"><svg width="14" height="14" viewBox="0 0 15 15" fill="none" aria-hidden="true"><path d="M3 7.5h9M9 4.5l3 3-3 3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="3" cy="7.5" r="1.5" fill="currentColor"/></svg> Tour</button><div class="tn-icon" id="userMailIcon" onclick="openUserMessages()" style="position:relative;cursor:pointer" aria-label="Messages" role="button" tabindex="0"><svg width="20" height="16" viewBox="0 0 20 16" fill="none"><rect x="1" y="1" width="18" height="14" rx="2" stroke="rgba(255,255,255,0.85)" stroke-width="1.5"/><path d="M1 4l9 6 9-6" stroke="rgba(255,255,255,0.85)" stroke-width="1.5"/></svg><div id="userMailDot" style="display:block;width:7px;height:7px;border-radius:50%;background:#dc2626;position:absolute;top:4px;right:4px;border:1.5px solid #0a1410"></div></div><div class="tn-icon" onclick="toggleDarkMode()" style="cursor:pointer" aria-label="Toggle dark mode" role="button" tabindex="0" title="Toggle dark mode"><span id="subDarkModeIcon" style="font-size:16px">🌙</span></div><div class="tn-avatar-wrap"><div class="tn-avatar" onclick="toggleAvatarMenu(event)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleAvatarMenu(event)}" tabindex="0" role="button" aria-label="User menu" aria-expanded="false" aria-haspopup="true"><div class="tn-avatar-pic">RC</div><span class="tn-avatar-name">Rose C.</span></div><div class="tn-dropdown" id="avatarMenu"><a href="#" onclick="showSettingsPage('personal');return false">Personal Details</a><a href="#" onclick="showSettingsPage('preferences');return false">Preferences</a>
 <a href="#" class="logout" onclick="event.preventDefault();window.location.href='/COMP2850_final/index.html'">Log Out</a></div></div></div></nav>
 
 <aside class="side-nav" role="navigation" aria-label="Page navigation">
@@ -452,6 +455,9 @@ body.dark-mode .shortcuts-modal { background: #142420; }
 <a class="sn-item" onclick="switchPage('favourites',this)" href="#"><span class="sn-icon">❤️</span> <span class="sn-text">Favourites</span></a>
 <a class="sn-item" onclick="switchPage('plan',this)" href="#"><span class="sn-icon">📊</span> <span class="sn-text">Recipe Compare</span></a>
 <a class="sn-item" onclick="switchPage('planner',this)" href="#"><span class="sn-icon">🧠</span> <span class="sn-text">Meal Planner</span></a>
+<div style="height:1px;background:var(--fog);margin:8px 24px"></div>
+<a class="sn-item" onclick="switchPage('mypro',this)" href="#" id="sn-mypro"><span class="sn-icon">🩺</span> <span class="sn-text">My Nutritionist</span></a>
+<a class="sn-item" id="sn-community" onclick="switchPage('community',this)" href="#"><span class="sn-icon">💬</span> <span class="sn-text">Community</span></a>
 </aside>
 
 <div class="main" id="main-content" role="main">
@@ -461,15 +467,15 @@ body.dark-mode .shortcuts-modal { background: #142420; }
 <div class="page-header"><div class="page-title">Record <em>Today</em></div><div class="page-date" id="today-date"></div>
 <div class="date-nav"><button class="date-nav-btn" onclick="changeDate(-1)" aria-label="Previous day">←</button><input type="date" id="diary-date-picker" onchange="loadDateDiary(this.value)" aria-label="Select date"><button class="date-nav-btn" onclick="changeDate(1)" aria-label="Next day">→</button><button class="date-nav-btn" onclick="goToday()" style="font-size:10px;width:auto;padding:0 10px;font-family:'JetBrains Mono',monospace">Today</button></div></div>
 <div class="dash-grid">
-<div class="donut-card"><div class="dc-eyebrow">Today's Nutrition</div><div class="dc-donut"><svg width="150" height="150" viewBox="0 0 150 150"><circle cx="75" cy="75" r="48" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="16"/><circle cx="75" cy="75" r="48" fill="none" stroke="#2f8f7f" stroke-width="16" stroke-dasharray="126.7 175" stroke-linecap="butt" transform="rotate(-90 75 75)"/><circle cx="75" cy="75" r="48" fill="none" stroke="#d4956a" stroke-width="16" stroke-dasharray="84.5 217.2" stroke-linecap="butt" transform="rotate(61 75 75)"/><circle cx="75" cy="75" r="48" fill="none" stroke="#7aaad4" stroke-width="16" stroke-dasharray="54.3 247.4" stroke-linecap="butt" transform="rotate(162 75 75)"/><circle cx="75" cy="75" r="48" fill="none" stroke="#e07b78" stroke-width="16" stroke-dasharray="36.2 265.5" stroke-linecap="butt" transform="rotate(227 75 75)"/><text x="75" y="72" text-anchor="middle" font-size="20" font-weight="700" fill="#fff" font-family="Bricolage Grotesque,sans-serif">1,920</text><text x="75" y="88" text-anchor="middle" font-size="9" fill="rgba(255,255,255,0.35)" font-family="JetBrains Mono,monospace">kcal today</text></svg></div><div class="dc-legend"><div class="dc-leg-row"><div class="dc-leg-dot" style="background:#2f8f7f"></div><span class="dc-leg-name">Carbs</span><span class="dc-leg-val">42% · 201g</span></div><div class="dc-leg-row"><div class="dc-leg-dot" style="background:#d4956a"></div><span class="dc-leg-name">Protein</span><span class="dc-leg-val">28% · 68g</span></div><div class="dc-leg-row"><div class="dc-leg-dot" style="background:#7aaad4"></div><span class="dc-leg-name">Fat</span><span class="dc-leg-val">18% · 38g</span></div><div class="dc-leg-row"><div class="dc-leg-dot" style="background:#e07b78"></div><span class="dc-leg-name">Sugar</span><span class="dc-leg-val">12% · 84g</span></div></div><div class="dc-divider"></div><div class="dc-total"><div><div class="dc-total-num">1,920 <span class="dc-total-sub">/ 2,400</span></div><div class="dc-total-label">Daily target</div></div><div style="text-align:right"><div class="dc-total-pct">80%</div><div class="dc-total-label">Complete</div></div></div></div>
-<div class="right-panel"><div class="chart-card"><div class="cc-header"><span class="cc-title">Exercise Activity</span><div style="display:flex;align-items:center;gap:14px"><div style="display:flex;align-items:center;gap:5px"><span style="display:inline-block;width:9px;height:9px;border-radius:2px;background:#1e6b5e"></span><span style="font-family:'JetBrains Mono',monospace;font-size:9px;color:#6b8878">Actual</span></div><div style="display:flex;align-items:center;gap:5px"><span style="display:inline-block;width:9px;height:9px;border-radius:2px;background:#dce6e0"></span><span style="font-family:'JetBrains Mono',monospace;font-size:9px;color:#6b8878">Target</span></div><div class="cc-tabs"><button class="cc-tab active" onclick="switchChartTab(this)">Week</button><button class="cc-tab" onclick="switchChartTab(this)">Month</button><button class="cc-tab" onclick="switchChartTab(this)">Year</button></div></div></div>
+<div class="donut-card"><div class="dc-eyebrow">Today's Nutrition</div><div class="dc-donut"><svg width="150" height="150" viewBox="0 0 150 150"><circle cx="75" cy="75" r="48" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="16"/><circle cx="75" cy="75" r="48" fill="none" stroke="#2f8f7f" stroke-width="16" stroke-dasharray="126.7 175" stroke-linecap="butt" transform="rotate(-90 75 75)"/><circle cx="75" cy="75" r="48" fill="none" stroke="#d4956a" stroke-width="16" stroke-dasharray="84.5 217.2" stroke-linecap="butt" transform="rotate(61 75 75)"/><circle cx="75" cy="75" r="48" fill="none" stroke="#7aaad4" stroke-width="16" stroke-dasharray="54.3 247.4" stroke-linecap="butt" transform="rotate(162 75 75)"/><circle cx="75" cy="75" r="48" fill="none" stroke="#e07b78" stroke-width="16" stroke-dasharray="36.2 265.5" stroke-linecap="butt" transform="rotate(227 75 75)"/><text x="75" y="72" text-anchor="middle" font-size="20" font-weight="700" fill="#fff" font-family="Bricolage Grotesque,sans-serif">1,920</text><text x="75" y="88" text-anchor="middle" font-size="9" fill="rgba(255,255,255,0.35)" font-family="JetBrains Mono,monospace">kcal today</text></svg></div><div class="dc-legend"><div class="dc-leg-row"><div class="dc-leg-dot" style="background:#1a7a6a"></div><span class="dc-leg-name">Carbs</span><span class="dc-leg-val">42% · 201g</span></div><div class="dc-leg-row"><div class="dc-leg-dot" style="background:#d4956a"></div><span class="dc-leg-name">Protein</span><span class="dc-leg-val">28% · 68g</span></div><div class="dc-leg-row"><div class="dc-leg-dot" style="background:#7aaad4"></div><span class="dc-leg-name">Fat</span><span class="dc-leg-val">18% · 38g</span></div><div class="dc-leg-row"><div class="dc-leg-dot" style="background:#b5413e"></div><span class="dc-leg-name">Sugar</span><span class="dc-leg-val">12% · 84g</span></div></div><div class="dc-divider"></div><div class="dc-total"><div><div class="dc-total-num">1,920 <span class="dc-total-sub">/ 2,400</span></div><div class="dc-total-label">Daily target</div></div><div style="text-align:right"><div class="dc-total-pct">80%</div><div class="dc-total-label">Complete</div></div></div></div>
+<div class="right-panel"><div class="chart-card"><div class="cc-header"><span class="cc-title">Exercise Activity</span><div style="display:flex;align-items:center;gap:14px"><div style="display:flex;align-items:center;gap:5px"><span style="display:inline-block;width:9px;height:9px;border-radius:2px;background:#1e6b5e"></span><span style="font-family:'JetBrains Mono',monospace;font-size:9px;color:#4d6e5e">Actual</span></div><div style="display:flex;align-items:center;gap:5px"><span style="display:inline-block;width:9px;height:9px;border-radius:2px;background:#dce6e0"></span><span style="font-family:'JetBrains Mono',monospace;font-size:9px;color:#4d6e5e">Target</span></div><div class="cc-tabs"><button class="cc-tab active" onclick="switchChartTab(this)">Week</button><button class="cc-tab" onclick="switchChartTab(this)">Month</button><button class="cc-tab" onclick="switchChartTab(this)">Year</button></div></div></div>
 <div style="position:relative;width:100%;height:148px"><canvas id="exerciseChart"></canvas></div>
 <div style="display:flex;justify-content:space-between;align-items:center;margin-top:10px;padding-top:10px;border-top:1px solid var(--fog)">
   <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--ink-f)">Daily target based on your profile · <span style="color:var(--teal);font-weight:600">62 kg · Moderately Active</span></div>
   <div id="weekSummary" style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--ink-f)"></div>
 </div>
 </div>
-<div class="action-row"><div class="action-btn" onclick="openPanel('food')" style="cursor:pointer"><div class="ab-icon meal">🍽️</div><div><div class="ab-text-main">Record Meal</div><div class="ab-text-sub">Log what you ate</div></div></div><div class="action-btn" onclick="openPanel('ex')" style="cursor:pointer"><div class="ab-icon exercise">🏃</div><div><div class="ab-text-main">Exercise</div><div class="ab-text-sub">Log your activity</div></div></div></div></div></div>
+<div class="action-row"><div class="action-btn" tabindex="0" role="button" onclick="openPanel('food')" style="cursor:pointer"><div class="ab-icon meal">🍽️</div><div><div class="ab-text-main">Record Meal</div><div class="ab-text-sub">Log what you ate</div></div></div><div class="action-btn" tabindex="0" role="button" onclick="openPanel('ex')" style="cursor:pointer"><div class="ab-icon exercise">🏃</div><div><div class="ab-text-main">Exercise</div><div class="ab-text-sub">Log your activity</div></div></div></div></div></div>
 
 <!-- Proactive Nutrition Insights (populated by patch.js) -->
 <div id="insights-container" class="insight-row" aria-label="Daily nutrition insights and suggestions"></div>
@@ -516,11 +522,11 @@ body.dark-mode .shortcuts-modal { background: #142420; }
   <div class="cc-header">
     <span class="cc-title">Calorie Intake Trend</span>
     <div style="display:flex;align-items:center;gap:14px">
-      <div style="display:flex;align-items:center;gap:5px"><span style="display:inline-block;width:9px;height:9px;border-radius:2px;background:#1e6b5e"></span><span style="font-family:'JetBrains Mono',monospace;font-size:9px;color:#6b8878">Intake</span></div>
-      <div style="display:flex;align-items:center;gap:5px"><span style="display:inline-block;width:9px;height:2px;background:#b8621f"></span><span style="font-family:'JetBrains Mono',monospace;font-size:9px;color:#6b8878">Target</span></div>
+      <div style="display:flex;align-items:center;gap:5px"><span style="display:inline-block;width:9px;height:9px;border-radius:2px;background:#1e6b5e"></span><span style="font-family:'JetBrains Mono',monospace;font-size:9px;color:#4d6e5e">Intake</span></div>
+      <div style="display:flex;align-items:center;gap:5px"><span style="display:inline-block;width:9px;height:2px;background:#b8621f"></span><span style="font-family:'JetBrains Mono',monospace;font-size:9px;color:#4d6e5e">Target</span></div>
     </div>
   </div>
-  <div style="position:relative;width:100%;height:148px"><canvas id="calorieTrendChart" aria-label="Weekly calorie intake trend chart" role="img"></canvas></div>
+  <div style="position:relative;width:100%;height:148px"><canvas id="calorieTrendChart" aria-label="Calorie intake trend chart" role="img" aria-label="Weekly calorie intake trend chart" role="img"></canvas></div>
 </div>
 
 </div><!-- end page-record -->
@@ -561,7 +567,7 @@ body.dark-mode .shortcuts-modal { background: #142420; }
     </div>
   </div>
 </div>
-<div class="recipe-search"><span style="font-size:16px;color:var(--ink-f)" aria-hidden="true">🔍</span><label for="recipe-search-input" class="sr-only">Search recipes by name or ingredient</label><input id="recipe-search-input" class="rs-input" type="text" placeholder="Search by name or ingredient (e.g. salmon, lentils)" aria-label="Search recipes by name or ingredient" oninput="filterRecipes(this.value)"></div>
+<div class="recipe-search"><span style="font-size:16px;color:var(--ink-f)" aria-hidden="true">🔍</span><label for="recipe-search-input" class="sr-only">Search recipes by name or ingredient</label><input aria-label="Text input" style="display:none" type="text" name="fake-autofill-trap" tabindex="-1" autocomplete="username"><input id="recipe-search-input" class="rs-input" type="search" placeholder="Search by name or ingredient (e.g. salmon, lentils)" aria-label="Search recipes by name or ingredient" oninput="filterRecipes(this.value)" autocomplete="new-password" name="nw-recipe-q" role="searchbox"></div>
 <a href="#" class="fav-link" onclick="switchPage('favourites',document.querySelectorAll('.sn-item')[2]);return false">❤️ My Favourites</a>
 <button onclick="openAddRecipeModal()" class="fav-link" style="background:var(--teal);color:#fff;border-color:var(--teal)" aria-label="Add new recipe">+ Add Recipe</button>
 </div>
@@ -649,7 +655,7 @@ body.dark-mode .shortcuts-modal { background: #142420; }
 <div style="background:var(--white);border-radius:20px;width:520px;max-width:90vw;max-height:80vh;overflow:hidden;box-shadow:0 24px 80px rgba(10,20,16,0.2);display:flex;flex-direction:column">
   <div style="padding:20px 24px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center">
     <div style="font-family:'Instrument Serif',serif;font-size:22px;font-style:italic;color:var(--ink)">Add to <em id="mp-picker-meal">Breakfast</em></div>
-    <button onclick="mpClosePicker()" style="width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:18px;cursor:pointer;border:none;background:var(--paper);color:var(--ink-m)">✕</button>
+    <button onclick="mpClosePicker()" aria-label="Close recipe picker" style="width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:18px;cursor:pointer;border:none;background:var(--paper);color:var(--ink-m)">✕</button>
   </div>
   <div style="padding:12px 24px;border-bottom:1px solid var(--border)">
     <input type="text" id="mp-picker-search" placeholder="Search recipes..." oninput="mpFilterPicker(this.value)" style="width:100%;padding:9px 12px;border:1px solid var(--border);border-radius:8px;font-family:'Bricolage Grotesque',sans-serif;font-size:13px;outline:none">
@@ -668,15 +674,15 @@ body.dark-mode .shortcuts-modal { background: #142420; }
 <div style="background:var(--white);border:1px solid var(--border);border-radius:16px;padding:28px;box-shadow:0 4px 16px rgba(10,20,16,0.04)">
 <div style="display:flex;align-items:center;gap:18px;margin-bottom:24px;padding-bottom:20px;border-bottom:1px solid var(--fog)"><div style="width:64px;height:64px;border-radius:50%;background:var(--teal);color:#fff;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:700">RC</div><div><div style="font-size:18px;font-weight:700;color:var(--ink)">Rose Campbell</div><div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--ink-f);margin-top:3px">Subscriber · Member since March 2026</div></div></div>
 <div style="display:flex;flex-direction:column;gap:16px">
-<div><div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--ink-f);letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px">First Name</div><input type="text" value="Rose" style="width:100%;padding:10px 14px;border:1px solid var(--border);border-radius:8px;font-family:'Bricolage Grotesque',sans-serif;font-size:13px;color:var(--ink);outline:none" onfocus="this.style.boxShadow='0 1px 4px rgba(10,20,16,0.08)'" onblur="this.style.boxShadow='none'"></div>
-<div><div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--ink-f);letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px">Last Name</div><input type="text" value="Campbell" style="width:100%;padding:10px 14px;border:1px solid var(--border);border-radius:8px;font-family:'Bricolage Grotesque',sans-serif;font-size:13px;color:var(--ink);outline:none" onfocus="this.style.boxShadow='0 1px 4px rgba(10,20,16,0.08)'" onblur="this.style.boxShadow='none'"></div>
+<div><div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--ink-f);letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px">First Name</div><input aria-label="Text input" type="text" value="Rose" style="width:100%;padding:10px 14px;border:1px solid var(--border);border-radius:8px;font-family:'Bricolage Grotesque',sans-serif;font-size:13px;color:var(--ink);outline:none" onfocus="this.style.boxShadow='0 1px 4px rgba(10,20,16,0.08)'" onblur="this.style.boxShadow='none'"></div>
+<div><div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--ink-f);letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px">Last Name</div><input aria-label="Text input" type="text" value="Campbell" style="width:100%;padding:10px 14px;border:1px solid var(--border);border-radius:8px;font-family:'Bricolage Grotesque',sans-serif;font-size:13px;color:var(--ink);outline:none" onfocus="this.style.boxShadow='0 1px 4px rgba(10,20,16,0.08)'" onblur="this.style.boxShadow='none'"></div>
 <div><div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--ink-f);letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px">Email Address</div><input type="email" value="rose.campbell@example.com" style="width:100%;padding:10px 14px;border:1px solid var(--border);border-radius:8px;font-family:'Bricolage Grotesque',sans-serif;font-size:13px;color:var(--ink);outline:none" onfocus="this.style.boxShadow='0 1px 4px rgba(10,20,16,0.08)'" onblur="this.style.boxShadow='none'"></div>
-<div><div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--ink-f);letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px">Date of Birth</div><input type="date" value="1995-06-14" style="width:100%;padding:10px 14px;border:1px solid var(--border);border-radius:8px;font-family:'Bricolage Grotesque',sans-serif;font-size:13px;color:var(--ink);outline:none" onfocus="this.style.boxShadow='0 1px 4px rgba(10,20,16,0.08)'" onblur="this.style.boxShadow='none'"></div>
+<div><div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--ink-f);letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px">Date of Birth</div><input aria-label="Select date" type="date" value="1995-06-14" style="width:100%;padding:10px 14px;border:1px solid var(--border);border-radius:8px;font-family:'Bricolage Grotesque',sans-serif;font-size:13px;color:var(--ink);outline:none" onfocus="this.style.boxShadow='0 1px 4px rgba(10,20,16,0.08)'" onblur="this.style.boxShadow='none'"></div>
 </div>
 <button style="margin-top:20px;padding:11px 28px;background:var(--ink);color:#fff;border:none;border-radius:8px;font-family:'Bricolage Grotesque',sans-serif;font-size:13px;font-weight:600;cursor:pointer;transition:all .2s" onmouseover="this.style.background='var(--teal)'" onmouseout="this.style.background='var(--ink)'">Save Changes</button>
 </div>
 <div style="display:flex;flex-direction:column;gap:20px">
-<div style="background:var(--white);border:1px solid var(--border);border-radius:16px;padding:28px;box-shadow:0 4px 16px rgba(10,20,16,0.04)"><div style="font-size:14px;font-weight:700;color:var(--ink);margin-bottom:18px">Health Profile</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:14px"><div><div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--ink-f);letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px">Height (cm)</div><input type="number" value="165" style="width:100%;padding:10px 14px;border:1px solid var(--border);border-radius:8px;font-family:'Bricolage Grotesque',sans-serif;font-size:13px;color:var(--ink);outline:none"></div><div><div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--ink-f);letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px">Weight (kg)</div><input type="number" value="62" style="width:100%;padding:10px 14px;border:1px solid var(--border);border-radius:8px;font-family:'Bricolage Grotesque',sans-serif;font-size:13px;color:var(--ink);outline:none"></div><div><div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--ink-f);letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px">Activity Level</div><select style="width:100%;padding:10px 14px;border:1px solid var(--border);border-radius:8px;font-family:'Bricolage Grotesque',sans-serif;font-size:13px;color:var(--ink);outline:none;background:var(--white)"><option>Sedentary</option><option>Lightly Active</option><option selected>Moderately Active</option><option>Very Active</option></select></div><div><div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--ink-f);letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px">Daily Calorie Target</div><input type="number" value="2400" style="width:100%;padding:10px 14px;border:1px solid var(--border);border-radius:8px;font-family:'Bricolage Grotesque',sans-serif;font-size:13px;color:var(--ink);outline:none"></div></div><button style="margin-top:16px;padding:11px 28px;background:var(--ink);color:#fff;border:none;border-radius:8px;font-family:'Bricolage Grotesque',sans-serif;font-size:13px;font-weight:600;cursor:pointer;transition:all .2s" onmouseover="this.style.background='var(--teal)'" onmouseout="this.style.background='var(--ink)'">Update Profile</button></div>
+<div style="background:var(--white);border:1px solid var(--border);border-radius:16px;padding:28px;box-shadow:0 4px 16px rgba(10,20,16,0.04)"><div style="font-size:14px;font-weight:700;color:var(--ink);margin-bottom:18px">Health Profile</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:14px"><div><div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--ink-f);letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px">Height (cm)</div><input id="profileHeight" aria-label="Enter number" type="number" placeholder="e.g. 170" style="width:100%;padding:10px 14px;border:1px solid var(--border);border-radius:8px;font-family:'Bricolage Grotesque',sans-serif;font-size:13px;color:var(--ink);outline:none"></div><div><div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--ink-f);letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px">Weight (kg)</div><input id="profileWeight" aria-label="Enter number" type="number" placeholder="e.g. 70" style="width:100%;padding:10px 14px;border:1px solid var(--border);border-radius:8px;font-family:'Bricolage Grotesque',sans-serif;font-size:13px;color:var(--ink);outline:none"></div><div><div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--ink-f);letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px">Age</div><input id="profileAge" aria-label="Enter number" type="number" placeholder="e.g. 28" style="width:100%;padding:10px 14px;border:1px solid var(--border);border-radius:8px;font-family:'Bricolage Grotesque',sans-serif;font-size:13px;color:var(--ink);outline:none"></div><div><div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--ink-f);letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px">Daily Calorie Target</div><input id="profileTargetKcal" aria-label="Enter number" type="number" placeholder="e.g. 2000" style="width:100%;padding:10px 14px;border:1px solid var(--border);border-radius:8px;font-family:'Bricolage Grotesque',sans-serif;font-size:13px;color:var(--ink);outline:none"></div><div style="grid-column:1/-1"><div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--ink-f);letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px">Goal</div><select id="profileGoal" style="width:100%;padding:10px 14px;border:1px solid var(--border);border-radius:8px;font-family:'Bricolage Grotesque',sans-serif;font-size:13px;color:var(--ink);outline:none;background:var(--white)"><option value="">Select a goal</option><option value="Weight Loss">Weight Loss</option><option value="Muscle Gain">Muscle Gain</option><option value="Maintenance">Maintenance</option><option value="General Health">General Health</option></select></div></div><button id="profileSaveBtn" onclick="saveHealthProfile()" style="margin-top:16px;padding:11px 28px;background:var(--ink);color:#fff;border:none;border-radius:8px;font-family:'Bricolage Grotesque',sans-serif;font-size:13px;font-weight:600;cursor:pointer;transition:all .2s" onmouseover="this.style.background='var(--teal)'" onmouseout="this.style.background='var(--ink)'">Save Profile</button></div>
 <div style="background:var(--white);border:1px solid var(--border);border-radius:16px;padding:28px;box-shadow:0 4px 16px rgba(10,20,16,0.04)"><div style="font-size:14px;font-weight:700;color:var(--ink);margin-bottom:18px">Change Password</div><div style="display:flex;flex-direction:column;gap:14px"><div><div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--ink-f);letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px">Current Password</div><input type="password" placeholder="Enter current password" style="width:100%;padding:10px 14px;border:1px solid var(--border);border-radius:8px;font-family:'Bricolage Grotesque',sans-serif;font-size:13px;color:var(--ink);outline:none"></div><div><div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--ink-f);letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px">New Password</div><input type="password" placeholder="Min. 8 characters" style="width:100%;padding:10px 14px;border:1px solid var(--border);border-radius:8px;font-family:'Bricolage Grotesque',sans-serif;font-size:13px;color:var(--ink);outline:none"></div><div><div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--ink-f);letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px">Confirm New Password</div><input type="password" placeholder="Re-enter new password" style="width:100%;padding:10px 14px;border:1px solid var(--border);border-radius:8px;font-family:'Bricolage Grotesque',sans-serif;font-size:13px;color:var(--ink);outline:none"></div></div><button style="margin-top:16px;padding:11px 28px;background:var(--ink);color:#fff;border:none;border-radius:8px;font-family:'Bricolage Grotesque',sans-serif;font-size:13px;font-weight:600;cursor:pointer;transition:all .2s" onmouseover="this.style.background='var(--teal)'" onmouseout="this.style.background='var(--ink)'">Update Password</button></div>
 </div>
 </div>
@@ -690,7 +696,7 @@ body.dark-mode .shortcuts-modal { background: #142420; }
 <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px">
 <div style="display:flex;flex-direction:column;gap:20px">
 <div style="background:var(--white);border:1px solid var(--border);border-radius:16px;padding:28px;box-shadow:0 4px 16px rgba(10,20,16,0.04)"><div style="font-size:14px;font-weight:700;color:var(--ink);margin-bottom:6px">Dietary Restrictions</div><div style="font-size:11px;color:var(--ink-f);margin-bottom:16px">Select any that apply</div><div style="display:flex;flex-wrap:wrap;gap:8px"><label style="display:flex;align-items:center;gap:6px;padding:8px 14px;border:1px solid var(--border);border-radius:8px;cursor:pointer;font-size:12px;color:var(--ink-m)"><input type="checkbox" style="accent-color:var(--teal)"> Vegetarian</label><label style="display:flex;align-items:center;gap:6px;padding:8px 14px;border:1px solid var(--border);border-radius:8px;cursor:pointer;font-size:12px;color:var(--ink-m)"><input type="checkbox" style="accent-color:var(--teal)"> Vegan</label><label style="display:flex;align-items:center;gap:6px;padding:8px 14px;border:1px solid var(--border);border-radius:8px;cursor:pointer;font-size:12px;color:var(--ink-m)"><input type="checkbox" style="accent-color:var(--teal)"> Gluten-free</label><label style="display:flex;align-items:center;gap:6px;padding:8px 14px;border:1px solid var(--border);border-radius:8px;cursor:pointer;font-size:12px;color:var(--ink-m)"><input type="checkbox" style="accent-color:var(--teal)"> Dairy-free</label><label style="display:flex;align-items:center;gap:6px;padding:8px 14px;border:1px solid var(--border);border-radius:8px;cursor:pointer;font-size:12px;color:var(--ink-m)"><input type="checkbox" style="accent-color:var(--teal)"> Nut allergy</label><label style="display:flex;align-items:center;gap:6px;padding:8px 14px;border:1px solid var(--border);border-radius:8px;cursor:pointer;font-size:12px;color:var(--ink-m)"><input type="checkbox" style="accent-color:var(--teal)"> Halal</label><label style="display:flex;align-items:center;gap:6px;padding:8px 14px;border:1px solid var(--border);border-radius:8px;cursor:pointer;font-size:12px;color:var(--ink-m)"><input type="checkbox" checked style="accent-color:var(--teal)"> Low-sugar</label></div></div>
-<div style="background:var(--white);border:1px solid var(--border);border-radius:16px;padding:28px;box-shadow:0 4px 16px rgba(10,20,16,0.04)"><div style="font-size:14px;font-weight:700;color:var(--ink);margin-bottom:6px">Nutrition Goals</div><div style="font-size:11px;color:var(--ink-f);margin-bottom:16px">Set your daily macro targets</div><div style="display:flex;flex-direction:column;gap:14px"><div><div style="display:flex;justify-content:space-between;margin-bottom:6px"><span style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--ink-f);letter-spacing:.08em;text-transform:uppercase">Carbohydrates</span><span style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--teal);font-weight:600" id="label-carbs">45%</span></div><input id="slider-carbs" type="range" min="5" max="70" value="45" style="width:100%;accent-color:var(--teal)"></div><div><div style="display:flex;justify-content:space-between;margin-bottom:6px"><span style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--ink-f);letter-spacing:.08em;text-transform:uppercase">Protein</span><span style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--teal);font-weight:600" id="label-protein">30%</span></div><input id="slider-protein" type="range" min="5" max="60" value="30" style="width:100%;accent-color:var(--teal)"></div><div><div style="display:flex;justify-content:space-between;margin-bottom:6px"><span style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--ink-f);letter-spacing:.08em;text-transform:uppercase">Fat</span><span style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--teal);font-weight:600" id="label-fat">25%</span></div><input id="slider-fat" type="range" min="5" max="50" value="25" style="width:100%;accent-color:var(--teal)"></div></div></div>
+<div style="background:var(--white);border:1px solid var(--border);border-radius:16px;padding:28px;box-shadow:0 4px 16px rgba(10,20,16,0.04)"><div style="font-size:14px;font-weight:700;color:var(--ink);margin-bottom:6px">Nutrition Goals</div><div style="font-size:11px;color:var(--ink-f);margin-bottom:16px">Set your daily macro targets</div><div style="display:flex;flex-direction:column;gap:14px"><div><div style="display:flex;justify-content:space-between;margin-bottom:6px"><span style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--ink-f);letter-spacing:.08em;text-transform:uppercase">Carbohydrates</span><span style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--teal);font-weight:600" id="label-carbs">45%</span></div><input aria-label="Adjust value" id="slider-carbs" type="range" min="5" max="70" value="45" style="width:100%;accent-color:var(--teal)"></div><div><div style="display:flex;justify-content:space-between;margin-bottom:6px"><span style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--ink-f);letter-spacing:.08em;text-transform:uppercase">Protein</span><span style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--teal);font-weight:600" id="label-protein">30%</span></div><input aria-label="Adjust value" id="slider-protein" type="range" min="5" max="60" value="30" style="width:100%;accent-color:var(--teal)"></div><div><div style="display:flex;justify-content:space-between;margin-bottom:6px"><span style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--ink-f);letter-spacing:.08em;text-transform:uppercase">Fat</span><span style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--teal);font-weight:600" id="label-fat">25%</span></div><input aria-label="Adjust value" id="slider-fat" type="range" min="5" max="50" value="25" style="width:100%;accent-color:var(--teal)"></div></div></div>
 </div>
 <div style="display:flex;flex-direction:column;gap:20px">
 <div style="background:var(--white);border:1px solid var(--border);border-radius:16px;padding:28px;box-shadow:0 4px 16px rgba(10,20,16,0.04)"><div style="font-size:14px;font-weight:700;color:var(--ink);margin-bottom:6px">Notifications</div><div style="font-size:11px;color:var(--ink-f);margin-bottom:16px">Choose what alerts you receive</div><div style="display:flex;flex-direction:column;gap:12px"><label style="display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--fog)"><div><div style="font-size:12px;font-weight:600;color:var(--ink)">Meal reminders</div><div style="font-size:10px;color:var(--ink-f);margin-top:2px">Get reminded to log meals</div></div><input type="checkbox" checked style="accent-color:var(--teal);width:18px;height:18px"></label><label style="display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--fog)"><div><div style="font-size:12px;font-weight:600;color:var(--ink)">Weekly summary</div><div style="font-size:10px;color:var(--ink-f);margin-top:2px">Weekly nutrition report via email</div></div><input type="checkbox" checked style="accent-color:var(--teal);width:18px;height:18px"></label><label style="display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--fog)"><div><div style="font-size:12px;font-weight:600;color:var(--ink)">Recipe recommendations</div><div style="font-size:10px;color:var(--ink-f);margin-top:2px">New recipes based on preferences</div></div><input type="checkbox" style="accent-color:var(--teal);width:18px;height:18px"></label><label style="display:flex;align-items:center;justify-content:space-between;padding:10px 0"><div><div style="font-size:12px;font-weight:600;color:var(--ink)">Professional messages</div><div style="font-size:10px;color:var(--ink-f);margin-top:2px">Advice from your health professional</div></div><input type="checkbox" checked style="accent-color:var(--teal);width:18px;height:18px"></label></div></div>
@@ -735,19 +741,19 @@ body.dark-mode .shortcuts-modal { background: #142420; }
 <button class="fcb" onclick="pickCat(this)">Drinks</button>
 </div>
 <div style="flex:1;overflow-y:auto">
-<div class="frow" onclick="addFoodItem(this)"><div class="fico" style="background:#faeade">🍚</div><div class="finf"><b>White Rice</b><br><span style="color:#6b8878;font-size:10px">209 kcal / 1 bowl</span></div><span style="color:#2f8f7f;font-size:10px">● green</span><div class="fadd">+</div></div>
-<div class="frow" onclick="addFoodItem(this)"><div class="fico" style="background:#e8f4f2">🥦</div><div class="finf"><b>Steamed Broccoli</b><br><span style="color:#6b8878;font-size:10px">55 kcal / 100g</span></div><span style="color:#2f8f7f;font-size:10px">● green</span><div class="fadd">+</div></div>
-<div class="frow" onclick="addFoodItem(this)"><div class="fico" style="background:#faeade">🍗</div><div class="finf"><b>Grilled Chicken</b><br><span style="color:#6b8878;font-size:10px">165 kcal / 100g</span></div><span style="color:#2f8f7f;font-size:10px">● green</span><div class="fadd">+</div></div>
-<div class="frow" onclick="addFoodItem(this)"><div class="fico" style="background:rgba(122,170,212,0.15)">🥚</div><div class="finf"><b>Boiled Egg</b><br><span style="color:#6b8878;font-size:10px">74 kcal / 1 medium</span></div><span style="color:#2f8f7f;font-size:10px">● green</span><div class="fadd">+</div></div>
-<div class="frow" onclick="addFoodItem(this)"><div class="fico" style="background:#e8f4f2">🥬</div><div class="finf"><b>Mixed Salad</b><br><span style="color:#6b8878;font-size:10px">25 kcal / 100g</span></div><span style="color:#2f8f7f;font-size:10px">● green</span><div class="fadd">+</div></div>
-<div class="frow" onclick="addFoodItem(this)"><div class="fico" style="background:#faeade">🍞</div><div class="finf"><b>Wholemeal Toast</b><br><span style="color:#6b8878;font-size:10px">82 kcal / 1 slice</span></div><span style="color:#2f8f7f;font-size:10px">● green</span><div class="fadd">+</div></div>
-<div class="frow" onclick="addFoodItem(this)"><div class="fico" style="background:rgba(224,123,120,0.1)">🍎</div><div class="finf"><b>Apple</b><br><span style="color:#6b8878;font-size:10px">52 kcal / 1 medium</span></div><span style="color:#2f8f7f;font-size:10px">● green</span><div class="fadd">+</div></div>
-<div class="frow" onclick="addFoodItem(this)"><div class="fico" style="background:#e8f4f2">🥛</div><div class="finf"><b>Semi-Skimmed Milk</b><br><span style="color:#6b8878;font-size:10px">50 kcal / 100ml</span></div><span style="color:#2f8f7f;font-size:10px">● green</span><div class="fadd">+</div></div>
-<div class="frow" onclick="addFoodItem(this)"><div class="fico" style="background:#faeade">🥜</div><div class="finf"><b>Mixed Nuts</b><br><span style="color:#6b8878;font-size:10px">607 kcal / 100g</span></div><span style="color:#b8621f;font-size:10px">● amber</span><div class="fadd">+</div></div>
-<div class="frow" onclick="addFoodItem(this)"><div class="fico" style="background:rgba(122,170,212,0.15)">🐟</div><div class="finf"><b>Grilled Salmon</b><br><span style="color:#6b8878;font-size:10px">208 kcal / 100g</span></div><span style="color:#2f8f7f;font-size:10px">● green</span><div class="fadd">+</div></div>
+<div class="frow" onclick="addFoodItem(this)"><div class="fico" style="background:#faeade">🍚</div><div class="finf"><b>White Rice</b><br><span style="color:#4d6e5e;font-size:10px">209 kcal / 1 bowl</span></div><span style="color:#1a7a6a;font-size:10px">● green</span><div class="fadd">+</div></div>
+<div class="frow" onclick="addFoodItem(this)"><div class="fico" style="background:#e8f4f2">🥦</div><div class="finf"><b>Steamed Broccoli</b><br><span style="color:#4d6e5e;font-size:10px">55 kcal / 100g</span></div><span style="color:#1a7a6a;font-size:10px">● green</span><div class="fadd">+</div></div>
+<div class="frow" onclick="addFoodItem(this)"><div class="fico" style="background:#faeade">🍗</div><div class="finf"><b>Grilled Chicken</b><br><span style="color:#4d6e5e;font-size:10px">165 kcal / 100g</span></div><span style="color:#1a7a6a;font-size:10px">● green</span><div class="fadd">+</div></div>
+<div class="frow" onclick="addFoodItem(this)"><div class="fico" style="background:rgba(122,170,212,0.15)">🥚</div><div class="finf"><b>Boiled Egg</b><br><span style="color:#4d6e5e;font-size:10px">74 kcal / 1 medium</span></div><span style="color:#1a7a6a;font-size:10px">● green</span><div class="fadd">+</div></div>
+<div class="frow" onclick="addFoodItem(this)"><div class="fico" style="background:#e8f4f2">🥬</div><div class="finf"><b>Mixed Salad</b><br><span style="color:#4d6e5e;font-size:10px">25 kcal / 100g</span></div><span style="color:#1a7a6a;font-size:10px">● green</span><div class="fadd">+</div></div>
+<div class="frow" onclick="addFoodItem(this)"><div class="fico" style="background:#faeade">🍞</div><div class="finf"><b>Wholemeal Toast</b><br><span style="color:#4d6e5e;font-size:10px">82 kcal / 1 slice</span></div><span style="color:#1a7a6a;font-size:10px">● green</span><div class="fadd">+</div></div>
+<div class="frow" onclick="addFoodItem(this)"><div class="fico" style="background:rgba(224,123,120,0.1)">🍎</div><div class="finf"><b>Apple</b><br><span style="color:#4d6e5e;font-size:10px">52 kcal / 1 medium</span></div><span style="color:#1a7a6a;font-size:10px">● green</span><div class="fadd">+</div></div>
+<div class="frow" onclick="addFoodItem(this)"><div class="fico" style="background:#e8f4f2">🥛</div><div class="finf"><b>Semi-Skimmed Milk</b><br><span style="color:#4d6e5e;font-size:10px">50 kcal / 100ml</span></div><span style="color:#1a7a6a;font-size:10px">● green</span><div class="fadd">+</div></div>
+<div class="frow" onclick="addFoodItem(this)"><div class="fico" style="background:#faeade">🥜</div><div class="finf"><b>Mixed Nuts</b><br><span style="color:#4d6e5e;font-size:10px">607 kcal / 100g</span></div><span style="color:#955018;font-size:10px">● amber</span><div class="fadd">+</div></div>
+<div class="frow" onclick="addFoodItem(this)"><div class="fico" style="background:rgba(122,170,212,0.15)">🐟</div><div class="finf"><b>Grilled Salmon</b><br><span style="color:#4d6e5e;font-size:10px">208 kcal / 100g</span></div><span style="color:#1a7a6a;font-size:10px">● green</span><div class="fadd">+</div></div>
 </div>
 <div style="padding:14px 22px;border-top:1px solid #d4dfd8;display:flex;justify-content:space-between;align-items:center">
-<span id="foodCount" style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#6b8878">0 items added</span>
+<span id="foodCount" style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#4d6e5e">0 items added</span>
 <div style="display:flex;align-items:center;gap:10px">
 <div class="meal-picker-wrap">
 <button class="meal-picker-btn" id="mealPickerBtn" onclick="document.getElementById('mealPickerMenu').classList.toggle('show')">🌅 Breakfast ▾</button>
@@ -760,7 +766,7 @@ body.dark-mode .shortcuts-modal { background: #142420; }
 <div class="meal-picker-item" onclick="selectMealSlot(this,'🌙 Evening Snack')">🌙 Evening Snack</div>
 </div>
 </div>
-<button onclick="closeFoodPanel()" style="padding:9px 22px;background:#0a1410;color:#fff;border:none;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer">Done</button>
+<button onclick="closeFoodPanel()" aria-label="Close food panel" style="padding:9px 22px;background:#0a1410;color:#fff;border:none;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer">Done</button>
 </div>
 </div>
 </div>
@@ -770,7 +776,7 @@ body.dark-mode .shortcuts-modal { background: #142420; }
 <div id="exPanel" style="position:fixed;top:0;right:0;bottom:0;width:460px;background:#fff;z-index:2001;box-shadow:-8px 0 40px rgba(0,0,0,0.15);display:none;flex-direction:column">
 <div style="padding:18px 22px;border-bottom:1px solid #d4dfd8;display:flex;justify-content:space-between;align-items:center">
 <div style="font-family:'Instrument Serif',serif;font-size:20px;font-style:italic;color:#0a1410">Log Exercise</div>
-<button onclick="closeExPanel()" style="width:32px;height:32px;border-radius:6px;border:none;background:#f5f7f5;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center">✕</button>
+<button onclick="closeExPanel()" aria-label="Close exercise panel" style="width:32px;height:32px;border-radius:6px;border:none;background:#f5f7f5;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center">✕</button>
 </div>
 <div style="padding:10px 22px;border-bottom:1px solid #d4dfd8"><input type="text" placeholder="Search exercise..." style="width:100%;padding:9px 12px;border:1px solid #d4dfd8;border-radius:8px;font-family:'Bricolage Grotesque',sans-serif;font-size:13px;outline:none" onfocus="this.style.boxShadow='0 1px 4px rgba(10,20,16,0.08)'" onblur="this.style.boxShadow='none'"></div>
 <div style="padding:8px 22px;border-bottom:1px solid #d4dfd8;display:flex;gap:5px;flex-wrap:wrap">
@@ -781,18 +787,18 @@ body.dark-mode .shortcuts-modal { background: #142420; }
 <button class="fcb" onclick="pickCat(this)">Sports</button>
 </div>
 <div style="flex:1;overflow-y:auto">
-<div class="frow" onclick="addExItem(this)"><div class="fico" style="background:#e8f4f2">🏃</div><div class="finf"><b>Running</b><br><span style="color:#6b8878;font-size:10px">~600 kcal / 60 min</span></div><div class="fadd">+</div></div>
-<div class="frow" onclick="addExItem(this)"><div class="fico" style="background:rgba(122,170,212,0.15)">🏊</div><div class="finf"><b>Swimming</b><br><span style="color:#6b8878;font-size:10px">~500 kcal / 60 min</span></div><div class="fadd">+</div></div>
-<div class="frow" onclick="addExItem(this)"><div class="fico" style="background:#faeade">🏋️</div><div class="finf"><b>Weight Training</b><br><span style="color:#6b8878;font-size:10px">~400 kcal / 60 min</span></div><div class="fadd">+</div></div>
-<div class="frow" onclick="addExItem(this)"><div class="fico" style="background:#e8f4f2">🚴</div><div class="finf"><b>Cycling</b><br><span style="color:#6b8878;font-size:10px">~450 kcal / 60 min</span></div><div class="fadd">+</div></div>
-<div class="frow" onclick="addExItem(this)"><div class="fico" style="background:rgba(224,123,120,0.1)">🧘</div><div class="finf"><b>Yoga</b><br><span style="color:#6b8878;font-size:10px">~200 kcal / 60 min</span></div><div class="fadd">+</div></div>
-<div class="frow" onclick="addExItem(this)"><div class="fico" style="background:#faeade">🚶</div><div class="finf"><b>Walking</b><br><span style="color:#6b8878;font-size:10px">~250 kcal / 60 min</span></div><div class="fadd">+</div></div>
-<div class="frow" onclick="addExItem(this)"><div class="fico" style="background:rgba(122,170,212,0.15)">⚽</div><div class="finf"><b>Football</b><br><span style="color:#6b8878;font-size:10px">~500 kcal / 60 min</span></div><div class="fadd">+</div></div>
-<div class="frow" onclick="addExItem(this)"><div class="fico" style="background:#e8f4f2">🎾</div><div class="finf"><b>Tennis</b><br><span style="color:#6b8878;font-size:10px">~400 kcal / 60 min</span></div><div class="fadd">+</div></div>
-<div class="frow" onclick="addExItem(this)"><div class="fico" style="background:#faeade">🤸</div><div class="finf"><b>HIIT Workout</b><br><span style="color:#6b8878;font-size:10px">~700 kcal / 45 min</span></div><div class="fadd">+</div></div>
+<div class="frow" onclick="addExItem(this)"><div class="fico" style="background:#e8f4f2">🏃</div><div class="finf"><b>Running</b><br><span style="color:#4d6e5e;font-size:10px">~600 kcal / 60 min</span></div><div class="fadd">+</div></div>
+<div class="frow" onclick="addExItem(this)"><div class="fico" style="background:rgba(122,170,212,0.15)">🏊</div><div class="finf"><b>Swimming</b><br><span style="color:#4d6e5e;font-size:10px">~500 kcal / 60 min</span></div><div class="fadd">+</div></div>
+<div class="frow" onclick="addExItem(this)"><div class="fico" style="background:#faeade">🏋️</div><div class="finf"><b>Weight Training</b><br><span style="color:#4d6e5e;font-size:10px">~400 kcal / 60 min</span></div><div class="fadd">+</div></div>
+<div class="frow" onclick="addExItem(this)"><div class="fico" style="background:#e8f4f2">🚴</div><div class="finf"><b>Cycling</b><br><span style="color:#4d6e5e;font-size:10px">~450 kcal / 60 min</span></div><div class="fadd">+</div></div>
+<div class="frow" onclick="addExItem(this)"><div class="fico" style="background:rgba(224,123,120,0.1)">🧘</div><div class="finf"><b>Yoga</b><br><span style="color:#4d6e5e;font-size:10px">~200 kcal / 60 min</span></div><div class="fadd">+</div></div>
+<div class="frow" onclick="addExItem(this)"><div class="fico" style="background:#faeade">🚶</div><div class="finf"><b>Walking</b><br><span style="color:#4d6e5e;font-size:10px">~250 kcal / 60 min</span></div><div class="fadd">+</div></div>
+<div class="frow" onclick="addExItem(this)"><div class="fico" style="background:rgba(122,170,212,0.15)">⚽</div><div class="finf"><b>Football</b><br><span style="color:#4d6e5e;font-size:10px">~500 kcal / 60 min</span></div><div class="fadd">+</div></div>
+<div class="frow" onclick="addExItem(this)"><div class="fico" style="background:#e8f4f2">🎾</div><div class="finf"><b>Tennis</b><br><span style="color:#4d6e5e;font-size:10px">~400 kcal / 60 min</span></div><div class="fadd">+</div></div>
+<div class="frow" onclick="addExItem(this)"><div class="fico" style="background:#faeade">🤸</div><div class="finf"><b>HIIT Workout</b><br><span style="color:#4d6e5e;font-size:10px">~700 kcal / 45 min</span></div><div class="fadd">+</div></div>
 </div>
 <div style="padding:14px 22px;border-top:1px solid #d4dfd8;display:flex;justify-content:space-between;align-items:center">
-<span id="exCount" style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#6b8878">0 exercises selected</span>
+<span id="exCount" style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#4d6e5e">0 exercises selected</span>
 <button onclick="closeExPanel()" style="padding:9px 22px;background:#0a1410;color:#fff;border:none;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer">Done</button>
 </div>
 </div>
@@ -809,7 +815,7 @@ body.dark-mode .shortcuts-modal { background: #142420; }
 .meal-picker-item:last-child{border-bottom:none}
 .meal-picker-item:hover{background:#e8f4f2;color:#0a1410}
 .meal-picker-item.active{color:#1e6b5e;font-weight:700;background:#e8f4f2}
-.fcb{font-family:'JetBrains Mono',monospace;font-size:9px;padding:4px 10px;border-radius:14px;border:1px solid #d4dfd8;background:#fff;color:#6b8878;cursor:pointer}
+.fcb{font-family:'JetBrains Mono',monospace;font-size:9px;padding:4px 10px;border-radius:14px;border:1px solid #d4dfd8;background:#fff;color:#4d6e5e;cursor:pointer}
 .fcb.active{background:#e8f4f2;color:#1e6b5e;border-color:#b8ddd8}
 .frow{display:flex;align-items:center;gap:12px;padding:10px 22px;cursor:pointer;transition:background .15s;border-bottom:1px solid #f5f7f5}
 .frow:hover{background:#e8f4f2}
@@ -817,35 +823,7 @@ body.dark-mode .shortcuts-modal { background: #142420; }
 .finf{flex:1;font-size:12px;color:#0a1410;line-height:1.5}
 .fadd{width:28px;height:28px;border-radius:7px;border:1px solid #d4dfd8;background:#fff;display:flex;align-items:center;justify-content:center;font-size:16px;color:#1e6b5e;flex-shrink:0;transition:all .15s}
 .frow:hover .fadd{background:#1e6b5e;color:#fff;border-color:#1e6b5e}
-/* Tour */
-.tour-trigger-btn{display:flex;align-items:center;gap:5px;padding:7px 14px;border-radius:8px;border:1px solid rgba(255,255,255,0.25);background:rgba(47,143,127,0.15);color:rgba(255,255,255,0.85);cursor:pointer;font-size:11px;font-weight:600;font-family:'Bricolage Grotesque',sans-serif;letter-spacing:.02em;transition:all .2s}
-.tour-trigger-btn:hover{background:rgba(47,143,127,0.3);border-color:rgba(47,143,127,0.5);color:#fff}
-.tour-dim-svg{position:fixed;inset:0;width:100%;height:100%;z-index:8000;display:none;pointer-events:all}
-.tour-highlight{position:fixed;z-index:8001;border-radius:12px;pointer-events:none;transition:all .35s cubic-bezier(.4,0,.2,1);display:none}
-.tour-highlight.on{display:block;box-shadow:0 0 0 3px #2f8f7f,0 0 0 7px rgba(47,143,127,0.35),0 0 24px rgba(47,143,127,0.2);animation:tourPulse 2s ease-in-out infinite}
-@keyframes tourPulse{0%,100%{box-shadow:0 0 0 3px #2f8f7f,0 0 0 7px rgba(47,143,127,0.35),0 0 24px rgba(47,143,127,0.2)}50%{box-shadow:0 0 0 4px #2f8f7f,0 0 0 10px rgba(47,143,127,0.25),0 0 32px rgba(47,143,127,0.15)}}
-.tour-card{position:fixed;z-index:8002;background:#fff;border-radius:14px;padding:20px 22px;width:340px;box-shadow:0 12px 40px rgba(10,20,16,0.3),0 0 0 1px rgba(30,107,94,0.15);display:none;pointer-events:all;transition:opacity .25s,transform .25s,left .3s,top .3s}
-.tour-card.on{display:block}
-.tour-card::before{content:'';position:absolute;width:12px;height:12px;background:#fff;transform:rotate(45deg);box-shadow:-1px -1px 0 rgba(30,107,94,0.12)}
-.tour-card[data-pos="bottom"]::before{top:-6px;left:28px}
-.tour-card[data-pos="top"]::before{bottom:-6px;left:28px;box-shadow:1px 1px 0 rgba(30,107,94,0.12)}
-.tour-card[data-pos="right"]::before{left:-6px;top:20px}
-.tour-card[data-pos="left"]::before{right:-6px;top:20px;box-shadow:1px -1px 0 rgba(30,107,94,0.12)}
-.tour-card[data-pos="center"]::before{display:none}
-.tour-step-label{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--teal);letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px;display:flex;align-items:center;gap:8px}
-.tour-step-label::after{content:'';flex:1;height:1px;background:var(--teal-ll)}
-.tour-card-title{font-size:15px;font-weight:700;color:var(--ink);margin-bottom:6px;line-height:1.3}
-.tour-card-body{font-size:13px;color:var(--ink-m);line-height:1.65;margin-bottom:16px}
-.tour-card-foot{display:flex;align-items:center;justify-content:space-between}
-.tour-progress{display:flex;gap:4px;align-items:center}
-.tour-pip{width:20px;height:3px;border-radius:2px;background:var(--fog);transition:all .3s}
-.tour-pip.done{background:var(--teal)}
-.tour-pip.active{background:var(--teal);width:28px}
-.tour-actions{display:flex;gap:8px;align-items:center}
-.tour-skip-btn{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--ink-f);background:none;border:none;cursor:pointer;padding:6px 10px;border-radius:6px;transition:all .2s}
-.tour-skip-btn:hover{color:var(--ink);background:var(--paper)}
-.tour-next-btn{font-size:12px;font-weight:600;padding:8px 18px;border-radius:8px;border:none;background:var(--teal);color:#fff;cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:5px}
-.tour-next-btn:hover{background:var(--teal-l)}
+/* Tour — removed, will be rebuilt */
 
 /* ── MEAL PLANNER ── */
 .mp-meal-section { background:var(--white); border:1px solid var(--border); border-radius:14px; padding:18px 20px; margin-bottom:14px; box-shadow:0 2px 8px rgba(10,20,16,0.03); }
@@ -877,6 +855,15 @@ body.dark-mode .mp-picker-item:hover { background:#1e3028; }
 body.dark-mode #mp-picker-overlay > div { background:#142420; }
 
 </style>
+<!-- ── MY NUTRITIONIST PAGE ── -->
+<div class="page" id="page-mypro" role="tabpanel" aria-label="My Nutritionist">
+  <div class="page-header">
+    <div class="page-title">My <em>Nutritionist</em></div>
+    <div class="page-date" id="mypro-subtitle">Connect with a professional to get personalised advice</div>
+  </div>
+  <div id="mypro-content"></div>
+</div>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
 <script>
 /* Exercise Chart */
@@ -957,7 +944,7 @@ function closeFoodPanel(){
 function closeExPanel(){document.getElementById('exDim').style.display='none';document.getElementById('exPanel').style.display='none';}
 
 // ── Avatar menu (v3 feature) ──────────────────────────────────────────────────
-function toggleAvatarMenu(e){e.stopPropagation();document.getElementById('avatarMenu').classList.toggle('open')}
+function toggleAvatarMenu(e){e.stopPropagation();var m=document.getElementById('avatarMenu');m.classList.toggle('open');if(m.classList.contains('open')){var a=m.querySelector('a');if(a)setTimeout(function(){a.focus()},50)}}
 function switchBackToPro(){
   window.location.replace('pro_dashboard.html');
 }
@@ -993,10 +980,16 @@ function closeCompareSelect(){
 }
 function switchPage(p,el){
   closeSettings();
+  var pg=document.getElementById('page-'+p);
+  if(!pg){
+    // page not injected yet (e.g. community-hub.js not ready) — retry once after short delay
+    setTimeout(function(){ var pg2=document.getElementById('page-'+p); if(pg2){ document.querySelectorAll('.page').forEach(function(x){x.classList.remove('active');}); pg2.classList.add('active'); document.querySelectorAll('.sn-item').forEach(function(i){i.classList.remove('active');}); if(el) el.classList.add('active'); } }, 150);
+    return;
+  }
   document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));
-  document.getElementById('page-'+p).classList.add('active');
+  pg.classList.add('active');
   document.querySelectorAll('.sn-item').forEach(i=>i.classList.remove('active'));
-  el.classList.add('active');
+  if(el) el.classList.add('active');
   if(p==='favourites') renderFavouritesPage();
   if(p==='plan') renderComparePage();
 }
@@ -1007,14 +1000,28 @@ function pickCat(el){el.parentElement.querySelectorAll('.fcb').forEach(c=>c.clas
 function selCat(el){el.parentElement.querySelectorAll('.sp-cat').forEach(c=>c.classList.remove('active'));el.classList.add('active');}
 
 // ── Date ──────────────────────────────────────────────────────────────────────
+// ── Back to Pro mode ──────────────────────────────────────────────────────────
+function backToPro() {
+  try { sessionStorage.removeItem('nw-from-pro'); } catch(e) {}
+  window.location.replace('pro_dashboard.html');
+}
+(function checkFromPro() {
+  try {
+    if (sessionStorage.getItem('nw-from-pro') === '1') {
+      var wrap = document.getElementById('back-to-pro-wrap');
+      if (wrap) wrap.style.display = 'block';
+    }
+  } catch(e) {}
+})();
+
 const d=new Date(),days=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'],months=['January','February','March','April','May','June','July','August','September','October','November','December'];
 document.getElementById('today-date').textContent=days[d.getDay()]+', '+d.getDate()+' '+months[d.getMonth()]+' '+d.getFullYear();
 
 // ── State ─────────────────────────────────────────────────────────────────────
-const DAILY_TARGET=2400;
+var DAILY_TARGET=2400;
 let foodAdded=[];
-let favourites=new Set(['shakshuka','avocado-toast','lentil-soup']);
-let compareSelected=new Set(['shakshuka','avocado-toast','lentil-soup']);
+let favourites=new Set();
+let compareSelected=new Set();
 
 const RECIPES={
   'mediterranean-quinoa':{id:'mediterranean-quinoa',emoji:'🥗',name:'Mediterranean Quinoa Bowl',tag:'Healthy · 15 min',kcal:420,cost:'£3.20',rating:'★★★★☆',bg:'var(--teal-lll)',ingredients:['200g quinoa','1 cucumber','200g cherry tomatoes','100g feta','Olives','Olive oil & lemon'],steps:['Cook quinoa, allow to cool.','Dice cucumber, halve tomatoes.','Combine all in a bowl.','Drizzle with olive oil and lemon.','Season and serve.']},
@@ -1069,6 +1076,7 @@ function commitFoodEntries(){
   foodAdded.forEach(item=>mealLog[mealKey].push(item));
   renderMealLog();
   updateDonut();
+  updateCalorieTrend();
   showToast('✓ '+foodAdded.length+' item'+(foodAdded.length>1?'s':'')+' added','#1e6b5e');
   foodAdded=[];
 }
@@ -1096,7 +1104,7 @@ function renderMealLog(){
       const entries=mealLog[sec.key];
       if(!entries.length) h+=`<div class="mc-empty">Nothing logged</div>`;
       else entries.forEach((e,i)=>{
-        h+=`<div class="mc-row"><span class="mc-time">${e.time}</span><span class="mc-name">${e.name}</span><span class="mc-kcal">${e.kcal}</span><span onclick="deleteMeal('${sec.key}',${i})" style="cursor:pointer;font-size:10px;color:#6b8878;margin-left:6px;opacity:.5" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=.5">✕</span></div>`;
+        h+=`<div class="mc-row"><span class="mc-time">${escapeHtml(e.time)}</span><span class="mc-name">${escapeHtml(e.name)}</span><span class="mc-kcal">${e.kcal}</span><span tabindex="0" role="button" onclick="deleteMeal('${sec.key}',${i})" style="cursor:pointer;font-size:10px;color:#4d6e5e;margin-left:6px;opacity:.5" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=.5">✕</span></div>`;
       });
       h+=`</div>`;
     });
@@ -1104,13 +1112,14 @@ function renderMealLog(){
     el.innerHTML=h;
   });
 }
-function deleteMeal(key,idx){mealLog[key].splice(idx,1);renderMealLog();updateDonut();}
+function deleteMeal(key,idx){mealLog[key].splice(idx,1);renderMealLog();updateDonut();updateCalorieTrend();}
 
 // ── Donut ─────────────────────────────────────────────────────────────────────
 function updateDonut(){
+  var _target = window._nwDailyTarget || DAILY_TARGET;
   let kcal=0; Object.values(mealLog).forEach(arr=>arr.forEach(e=>kcal+=e.kcal));
   const carbs=Math.round(kcal*.42/4),protein=Math.round(kcal*.28/4),fat=Math.round(kcal*.18/9),sugar=Math.round(kcal*.12/4);
-  const circ=2*Math.PI*48,pct=Math.min(kcal/DAILY_TARGET,1);
+  const circ=2*Math.PI*48,pct=Math.min(kcal/_target,1);
   const segs=[{p:.42,c:'#2f8f7f'},{p:.28,c:'#d4956a'},{p:.18,c:'#7aaad4'},{p:.12,c:'#e07b78'}];
   const svg=document.querySelector('.dc-donut svg'); if(!svg) return;
   let a=-90,h=`<circle cx="75" cy="75" r="48" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="16"/>`;
@@ -1118,9 +1127,9 @@ function updateDonut(){
   h+=`<text x="75" y="72" text-anchor="middle" font-size="20" font-weight="700" fill="#fff" font-family="Bricolage Grotesque,sans-serif">${kcal.toLocaleString()}</text><text x="75" y="88" text-anchor="middle" font-size="9" fill="rgba(255,255,255,0.35)" font-family="JetBrains Mono,monospace">kcal today</text>`;
   svg.innerHTML=h;
   const leg=document.querySelector('.dc-legend');
-  if(leg) leg.innerHTML=`<div class="dc-leg-row"><div class="dc-leg-dot" style="background:#2f8f7f"></div><span class="dc-leg-name">Carbs</span><span class="dc-leg-val">42% · ${carbs}g</span></div><div class="dc-leg-row"><div class="dc-leg-dot" style="background:#d4956a"></div><span class="dc-leg-name">Protein</span><span class="dc-leg-val">28% · ${protein}g</span></div><div class="dc-leg-row"><div class="dc-leg-dot" style="background:#7aaad4"></div><span class="dc-leg-name">Fat</span><span class="dc-leg-val">18% · ${fat}g</span></div><div class="dc-leg-row"><div class="dc-leg-dot" style="background:#e07b78"></div><span class="dc-leg-name">Sugar</span><span class="dc-leg-val">12% · ${sugar}g</span></div>`;
-  const tn=document.querySelector('.dc-total-num');if(tn)tn.innerHTML=`${kcal.toLocaleString()} <span class="dc-total-sub">/ ${DAILY_TARGET.toLocaleString()}</span>`;
-  const tp=document.querySelector('.dc-total-pct');if(tp)tp.textContent=Math.round(kcal/DAILY_TARGET*100)+'%';
+  if(leg) leg.innerHTML=`<div class="dc-leg-row"><div class="dc-leg-dot" style="background:#1a7a6a"></div><span class="dc-leg-name">Carbs</span><span class="dc-leg-val">42% · ${carbs}g</span></div><div class="dc-leg-row"><div class="dc-leg-dot" style="background:#d4956a"></div><span class="dc-leg-name">Protein</span><span class="dc-leg-val">28% · ${protein}g</span></div><div class="dc-leg-row"><div class="dc-leg-dot" style="background:#7aaad4"></div><span class="dc-leg-name">Fat</span><span class="dc-leg-val">18% · ${fat}g</span></div><div class="dc-leg-row"><div class="dc-leg-dot" style="background:#b5413e"></div><span class="dc-leg-name">Sugar</span><span class="dc-leg-val">12% · ${sugar}g</span></div>`;
+  const tn=document.querySelector('.dc-total-num');if(tn)tn.innerHTML=`${kcal.toLocaleString()} <span class="dc-total-sub">/ ${_target.toLocaleString()}</span>`;
+  const tp=document.querySelector('.dc-total-pct');if(tp)tp.textContent=Math.round(kcal/_target*100)+'%';
 }
 
 // ── Recipe detail ─────────────────────────────────────────────────────────────
@@ -1144,13 +1153,13 @@ function openRecipeDetail(id){
       <button onclick="closeRecipeDetail()" style="width:32px;height:32px;border-radius:6px;border:none;background:#f5f7f5;font-size:16px;cursor:pointer">✕</button>
     </div>
     <div style="flex:1;overflow-y:auto;padding:16px 22px">
-      <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:#6b8878;text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px">Ingredients</div>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:#4d6e5e;text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px">Ingredients</div>
       ${r.ingredients.map(i=>`<div style="display:flex;align-items:center;gap:8px;padding:7px 0;border-bottom:1px solid #f5f7f5;font-size:13px;color:#0a1410"><div style="width:5px;height:5px;border-radius:50%;background:#1e6b5e;flex-shrink:0"></div>${i}</div>`).join('')}
-      <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:#6b8878;text-transform:uppercase;letter-spacing:.08em;margin:16px 0 10px">Method</div>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:#4d6e5e;text-transform:uppercase;letter-spacing:.08em;margin:16px 0 10px">Method</div>
       ${r.steps.map((s,i)=>`<div style="display:flex;gap:12px;padding:10px 0;border-bottom:1px solid #f5f7f5"><div style="width:22px;height:22px;border-radius:50%;background:#0a1410;color:#fff;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0">${i+1}</div><div style="font-size:13px;color:#0a1410;line-height:1.55">${s}</div></div>`).join('')}
     </div>
     <div style="padding:14px 22px;border-top:1px solid #d4dfd8;display:flex;justify-content:space-between;align-items:center;flex-shrink:0">
-      <span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#6b8878">${r.kcal} kcal · ${r.cost} · ${r.rating}</span>
+      <span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#4d6e5e">${r.kcal} kcal · ${r.cost} · ${r.rating}</span>
       <button onclick="openCookingMode('${id}')" aria-label="Start step-by-step cooking mode for ${r.name}" style="padding:9px 18px;background:transparent;color:#1e6b5e;border:1.5px solid #1e6b5e;border-radius:8px;font-family:'Bricolage Grotesque',sans-serif;font-size:12px;font-weight:600;cursor:pointer;display:inline-flex;align-items:center;gap:6px;margin-right:8px"><span aria-hidden="true">👨‍🍳</span> Cook</button><button id="detail-fav-btn" data-id="${id}" onclick="toggleFavFromDetail(this)" style="padding:9px 20px;background:${favourites.has(id)?'#1e6b5e':'#0a1410'};color:#fff;border:none;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer">${favourites.has(id)?'❤️ Saved':'🤍 Save'}</button>
     </div>`;
   document.getElementById('recipe-detail-dim').style.display='block';
@@ -1221,13 +1230,13 @@ function closeExPanel(){
 const exLog=[];
 function renderExerciseLog(){
   const el=document.getElementById('exercise-log'); if(!el) return;
-  if(!exLog.length){el.innerHTML='<div style="font-size:11px;color:#6b8878;font-style:italic;padding:8px 0">No exercise logged today</div>';return;}
+  if(!exLog.length){el.innerHTML='<div style="font-size:11px;color:#4d6e5e;font-style:italic;padding:8px 0">No exercise logged today</div>';return;}
   el.innerHTML=exLog.map((e,i)=>`
     <div style="display:flex;align-items:center;gap:8px;padding:7px 0;border-bottom:1px solid #f5f7f5">
-      <span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#6b8878;min-width:40px">${e.time}</span>
-      <span style="flex:1;font-size:12px;font-weight:600;color:#0a1410">${e.name}</span>
+      <span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#4d6e5e;min-width:40px">${e.time}</span>
+      <span style="flex:1;font-size:12px;font-weight:600;color:#0a1410">${escapeHtml(e.name)}</span>
       <span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#3d5448">${e.kcal} kcal/h</span>
-      <span onclick="deleteEx(${i})" style="cursor:pointer;font-size:10px;color:#6b8878;opacity:.5" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=.5">✕</span>
+      <span tabindex="0" role="button" onclick="deleteEx(${i})" style="cursor:pointer;font-size:10px;color:#4d6e5e;opacity:.5" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=.5">✕</span>
     </div>`).join('');
 }
 function deleteEx(idx){exLog.splice(idx,1);renderExerciseLog();}
@@ -1242,9 +1251,9 @@ function renderFavouritesPage(){
   }
   const grid=document.getElementById('fav-cards-grid'); if(!grid) return;
   const list=Object.values(RECIPES).filter(r=>favourites.has(r.id));
-  if(!list.length){grid.innerHTML=`<div style="grid-column:1/-1;text-align:center;padding:48px 0;color:#6b8878;font-size:13px">No favourites yet — tap ❤️ on any recipe</div>`;return;}
+  if(!list.length){grid.innerHTML=`<div style="grid-column:1/-1;text-align:center;padding:48px 0;color:#4d6e5e;font-size:13px">No favourites yet — tap ❤️ on any recipe</div>`;return;}
   grid.innerHTML=list.map(r=>`
-    <div class="fav-card" onclick="openRecipeDetail('${r.id}')" style="cursor:pointer">
+    <div class="fav-card" tabindex="0" role="button" onclick="openRecipeDetail('${r.id}')" style="cursor:pointer">
       <div class="fav-card-img" style="background:${r.bg}">${r.emoji}</div>
       <div class="fav-card-body">
         <div class="fav-card-title">${r.name}</div>
@@ -1372,97 +1381,9 @@ document.addEventListener('DOMContentLoaded',()=>{
   }
 });
 </script>
-<svg class="tour-dim-svg" id="tSvg" style="position:fixed;inset:0;width:100%;height:100%;z-index:8000;display:none;pointer-events:all">
-  <defs><mask id="tMask"><rect width="100%" height="100%" fill="white"/><rect id="tHole" rx="12" fill="black"/></mask></defs>
-  <rect width="100%" height="100%" fill="rgba(10,20,16,0.82)" mask="url(#tMask)"/>
-</svg>
-<div class="tour-highlight" id="tHL"></div>
-<div class="tour-card" id="tCard" data-pos="bottom">
-  <div class="tour-step-label" id="tLabel"></div>
-  <div class="tour-card-title" id="tTitle"></div>
-  <div class="tour-card-body" id="tBody"></div>
-  <div class="tour-card-foot">
-    <div class="tour-progress" id="tPips"></div>
-    <div class="tour-actions">
-      <button class="tour-skip-btn" onclick="tEnd()">Skip</button>
-      <button class="tour-next-btn" id="tBtn" onclick="tNext()">Next <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M4.5 2.5L8 6l-3.5 3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-    </div>
-  </div>
-</div>
+<!-- Tour placeholder — will be rebuilt as separate module -->
 <script>
-var tSteps=[
-  {title:'Welcome to NourishWell 🌿',body:"Your personal health dashboard — track meals, explore recipes, and plan your nutrition. Let's walk through the key areas.",sel:null,pos:'center'},
-  {title:'Your Daily Tracker',body:'This is where you log meals across 6 time slots. The donut chart shows your macro breakdown and updates in real time as you add food.',sel:'#page-record .donut-card',pos:'right'},
-  {title:'Log Food & Exercise',body:'Click Record Meal to open the food panel, or switch to Exercise to log workouts. Your calories and activity chart update instantly.',sel:'.action-row',pos:'bottom'},
-  {title:'Sidebar Navigation',body:'Switch between pages here: Record Today for logging, Recipe to browse meals, Favourites for saved recipes, Compare to contrast nutrition, and Meal Planner to plan your day.',sel:'.side-nav',pos:'right'},
-  {title:'Meal Planner',body:"Plan your full day's meals within your calorie budget. Lock meals you like, swap the rest, then confirm your plan.",sel:'.side-nav a:nth-child(5)',pos:'right'},
-  {title:'Messages & Settings',body:'Click your avatar to update Personal Details or Preferences.',sel:'.tn-avatar-wrap',pos:'bottom'},
-  {title:'Help & Q&A',body:"Need more detail? Click Help for the full Q&A with searchable answers about every feature. Enjoy NourishWell!",sel:'#helpLink',pos:'left'}
-];
-var tI=0;
-function startTour(){
-  tI=0;
-  var card=document.getElementById('tCard');
-  card.setAttribute('data-pos','center');
-  card.style.left='50%';card.style.top='50%';card.style.transform='translate(-50%,-50%)';
-  card.style.opacity='0';
-  document.getElementById('tSvg').style.display='block';
-  card.classList.add('on');
-  document.body.style.overflow='hidden';
-  tRender();
-  requestAnimationFrame(function(){requestAnimationFrame(function(){card.style.opacity='1';});});
-}
-function tRender(){
-  var s=tSteps[tI];
-  document.getElementById('tLabel').textContent='Step '+(tI+1)+' of '+tSteps.length;
-  document.getElementById('tTitle').textContent=s.title;
-  document.getElementById('tBody').textContent=s.body;
-  document.getElementById('tBtn').innerHTML=tI===tSteps.length-1?'Done ✓':'Next <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M4.5 2.5L8 6l-3.5 3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>';
-  document.getElementById('tPips').innerHTML=tSteps.map(function(_,i){return '<div class="tour-pip'+(i<tI?' done':'')+(i===tI?' active':'')+'"></div>';}).join('');
-  var hl=document.getElementById('tHL');
-  var card=document.getElementById('tCard');
-  var hole=document.getElementById('tHole');
-  if(s.sel){
-    var el=document.querySelector(s.sel);
-    if(el){
-      var r=el.getBoundingClientRect(),pad=8;
-      var hx=r.left-pad,hy=r.top-pad,hw=r.width+pad*2,hh=r.height+pad*2;
-      hole.setAttribute('x',hx);hole.setAttribute('y',hy);hole.setAttribute('width',hw);hole.setAttribute('height',hh);
-      hl.style.cssText='display:block;left:'+hx+'px;top:'+hy+'px;width:'+hw+'px;height:'+hh+'px';
-      hl.classList.add('on');
-      var cw=340,ch=card.offsetHeight||200,gap=16,vw=window.innerWidth,vh=window.innerHeight;
-      var cx,cy,pos=s.pos||'bottom';
-      if(pos==='right'&&r.right+gap+cw<vw){cx=r.right+gap;cy=Math.max(12,Math.min(r.top,vh-ch-12));}
-      else if(pos==='left'&&r.left-gap-cw>0){cx=r.left-gap-cw;cy=Math.max(12,Math.min(r.top,vh-ch-12));}
-      else if(pos==='top'&&r.top-gap-ch>60){cx=Math.max(12,Math.min(r.left,vw-cw-12));cy=r.top-gap-ch;}
-      else{cx=Math.max(12,Math.min(r.left,vw-cw-12));cy=r.bottom+gap;pos='bottom';}
-      card.setAttribute('data-pos',pos);
-      card.style.left=cx+'px';card.style.top=cy+'px';
-      card.style.transform='none';
-    } else { hole.setAttribute('width',0);hole.setAttribute('height',0);hl.classList.remove('on');hl.style.display='none';tCenterCard(card);}
-  } else {
-    hole.setAttribute('width',0);hole.setAttribute('height',0);
-    hl.classList.remove('on');hl.style.display='none';
-    tCenterCard(card);
-  }
-}
-function tCenterCard(card){
-  card.setAttribute('data-pos','center');
-  card.style.left='50%';card.style.top='50%';card.style.transform='translate(-50%,-50%)';
-}
-function tNext(){if(tI<tSteps.length-1){tI++;tRender();}else tEnd();}
-function tEnd(){
-  document.getElementById('tSvg').style.display='none';
-  document.getElementById('tCard').classList.remove('on');
-  document.getElementById('tHL').classList.remove('on');
-  document.getElementById('tHL').style.display='none';
-  document.body.style.overflow='';
-}
-document.getElementById('tSvg').addEventListener('click',function(e){
-  var card=document.getElementById('tCard');
-  var cr=card.getBoundingClientRect();
-  if(e.clientX<cr.left||e.clientX>cr.right||e.clientY<cr.top||e.clientY>cr.bottom) tEnd();
-});
+function startTour(){} // stub
 </script>
 
 
@@ -1668,12 +1589,12 @@ function saveCustomRecipes(){
   try{
     const custom = {};
     Object.entries(RECIPES).forEach(([k,v])=>{ if(v.custom) custom[k]=v; });
-    localStorage.setItem('nw-custom-recipes', JSON.stringify(custom));
+    localStorage.setItem(_nwKey('custom-recipes'), JSON.stringify(custom));
   }catch(e){}
 }
 function loadCustomRecipes(){
   try{
-    const data = localStorage.getItem('nw-custom-recipes');
+    const data = localStorage.getItem(_nwKey('custom-recipes'));
     if(!data) return;
     const custom = JSON.parse(data);
     Object.entries(custom).forEach(([k,v])=>{
@@ -1790,11 +1711,11 @@ var diaryHistory = {};
 
 function saveDiaryForDate(){
   diaryHistory[currentDiaryDate] = JSON.parse(JSON.stringify(mealLog));
-  try{ localStorage.setItem('nw-diary-history', JSON.stringify(diaryHistory)); }catch(e){}
+  try{ localStorage.setItem(_nwKey('diary-history'), JSON.stringify(diaryHistory)); }catch(e){}
 }
 function loadDiaryHistory(){
   try{
-    const data = localStorage.getItem('nw-diary-history');
+    const data = localStorage.getItem(_nwKey('diary-history'));
     if(data) diaryHistory = JSON.parse(data);
   }catch(e){}
 }
@@ -1827,17 +1748,30 @@ function goToday(){
 // ══════════════════════════════════════════════════════════════
 // FEATURE: Calorie Trend Line Chart
 // ══════════════════════════════════════════════════════════════
-var calorieTrendData = [1850, 2100, 1600, 2350, 1920, 2200, 1920];
+var calorieTrendData = [0, 0, 0, 0, 0, 0, 0];
+var _calorieTrendChart = null;
+
+function updateCalorieTrend(){
+  if(!_calorieTrendChart) return;
+  // today is index 6 (Sun col) — compute total kcal from mealLog
+  var todayKcal = 0;
+  Object.values(mealLog).forEach(function(arr){ arr.forEach(function(e){ todayKcal += e.kcal; }); });
+  calorieTrendData[6] = todayKcal;
+  _calorieTrendChart.data.datasets[0].data = calorieTrendData.slice();
+  _calorieTrendChart.update();
+}
+
 function initCalorieTrendChart(){
   const ctx = document.getElementById('calorieTrendChart');
   if(!ctx) return;
-  new Chart(ctx.getContext('2d'), {
+  var _t = window._nwDailyTarget || DAILY_TARGET;
+  _calorieTrendChart = new Chart(ctx.getContext('2d'), {
     type:'line',
     data:{
       labels:['Mon','Tue','Wed','Thu','Fri','Sat','Sun'],
       datasets:[
         { label:'Intake', data:calorieTrendData, borderColor:'#1e6b5e', backgroundColor:'rgba(30,107,94,0.1)', fill:true, tension:0.35, pointRadius:4, pointBackgroundColor:'#1e6b5e', borderWidth:2 },
-        { label:'Target', data:Array(7).fill(DAILY_TARGET), borderColor:'#b8621f', borderWidth:1.5, borderDash:[4,3], pointRadius:0, fill:false, tension:0 }
+        { label:'Target', data:Array(7).fill(_t), borderColor:'#b8621f', borderWidth:1.5, borderDash:[4,3], pointRadius:0, fill:false, tension:0 }
       ]
     },
     options:{
@@ -1850,6 +1784,13 @@ function initCalorieTrendChart(){
     }
   });
 }
+// Update calorie trend target line when profile changes
+window._nwUpdateCalorieTrend = function(){
+  if(!_calorieTrendChart) return;
+  var _t = window._nwDailyTarget || DAILY_TARGET;
+  _calorieTrendChart.data.datasets[1].data = Array(7).fill(_t);
+  _calorieTrendChart.update();
+};
 
 // ══════════════════════════════════════════════════════════════
 // FEATURE: Exercise Chart Month/Year Data Switching
@@ -1887,24 +1828,25 @@ switchChartTab = function(el){
 // ══════════════════════════════════════════════════════════════
 // FEATURE: localStorage Persistence
 // ══════════════════════════════════════════════════════════════
+function _nwKey(k){ var uid = (typeof NW !== 'undefined' && NW.auth) ? NW.auth.userId : ''; return uid ? 'nw-' + uid + '-' + k : 'nw-' + k; }
 function saveState(){
   saveDiaryForDate();
   try{
-    localStorage.setItem('nw-favourites', JSON.stringify([...favourites]));
-    localStorage.setItem('nw-compare', JSON.stringify([...compareSelected]));
-    localStorage.setItem('nw-exlog', JSON.stringify(exLog));
-    localStorage.setItem('nw-exdata', JSON.stringify(exChartData));
+    localStorage.setItem(_nwKey('favourites'), JSON.stringify([...favourites]));
+    localStorage.setItem(_nwKey('compare'), JSON.stringify([...compareSelected]));
+    localStorage.setItem(_nwKey('exlog'), JSON.stringify(exLog));
+    localStorage.setItem(_nwKey('exdata'), JSON.stringify(exChartData));
   }catch(e){}
 }
 function loadState(){
   try{
-    const f = localStorage.getItem('nw-favourites');
+    const f = localStorage.getItem(_nwKey('favourites'));
     if(f){ favourites = new Set(JSON.parse(f)); }
-    const c = localStorage.getItem('nw-compare');
+    const c = localStorage.getItem(_nwKey('compare'));
     if(c){ compareSelected = new Set(JSON.parse(c)); }
-    const el = localStorage.getItem('nw-exlog');
+    const el = localStorage.getItem(_nwKey('exlog'));
     if(el){ const parsed = JSON.parse(el); exLog.length=0; parsed.forEach(e=>exLog.push(e)); }
-    const ed = localStorage.getItem('nw-exdata');
+    const ed = localStorage.getItem(_nwKey('exdata'));
     if(ed){ const parsed = JSON.parse(ed); parsed.forEach((v,i)=>exChartData[i]=v); }
   }catch(e){}
   loadDiaryHistory();
@@ -1974,6 +1916,7 @@ document.addEventListener('DOMContentLoaded', function(){
   loadState();
   loadCustomRecipes();
   initCalorieTrendChart();
+  updateCalorieTrend(); // sync existing mealLog into chart on load
   // Set date picker to today
   var picker = document.getElementById('diary-date-picker');
   if(picker) picker.value = new Date().toISOString().split('T')[0];
@@ -2131,7 +2074,7 @@ function renderCustomTags(){
   container.innerHTML = customExclusions.map(function(word){
     return '<span style="display:inline-flex;align-items:center;gap:4px;padding:3px 8px 3px 10px;background:var(--paper);border:1px solid var(--border);border-radius:12px;font-family:\'JetBrains Mono\',monospace;font-size:10px;color:var(--ink-m)">'
       + word
-      + '<span onclick="removeCustomExclusion(\'' + word + '\')" style="cursor:pointer;color:var(--ink-f);font-size:13px;line-height:1;margin-left:2px" title="Remove">×</span>'
+      + '<span tabindex="0" role="button" onclick="removeCustomExclusion(\'' + word + '\')" style="cursor:pointer;color:var(--ink-f);font-size:13px;line-height:1;margin-left:2px" title="Remove">×</span>'
       + '</span>';
   }).join('');
 }
@@ -2179,7 +2122,7 @@ function clearAllFilters(){
   // ── INSIGHTS ───────────────────────────────────────────────────
   function computeTodayNutrition() {
     const kcalEl = document.querySelector('.dc-total-num');
-    const values = { kcal: 1920, target: 2400, carbs: 201, protein: 68, fat: 38, sugar: 84, carbsT: 300, proteinT: 120, fatT: 65, sugarT: 50 };
+    const values = { kcal: 1920, target: window._nwDailyTarget || 2400, carbs: 201, protein: 68, fat: 38, sugar: 84, carbsT: 300, proteinT: 120, fatT: 65, sugarT: 50 };
     if (kcalEl) {
       const m = kcalEl.textContent.replace(/,/g,'').match(/\d+/);
       if (m) values.kcal = parseInt(m[0], 10);
@@ -2209,7 +2152,7 @@ function clearAllFilters(){
       out.push({ type:'warn', icon:'⏰', title:'Front-loaded intake', body:'You\'ve consumed ' + Math.round(kcalPct) + '% of today\'s target by lunch. Consider a lighter dinner.' });
     }
     try {
-      const diary = JSON.parse(localStorage.getItem('nw-diary-history') || '{}');
+      const diary = JSON.parse(localStorage.getItem(_nwKey('diary-history')) || '{}');
       const days = Object.keys(diary).length;
       if (days >= 7 && days % 7 === 0) {
         out.push({ type:'good', icon:'🌟', title:days + '-day logging streak', body:'Consistency is the single best predictor of nutritional improvement. Keep going.' });
@@ -2473,7 +2416,7 @@ function clearAllFilters(){
   // ── EXPORT CSV ─────────────────────────────────────────────────
   function exportWeeklyReportCSV() {
     let history = {};
-    try { history = JSON.parse(localStorage.getItem('nw-diary-history') || '{}'); } catch (e) {}
+    try { history = JSON.parse(localStorage.getItem(_nwKey('diary-history')) || '{}'); } catch (e) {}
     const rows = [['Date','Calories','Protein (g)','Carbs (g)','Fat (g)','Sugar (g)']];
     for (let i = 6; i >= 0; i--) {
       const d = new Date(); d.setDate(d.getDate() - i);
@@ -2574,7 +2517,8 @@ function clearAllFilters(){
 // MEAL PLANNER ENGINE v2 — empty start + favourites + smart fill
 // ═══════════════════════════════════════════════════════════════
 (function(){
-  var TARGET_KCAL = 2400;
+  function getTargetKcal() { return window._nwDailyTarget || 2400; }
+  var TARGET_KCAL = getTargetKcal();
   var mpFillMode = 'balanced'; // 'light' = ~50%, 'balanced' = ~75%, 'full' = 100%
   var mpPlan = { breakfast:[], lunch:[], dinner:[] };
   var mpLocked = new Set();
@@ -2582,7 +2526,7 @@ function clearAllFilters(){
 
   // Load saved plan
   try {
-    var saved = localStorage.getItem('nw-meal-plan-v2');
+    var saved = localStorage.getItem(_nwKey('meal-plan-v2'));
     if (saved) {
       var parsed = JSON.parse(saved);
       mpPlan = parsed.plan || mpPlan;
@@ -2591,7 +2535,7 @@ function clearAllFilters(){
   } catch(e){}
 
   function mpSave(){
-    try { localStorage.setItem('nw-meal-plan-v2', JSON.stringify({ plan:mpPlan, locked:[...mpLocked] })); } catch(e){}
+    try { localStorage.setItem(_nwKey('meal-plan-v2'), JSON.stringify({ plan:mpPlan, locked:[...mpLocked] })); } catch(e){}
   }
 
   function mpGetRecipes(){
@@ -2758,6 +2702,7 @@ function clearAllFilters(){
   }
 
   function mpRenderAll(){
+    TARGET_KCAL = getTargetKcal();
     mpRenderMeal('breakfast','🌅','Breakfast');
     mpRenderMeal('lunch','☀️','Lunch');
     mpRenderMeal('dinner','🌙','Dinner');
@@ -2772,7 +2717,7 @@ function clearAllFilters(){
       ? '<div style="font-family:\'JetBrains Mono\',monospace;font-size:8px;padding:5px 12px;border-radius:6px;background:rgba(255,255,255,0.06);color:rgba(255,255,255,0.4)">No items yet</div>'
       : withinBudget
         ? '<div style="font-family:\'JetBrains Mono\',monospace;font-size:8px;padding:5px 12px;border-radius:6px;background:rgba(47,143,127,0.15);color:var(--teal-l)">✓ Within budget</div>'
-        : '<div style="font-family:\'JetBrains Mono\',monospace;font-size:8px;padding:5px 12px;border-radius:6px;background:rgba(224,123,120,0.15);color:#e07b78">⚠ Over budget</div>';
+        : '<div style="font-family:\'JetBrains Mono\',monospace;font-size:8px;padding:5px 12px;border-radius:6px;background:rgba(224,123,120,0.15);color:#b5413e">⚠ Over budget</div>';
 
     document.getElementById('mp-summary').innerHTML =
       '<div style="display:flex;align-items:center;gap:20px;flex-wrap:wrap">' +
@@ -2933,4 +2878,623 @@ function clearAllFilters(){
 })();
 
 </script>
-</body></html>
+<script>document.body.style.opacity='0';</script>
+<script src="community-hub.js"></script>
+<script src="api.js"></script>
+<script src="patch_dashboard.js"></script>
+<script src="welcome-modal.js"></script>
+<script src="nw-tour.js"></script>
+
+<script>
+// ══════════════════════════════════════════════════════════════
+// NourishWell — My Nutritionist Page
+// Reads bound expert from localStorage (written by community-hub.js)
+// and accepted status from nw-bind-requests
+// ══════════════════════════════════════════════════════════════
+(function() {
+
+var EXPERTS_INFO = {
+  "dr-rivera": { name:"Dr. Ana Rivera", title:"Registered Dietitian", specialty:"Weight Management & Sports Nutrition", avatar:"DR", color:"#2f8f7f", bio:"PhD in Clinical Nutrition · 12 years experience · University of Leeds" },
+  "dr-chen":   { name:"Dr. James Chen", title:"Clinical Nutritionist", specialty:"Gut Health & Metabolic Disorders", avatar:"JC", color:"#7aaad4", bio:"MSc Nutritional Medicine · 8 years experience · NHS Registered" },
+  "sarah-k":   { name:"Sarah Kowalski", title:"Nutrition Coach", specialty:"Plant-Based & Lifestyle Nutrition", avatar:"SK", color:"#d4956a", bio:"BSc Dietetics · 5 years experience · Certified Health Coach" },
+  "dr-patel":  { name:"Dr. Priya Patel", title:"Endocrinology & Nutrition", specialty:"Diabetes & Hormonal Health", avatar:"PP", color:"#e07b78", bio:"MD Endocrinology · 15 years experience · NICE Advisor" },
+  "marcus-j":  { name:"Marcus Johnson", title:"Performance Nutritionist", specialty:"Athletic Performance & Recovery", avatar:"MJ", color:"#7c3aed", bio:"MSc Sports Science · 7 years experience · Team GB Consultant" }
+};
+
+// Demo messages from pro (shown when bound + accepted)
+var DEMO_MESSAGES = [
+  { from:"pro", text:"Hi! I have reviewed your food diary from this week. Your protein intake is consistently below target — let us work on that together.", time:"Today, 09:14" },
+  { from:"pro", text:"I have scheduled a check-in for next Monday at 10am. Does that work for you? I will send a confirmation shortly.", time:"Yesterday, 17:32" },
+  { from:"user", text:"That works perfectly, thank you! Should I keep logging everything in the app beforehand?", time:"Yesterday, 18:05" },
+  { from:"pro", text:"Yes please — the more detail the better. Focus especially on meal timing and portion sizes. See you Monday!", time:"Yesterday, 18:41" }
+];
+
+var DEMO_APPTS = [
+  { date:"Mon 28 Apr", time:"10:00 AM", type:"Check-in Review", status:"confirmed" },
+  { date:"Mon 12 May", time:"10:00 AM", type:"Monthly Assessment", status:"pending" }
+];
+
+// Real messages from API (replaces DEMO_MESSAGES when API is available)
+var _myProMessages = DEMO_MESSAGES.slice(); // start with demo, replaced by API data
+var _myProMsgsLoaded = false;
+var _myProAppts = DEMO_APPTS.slice();
+var _myProActiveTab = "messages";
+var _myProPlansLoaded = false;
+var _myProPlanMeals = ['','','','','','',''];
+var _myProPlanTraining = ['','','','','','',''];
+var _myProPlanTargetKcal = null;
+var _myProPlanTargetProtein = null;
+var _myProPlanNotes = null;
+
+/** Switch tab in My Nutritionist page */
+window._myProSwitchTab = function(tab) {
+  _myProActiveTab = tab;
+  renderMyPro();
+};
+
+/** Load fitness/meal plans from backend API */
+async function _loadProPlans() {
+  if (typeof NW === "undefined" || !NW.plans || !NW.auth || !NW.auth.userId) return;
+  try {
+    var plans = await NW.plans.get(NW.auth.userId);
+    if (Array.isArray(plans)) {
+      plans.forEach(function(p) {
+        try {
+          var days = JSON.parse(p.daysJson || "[]");
+          if (p.planType === "meal") {
+            _myProPlanMeals = days.length === 7 ? days : ['','','','','','',''];
+            if (p.targetKcal) _myProPlanTargetKcal = p.targetKcal;
+            if (p.targetProtein) _myProPlanTargetProtein = p.targetProtein;
+            if (p.notes) _myProPlanNotes = p.notes;
+          } else if (p.planType === "training") {
+            _myProPlanTraining = days.length === 7 ? days : ['','','','','','',''];
+          }
+        } catch(e) {}
+      });
+      renderMyPro();
+    }
+  } catch(e) {
+    console.warn("[NW] load plans failed:", e.message);
+  }
+}
+
+/** Resolve the pro's backend userId from localStorage or the session cache. */
+function _getProUserId(boundProId) {
+  try {
+    var reqs = JSON.parse(localStorage.getItem("nw-bind-requests") || "[]");
+    var myReq = reqs.find(function(r){ return r.proId === boundProId; });
+    if (myReq && myReq.proUserId) return myReq.proUserId;
+  } catch(e){}
+  // Fall back to the value confirmed by the last successful /api/auth/me call
+  return _cachedBackendProId || null;
+}
+
+/** Load messages from API between current user and their pro */
+async function _loadProMessages(boundProId) {
+  if (typeof NW === "undefined" || !NW.messages) return;
+  var proUserId = _getProUserId(boundProId);
+  if (!proUserId) return;
+
+  try {
+    var msgs = await NW.messages.get(proUserId);
+    if (Array.isArray(msgs) && msgs.length > 0) {
+      var myId = NW.auth.userId ? String(NW.auth.userId) : "";
+      _myProMessages = msgs.map(function(m) {
+        return {
+          from: String(m.senderId) === myId ? "user" : "pro",
+          text: m.text,
+          time: m.createdAt ? new Date(m.createdAt).toLocaleString([], {month:"short",day:"numeric",hour:"2-digit",minute:"2-digit"}) : ""
+        };
+      });
+      renderMyPro();
+    }
+  } catch(e) {
+    console.warn("[NW] load pro messages failed:", e.message);
+    // Keep demo messages as fallback
+  }
+
+  // Also load appointments
+  try {
+    var appts = await NW.appointments.getAll();
+    if (Array.isArray(appts) && appts.length > 0) {
+      var myAppts = appts.filter(function(a) { return String(a.clientId) === String(NW.auth.userId) || String(a.proId) === proUserId; });
+      if (myAppts.length > 0) {
+        _myProAppts = myAppts.map(function(a) {
+          var d = a.date ? new Date(a.date) : new Date();
+          var dateStr = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"][d.getDay()] + " " + d.getDate() + " " + ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"][d.getMonth()];
+          return { date: dateStr, time: a.time || "", type: a.type || "Check-in", status: a.status || "pending" };
+        });
+        renderMyPro();
+      }
+    }
+  } catch(e) {}
+}
+
+function getUserId() {
+  try { var s = sessionStorage.getItem("nw-session"); return s ? JSON.parse(s).userId : "guest"; } catch(e) { return "guest"; }
+}
+
+function getBoundExpert() {
+  try {
+    // Must match community-hub.js _key() logic exactly:
+    // NW.auth.userId exists → "nw-{userId}-community-bound-expert"
+    // NW.auth.userId missing → "nw-community-bound-expert"
+    var u = (typeof NW !== "undefined" && NW.auth) ? NW.auth.userId : "";
+    var key = u ? "nw-" + u + "-community-bound-expert" : "nw-community-bound-expert";
+    return localStorage.getItem(key) || "";
+  } catch(e) { return ""; }
+}
+
+var _backendCheckDone = false;
+// Cache the backend proId so renderMyPro can use it without re-fetching
+var _cachedBackendProId = null;
+
+/**
+ * Check backend bind status. ONLY handles the "pending → accepted" transition.
+ * Removal detection is handled exclusively in the notification poll to avoid
+ * false-positives from concurrent async calls.
+ */
+async function _checkBackendBindStatus(boundProId) {
+  if (typeof NW === "undefined" || !NW.auth || !NW.auth.token) return;
+  try {
+    var me = await fetch('/api/auth/me', {
+      headers: { Authorization: 'Bearer ' + NW.auth.token }
+    }).then(function(r){ return r.ok ? r.json() : null; });
+    if (!me) return;
+
+    if (me.proId) {
+      var wasCached = _cachedBackendProId;
+      // Store the confirmed proId so renderMyPro and messaging can use it immediately
+      _cachedBackendProId = me.proId;
+
+      // Also ensure localStorage has the proUserId so _getProUserId always finds it
+      var reqs = JSON.parse(localStorage.getItem("nw-bind-requests") || "[]");
+      var updated = false;
+      reqs = reqs.map(function(r) {
+        if (r.proId === boundProId) {
+          var changed = (r.status !== "accepted" || r.proUserId !== me.proId);
+          r.status = "accepted";
+          r.proUserId = me.proId;
+          if (changed) updated = true;
+        }
+        return r;
+      });
+      if (updated) {
+        localStorage.setItem("nw-bind-requests", JSON.stringify(reqs));
+      }
+      // Re-render if this is the first time we confirmed the proId (so msg/plan load retries work)
+      if (updated || !wasCached) {
+        _backendCheckDone = true;
+        renderMyPro();
+      }
+    }
+    // NOTE: We intentionally do NOT clear the binding here if me.proId is null.
+    // That is handled solely by the notification poll (which double-verifies before acting).
+  } catch(e) { console.warn("[NW] backend bind check failed:", e); }
+}
+
+function getBindStatus(proId) {
+  try {
+    // If the backend has confirmed proId this session, treat as accepted
+    if (_cachedBackendProId) return "accepted";
+    var all = JSON.parse(localStorage.getItem("nw-bind-requests") || "[]");
+    var req = all.find(function(r){ return r.proId === proId; });
+    return req ? req.status : "none";
+  } catch(e) { return "none"; }
+}
+
+function renderMyPro() {
+  var el = document.getElementById("mypro-content");
+  var sub = document.getElementById("mypro-subtitle");
+  if (!el) return;
+
+  var boundId = getBoundExpert();
+
+  // Kick off backend check (async; won't block the initial render)
+  if (boundId && !_backendCheckDone) {
+    _backendCheckDone = true;
+    _checkBackendBindStatus(boundId);
+  }
+
+  // ── NOT BOUND ──
+  if (!boundId) {
+    if (sub) sub.textContent = "Connect with a professional to get personalised advice";
+    el.innerHTML = `
+      <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;padding:64px 24px;text-align:center">
+        <div style="font-size:56px;margin-bottom:16px">🩺</div>
+        <div style="font-family:'Instrument Serif',serif;font-size:24px;font-style:italic;color:var(--ink);margin-bottom:8px">No nutritionist yet</div>
+        <div style="font-size:14px;color:var(--ink-f);max-width:360px;line-height:1.7;margin-bottom:28px">Connect with a qualified nutrition professional to get personalised advice, meal feedback, and ongoing support tailored to your goals.</div>
+        <button onclick="switchPage('community', document.getElementById('sn-community')); setTimeout(function(){ if(window._chSwitchTab) window._chSwitchTab('findpro', document.querySelector('.ch-tab:nth-child(3)')); }, 300);"
+          style="padding:13px 28px;background:var(--ink);color:#fff;border:none;border-radius:10px;font-family:'Bricolage Grotesque',sans-serif;font-size:14px;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:8px">
+          🔍 Find a Nutritionist
+        </button>
+      </div>`;
+    return;
+  }
+
+  var status = getBindStatus(boundId);
+  var exp = EXPERTS_INFO[boundId] || { name:"Your Nutritionist", title:"", specialty:"", avatar:"?", color:"#2f8f7f", bio:"" };
+
+  // ── PENDING ──
+  if (status === "pending" || status === "none") {
+    if (sub) sub.textContent = "Request sent — waiting for your nutritionist to confirm";
+    el.innerHTML = `
+      <div style="background:var(--white);border:1px solid var(--border);border-radius:16px;padding:28px;margin-bottom:16px;box-shadow:0 4px 16px rgba(10,20,16,0.04)">
+        <div style="display:flex;align-items:center;gap:16px;margin-bottom:20px">
+          <div style="width:64px;height:64px;border-radius:50%;background:${exp.color};color:#fff;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:700;flex-shrink:0">${exp.avatar}</div>
+          <div>
+            <div style="font-size:17px;font-weight:700;color:var(--ink)">${exp.name}</div>
+            <div style="font-size:12px;color:var(--ink-f);margin-top:2px">${exp.title}</div>
+            <div style="font-size:11px;color:var(--ink-f);margin-top:1px;font-family:'JetBrains Mono',monospace">${exp.bio}</div>
+          </div>
+        </div>
+        <div style="background:#fffbeb;border:1px solid #fde68a;border-radius:10px;padding:14px 18px;display:flex;align-items:center;gap:12px">
+          <span style="font-size:20px">⏳</span>
+          <div>
+            <div style="font-size:13px;font-weight:600;color:#92400e">Request pending</div>
+            <div style="font-size:12px;color:#78350f;margin-top:2px">Your connection request has been sent. Once ${exp.name.split(' ')[0]} accepts, you will see their messages and appointments here.</div>
+          </div>
+        </div>
+        <button onclick="window._nwUnbind && window._nwUnbind()" style="margin-top:16px;padding:8px 16px;background:transparent;color:var(--ink-f);border:1px solid var(--border);border-radius:8px;font-size:12px;cursor:pointer;font-family:'Bricolage Grotesque',sans-serif">Cancel request</button>
+      </div>`;
+    return;
+  }
+
+  // ── ACCEPTED — 3-tab interface ──
+  if (sub) sub.textContent = "Your personalised nutrition support";
+
+  // Load data from API — only mark as loaded once we have a proUserId to call with
+  if (!_myProMsgsLoaded) {
+    var _pid = _getProUserId(boundId);
+    if (_pid) {
+      _myProMsgsLoaded = true;
+      _loadProMessages(boundId);
+    }
+    // else: proUserId not ready yet; leave _myProMsgsLoaded=false so next render retries
+  }
+  if (!_myProPlansLoaded && NW.auth.userId) {
+    _myProPlansLoaded = true;
+    _loadProPlans();
+  }
+
+  var currentTab = _myProActiveTab || "messages";
+
+  // Build tab content based on active tab
+  var tabContent = "";
+
+  if (currentTab === "messages") {
+    var msgsHtml = _myProMessages.map(function(m) {
+      var isMe = m.from === "user";
+      return `<div style="display:flex;justify-content:${isMe?"flex-end":"flex-start"};margin-bottom:10px">
+        <div style="max-width:75%;background:${isMe?"var(--ink)":"var(--paper)"};color:${isMe?"#fff":"var(--ink)"};padding:10px 14px;border-radius:${isMe?"14px 14px 4px 14px":"14px 14px 14px 4px"};font-size:13px;line-height:1.55">
+          ${escapeHtml(m.text)}
+          <div style="font-family:'JetBrains Mono',monospace;font-size:9px;opacity:.5;margin-top:4px;text-align:right">${m.time}</div>
+        </div>
+      </div>`;
+    }).join("");
+    tabContent = `
+      <div style="max-height:360px;overflow-y:auto;margin-bottom:12px;padding:4px">${msgsHtml || '<div style="text-align:center;padding:40px;color:var(--ink-f);font-size:13px">No messages yet. Start a conversation!</div>'}</div>
+      <div style="display:flex;gap:8px;padding-top:10px;border-top:1px solid var(--fog)">
+        <input id="mypro-msg-inp" type="text" placeholder="Send a message..." aria-label="Send message to nutritionist" onkeydown="if(event.key==='Enter')window._nwSendProMsg()" style="flex:1;padding:10px 14px;border:1px solid var(--border);border-radius:8px;font-family:'Bricolage Grotesque',sans-serif;font-size:13px;outline:none;background:var(--paper);color:var(--ink)">
+        <button onclick="window._nwSendProMsg()" style="padding:10px 18px;background:var(--ink);color:#fff;border:none;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer">Send →</button>
+      </div>`;
+  } else if (currentTab === "plan") {
+    var DAYS = ['MON','TUE','WED','THU','FRI','SAT','SUN'];
+    var mealHtml = DAYS.map(function(d,i) {
+      var val = (_myProPlanMeals[i] || '');
+      var dot = val ? 'var(--teal)' : 'var(--fog)';
+      return '<div style="display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--fog)"><span style="font-family:JetBrains Mono,monospace;font-size:11px;font-weight:700;color:var(--ink);width:36px">'+d+'</span><span style="width:8px;height:8px;border-radius:50%;background:'+dot+';flex-shrink:0"></span><span style="font-size:13px;color:var(--ink)">'+escapeHtml(val || '—')+'</span></div>';
+    }).join('');
+    var trainHtml = DAYS.map(function(d,i) {
+      var val = (_myProPlanTraining[i] || '');
+      var dot = val ? 'var(--teal)' : 'var(--fog)';
+      return '<div style="display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--fog)"><span style="font-family:JetBrains Mono,monospace;font-size:11px;font-weight:700;color:var(--ink);width:36px">'+d+'</span><span style="width:8px;height:8px;border-radius:50%;background:'+dot+';flex-shrink:0"></span><span style="font-size:13px;color:var(--ink)">'+escapeHtml(val || '—')+'</span></div>';
+    }).join('');
+
+    var targetsHtml = '';
+    if (_myProPlanTargetKcal || _myProPlanTargetProtein) {
+      targetsHtml = '<div style="margin-top:16px;padding:14px;background:var(--paper);border-radius:10px"><div style="font-family:JetBrains Mono,monospace;font-size:10px;color:var(--ink-f);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px">Daily Targets</div>';
+      if (_myProPlanTargetKcal) targetsHtml += '<div style="font-size:13px;color:var(--ink)">🔥 '+_myProPlanTargetKcal+' kcal</div>';
+      if (_myProPlanTargetProtein) targetsHtml += '<div style="font-size:13px;color:var(--ink);margin-top:4px">🥩 '+_myProPlanTargetProtein+'g protein</div>';
+      targetsHtml += '</div>';
+    }
+
+    var notesHtml = _myProPlanNotes ? '<div style="margin-top:16px;padding:14px;background:#fffbeb;border:1px solid #fde68a;border-radius:10px"><div style="font-family:JetBrains Mono,monospace;font-size:10px;color:#92400e;text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px">📝 Pro Notes</div><div style="font-size:13px;color:#78350f;line-height:1.6">'+escapeHtml(_myProPlanNotes)+'</div></div>' : '';
+
+    tabContent = '<div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">'
+      + '<div><div style="font-family:JetBrains Mono,monospace;font-size:10px;color:var(--ink-f);text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px">🍽️ Weekly Meal Plan</div>'+mealHtml+'</div>'
+      + '<div><div style="font-family:JetBrains Mono,monospace;font-size:10px;color:var(--ink-f);text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px">🏋️ Training Schedule</div>'+trainHtml+'</div>'
+      + '</div>'
+      + targetsHtml + notesHtml;
+
+    if (!_myProPlanMeals.some(function(v){return v;}) && !_myProPlanTraining.some(function(v){return v;})) {
+      tabContent = '<div style="text-align:center;padding:40px;color:var(--ink-f);font-size:13px">Your nutritionist hasn\'t set a plan yet. Check back soon!</div>';
+    }
+  } else if (currentTab === "appointments") {
+    var apptsHtml = _myProAppts.map(function(a) {
+      var badge = a.status === "confirmed"
+        ? '<span style="font-family:JetBrains Mono,monospace;font-size:9px;padding:3px 10px;border-radius:8px;background:var(--teal-lll);color:var(--teal)">✓ Confirmed</span>'
+        : '<span style="font-family:JetBrains Mono,monospace;font-size:9px;padding:3px 10px;border-radius:8px;background:#fffbeb;color:#92400e">⏳ Pending</span>';
+      return '<div style="display:flex;align-items:center;gap:14px;padding:14px 0;border-bottom:1px solid var(--fog)">'
+        + '<div style="width:48px;height:48px;border-radius:10px;background:var(--teal-lll);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0">📅</div>'
+        + '<div style="flex:1"><div style="font-size:14px;font-weight:600;color:var(--ink)">'+escapeHtml(a.type || 'Appointment')+'</div>'
+        + '<div style="font-family:JetBrains Mono,monospace;font-size:11px;color:var(--ink-f);margin-top:3px">'+escapeHtml(a.date)+' · '+escapeHtml(a.time)+'</div></div>'
+        + badge + '</div>';
+    }).join("");
+    tabContent = apptsHtml || '<div style="text-align:center;padding:40px;color:var(--ink-f);font-size:13px">No upcoming appointments. Your nutritionist will schedule sessions here.</div>';
+    tabContent += '<div style="padding-top:14px;font-size:12px;color:var(--ink-f)">Appointments are managed by your nutritionist.</div>';
+  }
+
+  function tabCls(t) { return currentTab === t ? 'background:var(--ink);color:#fff' : 'background:var(--paper);color:var(--ink-f)'; }
+
+  el.innerHTML = `
+    <!-- Pro card -->
+    <div style="background:var(--white);border:1px solid var(--border);border-radius:16px;padding:22px;margin-bottom:16px;box-shadow:0 4px 16px rgba(10,20,16,0.04)">
+      <div style="display:flex;align-items:center;gap:16px">
+        <div style="width:64px;height:64px;border-radius:50%;background:${exp.color};color:#fff;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:700;flex-shrink:0">${exp.avatar}</div>
+        <div style="flex:1">
+          <div style="font-size:17px;font-weight:700;color:var(--ink)">${exp.name}</div>
+          <div style="font-size:12px;color:var(--ink-f);margin-top:2px">${exp.title} · ${exp.specialty}</div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:6px;flex-shrink:0">
+          <span style="font-family:'JetBrains Mono',monospace;font-size:9px;padding:3px 10px;border-radius:8px;background:var(--teal-lll);color:var(--teal)">✓ Connected</span>
+          <button onclick="window._nwUnbind && window._nwUnbind()" style="padding:5px 10px;background:transparent;color:var(--ink-f);border:1px solid var(--border);border-radius:6px;font-size:10px;cursor:pointer;font-family:'Bricolage Grotesque',sans-serif">Disconnect</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tabs -->
+    <div style="display:flex;gap:6px;margin-bottom:16px">
+      <button onclick="window._myProSwitchTab('messages')" style="padding:9px 18px;border:none;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;font-family:'Bricolage Grotesque',sans-serif;${tabCls('messages')}">💬 Messages</button>
+      <button onclick="window._myProSwitchTab('plan')" style="padding:9px 18px;border:none;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;font-family:'Bricolage Grotesque',sans-serif;${tabCls('plan')}">📋 Fitness Plan</button>
+      <button onclick="window._myProSwitchTab('appointments')" style="padding:9px 18px;border:none;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;font-family:'Bricolage Grotesque',sans-serif;${tabCls('appointments')}">📅 Appointments</button>
+    </div>
+
+    <!-- Tab content -->
+    <div style="background:var(--white);border:1px solid var(--border);border-radius:16px;padding:22px;box-shadow:0 4px 16px rgba(10,20,16,0.04)">
+      ${tabContent}
+    </div>`;
+}
+
+// Unbind action — clears backend binding + localStorage
+window._nwUnbind = async function() {
+  try {
+    // Call backend self-unbind (best effort; proceed even if it fails)
+    if (typeof NW !== "undefined" && NW.auth && NW.auth.token) {
+      try {
+        await fetch('/api/clients/self-unbind', {
+          method: 'DELETE',
+          headers: { 'Authorization': 'Bearer ' + NW.auth.token }
+        });
+      } catch(e) { console.warn("[NW] self-unbind API call failed:", e); }
+    }
+  } catch(e) {}
+
+  try {
+    var u2 = (typeof NW !== "undefined" && NW.auth) ? NW.auth.userId : "";
+    var unbindKey = u2 ? "nw-" + u2 + "-community-bound-expert" : "nw-community-bound-expert";
+    localStorage.removeItem(unbindKey);
+    // Mark bind requests as cancelled
+    var all = JSON.parse(localStorage.getItem("nw-bind-requests") || "[]");
+    var myId = u2 || "";
+    all = all.filter(function(r) {
+      return r.userId !== myId && r.userId !== ("u-" + myId);
+    });
+    localStorage.setItem("nw-bind-requests", JSON.stringify(all));
+    if (window._chClearBound) window._chClearBound();
+  } catch(e) {}
+
+  // Reset plan data and cached backend state
+  _myProMsgsLoaded = false;
+  _myProPlansLoaded = false;
+  _myProPlanMeals = ['','','','','','',''];
+  _myProPlanTraining = ['','','','','','',''];
+  _myProPlanTargetKcal = null;
+  _myProPlanTargetProtein = null;
+  _myProPlanNotes = null;
+  _backendCheckDone = false;
+  _cachedBackendProId = null;
+  renderMyPro();
+  if (typeof showToast === "function") showToast("Disconnected from nutritionist");
+};
+
+// Send message via API
+window._nwSendProMsg = async function() {
+  var inp = document.getElementById("mypro-msg-inp");
+  var text = inp ? inp.value.trim() : "";
+  if (!text) return;
+  inp.value = "";
+
+  // Find the pro's userId
+  var boundId = getBoundExpert();
+  var proUserId = _getProUserId(boundId);
+
+  // Optimistic UI update
+  _myProMessages.push({ from:"user", text:text, time:"Just now" });
+  renderMyPro();
+
+  // Send via API if possible
+  if (typeof NW !== "undefined" && NW.messages && proUserId) {
+    try {
+      await NW.messages.send(proUserId, text);
+    } catch(e) { console.warn("[NW] send to pro failed:", e.message); }
+  }
+};
+
+// Re-render when page becomes active (so status updates are reflected)
+var _origSwitchPagePro = window.switchPage;
+window.switchPage = function(p, el) {
+  if (_origSwitchPagePro) _origSwitchPagePro(p, el);
+  if (p === "mypro") { _myProMsgsLoaded = false; _myProPlansLoaded = false; _backendCheckDone = false; /* keep _cachedBackendProId — avoids re-flash if still bound */ setTimeout(renderMyPro, 50); }
+};
+
+document.addEventListener("DOMContentLoaded", function() {
+  // Listen for localStorage changes (e.g., pro accepts from another tab)
+  window.addEventListener("storage", function(e) {
+    if (e.key === "nw-bind-requests") {
+      var active = document.getElementById("page-mypro");
+      if (active && active.classList.contains("active")) renderMyPro();
+    }
+  });
+
+  // ── Periodic bind-status check: poll backend every 15s while on mypro page ──
+  setInterval(function() {
+    var active = document.getElementById("page-mypro");
+    if (!active || !active.classList.contains("active")) return;
+    var boundId = getBoundExpert();
+    if (!boundId) return;
+    _backendCheckDone = false;
+    _checkBackendBindStatus(boundId);
+  }, 15000);
+
+  // ── Notification check helper (reused by both immediate + interval) ──
+  async function _checkUserNotifs() {
+    if (typeof NW === "undefined" || !NW.auth || !NW.auth.token) return;
+    try {
+      var data = await NW.notifications.getUnreadCount();
+      var count = (data && data.unreadCount) || 0;
+      var mailDot = document.getElementById("userMailDot");
+      if (mailDot) mailDot.style.display = count > 0 ? 'block' : 'none';
+      var sn = document.getElementById("sn-mypro");
+      if (sn) {
+        var dot = sn.querySelector(".nw-notif-dot");
+        if (count > 0) {
+          if (!dot) { dot = document.createElement("span"); dot.className = "nw-notif-dot"; dot.style.cssText = "display:inline-block;width:7px;height:7px;border-radius:50%;background:#dc2626;margin-left:4px;vertical-align:middle"; sn.appendChild(dot); }
+        } else { if (dot) dot.remove(); }
+      }
+    } catch(e) {}
+  }
+
+  // Run immediately at startup (so dots appear without waiting 20s)
+  setTimeout(_checkUserNotifs, 1500);
+
+  // ── Notification polling: check for plan updates & messages every 20s ──
+  setInterval(async function() {
+    if (typeof NW === "undefined" || !NW.auth || !NW.auth.token) return;
+    // Update dots via shared helper
+    await _checkUserNotifs();
+    try {
+      var data = await NW.notifications.getUnreadCount();
+      var count = (data && data.unreadCount) || 0;
+      if (count > 0) {
+        var notifs = await NW.notifications.getAll(true);
+        if (!Array.isArray(notifs)) return;
+        for (var ni = 0; ni < notifs.length; ni++) {
+          var n = notifs[ni];
+          if (n.type === "plan_updated" || n.type === "plan_deleted") {
+            _myProPlansLoaded = false;
+            _myProPlanMeals = ['','','','','','',''];
+            _myProPlanTraining = ['','','','','','',''];
+            var planMsg = n.type === "plan_updated"
+              ? "🔔 Your nutritionist updated your plan — check it out"
+              : "🔔 Your nutritionist deleted a plan";
+            if (typeof showToast === "function") showToast(planMsg);
+            await NW.notifications.markRead(n.id);
+          } else if (n.type === "message_received") {
+            if (typeof showToast === "function") showToast("💬 New message from your nutritionist");
+            await NW.notifications.markRead(n.id);
+          } else if (n.type === "user_unbound") {
+            // Verify we are ACTUALLY unbound before clearing local state.
+            // A stale notification from a previous session could fire right after
+            // a new pro has accepted us — always double-check the backend.
+            try {
+              var meCheck = await fetch('/api/auth/me', {
+                headers: { 'Authorization': 'Bearer ' + NW.auth.token }
+              }).then(function(r){ return r.ok ? r.json() : null; });
+              if (meCheck && meCheck.proId) {
+                // We are still bound — stale notification, just mark read
+                await NW.notifications.markRead(n.id);
+                continue;
+              }
+            } catch(e) { continue; }
+            // Genuinely unbound — clear local binding
+            if (typeof showToast === "function") showToast("⚠️ Your nutritionist has removed you from their client list");
+            var u3 = NW.auth.userId || "";
+            var uk = u3 ? "nw-" + u3 + "-community-bound-expert" : "nw-community-bound-expert";
+            localStorage.removeItem(uk);
+            var allR = JSON.parse(localStorage.getItem("nw-bind-requests") || "[]");
+            allR = allR.filter(function(r){ return r.userId !== u3; });
+            localStorage.setItem("nw-bind-requests", JSON.stringify(allR));
+            if (window._chClearBound) window._chClearBound();
+            _backendCheckDone = false;
+            _cachedBackendProId = null;
+            var myProPage = document.getElementById("page-mypro");
+            if (myProPage && myProPage.classList.contains("active")) renderMyPro();
+            await NW.notifications.markRead(n.id);
+          }
+        }
+      }
+    } catch(e) { /* ignore polling errors */ }
+  }, 20000);
+});
+
+})();
+</script>
+
+<script>
+// ── Populate Personal Details from auth session ──
+document.addEventListener('DOMContentLoaded', function() {
+  if (typeof NW === 'undefined' || !NW.auth || !NW.auth.name) return;
+  var name = NW.auth.name || '';
+  var parts = name.split(' ');
+  var firstName = parts[0] || '';
+  var lastName = parts.slice(1).join(' ') || '';
+  var email = NW.auth.email || sessionStorage.getItem('nw-email') || '';
+  var initials = parts.map(function(w){return (w[0]||'').toUpperCase();}).join('').substring(0,2);
+  
+  // Update avatar in top nav
+  var avatarPic = document.querySelector('.tn-avatar-pic');
+  if (avatarPic) avatarPic.textContent = initials;
+  var avatarName = document.querySelector('.tn-avatar-name');
+  if (avatarName) avatarName.textContent = name;
+  
+  // Update Personal Details overlay
+  var overlay = document.getElementById('overlay-personal');
+  if (!overlay) return;
+  var inputs = overlay.querySelectorAll('input[type="text"], input[type="email"]');
+  if (inputs[0]) inputs[0].value = firstName;
+  if (inputs[1]) inputs[1].value = lastName;
+  if (inputs[2]) inputs[2].value = email;
+  
+  // Update avatar in overlay
+  var bigAvatar = overlay.querySelector('div[style*="width:64px"]');
+  if (bigAvatar) bigAvatar.textContent = initials;
+  var nameDiv = overlay.querySelector('div[style*="font-size:18px"]');
+  if (nameDiv) nameDiv.textContent = name;
+  
+  // Load profile from backend
+  if (NW.auth.token) {
+    fetch('/api/auth/me', { headers: { Authorization: 'Bearer ' + NW.auth.token } })
+      .then(function(r){ return r.ok ? r.json() : null; })
+      .then(function(me) {
+        if (!me) return;
+        if (me.height)     { var el = document.getElementById('profileHeight');     if(el) el.value = me.height; }
+        if (me.weight)     { var el = document.getElementById('profileWeight');     if(el) el.value = me.weight; }
+        if (me.age)        { var el = document.getElementById('profileAge');        if(el) el.value = me.age; }
+        if (me.targetKcal) { var el = document.getElementById('profileTargetKcal'); if(el) el.value = me.targetKcal; }
+        if (me.goal)       { var el = document.getElementById('profileGoal');       if(el) el.value = me.goal; }
+      }).catch(function(){});
+  }
+});
+
+// ── Save Health Profile to backend ──
+window.saveHealthProfile = async function() {
+  if (typeof NW === 'undefined' || !NW.auth || !NW.auth.token) return;
+  var height     = parseFloat(document.getElementById('settings-height')?.value || document.getElementById('profileHeight')?.value) || null;
+  var weight     = parseFloat(document.getElementById('settings-weight')?.value || document.getElementById('profileWeight')?.value) || null;
+  var age        = parseInt(document.getElementById('settings-age')?.value || document.getElementById('profileAge')?.value)       || null;
+  var targetKcal = parseInt(document.getElementById('settings-calorie-target')?.value || document.getElementById('profileTargetKcal')?.value) || null;
+  var goal       = document.getElementById('settings-goal')?.value || document.getElementById('profileGoal')?.value || null;
+  try {
+    await fetch('/api/auth/profile', {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + NW.auth.token },
+      body: JSON.stringify({ height, weight, age, targetKcal, goal })
+    });
+    var btn = document.getElementById('profileSaveBtn');
+    if (btn) { var orig = btn.textContent; btn.textContent = '✓ Saved!'; btn.style.background = 'var(--teal)'; setTimeout(function(){ btn.textContent = orig; btn.style.background = ''; }, 2000); }
+  } catch(e) { console.warn('[NW] profile save failed:', e); }
+};
+</script>
+</body>
+</html>

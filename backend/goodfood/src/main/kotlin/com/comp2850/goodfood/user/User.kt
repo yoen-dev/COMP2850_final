@@ -7,5 +7,10 @@ data class User(
     val passwordHash: String,
     val role: Role,
     val licence: String? = null,
-    val proId: String? = null
+    val proId: String? = null,
+    val height: Double? = null,
+    val weight: Double? = null,
+    val age: Int? = null,
+    val targetKcal: Int? = null,
+    val goal: String? = null
 )

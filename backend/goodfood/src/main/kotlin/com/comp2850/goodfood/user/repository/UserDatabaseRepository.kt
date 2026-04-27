@@ -33,7 +33,12 @@ class UserDatabaseRepository(
             passwordHash = this.passwordHash,
             role = this.role,
             licence = this.licence,
-            proId = this.proId
+            proId = this.proId,
+            height = this.height,
+            weight = this.weight,
+            age = this.age,
+            targetKcal = this.targetKcal,
+            goal = this.goal
         )
     }
 
@@ -45,7 +50,12 @@ class UserDatabaseRepository(
             passwordHash = this.passwordHash,
             role = this.role,
             licence = this.licence,
-            proId = this.proId
+            proId = this.proId,
+            height = this.height,
+            weight = this.weight,
+            age = this.age,
+            targetKcal = this.targetKcal,
+            goal = this.goal
         )
     }
 }

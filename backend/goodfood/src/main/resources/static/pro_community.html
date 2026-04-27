@@ -1,0 +1,821 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NourishWell Pro — Community</title>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--teal:#1e6b5e;--teal-l:#1a7a6a;--teal-ll:#b8ddd8;--teal-lll:#e8f4f2;--amber:#955018;--amber-l:#d4956a;--amber-ll:#faeade;--ink:#0a1410;--ink-s:#1c2e26;--ink-m:#3d5448;--ink-f:#4d6e5e;--paper:#f5f7f5;--fog:#dce6e0;--white:#fff;--border:#d4dfd8;--blue:#7aaad4;--pink:#b5413e;--pro:#7c3aed;--pro-l:#a78bfa;--pro-ll:#ede9fe;--pro-lll:#f5f3ff}
+body{font-family:'Bricolage Grotesque',sans-serif;background:var(--paper);color:var(--ink);display:flex;min-height:100vh;-webkit-font-smoothing:antialiased}
+
+/* ── TOP NAV ── */
+.top-nav{position:fixed;top:0;left:0;right:0;z-index:999;height:60px;display:flex;align-items:center;justify-content:space-between;padding:0 24px 0 0;background:var(--ink)}
+.top-nav-left{display:flex;align-items:center;gap:10px;padding:0 20px;height:100%}
+.tn-logo{display:flex;align-items:center;gap:8px;text-decoration:none}
+.tn-logo-mark{width:26px;height:26px;border-radius:6px;background:rgba(255,255,255,0.1);display:flex;align-items:center;justify-content:center;font-size:12px}
+.tn-logo-text{font-size:14px;font-weight:700;color:#fff;letter-spacing:-0.02em}
+.pro-badge-nav{font-family:'JetBrains Mono',monospace;font-size:9px;padding:3px 8px;border-radius:12px;background:var(--pro);color:#fff;letter-spacing:.06em;text-transform:uppercase}
+.top-nav-right{display:flex;align-items:center;gap:12px}
+.switch-btn{display:flex;align-items:center;gap:7px;padding:8px 16px;border:1.5px solid rgba(255,255,255,0.25);border-radius:8px;background:rgba(255,255,255,0.06);color:rgba(255,255,255,0.9);font-family:'JetBrains Mono',monospace;font-size:11px;cursor:pointer;transition:all .2s;text-decoration:none}
+.switch-btn:hover{border-color:rgba(255,255,255,0.5);background:rgba(255,255,255,0.12);color:#fff}
+.tn-avatar{display:flex;align-items:center;gap:10px;cursor:pointer;padding:6px 12px 6px 6px;border-radius:10px;transition:background .2s}
+.tn-avatar:hover{background:rgba(255,255,255,0.08)}
+.tn-avatar-pic{width:34px;height:34px;border-radius:50%;background:var(--pro);color:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0}
+.tn-avatar-name{font-size:13px;font-weight:600;color:rgba(255,255,255,0.85)}
+
+/* ── SIDE NAV ── */
+.side-nav{position:fixed;top:60px;left:0;bottom:0;width:220px;background:var(--white);border-right:1px solid var(--border);z-index:998;display:flex;flex-direction:column;overflow-y:auto}
+.sn-section-label{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--ink-f);letter-spacing:.1em;text-transform:uppercase;padding:16px 20px 6px;opacity:.7}
+.sn-item{display:flex;align-items:center;gap:10px;padding:11px 20px;font-size:13px;font-weight:500;color:var(--ink-m);cursor:pointer;border-left:3px solid transparent;text-decoration:none;transition:all .2s}
+.sn-item:hover{color:var(--ink);background:var(--paper)}
+.sn-item.active{color:#fff;background:var(--ink);border-left-color:var(--teal)}
+.sn-divider{height:1px;background:var(--border);margin:8px 0}
+.sn-avatar{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;color:#fff}
+.sn-name{flex:1;font-size:12px;font-weight:600}
+.sn-status{font-family:'JetBrains Mono',monospace;font-size:8px;padding:2px 6px;border-radius:8px;flex-shrink:0}
+.sn-status.urgent{background:#fee2e2;color:#dc2626}
+.sn-status.ok{background:var(--teal-lll);color:var(--teal)}
+.sn-status.warn{background:var(--amber-ll);color:var(--amber)}
+
+/* ── MAIN ── */
+.main{margin-left:220px;margin-top:60px;padding:28px 36px;flex:1}.main-inner{max-width:960px;margin:0 auto}
+.page-title{font-family:'Instrument Serif',serif;font-size:28px;font-style:italic;color:var(--ink);letter-spacing:-0.02em;display:flex;align-items:center;gap:12px}
+.pro-mode-chip{font-family:'JetBrains Mono',monospace;font-size:9px;padding:4px 10px;border-radius:10px;background:var(--pro-ll);color:var(--pro);letter-spacing:.06em;text-transform:uppercase;font-style:normal}
+.page-subtitle{font-size:13px;color:var(--ink-f);margin-top:4px}
+.page-header{margin-bottom:24px}
+
+/* ── Pro stats bar ── */
+.pro-stats-bar{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:24px}
+.ps-card{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:14px 16px;box-shadow:0 2px 8px rgba(10,20,16,0.03)}
+.ps-val{font-size:22px;font-weight:800;color:var(--ink)}
+.ps-val.pro{color:var(--pro)}
+.ps-val.teal{color:var(--teal)}
+.ps-val.amber{color:var(--amber)}
+.ps-label{font-family:'JetBrains Mono',monospace;font-size:8px;color:var(--ink-f);letter-spacing:.08em;text-transform:uppercase;margin-top:3px}
+
+/* ── Tabs ── */
+.hub-tabs{display:flex;gap:4px;margin-bottom:24px;background:var(--white);border:1px solid var(--border);border-radius:12px;padding:4px;box-shadow:0 2px 8px rgba(10,20,16,0.03)}
+.hub-tab{flex:1;padding:12px 16px;font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:500;color:var(--ink-f);text-align:center;border-radius:8px;cursor:pointer;transition:all .2s;border:none;background:transparent;letter-spacing:.02em}
+.hub-tab:hover{color:var(--ink);background:var(--paper)}
+.hub-tab.active{background:var(--ink);color:#fff}
+.hub-tab .tab-emoji{font-size:14px;margin-right:5px}
+.tab-panel{display:none}.tab-panel.active{display:block}
+
+/* ── Compose (pro version) ── */
+.compose-box{background:linear-gradient(135deg,var(--pro-lll),var(--white));border:1.5px solid rgba(124,58,237,0.15);border-radius:16px;padding:18px 20px;margin-bottom:20px;box-shadow:0 4px 16px rgba(124,58,237,0.04)}
+.compose-row{display:flex;gap:12px;align-items:flex-start}
+.compose-avatar{width:36px;height:36px;border-radius:50%;background:var(--pro);color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;margin-top:2px;position:relative}
+.compose-avatar::after{content:'PRO';position:absolute;bottom:-6px;left:50%;transform:translateX(-50%);font-family:'JetBrains Mono',monospace;font-size:6px;background:var(--pro);color:#fff;padding:1px 4px;border-radius:4px;white-space:nowrap}
+.compose-input{flex:1;border:1.5px solid rgba(124,58,237,0.2);border-radius:10px;padding:12px 14px;font-family:'Bricolage Grotesque',sans-serif;font-size:13px;color:var(--ink);resize:none;outline:none;min-height:48px;transition:border-color .2s,box-shadow .2s;background:var(--white)}
+.compose-input:focus{border-color:var(--pro);box-shadow:0 0 0 3px rgba(124,58,237,0.08)}
+.compose-input::placeholder{color:var(--ink-f)}
+.compose-footer{display:flex;justify-content:space-between;align-items:center;margin-top:12px;padding-left:48px}
+.compose-tags{display:flex;gap:5px;flex-wrap:wrap}
+.compose-tag{font-family:'JetBrains Mono',monospace;font-size:9px;padding:4px 10px;border-radius:14px;border:1px solid var(--border);background:var(--white);color:var(--ink-f);cursor:pointer;transition:all .2s}
+.compose-tag:hover,.compose-tag.active{border-color:var(--pro-l);background:var(--pro-ll);color:var(--pro)}
+.compose-btn{padding:9px 22px;background:var(--pro);color:#fff;border:none;border-radius:8px;font-family:'Bricolage Grotesque',sans-serif;font-size:12px;font-weight:600;cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:6px}
+.compose-btn:hover{background:var(--ink)}
+.pro-tip{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--pro);background:var(--pro-ll);border-radius:6px;padding:3px 8px;margin-left:48px;margin-bottom:10px;display:inline-block}
+
+/* ── Post Card ── */
+.post-card{background:var(--white);border:1px solid var(--border);border-radius:16px;padding:20px;margin-bottom:14px;box-shadow:0 4px 16px rgba(10,20,16,0.04);transition:box-shadow .2s}
+.post-card:hover{box-shadow:0 8px 24px rgba(10,20,16,0.07)}
+.post-card.needs-reply{border-left:3px solid var(--amber);background:linear-gradient(to right,var(--amber-ll) 0%,var(--white) 60px)}
+.post-card.pro-post{border-left:3px solid var(--pro)}
+.post-header{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+.post-avatar{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;flex-shrink:0}
+.post-avatar.user{background:var(--teal-lll);color:var(--teal)}
+.post-avatar.pro{background:var(--pro-ll);color:var(--pro);border:2px solid rgba(124,58,237,0.2)}
+.post-meta{flex:1}
+.post-author{font-size:13px;font-weight:700;color:var(--ink);display:flex;align-items:center;gap:6px}
+.pro-badge{font-family:'JetBrains Mono',monospace;font-size:8px;padding:2px 7px;border-radius:10px;background:var(--pro);color:#fff;font-weight:500;letter-spacing:.04em;text-transform:uppercase}
+.post-time{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--ink-f);margin-top:2px}
+.post-tag-chip{font-family:'JetBrains Mono',monospace;font-size:8px;padding:3px 8px;border-radius:10px;letter-spacing:.06em;text-transform:uppercase}
+.tag-nutrition{background:var(--teal-lll);color:var(--teal)}
+.tag-fitness{background:var(--amber-ll);color:var(--amber)}
+.tag-recipe{background:rgba(122,170,212,0.12);color:#5a8ab4}
+.tag-general{background:var(--paper);color:var(--ink-f)}
+.tag-question{background:var(--pro-ll);color:var(--pro)}
+.needs-reply-flag{font-family:'JetBrains Mono',monospace;font-size:8px;padding:3px 8px;border-radius:8px;background:var(--amber-ll);color:var(--amber);font-weight:600;display:flex;align-items:center;gap:4px}
+.post-body{font-size:14px;line-height:1.65;color:var(--ink-s);margin-bottom:14px}
+.post-actions{display:flex;gap:12px;padding-top:12px;border-top:1px solid var(--fog);flex-wrap:wrap}
+.post-action{display:flex;align-items:center;gap:5px;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--ink-f);cursor:pointer;padding:5px 10px;border-radius:6px;transition:all .15s;border:none;background:none}
+.post-action:hover{background:var(--teal-lll);color:var(--teal)}
+.post-action.liked{color:var(--pink)}
+.reply-btn{background:var(--pro-ll);color:var(--pro) !important;font-weight:600}
+.reply-btn:hover{background:var(--pro) !important;color:#fff !important}
+
+/* ── Quick reply templates ── */
+.quick-replies{display:flex;gap:6px;flex-wrap:wrap;margin:10px 0 0 0;padding:10px 14px;background:var(--pro-lll);border-radius:10px;border:1px solid rgba(124,58,237,0.1)}
+.qr-label{font-family:'JetBrains Mono',monospace;font-size:8px;color:var(--pro);letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px;width:100%}
+.qr-chip{font-size:11px;padding:5px 12px;border-radius:20px;border:1px solid rgba(124,58,237,0.2);background:var(--white);color:var(--ink-m);cursor:pointer;transition:all .2s;font-family:'Bricolage Grotesque',sans-serif}
+.qr-chip:hover{border-color:var(--pro);color:var(--pro);background:var(--pro-ll)}
+
+/* ── Reply thread ── */
+.replies{margin-top:14px;padding:14px 16px;background:var(--paper);border-radius:12px}
+.reply{display:flex;gap:10px;padding:10px 0;border-bottom:1px solid var(--fog)}
+.reply:last-child{border-bottom:none}
+.reply-avatar{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;flex-shrink:0}
+.reply-avatar.user{background:var(--teal-lll);color:var(--teal)}
+.reply-avatar.pro{background:var(--pro-ll);color:var(--pro);border:1.5px solid rgba(124,58,237,0.2)}
+.reply-body{flex:1}
+.reply-author{font-size:11px;font-weight:700;color:var(--ink);display:flex;align-items:center;gap:5px}
+.reply-text{font-size:12px;color:var(--ink-m);line-height:1.5;margin-top:3px}
+.reply-time{font-family:'JetBrains Mono',monospace;font-size:8px;color:var(--ink-f);margin-top:3px}
+.pro-reply-compose{display:flex;gap:8px;margin-top:10px;padding-top:10px;border-top:1px solid var(--fog)}
+.pro-reply-input{flex:1;padding:9px 12px;border:1.5px solid rgba(124,58,237,0.2);border-radius:8px;font-family:'Bricolage Grotesque',sans-serif;font-size:12px;outline:none;background:var(--white)}
+.pro-reply-input:focus{border-color:var(--pro);box-shadow:0 0 0 2px rgba(124,58,237,0.08)}
+.pro-reply-send{padding:9px 16px;background:var(--pro);color:#fff;border:none;border-radius:8px;font-size:11px;font-weight:600;cursor:pointer;font-family:'Bricolage Grotesque',sans-serif;white-space:nowrap;transition:background .2s}
+.pro-reply-send:hover{background:var(--ink)}
+
+/* ── Clients tab ── */
+.client-posts-section{margin-bottom:28px}
+.cps-header{display:flex;align-items:center;gap:10px;margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid var(--fog)}
+.cps-avatar{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#fff;flex-shrink:0}
+.cps-name{font-size:14px;font-weight:700;color:var(--ink)}
+.cps-detail{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--ink-f);margin-top:1px}
+.cps-empty{font-size:12px;color:var(--ink-f);font-style:italic;padding:12px 0}
+
+/* ── Toast ── */
+#nw-toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(12px);background:var(--ink);color:#fff;padding:10px 22px;border-radius:10px;font-size:13px;font-weight:600;z-index:9999;opacity:0;transition:all .3s;pointer-events:none;white-space:nowrap;font-family:'Bricolage Grotesque',sans-serif}
+
+/* ── DARK MODE ── */
+body.dark-mode{--paper:#0d1a14;--white:#142420;--ink:#e8f0ec;--ink-s:#d0ddd4;--ink-m:#a8bfb0;--ink-f:#7a9488;--border:#2a3e34;--fog:#1e3028;--pro-lll:#1a1030;--pro-ll:#2d1f5e}
+</style>
+</head>
+<body>
+<a href="#main-content" class="skip-link" style="position:absolute;top:-40px;left:0;background:var(--teal);color:#fff;padding:8px 16px;z-index:99999;font-size:14px;font-weight:600;border-radius:0 0 8px 0;transition:top .2s">Skip to main content</a>
+<style>.skip-link:focus{top:0 !important;}</style>
+
+<!-- TOP NAV (matches pro_dashboard exactly) -->
+<nav class="top-nav" role="navigation" aria-label="Main navigation">
+  <div class="top-nav-left">
+    <a href="pro_dashboard.html" class="tn-logo">
+      <div class="tn-logo-mark" aria-hidden="true">🌿</div>
+      <span class="tn-logo-text">NourishWell</span>
+    </a>
+    <span class="pro-badge-nav">PRO</span>
+  </div>
+  <div class="top-nav-right">
+    <button class="switch-btn" onclick="window.location.href='dashboard.html'">
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" style="flex-shrink:0"><path d="M1 4h9M7 1l3 3-3 3M13 10H4M7 7l-3 3 3 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Switch to User View
+    </button>
+    <div class="tn-icon" tabindex="0" role="button" onclick="toggleDarkMode()" style="cursor:pointer" title="Toggle dark mode"><span id="proDarkModeIcon" style="font-size:16px">🌙</span></div>
+    <div style="position:relative">
+      <div class="tn-avatar" id="proAvatarToggle" tabindex="0" role="button" onclick="event.stopPropagation();toggleProMenu()" style="cursor:pointer">
+        <div class="tn-avatar-pic" id="nav-avatar-pic" aria-hidden="true">DR</div>
+        <span class="tn-avatar-name" id="nav-avatar-name">Dr. Rivera</span>
+      </div>
+      <div id="proAvatarMenu" style="display:none;position:absolute;top:50px;right:0;background:#fff;border:1px solid #d4dfd8;border-radius:10px;min-width:180px;box-shadow:0 12px 40px rgba(10,20,16,0.12);overflow:hidden;z-index:100">
+        <a href="pro_dashboard.html" style="display:block;padding:11px 16px;font-size:13px;color:#0a1410;text-decoration:none;border-bottom:1px solid #f5f7f5">← Back to Dashboard</a>
+        <a href="#" onclick="event.preventDefault();NW&&NW.logout&&NW.logout();window.location.replace('index.html')" style="display:block;padding:11px 16px;font-size:13px;color:#c0392b;text-decoration:none">Log Out</a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- SIDE NAV -->
+<aside class="side-nav" role="navigation" aria-label="Client navigation">
+  <div class="sn-section-label">Overview</div>
+  <a class="sn-item" href="pro_dashboard.html">
+    <span style="font-size:16px">📊</span>
+    <span class="sn-name">Dashboard</span>
+  </a>
+  <a class="sn-item active">
+    <span style="font-size:16px">💬</span>
+    <span class="sn-name">Community</span>
+  </a>
+  <div class="sn-divider"></div>
+  <div class="sn-section-label">My Clients</div>
+  <div style="padding:6px 16px 2px">
+    <input type="search" placeholder="Search clients..." autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" name="nw-client-search"
+      oninput="filterClients(this.value)"
+      style="width:100%;padding:6px 10px;border:1px solid var(--border);border-radius:7px;font-size:11px;font-family:'Bricolage Grotesque',sans-serif;color:var(--ink);outline:none;background:var(--paper)">
+  </div>
+  <a class="sn-item" href="pro_dashboard.html#rose" data-client="rose">
+    <div class="sn-avatar" style="background:#1a7a6a;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;color:#fff">RC</div>
+    <div style="flex:1"><div class="sn-name">Rose Campbell</div><div style="font-family:'JetBrains Mono',monospace;font-size:8px;color:var(--ink-f)">62kg · Active</div></div>
+    <span class="sn-status warn">⚡ Low protein</span>
+  </a>
+  <a class="sn-item" href="pro_dashboard.html#james" data-client="james">
+    <div class="sn-avatar" style="background:#7aaad4;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;color:#fff">JT</div>
+    <div style="flex:1"><div class="sn-name">James Tang</div><div style="font-family:'JetBrains Mono',monospace;font-size:8px;color:var(--ink-f)">78kg · Bulking</div></div>
+    <span class="sn-status ok">✓ On track</span>
+  </a>
+  <a class="sn-item" href="pro_dashboard.html#sara" data-client="sara">
+    <div class="sn-avatar" style="background:#b5413e;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;color:#fff">SL</div>
+    <div style="flex:1"><div class="sn-name">Sara Lim</div><div style="font-family:'JetBrains Mono',monospace;font-size:8px;color:var(--ink-f)">55kg · Cut</div></div>
+    <span class="sn-status urgent">! Missed 3 days</span>
+  </a>
+  <a class="sn-item" href="pro_dashboard.html#mike" data-client="mike">
+    <div class="sn-avatar" style="background:#b8621f;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;color:#fff">MW</div>
+    <div style="flex:1"><div class="sn-name">Mike Walsh</div><div style="font-family:'JetBrains Mono',monospace;font-size:8px;color:var(--ink-f)">90kg · Maintain</div></div>
+    <span class="sn-status ok">✓ On track</span>
+  </a>
+  <a class="sn-item" href="pro_dashboard.html#priya" data-client="priya">
+    <div class="sn-avatar" style="background:#7c3aed;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;color:#fff">PK</div>
+    <div style="flex:1"><div class="sn-name">Priya Kapoor</div><div style="font-family:'JetBrains Mono',monospace;font-size:8px;color:var(--ink-f)">58kg · Lean gain</div></div>
+    <span class="sn-status warn">⚡ Review due</span>
+  </a>
+</aside>
+
+<!-- MAIN -->
+<div class="main" id="main-content" role="main">
+<div class="main-inner">
+
+  <div class="page-header">
+    <div class="page-title">
+      Community <em>Hub</em>
+      <span class="pro-mode-chip">Pro View</span>
+    </div>
+    <div class="page-subtitle">Engage with the community, answer questions, and monitor your clients' activity</div>
+  </div>
+
+  <!-- Stats bar -->
+  <div class="pro-stats-bar">
+    <div class="ps-card">
+      <div class="ps-val pro" id="stat-unanswered">4</div>
+      <div class="ps-label">Questions waiting</div>
+    </div>
+    <div class="ps-card">
+      <div class="ps-val teal" id="stat-replied">12</div>
+      <div class="ps-label">Your replies</div>
+    </div>
+    <div class="ps-card">
+      <div class="ps-val" id="stat-posts">38</div>
+      <div class="ps-label">Total posts</div>
+    </div>
+    <div class="ps-card">
+      <div class="ps-val amber" id="stat-client-posts">3</div>
+      <div class="ps-label">Client posts today</div>
+    </div>
+  </div>
+
+  <!-- Tabs -->
+  <div class="hub-tabs" role="tablist">
+    <button class="hub-tab active" onclick="switchTab('feed',this)" role="tab"><span class="tab-emoji">📢</span>All Posts</button>
+    <button class="hub-tab" onclick="switchTab('questions',this)" role="tab"><span class="tab-emoji">❓</span>Unanswered <span id="q-badge" style="margin-left:4px;background:var(--amber);color:#fff;font-size:8px;padding:1px 6px;border-radius:10px;display:none">0</span></button>
+    <button class="hub-tab" onclick="switchTab('clients',this)" role="tab"><span class="tab-emoji">👥</span>My Clients</button>
+    <button class="hub-tab" onclick="switchTab('bind',this)" role="tab"><span class="tab-emoji">🔗</span>Bind Requests <span id="bind-badge" style="margin-left:4px;background:var(--pro);color:#fff;font-size:8px;padding:1px 6px;border-radius:10px;display:none">0</span></button>
+    <button class="hub-tab" onclick="switchTab('mine',this)" role="tab"><span class="tab-emoji">✍️</span>My Posts</button>
+  </div>
+
+  <!-- ── TAB: ALL POSTS ── -->
+  <div class="tab-panel active" id="panel-feed">
+    <!-- Pro compose -->
+    <div class="compose-box">
+      <div class="pro-tip">✓ Posting as a verified professional — your replies display a PRO badge</div>
+      <div class="compose-row">
+        <div class="compose-avatar" id="compose-avatar-el">DR</div>
+        <textarea class="compose-input" id="compose-text-feed" placeholder="Share expert advice, a nutrition tip, or a weekly challenge..." rows="2"></textarea>
+      </div>
+      <div class="compose-footer">
+        <div class="compose-tags">
+          <button class="compose-tag active" onclick="pickTag(this,'nutrition')">🥗 Nutrition</button>
+          <button class="compose-tag" onclick="pickTag(this,'fitness')">💪 Fitness</button>
+          <button class="compose-tag" onclick="pickTag(this,'general')">💬 General</button>
+        </div>
+        <button class="compose-btn" onclick="submitProPost()">Post as Pro →</button>
+      </div>
+    </div>
+    <div id="feed-list"></div>
+  </div>
+
+  <!-- ── TAB: UNANSWERED QUESTIONS ── -->
+  <div class="tab-panel" id="panel-questions">
+    <div style="background:var(--amber-ll);border:1px solid var(--amber-l);border-radius:12px;padding:14px 18px;margin-bottom:20px;display:flex;align-items:center;gap:12px">
+      <span style="font-size:20px">🩺</span>
+      <div>
+        <div style="font-size:13px;font-weight:700;color:var(--ink)">Questions without a pro reply</div>
+        <div style="font-size:11px;color:var(--ink-f);margin-top:2px">These users are waiting for expert guidance. Your reply adds a PRO badge and moves the post to "Ask a Pro" on the user side.</div>
+      </div>
+    </div>
+    <div id="questions-list"></div>
+  </div>
+
+  <!-- ── TAB: MY CLIENTS ── -->
+  <div class="tab-panel" id="panel-clients">
+    <div id="clients-list"></div>
+  </div>
+
+  <!-- ── TAB: BIND REQUESTS ── -->
+  <div class="tab-panel" id="panel-bind">
+    <div style="background:var(--pro-lll);border:1.5px solid rgba(124,58,237,0.15);border-radius:12px;padding:14px 18px;margin-bottom:20px;display:flex;align-items:center;gap:12px">
+      <span style="font-size:20px">🔗</span>
+      <div>
+        <div style="font-size:13px;font-weight:700;color:var(--ink)">Client bind requests</div>
+        <div style="font-size:11px;color:var(--ink-f);margin-top:2px">Users who selected you in "Find a Pro". Accept to add them as your client.</div>
+      </div>
+    </div>
+    <div id="bind-list"></div>
+  </div>
+
+  <!-- ── TAB: MY POSTS ── -->
+  <div class="tab-panel" id="panel-mine">
+    <div id="mine-list"></div>
+  </div>
+
+</div></div><!-- /main -->
+
+<div id="nw-toast"></div>
+
+<script>
+// ══════════════════════════════════════════════════════════════
+// PRO COMMUNITY HUB
+// ══════════════════════════════════════════════════════════════
+
+var PRO_NAME = 'Dr. Rivera';
+var PRO_INITIALS = 'DR';
+var composeTagFeed = 'nutrition';
+
+// ── Dummy clients mapped to community posts ──
+var MY_CLIENTS = [
+  { id: 'rose',  name: 'Rose Campbell',  initials: 'RC', color: '#2f8f7f', goal: 'Weight loss' },
+  { id: 'james', name: 'James Tang',     initials: 'JT', color: '#7aaad4', goal: 'Muscle gain' },
+  { id: 'sara',  name: 'Sara Lim',       initials: 'SL', color: '#e07b78', goal: 'Fat cut' },
+  { id: 'mike',  name: 'Mike Walsh',     initials: 'MW', color: '#b8621f', goal: 'Maintain' },
+  { id: 'priya', name: 'Priya Kapoor',   initials: 'PK', color: '#7c3aed', goal: 'Lean gain' }
+];
+
+var CLIENT_IDS = MY_CLIENTS.map(function(c){return c.id;});
+
+// ── Shared community posts (loaded from localStorage, seeded with demo data) ──
+var COMMUNITY_KEY = 'nw-community-posts';
+
+var SEED_POSTS = [
+  { id:'p1', author:'Emily Watson', initials:'EW', isPro:false, clientId:null, tag:'nutrition',
+    text:'Just hit my protein target for 7 days in a row! The trick: Greek yoghurt in smoothies and eggs at breakfast instead of cereal. Small changes, big results.',
+    time:'2 hours ago', likes:14, liked:false,
+    replies:[{author:'Dr. Rivera', initials:'DR', isPro:true, text:'Great strategy! Greek yoghurt is one of the most protein-dense dairy options. Consider adding nuts or seeds for healthy fats alongside that protein boost.', time:'1 hour ago'}]},
+  { id:'p2', author:'Dr. Rivera', initials:'DR', isPro:true, clientId:null, tag:'nutrition',
+    text:'💡 Quick tip: If you struggle with afternoon energy dips, try swapping refined carbs at lunch for complex ones — quinoa, sweet potato, brown rice. Your blood sugar stays steadier and you avoid the 3pm crash.',
+    time:'4 hours ago', likes:28, liked:false, replies:[]},
+  { id:'p3', author:'Marcus Hall', initials:'MH', isPro:false, clientId:null, tag:'question',
+    text:'Can anyone explain the difference between BMR and TDEE in simple terms? I set up my profile but I\'m not sure which one I should be paying attention to for weight loss.',
+    time:'5 hours ago', likes:7, liked:false, replies:[]},
+  { id:'p4', author:'Rose Campbell', initials:'RC', isPro:false, clientId:'rose', tag:'recipe',
+    text:'Made the Shakshuka from the recipe page — incredible! Added smoked paprika and it was next level. Highly recommend for a quick healthy dinner 🍳',
+    time:'6 hours ago', likes:19, liked:false, replies:[]},
+  { id:'p5', author:'James Tang', initials:'JT', isPro:false, clientId:'james', tag:'fitness',
+    text:'Smashed my weekly workout target — 6/7 days! Feeling the muscle gains. Started tracking protein more carefully this week too. Sitting at 155g today 💪',
+    time:'8 hours ago', likes:22, liked:false, replies:[]},
+  { id:'p6', author:'Dr. Rivera', initials:'DR', isPro:true, clientId:null, tag:'fitness',
+    text:'🏋️ Weekly challenge: Try adding 10 minutes of bodyweight exercises before breakfast this week. Squats, push-ups, planks — no equipment needed. Track the calories in NourishWell and see how it adds up!',
+    time:'1 day ago', likes:34, liked:false, replies:[]},
+  { id:'p7', author:'Sara Lim', initials:'SL', isPro:false, clientId:'sara', tag:'general',
+    text:'Struggling a bit this week — stress at work has made it hard to stay consistent with meals. Anyone else find that stress eating is the hardest thing to manage?',
+    time:'1 day ago', likes:9, liked:false, replies:[]},
+  { id:'p8', author:'Sophie Lang', initials:'SL2', isPro:false, clientId:null, tag:'general',
+    text:'Been using NourishWell for 3 weeks now — making much better food choices just by being more aware. Awareness alone is powerful!',
+    time:'1 day ago', likes:41, liked:false, replies:
+      [{author:'Dr. Rivera',initials:'DR',isPro:true,text:'This is exactly what the research supports! Self-monitoring increases awareness, and awareness naturally shifts choices. Keep going!',time:'1 day ago'}]}
+];
+
+function loadPosts() {
+  try {
+    var saved = localStorage.getItem(COMMUNITY_KEY);
+    if (saved) return JSON.parse(saved);
+  } catch(e) {}
+  return JSON.parse(JSON.stringify(SEED_POSTS));
+}
+function savePosts(posts) {
+  try { localStorage.setItem(COMMUNITY_KEY, JSON.stringify(posts)); } catch(e) {}
+}
+
+var POSTS = loadPosts();
+
+// ── utils ──
+function esc(s) { var d=document.createElement('div');d.textContent=s;return d.innerHTML; }
+function showToast(msg, color) {
+  var t=document.getElementById('nw-toast');
+  t.textContent=msg; t.style.background=color||'#0a1410';
+  t.style.opacity='1'; t.style.transform='translateX(-50%) translateY(0)';
+  clearTimeout(t._t); t._t=setTimeout(function(){t.style.opacity='0';t.style.transform='translateX(-50%) translateY(12px)';},2400);
+}
+
+// ── Tabs ──
+function switchTab(tab, el) {
+  document.querySelectorAll('.hub-tab').forEach(function(t){t.classList.remove('active');});
+  el.classList.add('active');
+  document.querySelectorAll('.tab-panel').forEach(function(p){p.classList.remove('active');});
+  document.getElementById('panel-'+tab).classList.add('active');
+  if (tab==='feed')      renderFeed();
+  if (tab==='questions') renderQuestions();
+  if (tab==='clients')   renderClients();
+  if (tab==='mine')      renderMine();
+  if (tab==='bind')      renderBindTab();
+}
+
+// ── Compose tag ──
+function pickTag(el, tag) {
+  composeTagFeed = tag;
+  document.querySelectorAll('.compose-tag').forEach(function(t){t.classList.remove('active');});
+  el.classList.add('active');
+}
+
+// ── Submit pro post ──
+function submitProPost() {
+  var text = document.getElementById('compose-text-feed').value.trim();
+  if (!text) return;
+  var post = {
+    id: 'pp'+Date.now(), author: PRO_NAME, initials: PRO_INITIALS, isPro: true,
+    clientId: null, tag: composeTagFeed,
+    text: text, time: 'Just now', likes: 0, liked: false, replies: []
+  };
+  POSTS.unshift(post);
+  savePosts(POSTS);
+  document.getElementById('compose-text-feed').value='';
+  renderFeed();
+  updateStats();
+  showToast('Posted as Pro ✓','#7c3aed');
+}
+
+// ── Like ──
+function toggleLike(postId) {
+  var post = POSTS.find(function(p){return p.id===postId;});
+  if (!post) return;
+  post.liked = !post.liked;
+  post.likes += post.liked ? 1 : -1;
+  savePosts(POSTS);
+  reRenderPost(postId);
+}
+
+// ── Pro reply ──
+var QUICK_REPLIES = [
+  'Great progress! Keep it up 💪',
+  'Remember to stay hydrated throughout the day',
+  'Focus on protein at every meal',
+  'Consistency is more important than perfection',
+  'I\'d recommend we discuss this at our next session',
+  'Your body needs adequate rest too — don\'t skip rest days'
+];
+
+function openReplyBox(postId) {
+  // Close any other open reply boxes first
+  document.querySelectorAll('.pro-reply-open').forEach(function(el){
+    if (el.dataset.postId !== postId) el.style.display = 'none';
+  });
+  var box = document.getElementById('reply-box-'+postId);
+  if (!box) return;
+  box.style.display = box.style.display==='none' ? 'block' : 'none';
+  if (box.style.display==='block') {
+    var inp = document.getElementById('reply-input-'+postId);
+    if (inp) inp.focus();
+  }
+}
+
+function fillQuickReply(postId, text) {
+  var inp = document.getElementById('reply-input-'+postId);
+  if (inp) { inp.value = text; inp.focus(); }
+}
+
+function submitProReply(postId) {
+  var inp = document.getElementById('reply-input-'+postId);
+  if (!inp) return;
+  var text = inp.value.trim();
+  if (!text) return;
+  var post = POSTS.find(function(p){return p.id===postId;});
+  if (!post) return;
+  post.replies.push({
+    author: PRO_NAME, initials: PRO_INITIALS, isPro: true,
+    text: text, time: 'Just now'
+  });
+  savePosts(POSTS);
+  inp.value='';
+  var box = document.getElementById('reply-box-'+postId);
+  if (box) box.style.display='none';
+  renderFeed();
+  renderQuestions();
+  updateStats();
+  showToast('Reply posted ✓','#7c3aed');
+}
+
+// ── Rendering ──
+var TAG_LABELS = {nutrition:'🥗 Nutrition',fitness:'💪 Fitness',recipe:'🍳 Recipe',general:'💬 General',question:'❓ Question'};
+var TAG_CLASSES = {nutrition:'tag-nutrition',fitness:'tag-fitness',recipe:'tag-recipe',general:'tag-general',question:'tag-question'};
+
+function renderPostCard(post, opts) {
+  opts = opts || {};
+  var avatarClass = post.isPro ? 'pro' : 'user';
+  var authorHtml = esc(post.author) + (post.isPro ? ' <span class="pro-badge">PRO</span>' : '');
+  var tagHtml = '<span class="post-tag-chip '+(TAG_CLASSES[post.tag]||'tag-general')+'">'+(TAG_LABELS[post.tag]||post.tag)+'</span>';
+
+  // Client flag
+  var clientFlagHtml = '';
+  if (post.clientId) {
+    var cl = MY_CLIENTS.find(function(c){return c.id===post.clientId;});
+    if (cl) clientFlagHtml = '<span style="font-family:\'JetBrains Mono\',monospace;font-size:8px;padding:2px 7px;border-radius:8px;background:var(--teal-lll);color:var(--teal)">👥 Your client</span>';
+  }
+
+  // Needs reply flag
+  var hasProReply = post.replies && post.replies.some(function(r){return r.isPro;});
+  var needsReplyHtml = (!hasProReply && post.tag==='question') ?
+    '<span class="needs-reply-flag">⚠ Needs answer</span>' : '';
+
+  // Replies
+  var repliesHtml = '';
+  if (post.replies && post.replies.length) {
+    repliesHtml = '<div class="replies">';
+    post.replies.forEach(function(r){
+      var rc = r.isPro ? 'pro' : 'user';
+      var ra = esc(r.author)+(r.isPro?' <span class="pro-badge">PRO</span>':'');
+      repliesHtml += '<div class="reply"><div class="reply-avatar '+rc+'">'+esc(r.initials)+'</div><div class="reply-body"><div class="reply-author">'+ra+'</div><div class="reply-text">'+esc(r.text)+'</div><div class="reply-time">'+esc(r.time)+'</div></div></div>';
+    });
+    repliesHtml += '</div>';
+  }
+
+  // Quick reply templates + input (always shown for pro)
+  var replyBoxHtml =
+    '<div id="reply-box-'+post.id+'" class="pro-reply-open" data-post-id="'+post.id+'" style="display:none;margin-top:10px">' +
+    '<div class="quick-replies">' +
+    '<div class="qr-label">Quick replies</div>' +
+    QUICK_REPLIES.map(function(qr){return '<button class="qr-chip" onclick="fillQuickReply(\''+post.id+'\',\''+qr.replace(/'/g,"\\'")+'\')">' + esc(qr) + '</button>';}).join('') +
+    '</div>' +
+    '<div class="pro-reply-compose" style="margin-top:8px">' +
+    '<textarea class="pro-reply-input" id="reply-input-'+post.id+'" placeholder="Write your professional reply..." rows="2" style="flex:1;padding:9px 12px;border:1.5px solid rgba(124,58,237,0.2);border-radius:8px;font-family:\'Bricolage Grotesque\',sans-serif;font-size:12px;outline:none;background:var(--white);resize:none"></textarea>' +
+    '<button class="pro-reply-send" onclick="submitProReply(\''+post.id+'\')">Reply as Pro</button>' +
+    '</div></div>';
+
+  var cardClass = 'post-card' + (post.isPro ? ' pro-post' : '') + (!hasProReply && post.tag==='question' ? ' needs-reply' : '');
+
+  return '<div class="'+cardClass+'" id="post-'+post.id+'">' +
+    '<div class="post-header">' +
+    '<div class="post-avatar '+avatarClass+'">'+esc(post.initials)+'</div>' +
+    '<div class="post-meta"><div class="post-author">'+authorHtml+'</div><div class="post-time">'+esc(post.time)+'</div></div>' +
+    tagHtml + clientFlagHtml + needsReplyHtml +
+    '</div>' +
+    '<div class="post-body">'+esc(post.text)+'</div>' +
+    '<div class="post-actions">' +
+    '<button class="post-action'+(post.liked?' liked':'')+'" onclick="toggleLike(\''+post.id+'\')"><span>'+( post.liked?'❤️':'🤍')+'</span> '+post.likes+'</button>' +
+    '<button class="post-action" onclick="openReplyBox(\''+post.id+'\')" style="'+(post.isPro?'display:none':'')+'"><span>💬</span> '+( post.replies?post.replies.length:0)+'</button>' +
+    '<button class="post-action reply-btn" onclick="openReplyBox(\''+post.id+'\')">✍️ Reply as Pro</button>' +
+    '</div>' +
+    repliesHtml +
+    replyBoxHtml +
+    '</div>';
+}
+
+function reRenderPost(postId) {
+  var post = POSTS.find(function(p){return p.id===postId;});
+  if (!post) return;
+  var el = document.getElementById('post-'+postId);
+  if (!el) return;
+  var tmp = document.createElement('div');
+  tmp.innerHTML = renderPostCard(post);
+  el.replaceWith(tmp.firstChild);
+}
+
+function renderFeed() {
+  document.getElementById('feed-list').innerHTML = POSTS.map(function(p){return renderPostCard(p);}).join('');
+  updateStats();
+}
+
+function renderQuestions() {
+  var unanswered = POSTS.filter(function(p){
+    return p.tag==='question' && !(p.replies && p.replies.some(function(r){return r.isPro;}));
+  });
+  var el = document.getElementById('questions-list');
+  if (!unanswered.length) {
+    el.innerHTML = '<div style="text-align:center;padding:48px 20px"><div style="font-size:42px;margin-bottom:8px">✅</div><div style="font-size:15px;font-weight:700;color:var(--ink);margin-bottom:4px">All caught up!</div><div style="font-size:12px;color:var(--ink-f)">No unanswered questions right now. Check back later.</div></div>';
+    return;
+  }
+  el.innerHTML = unanswered.map(function(p){return renderPostCard(p);}).join('');
+}
+
+function renderClients() {
+  var el = document.getElementById('clients-list');
+  var html = '';
+  MY_CLIENTS.forEach(function(cl){
+    var clientPosts = POSTS.filter(function(p){return p.clientId===cl.id;});
+    html += '<div class="client-posts-section">';
+    html += '<div class="cps-header"><div class="cps-avatar" style="background:'+cl.color+'">'+esc(cl.initials)+'</div><div><div class="cps-name">'+esc(cl.name)+'</div><div class="cps-detail">'+esc(cl.goal)+' · '+clientPosts.length+' post'+(clientPosts.length!==1?'s':'')+'</div></div></div>';
+    if (!clientPosts.length) {
+      html += '<div class="cps-empty">No community posts yet</div>';
+    } else {
+      html += clientPosts.map(function(p){return renderPostCard(p);}).join('');
+    }
+    html += '</div>';
+  });
+  el.innerHTML = html;
+}
+
+function renderMine() {
+  var mine = POSTS.filter(function(p){return p.isPro && p.author===PRO_NAME;});
+  var el = document.getElementById('mine-list');
+  if (!mine.length) {
+    el.innerHTML = '<div style="text-align:center;padding:48px 20px"><div style="font-size:42px;margin-bottom:8px">✍️</div><div style="font-size:15px;font-weight:700;color:var(--ink);margin-bottom:4px">No posts yet</div><div style="font-size:12px;color:var(--ink-f)">Use the compose box to share expert advice.</div></div>';
+    return;
+  }
+  el.innerHTML = mine.map(function(p){return renderPostCard(p);}).join('');
+}
+
+function updateStats() {
+  var unanswered = POSTS.filter(function(p){
+    return p.tag==='question' && !(p.replies && p.replies.some(function(r){return r.isPro;}));
+  }).length;
+  var replied = POSTS.reduce(function(acc,p){
+    return acc + (p.replies ? p.replies.filter(function(r){return r.isPro && r.author===PRO_NAME;}).length : 0);
+  },0);
+  var clientToday = POSTS.filter(function(p){return p.clientId && (p.time.includes('hour')||p.time==='Just now');}).length;
+
+  document.getElementById('stat-unanswered').textContent = unanswered;
+  document.getElementById('stat-replied').textContent = replied;
+  document.getElementById('stat-posts').textContent = POSTS.length;
+  document.getElementById('stat-client-posts').textContent = clientToday;
+
+  var qBadge = document.getElementById('q-badge');
+  if (qBadge) { qBadge.textContent = unanswered; qBadge.style.display = unanswered ? '' : 'none'; }
+  var bindPending = loadBindRequests().filter(function(r){return r.status==='pending';}).length;
+  var bBadge = document.getElementById('bind-badge');
+  if (bBadge) { bBadge.textContent = bindPending; bBadge.style.display = bindPending ? '' : 'none'; }
+}
+
+// ── Dark mode ──
+(function(){
+  try { if(localStorage.getItem('nw-dark-mode')==='1') document.body.classList.add('dark-mode'); } catch(e) {}
+})();
+
+// ── Filter clients in sidebar ──
+function filterClients(q) {
+  var term = q.toLowerCase();
+  document.querySelectorAll('.sn-item[data-client]').forEach(function(item) {
+    var name = (item.querySelector('.sn-name') || {}).textContent || '';
+    item.style.display = name.toLowerCase().includes(term) ? '' : 'none';
+  });
+}
+
+// ── Nav helpers ──
+function toggleProMenu() {
+  var m = document.getElementById('proAvatarMenu');
+  if (m) m.style.display = m.style.display === 'block' ? 'none' : 'block';
+}
+document.addEventListener('click', function(e) {
+  var toggle = document.getElementById('proAvatarToggle');
+  var menu = document.getElementById('proAvatarMenu');
+  if (menu && toggle && !toggle.contains(e.target) && !menu.contains(e.target)) {
+    menu.style.display = 'none';
+  }
+});
+function toggleDarkMode() {
+  document.body.classList.toggle('dark-mode');
+  var isDark = document.body.classList.contains('dark-mode');
+  try { localStorage.setItem('nw-dark-mode', isDark ? '1' : '0'); } catch(e) {}
+  var icon = document.getElementById('proDarkModeIcon');
+  if (icon) icon.textContent = isDark ? '☀️' : '🌙';
+}
+(function(){
+  try {
+    if (localStorage.getItem('nw-dark-mode') === '1') {
+      document.body.classList.add('dark-mode');
+      var i = document.getElementById('proDarkModeIcon');
+      if (i) i.textContent = '☀️';
+    }
+  } catch(e) {}
+})();
+
+// ── Bind Requests ──
+// PRO_ID must match the expert id in community-hub.js EXPERTS array
+var PRO_ID = 'dr-rivera';
+var BIND_REQ_KEY = 'nw-bind-requests';
+
+// Demo seed — two pending requests so feature is visible on first load
+var BIND_SEED = [
+  { proId: PRO_ID, userId: 'u-demo-1', userName: 'Alex Kim',      userInitials: 'AK', userGoal: 'Lose Weight',  time: '1 hour ago',  status: 'pending' },
+  { proId: PRO_ID, userId: 'u-demo-2', userName: 'Jordan Taylor',  userInitials: 'JT', userGoal: 'Gain Muscle',  time: '3 hours ago', status: 'pending' }
+];
+
+function loadBindRequests() {
+  try {
+    var saved = localStorage.getItem(BIND_REQ_KEY);
+    if (!saved) {
+      localStorage.setItem(BIND_REQ_KEY, JSON.stringify(BIND_SEED));
+      return BIND_SEED.filter(function(r){ return r.proId === PRO_ID; });
+    }
+    return JSON.parse(saved).filter(function(r){ return r.proId === PRO_ID; });
+  } catch(e) { return []; }
+}
+
+function saveBindRequests(reqs) {
+  try {
+    var saved = localStorage.getItem(BIND_REQ_KEY);
+    var all = saved ? JSON.parse(saved) : [];
+    var others = all.filter(function(r){ return r.proId !== PRO_ID; });
+    localStorage.setItem(BIND_REQ_KEY, JSON.stringify(others.concat(reqs)));
+  } catch(e) {}
+}
+
+function renderBindTab() {
+  var reqs = loadBindRequests();
+  var pending = reqs.filter(function(r){ return r.status === 'pending'; });
+  var handled = reqs.filter(function(r){ return r.status !== 'pending'; });
+  var badge = document.getElementById('bind-badge');
+  if (badge) { badge.textContent = pending.length; badge.style.display = pending.length ? '' : 'none'; }
+
+  var el = document.getElementById('bind-list');
+  if (!el) return;
+
+  if (!reqs.length) {
+    el.innerHTML = '<div style="text-align:center;padding:48px 20px"><div style="font-size:42px;margin-bottom:8px">🔗</div><div style="font-size:15px;font-weight:700;color:var(--ink);margin-bottom:4px">No bind requests yet</div><div style="font-size:12px;color:var(--ink-f)">When users choose you in "Find a Pro", their requests appear here.</div></div>';
+    return;
+  }
+
+  function cardHtml(r) {
+    var color = strToColor(r.userId);
+    var actions = '';
+    if (r.status === 'pending') {
+      actions = '<div style="display:flex;flex-direction:column;gap:6px;flex-shrink:0">' +
+        '<button onclick="acceptBind(\'' + r.userId + '\')" style="padding:9px 20px;background:var(--teal);color:#fff;border:none;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;transition:background .2s">✓ Accept</button>' +
+        '<button onclick="declineBind(\'' + r.userId + '\')" style="padding:9px 20px;background:transparent;color:var(--ink-f);border:1px solid var(--border);border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;transition:all .2s">Decline</button>' +
+        '</div>';
+    } else if (r.status === 'accepted') {
+      actions = '<div style="padding:9px 20px;background:var(--teal-lll);color:var(--teal);border:1px solid var(--teal-ll);border-radius:8px;font-size:12px;font-weight:600;text-align:center">✓ Client</div>';
+    } else {
+      actions = '<div style="padding:9px 20px;font-size:12px;color:var(--ink-f)">Declined</div>';
+    }
+    return '<div style="background:var(--white);border:1px solid var(--border);border-radius:16px;padding:20px;margin-bottom:14px;box-shadow:0 4px 16px rgba(10,20,16,0.04);display:flex;align-items:center;gap:16px" id="bind-card-' + r.userId + '">' +
+      '<div style="width:52px;height:52px;border-radius:50%;background:' + color + ';color:#fff;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:700;flex-shrink:0">' + esc(r.userInitials) + '</div>' +
+      '<div style="flex:1"><div style="font-size:14px;font-weight:700;color:var(--ink)">' + esc(r.userName) + '</div>' +
+      '<div style="font-size:11px;color:var(--ink-f);margin-top:3px;font-family:monospace">Requested ' + esc(r.time) + '</div>' +
+      '<span style="display:inline-block;margin-top:5px;font-size:10px;padding:2px 8px;border-radius:8px;background:var(--teal-lll);color:var(--teal);font-family:monospace">' + esc(r.userGoal) + '</span></div>' +
+      actions + '</div>';
+  }
+
+  var html = '';
+  if (pending.length) {
+    html += '<div style="font-family:monospace;font-size:9px;color:var(--ink-f);letter-spacing:.08em;text-transform:uppercase;margin-bottom:10px">' + pending.length + ' pending</div>';
+    html += pending.map(cardHtml).join('');
+  }
+  if (handled.length) {
+    html += '<div style="font-family:monospace;font-size:9px;color:var(--ink-f);letter-spacing:.08em;text-transform:uppercase;margin:20px 0 10px">' + handled.length + ' handled</div>';
+    html += handled.map(cardHtml).join('');
+  }
+  el.innerHTML = html;
+}
+
+function strToColor(str) {
+  var palette = ['#2f8f7f','#7aaad4','#b8621f','#e07b78','#7c3aed','#d4956a','#1e6b5e'];
+  var h = 0;
+  for (var i = 0; i < str.length; i++) h = str.charCodeAt(i) + ((h << 5) - h);
+  return palette[Math.abs(h) % palette.length];
+}
+
+function acceptBind(userId) {
+  var reqs = loadBindRequests();
+  var req = reqs.find(function(r){ return r.userId === userId; });
+  if (!req) return;
+  req.status = 'accepted';
+  saveBindRequests(reqs);
+  try {
+    var clients = JSON.parse(localStorage.getItem('nw-pro-accepted-clients') || '[]');
+    if (!clients.find(function(c){ return c.userId === userId; })) {
+      clients.push({ userId: userId, name: req.userName, initials: req.userInitials, goal: req.userGoal, acceptedAt: new Date().toISOString() });
+      localStorage.setItem('nw-pro-accepted-clients', JSON.stringify(clients));
+    }
+  } catch(e) {}
+  renderBindTab();
+  updateStats();
+  showToast('✓ ' + req.userName + ' added as your client', '#1e6b5e');
+}
+
+function declineBind(userId) {
+  var reqs = loadBindRequests();
+  var req = reqs.find(function(r){ return r.userId === userId; });
+  if (!req) return;
+  req.status = 'declined';
+  saveBindRequests(reqs);
+  renderBindTab();
+  showToast('Request declined');
+}
+
+// ── Filter clients sidebar ──
+function filterClients(q) {
+  var term = q.toLowerCase();
+  document.querySelectorAll('.sn-item[data-client]').forEach(function(item) {
+    var name = (item.querySelector('.sn-name') || {}).textContent || '';
+    item.style.display = name.toLowerCase().includes(term) ? '' : 'none';
+  });
+}
+
+// ── Init ──
+function init() {
+  // Try to read pro name from NW auth
+  if (typeof NW !== 'undefined' && NW.auth && NW.auth.name) {
+    PRO_NAME = NW.auth.name;
+    var parts = PRO_NAME.split(' ');
+    PRO_INITIALS = parts.map(function(w){return (w[0]||'').toUpperCase();}).join('').substring(0,2) || 'DR';
+    document.getElementById('nav-avatar-pic').textContent = PRO_INITIALS;
+    document.getElementById('nav-avatar-name').textContent = PRO_NAME;
+    document.getElementById('compose-avatar-el').textContent = PRO_INITIALS;
+  }
+  renderFeed();
+}
+
+if (document.readyState==='loading') document.addEventListener('DOMContentLoaded', init);
+else init();
+</script>
+<script src="api.js"></script>
+</body>
+</html>

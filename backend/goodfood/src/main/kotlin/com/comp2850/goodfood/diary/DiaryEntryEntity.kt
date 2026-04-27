@@ -28,5 +28,20 @@ class DiaryEntryEntity(
     var mealType: MealType = MealType.BREAKFAST,
 
     @Column(nullable = false)
-    var diaryDate: LocalDate = LocalDate.now()
+    var diaryDate: LocalDate = LocalDate.now(),
+
+    @Column(nullable = true)
+    var kcal: Int? = null,
+
+    @Column(nullable = true)
+    var protein: Double? = null,
+
+    @Column(nullable = true)
+    var carbs: Double? = null,
+
+    @Column(nullable = true)
+    var fat: Double? = null,
+
+    @Column(nullable = true)
+    var sugar: Double? = null
 )

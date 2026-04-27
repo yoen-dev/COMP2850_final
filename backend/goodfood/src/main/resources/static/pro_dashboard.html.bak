@@ -9,11 +9,11 @@
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --teal:#1e6b5e;--teal-l:#2f8f7f;--teal-ll:#b8ddd8;--teal-lll:#e8f4f2;
-  --amber:#b8621f;--amber-l:#d4956a;--amber-ll:#faeade;
-  --ink:#0a1410;--ink-s:#1c2e26;--ink-m:#3d5448;--ink-f:#6b8878;
+  --teal:#1e6b5e;--teal-l:#1a7a6a;--teal-ll:#b8ddd8;--teal-lll:#e8f4f2;
+  --amber:#955018;--amber-l:#d4956a;--amber-ll:#faeade;
+  --ink:#0a1410;--ink-s:#1c2e26;--ink-m:#3d5448;--ink-f:#4d6e5e;
   --paper:#f5f7f5;--fog:#dce6e0;--white:#fff;--border:#d4dfd8;
-  --blue:#7aaad4;--pink:#e07b78;
+  --blue:#7aaad4;--pink:#b5413e;
   --pro:#7c3aed;--pro-l:#a78bfa;--pro-ll:#ede9fe;--pro-lll:#f5f3ff;
 }
 body{font-family:'Bricolage Grotesque',sans-serif;background:var(--paper);color:var(--ink);display:flex;min-height:100vh;-webkit-font-smoothing:antialiased}
@@ -218,33 +218,19 @@ body{font-family:'Bricolage Grotesque',sans-serif;background:var(--paper);color:
 /* Tour */
 .tour-trigger-btn{display:flex;align-items:center;gap:5px;padding:7px 14px;border-radius:8px;border:1px solid rgba(124,58,237,0.3);background:rgba(124,58,237,0.1);color:rgba(255,255,255,0.85);cursor:pointer;font-size:11px;font-weight:600;font-family:'Bricolage Grotesque',sans-serif;letter-spacing:.02em;transition:all .2s}
 .tour-trigger-btn:hover{background:rgba(124,58,237,0.22);border-color:rgba(124,58,237,0.5);color:#fff}
-.tour-dim-svg{position:fixed;inset:0;width:100%;height:100%;z-index:8000;display:none;pointer-events:all}
-.tour-highlight{position:fixed;z-index:8001;border-radius:12px;pointer-events:none;transition:all .35s cubic-bezier(.4,0,.2,1);display:none}
-.tour-highlight.on{display:block;box-shadow:0 0 0 3px #7c3aed,0 0 0 7px rgba(124,58,237,0.3),0 0 24px rgba(124,58,237,0.15);animation:tourPulsePro 2s ease-in-out infinite}
-@keyframes tourPulsePro{0%,100%{box-shadow:0 0 0 3px #7c3aed,0 0 0 7px rgba(124,58,237,0.3),0 0 24px rgba(124,58,237,0.15)}50%{box-shadow:0 0 0 4px #7c3aed,0 0 0 10px rgba(124,58,237,0.2),0 0 32px rgba(124,58,237,0.1)}}
-.tour-card{position:fixed;z-index:8002;background:#fff;border-radius:14px;padding:20px 22px;width:340px;box-shadow:0 12px 40px rgba(10,20,16,0.3),0 0 0 1px rgba(124,58,237,0.15);display:none;pointer-events:all;transition:opacity .25s,transform .25s,left .3s,top .3s}
-.tour-card.on{display:block}
-@keyframes tourCardIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
-.tour-card::before{content:'';position:absolute;width:12px;height:12px;background:#fff;transform:rotate(45deg);box-shadow:-1px -1px 0 rgba(124,58,237,0.1)}
-.tour-card[data-pos="bottom"]::before{top:-6px;left:28px}
-.tour-card[data-pos="top"]::before{bottom:-6px;left:28px;box-shadow:1px 1px 0 rgba(124,58,237,0.1)}
-.tour-card[data-pos="right"]::before{left:-6px;top:20px}
-.tour-card[data-pos="left"]::before{right:-6px;top:20px;box-shadow:1px -1px 0 rgba(124,58,237,0.1)}
-.tour-card[data-pos="center"]::before{display:none}
-.tour-step-label{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--pro);letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px;display:flex;align-items:center;gap:8px}
-.tour-step-label::after{content:'';flex:1;height:1px;background:var(--pro-ll)}
-.tour-card-title{font-size:15px;font-weight:700;color:var(--ink);margin-bottom:6px;line-height:1.3}
-.tour-card-body{font-size:13px;color:var(--ink-m);line-height:1.65;margin-bottom:16px}
-.tour-card-foot{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px}
-.tour-progress{display:flex;gap:4px;align-items:center}
-.tour-pip{width:16px;height:3px;border-radius:2px;background:var(--fog);transition:all .3s}
-.tour-pip.done{background:var(--pro)}
-.tour-pip.active{background:var(--pro);width:22px}
-.tour-actions{display:flex;gap:8px;align-items:center;margin-left:auto}
-.tour-skip-btn{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--ink-f);background:none;border:none;cursor:pointer;padding:6px 10px;border-radius:6px;transition:all .2s}
-.tour-skip-btn:hover{color:var(--ink);background:var(--paper)}
-.tour-next-btn{font-size:12px;font-weight:600;padding:8px 18px;border-radius:8px;border:none;background:var(--pro);color:#fff;cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:5px}
-.tour-next-btn:hover{background:var(--pro-l)}
+#pro-tour-overlay{position:fixed;top:0;left:0;right:0;bottom:0;z-index:99998;background:rgba(10,20,16,0.75);backdrop-filter:blur(8px);display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .3s}
+#pro-tour-overlay.visible{opacity:1}
+#pro-tour-card{background:var(--white,#fff);border-radius:24px;width:520px;max-width:92vw;height:480px;max-height:88vh;box-shadow:0 32px 80px rgba(10,20,16,0.3);display:flex;flex-direction:column;transform:scale(0.95);transition:transform .3s}
+#pro-tour-overlay.visible #pro-tour-card{transform:scale(1)}
+#pro-tour-illust{background:linear-gradient(135deg,#f5f3ff,var(--paper,#f5f7f5));border-bottom:1px solid var(--fog,#dce6e0);padding:20px 28px;height:180px;min-height:180px;max-height:180px;display:flex;align-items:center;justify-content:center;border-radius:24px 24px 0 0;overflow:hidden}
+#pro-tour-body{padding:24px 28px 16px;flex:1;overflow-y:auto}
+#pro-tour-title{font-family:'Instrument Serif',serif;font-size:22px;font-style:italic;color:var(--ink,#0a1410);margin-bottom:8px}
+#pro-tour-text{font-size:13px;color:var(--ink-m,#3d5448);line-height:1.65}
+#pro-tour-footer{display:flex;align-items:center;justify-content:space-between;padding:16px 28px 22px;border-top:1px solid var(--fog,#dce6e0);flex-shrink:0}
+.pro-tour-pips{display:flex;gap:3px;align-items:center;flex-shrink:0}
+.pro-tour-pip{width:14px;height:3px;border-radius:2px;background:var(--fog,#dce6e0);transition:all .3s}
+.pro-tour-pip.done{background:var(--pro,#7c3aed)}
+.pro-tour-pip.active{background:var(--pro,#7c3aed);width:22px}
 
 /* ── DARK MODE ── */
 body.dark-mode { --paper:#0d1a14; --white:#142420; --ink:#e8f0ec; --ink-s:#d0ddd4; --ink-m:#a8bfb0; --ink-f:#7a9488; --border:#2a3e34; --fog:#1e3028; }
@@ -471,14 +457,14 @@ body.dark-mode .shortcuts-modal { background: #142420; }
     </div>
     </div>
     <div style="position:relative">
-      <div class="tn-avatar" id="proAvatarToggle" style="cursor:pointer" role="button" tabindex="0" aria-label="Open profile menu" aria-haspopup="true" aria-expanded="false" onclick="event.stopPropagation();toggleProAvatarMenu()">
+      <div class="tn-avatar" id="proAvatarToggle" style="cursor:pointer" role="button" tabindex="0" aria-label="Open profile menu" aria-haspopup="true" aria-expanded="false" onclick="event.stopPropagation();toggleProAvatarMenu()" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();event.stopPropagation();toggleProAvatarMenu()}">
         <div class="tn-avatar-pic" aria-hidden="true">DR</div>
         <span class="tn-avatar-name">Dr. Rivera</span>
       </div>
       <div id="proAvatarMenu" style="display:none;position:absolute;top:50px;right:0;background:#fff;border:1px solid #d4dfd8;border-radius:10px;min-width:180px;box-shadow:0 12px 40px rgba(10,20,16,0.12);overflow:hidden;z-index:100">
-        <a href="#" onclick="event.stopPropagation();openProSettings('personal')" style="display:block;padding:11px 16px;font-size:13px;color:#0a1410;text-decoration:none;border-bottom:1px solid #f5f7f5">Personal Details</a>
-        <a href="#" onclick="event.stopPropagation();openProSettings('preferences')" style="display:block;padding:11px 16px;font-size:13px;color:#0a1410;text-decoration:none;border-bottom:1px solid #f5f7f5">Preferences</a>
-        <a href="#" onclick="event.stopPropagation();event.preventDefault();window.location.replace('index.html')" style="display:block;padding:11px 16px;font-size:13px;color:#c0392b;text-decoration:none">Log Out</a>
+        <a href="#" tabindex="0" onclick="event.stopPropagation();openProSettings('personal')" onkeydown="if(event.key==='Enter'){event.preventDefault();openProSettings('personal')}" style="display:block;padding:11px 16px;font-size:13px;color:#0a1410;text-decoration:none;border-bottom:1px solid #f5f7f5">Personal Details</a>
+        <a href="#" tabindex="0" onclick="event.stopPropagation();openProSettings('preferences')" onkeydown="if(event.key==='Enter'){event.preventDefault();openProSettings('preferences')}" style="display:block;padding:11px 16px;font-size:13px;color:#0a1410;text-decoration:none;border-bottom:1px solid #f5f7f5">Preferences</a>
+        <a href="#" tabindex="0" onclick="event.stopPropagation();event.preventDefault();(typeof NW!=='undefined'&&NW.logout?NW.logout():null);window.location.replace('index.html')" onkeydown="if(event.key==='Enter'){event.preventDefault();(typeof NW!=='undefined'&&NW.logout?NW.logout():null);window.location.replace('index.html')}" style="display:block;padding:11px 16px;font-size:13px;color:#c0392b;text-decoration:none">Log Out</a>
       </div>
     </div>
   </div>
@@ -492,20 +478,29 @@ body.dark-mode .shortcuts-modal { background: #142420; }
     <span class="sn-name">Dashboard</span>
   </a>
 
+  <a class="sn-item" id="sn-pro-community" onclick="selectClient('community',this)" href="#" style="margin-bottom:2px">
+    <span style="font-size:16px">💬</span>
+    <span class="sn-name">Community</span>
+    <span id="pro-bind-dot" style="display:none;width:7px;height:7px;border-radius:50%;background:#dc2626;margin-left:4px"></span>
+  </a>
+  <div class="sn-divider"></div>
   <div class="sn-section-label" style="margin-top:4px">My Clients</div>
   <div style="padding:6px 16px 2px">
     <label for="client-search-input" class="sr-only">Search clients by name</label>
-    <input type="text" id="client-search-input" placeholder="Search clients..." aria-label="Search clients by name" oninput="filterClients(this.value)"
+    <input type="text" id="client-search-input" placeholder="Search clients..." aria-label="Search clients by name"
+      autocomplete="new-password" autocorrect="off" autocapitalize="off" spellcheck="false"
+      readonly onfocus="this.removeAttribute('readonly')" onblur="if(!this.value)this.setAttribute('readonly','')"
+      oninput="filterClients(this.value)"
       style="width:100%;padding:6px 10px;border:1px solid var(--border);border-radius:7px;font-size:11px;font-family:'Bricolage Grotesque',sans-serif;color:var(--ink);outline:none;background:var(--paper)">
   </div>
 
   <a class="sn-item" onclick="selectClient('rose', this)" data-client="rose" href="#">
-    <div class="sn-avatar" style="background:#2f8f7f" aria-hidden="true">RC</div>
+    <div class="sn-avatar" style="background:#1a7a6a" aria-hidden="true">RC</div>
     <div style="flex:1">
       <div class="sn-name">Rose Campbell</div>
       <div style="font-family:'JetBrains Mono',monospace;font-size:8px;color:var(--ink-f)">62kg · Active</div>
     </div>
-    <span class="sn-status warn" onclick="cycleStatus('rose', this)">⚡ Low protein</span>
+    <span class="sn-status warn" onclick="cycleStatus('rose', this)" aria-label="Client status">⚡ Low protein</span>
   </a>
 
   <a class="sn-item" onclick="selectClient('james', this)" data-client="james" href="#">
@@ -514,16 +509,16 @@ body.dark-mode .shortcuts-modal { background: #142420; }
       <div class="sn-name">James Tang</div>
       <div style="font-family:'JetBrains Mono',monospace;font-size:8px;color:var(--ink-f)">78kg · Bulking</div>
     </div>
-    <span class="sn-status ok" onclick="cycleStatus('james', this)">✓ On track</span>
+    <span class="sn-status ok" onclick="cycleStatus('james', this)" aria-label="Client status">✓ On track</span>
   </a>
 
   <a class="sn-item" onclick="selectClient('sara', this)" data-client="sara" href="#">
-    <div class="sn-avatar" style="background:#e07b78" aria-hidden="true">SL</div>
+    <div class="sn-avatar" style="background:#b5413e" aria-hidden="true">SL</div>
     <div style="flex:1">
       <div class="sn-name">Sara Lim</div>
       <div style="font-family:'JetBrains Mono',monospace;font-size:8px;color:var(--ink-f)">55kg · Cut</div>
     </div>
-    <span class="sn-status urgent" onclick="cycleStatus('sara', this)">! Missed 3 days</span>
+    <span class="sn-status urgent" onclick="cycleStatus('sara', this)" aria-label="Client status">! Missed 3 days</span>
   </a>
 
   <a class="sn-item" onclick="selectClient('mike', this)" data-client="mike" href="#">
@@ -532,7 +527,7 @@ body.dark-mode .shortcuts-modal { background: #142420; }
       <div class="sn-name">Mike Walsh</div>
       <div style="font-family:'JetBrains Mono',monospace;font-size:8px;color:var(--ink-f)">90kg · Maintain</div>
     </div>
-    <span class="sn-status ok" onclick="cycleStatus('mike', this)">✓ On track</span>
+    <span class="sn-status ok" onclick="cycleStatus('mike', this)" aria-label="Client status">✓ On track</span>
   </a>
 
   <a class="sn-item" onclick="selectClient('priya', this)" data-client="priya" href="#">
@@ -541,7 +536,7 @@ body.dark-mode .shortcuts-modal { background: #142420; }
       <div class="sn-name">Priya Kapoor</div>
       <div style="font-family:'JetBrains Mono',monospace;font-size:8px;color:var(--ink-f)">58kg · Lean gain</div>
     </div>
-    <span class="sn-status warn" onclick="cycleStatus('priya', this)">⚡ Review due</span>
+    <span class="sn-status warn" onclick="cycleStatus('priya', this)" aria-label="Client status">⚡ Review due</span>
   </a>
 </aside>
 
@@ -561,8 +556,8 @@ body.dark-mode .shortcuts-modal { background: #142420; }
         <div class="ov-label">Messages Pending</div>
         <div class="ov-sub">Rose, Sara, Priya waiting on replies</div>
         <div style="margin-top:12px;display:flex;gap:6px">
-          <div style="width:28px;height:28px;border-radius:50%;background:#2f8f7f;color:#fff;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700">RC</div>
-          <div style="width:28px;height:28px;border-radius:50%;background:#e07b78;color:#fff;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700">SL</div>
+          <div style="width:28px;height:28px;border-radius:50%;background:#1a7a6a;color:#fff;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700">RC</div>
+          <div style="width:28px;height:28px;border-radius:50%;background:#b5413e;color:#fff;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700">SL</div>
           <div style="width:28px;height:28px;border-radius:50%;background:#7c3aed;color:#fff;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700">PK</div>
         </div>
       </div>
@@ -598,15 +593,15 @@ body.dark-mode .shortcuts-modal { background: #142420; }
           </tr>
         </thead>
         <tbody id="snapshotTable">
-          <tr onclick="selectClientFromTable('rose')" style="cursor:pointer;transition:background .15s" onmouseover="this.style.background='var(--paper)'" onmouseout="this.style.background='transparent'">
-            <td style="padding:12px 0"><div style="display:flex;align-items:center;gap:10px"><div style="width:32px;height:32px;border-radius:50%;background:#2f8f7f;color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700">RC</div><div><div style="font-size:13px;font-weight:600;color:var(--ink)">Rose Campbell</div><div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--ink-f)">62 kg · F · 29</div></div></div></td>
+          <tr tabindex="0" role="button" onclick="selectClientFromTable('rose')" style="cursor:pointer;transition:background .15s" onmouseover="this.style.background='var(--paper)'" onmouseout="this.style.background='transparent'">
+            <td style="padding:12px 0"><div style="display:flex;align-items:center;gap:10px"><div style="width:32px;height:32px;border-radius:50%;background:#1a7a6a;color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700">RC</div><div><div style="font-size:13px;font-weight:600;color:var(--ink)">Rose Campbell</div><div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--ink-f)">62 kg · F · 29</div></div></div></td>
             <td style="text-align:center;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--ink-m)">Weight loss</td>
             <td style="text-align:center;font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;color:var(--teal)">1,920</td>
             <td style="text-align:center"><span style="font-family:'JetBrains Mono',monospace;font-size:10px;padding:2px 8px;border-radius:8px;background:var(--amber-ll);color:var(--amber)">68g ↓</span></td>
             <td style="text-align:center"><div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--ink-m)">5/7 days</div></td>
             <td style="text-align:center"><span style="font-family:'JetBrains Mono',monospace;font-size:9px;padding:3px 10px;border-radius:8px;background:var(--amber-ll);color:var(--amber)">⚡ Low protein</span></td>
           </tr>
-          <tr onclick="selectClientFromTable('james')" style="cursor:pointer;transition:background .15s" onmouseover="this.style.background='var(--paper)'" onmouseout="this.style.background='transparent'">
+          <tr tabindex="0" role="button" onclick="selectClientFromTable('james')" style="cursor:pointer;transition:background .15s" onmouseover="this.style.background='var(--paper)'" onmouseout="this.style.background='transparent'">
             <td style="padding:12px 0"><div style="display:flex;align-items:center;gap:10px"><div style="width:32px;height:32px;border-radius:50%;background:#7aaad4;color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700">JT</div><div><div style="font-size:13px;font-weight:600;color:var(--ink)">James Tang</div><div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--ink-f)">78 kg · M · 25</div></div></div></td>
             <td style="text-align:center;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--ink-m)">Muscle gain</td>
             <td style="text-align:center;font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;color:var(--teal)">2,850</td>
@@ -614,15 +609,15 @@ body.dark-mode .shortcuts-modal { background: #142420; }
             <td style="text-align:center"><div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--ink-m)">6/7 days</div></td>
             <td style="text-align:center"><span style="font-family:'JetBrains Mono',monospace;font-size:9px;padding:3px 10px;border-radius:8px;background:var(--teal-lll);color:var(--teal)">✓ On track</span></td>
           </tr>
-          <tr onclick="selectClientFromTable('sara')" style="cursor:pointer;transition:background .15s" onmouseover="this.style.background='var(--paper)'" onmouseout="this.style.background='transparent'">
-            <td style="padding:12px 0"><div style="display:flex;align-items:center;gap:10px"><div style="width:32px;height:32px;border-radius:50%;background:#e07b78;color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700">SL</div><div><div style="font-size:13px;font-weight:600;color:var(--ink)">Sara Lim</div><div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--ink-f)">55 kg · F · 32</div></div></div></td>
+          <tr tabindex="0" role="button" onclick="selectClientFromTable('sara')" style="cursor:pointer;transition:background .15s" onmouseover="this.style.background='var(--paper)'" onmouseout="this.style.background='transparent'">
+            <td style="padding:12px 0"><div style="display:flex;align-items:center;gap:10px"><div style="width:32px;height:32px;border-radius:50%;background:#b5413e;color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700">SL</div><div><div style="font-size:13px;font-weight:600;color:var(--ink)">Sara Lim</div><div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--ink-f)">55 kg · F · 32</div></div></div></td>
             <td style="text-align:center;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--ink-m)">Fat cut</td>
             <td style="text-align:center;font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;color:var(--pink)">1,200</td>
             <td style="text-align:center"><span style="font-family:'JetBrains Mono',monospace;font-size:10px;padding:2px 8px;border-radius:8px;background:#fee2e2;color:#dc2626">42g ↓↓</span></td>
             <td style="text-align:center"><div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#dc2626">2/7 days</div></td>
             <td style="text-align:center"><span style="font-family:'JetBrains Mono',monospace;font-size:9px;padding:3px 10px;border-radius:8px;background:#fee2e2;color:#dc2626">! Missed 3 days</span></td>
           </tr>
-          <tr onclick="selectClientFromTable('mike')" style="cursor:pointer;transition:background .15s" onmouseover="this.style.background='var(--paper)'" onmouseout="this.style.background='transparent'">
+          <tr tabindex="0" role="button" onclick="selectClientFromTable('mike')" style="cursor:pointer;transition:background .15s" onmouseover="this.style.background='var(--paper)'" onmouseout="this.style.background='transparent'">
             <td style="padding:12px 0"><div style="display:flex;align-items:center;gap:10px"><div style="width:32px;height:32px;border-radius:50%;background:#b8621f;color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700">MW</div><div><div style="font-size:13px;font-weight:600;color:var(--ink)">Mike Walsh</div><div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--ink-f)">90 kg · M · 41</div></div></div></td>
             <td style="text-align:center;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--ink-m)">Maintain</td>
             <td style="text-align:center;font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;color:var(--teal)">2,400</td>
@@ -630,7 +625,7 @@ body.dark-mode .shortcuts-modal { background: #142420; }
             <td style="text-align:center"><div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--ink-m)">4/7 days</div></td>
             <td style="text-align:center"><span style="font-family:'JetBrains Mono',monospace;font-size:9px;padding:3px 10px;border-radius:8px;background:var(--teal-lll);color:var(--teal)">✓ On track</span></td>
           </tr>
-          <tr onclick="selectClientFromTable('priya')" style="cursor:pointer;transition:background .15s" onmouseover="this.style.background='var(--paper)'" onmouseout="this.style.background='transparent'">
+          <tr tabindex="0" role="button" onclick="selectClientFromTable('priya')" style="cursor:pointer;transition:background .15s" onmouseover="this.style.background='var(--paper)'" onmouseout="this.style.background='transparent'">
             <td style="padding:12px 0"><div style="display:flex;align-items:center;gap:10px"><div style="width:32px;height:32px;border-radius:50%;background:#7c3aed;color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700">PK</div><div><div style="font-size:13px;font-weight:600;color:var(--ink)">Priya Kapoor</div><div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--ink-f)">58 kg · F · 27</div></div></div></td>
             <td style="text-align:center;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--ink-m)">Lean gain</td>
             <td style="text-align:center;font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;color:var(--teal)">1,750</td>
@@ -691,7 +686,7 @@ body.dark-mode .shortcuts-modal { background: #142420; }
         <div class="chart-card">
           <div class="cc-title">Calorie Intake — 30 Days</div>
           <div class="cc-sub">vs daily target</div>
-          <div style="position:relative;height:160px"><canvas id="calorieTrendChart"></canvas></div>
+          <div style="position:relative;height:160px"><canvas id="calorieTrendChart" aria-label="Client calorie intake trend chart" role="img"></canvas></div>
         </div>
         <div class="chart-card">
           <div class="cc-title">Exercise Frequency</div>
@@ -761,8 +756,7 @@ body.dark-mode .shortcuts-modal { background: #142420; }
           </div>
           <div id="trainingPlanRows"></div>
           <div style="margin-top:14px;padding:12px;background:var(--teal-lll);border-radius:10px">
-            <div style="font-size:12px;font-weight:600;color:var(--teal);margin-bottom:4px">📝 Pro Notes</div>
-            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px"><div style="font-size:12px;font-weight:700;color:var(--ink)">📝 Pro Notes</div><span id="notesEditBtn" onclick="toggleNotesEdit()" style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--teal);cursor:pointer;padding:3px 8px;border:1px solid var(--teal-ll);border-radius:5px">Edit</span></div><div id="proNotes" style="font-size:12px;color:var(--ink-m);line-height:1.55"></div><textarea id="proNotesEdit" style="display:none;width:100%;padding:10px 12px;border:1.5px solid var(--teal);border-radius:8px;font-family:'Bricolage Grotesque',sans-serif;font-size:12px;color:var(--ink);resize:vertical;min-height:80px;outline:none;margin-top:6px"></textarea>
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px"><div style="font-size:12px;font-weight:700;color:var(--ink)">📝 Pro Notes</div><span id="notesEditBtn" tabindex="0" role="button" onclick="toggleNotesEdit()" style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--teal);cursor:pointer;padding:3px 8px;border:1px solid var(--teal-ll);border-radius:5px">Edit</span></div><div id="proNotes" style="font-size:12px;color:var(--ink-m);line-height:1.55"></div><textarea aria-label="Edit client notes" id="proNotesEdit" style="display:none;width:100%;padding:10px 12px;border:1.5px solid var(--teal);border-radius:8px;font-family:'Bricolage Grotesque',sans-serif;font-size:12px;color:var(--ink);resize:vertical;min-height:80px;outline:none;margin-top:6px"></textarea>
           </div>
         </div>
       </div>
@@ -784,9 +778,16 @@ body.dark-mode .shortcuts-modal { background: #142420; }
       </div>
     </div>
   </div>
+
+  <!-- ── PRO COMMUNITY PAGE ── -->
+  <div class="page" id="page-community" role="tabpanel" aria-label="Community Hub"></div>
+
 </div>
 
 <script>
+/** Sanitise user text before inserting into DOM */
+function escapeHtml(s){if(!s)return '';var d=document.createElement('div');d.textContent=s;return d.innerHTML;}
+
 // ── CLIENT DATA ──
 const clients = {
   rose: {
@@ -948,16 +949,20 @@ function selectClientFromTable(id) {
 }
 
 function renderClientHeader(c) {
+  var w = c.weight || '—';
+  var h = c.height || '—';
+  var g = c.goal || c.stats?.goal || '—';
+  var a = c.age || '—';
   document.getElementById('clientHeader').innerHTML = `
     <div class="client-header">
       <div class="ch-avatar" style="background:${c.color}">${c.initials}</div>
       <div>
         <div class="ch-name">${c.name}</div>
         <div class="ch-meta">
-          <span class="ch-tag">⚖️ ${c.weight}kg</span>
-          <span class="ch-tag">📏 ${c.height}cm</span>
-          <span class="ch-tag">🎯 ${c.goal}</span>
-          <span class="ch-tag">🎂 Age ${c.age}</span>
+          <span class="ch-tag">⚖️ ${w}${w !== '—' ? 'kg' : ''}</span>
+          <span class="ch-tag">📏 ${h}${h !== '—' ? 'cm' : ''}</span>
+          <span class="ch-tag">🎯 ${g}</span>
+          <span class="ch-tag">🎂 Age ${a}</span>
         </div>
       </div>
       <div class="ch-actions">
@@ -968,36 +973,43 @@ function renderClientHeader(c) {
 }
 
 function renderStats(c) {
-  const bmi = (c.weight / ((c.height / 100) ** 2)).toFixed(1);
+  const bmi = (c.weight && c.height) ? (c.weight / ((c.height / 100) ** 2)).toFixed(1) : '—';
+  // Defaults for bind clients missing detailed stats
+  var avgKcal = (c.stats && typeof c.stats.avg_kcal === 'number') ? c.stats.avg_kcal : 0;
+  var targetKcal = c.target_kcal || 2000;
+  var protein = (c.stats && typeof c.stats.protein === 'number') ? c.stats.protein : 0;
+  var targetProtein = c.target_protein || 50;
+  var exDays = (c.stats && typeof c.stats.exercise_days === 'number') ? c.stats.exercise_days : 0;
+  var status = (c.stats && c.stats.status) ? c.stats.status : 'New';
   document.getElementById('statsRow').innerHTML = `
     <div class="stat-card">
       <div class="sc-label">Avg Daily Kcal</div>
-      <div class="sc-value">${c.stats.avg_kcal.toLocaleString()}</div>
-      <div class="sc-sub">Target: ${c.target_kcal.toLocaleString()} kcal</div>
-      <div class="sc-trend ${c.stats.avg_kcal < c.target_kcal ? 'down' : 'up'}">${c.stats.avg_kcal < c.target_kcal ? '↓' : '↑'} ${Math.abs(c.target_kcal - c.stats.avg_kcal)} below target</div>
+      <div class="sc-value">${avgKcal.toLocaleString()}</div>
+      <div class="sc-sub">Target: ${targetKcal.toLocaleString()} kcal</div>
+      <div class="sc-trend ${avgKcal < targetKcal ? 'down' : 'up'}">${avgKcal < targetKcal ? '↓' : '↑'} ${Math.abs(targetKcal - avgKcal)} below target</div>
     </div>
     <div class="stat-card">
       <div class="sc-label">Avg Protein</div>
-      <div class="sc-value" style="color:${c.stats.protein < c.target_protein * 0.8 ? '#dc2626' : 'var(--teal)'}">${c.stats.protein}g</div>
-      <div class="sc-sub">Target: ${c.target_protein}g/day</div>
-      <div class="sc-trend ${c.stats.protein >= c.target_protein * 0.9 ? 'up' : 'down'}">${Math.round(c.stats.protein / c.target_protein * 100)}% of target</div>
+      <div class="sc-value" style="color:${protein < targetProtein * 0.8 ? '#dc2626' : 'var(--teal)'}">${protein}g</div>
+      <div class="sc-sub">Target: ${targetProtein}g/day</div>
+      <div class="sc-trend ${protein >= targetProtein * 0.9 ? 'up' : 'down'}">${Math.round(protein / targetProtein * 100)}% of target</div>
     </div>
     <div class="stat-card">
       <div class="sc-label">Exercise Days</div>
-      <div class="sc-value">${c.stats.exercise_days}<span style="font-size:14px;font-weight:400;color:var(--ink-f)">/7</span></div>
+      <div class="sc-value">${exDays}<span style="font-size:14px;font-weight:400;color:var(--ink-f)">/7</span></div>
       <div class="sc-sub">This week</div>
-      <div class="sc-trend ${c.stats.exercise_days >= 4 ? 'up' : 'neutral'}">${c.stats.exercise_days >= 5 ? '✓ Excellent' : c.stats.exercise_days >= 3 ? '~ Moderate' : '↓ Low'}</div>
+      <div class="sc-trend ${exDays >= 4 ? 'up' : 'neutral'}">${exDays >= 5 ? '✓ Excellent' : exDays >= 3 ? '~ Moderate' : '↓ Low'}</div>
     </div>
     <div class="stat-card">
       <div class="sc-label">Log Streak</div>
-      <div class="sc-value">${c.stats.streak}<span style="font-size:14px;font-weight:400;color:var(--ink-f)"> days</span></div>
+      <div class="sc-value">${c.stats.streak || 0}<span style="font-size:14px;font-weight:400;color:var(--ink-f)"> days</span></div>
       <div class="sc-sub">Consecutive logging</div>
-      <div class="sc-trend ${c.stats.streak >= 10 ? 'up' : 'neutral'}">${c.stats.streak >= 14 ? '🔥 On fire' : c.stats.streak >= 7 ? '✓ Consistent' : '~ Building habit'}</div>
+      <div class="sc-trend ${(c.stats.streak||0) >= 10 ? 'up' : 'neutral'}">${(c.stats.streak||0) >= 14 ? '🔥 On fire' : (c.stats.streak||0) >= 7 ? '✓ Consistent' : '~ Building habit'}</div>
     </div>`;
 }
 
 function renderBMI(c) {
-  const bmi = c.weight / ((c.height / 100) ** 2);
+  const bmi = (c.weight && c.height) ? c.weight / ((c.height / 100) ** 2) : 0;
   const bmiVal = bmi.toFixed(1);
   const ranges = [
     { label: 'Underweight', min: 0,    max: 18.5, color: '#7aaad4', bg: 'rgba(122,170,212,0.12)' },
@@ -1037,7 +1049,7 @@ function renderBMI(c) {
 
       <!-- 2-col stats -->
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
-        ${[['Height', c.height + ' cm'], ['Weight', c.weight + ' kg']].map(([l,v]) =>
+        ${[['Height', (c.height || '—') + (c.height ? ' cm' : '')], ['Weight', (c.weight || '—') + (c.weight ? ' kg' : '')]].map(([l,v]) =>
           `<div style="background:var(--paper);border-radius:8px;padding:10px 12px">
             <div style="font-family:'JetBrains Mono',monospace;font-size:8px;color:var(--ink-f);text-transform:uppercase;letter-spacing:.06em">${l}</div>
             <div style="font-size:15px;font-weight:700;color:var(--ink);margin-top:3px">${v}</div>
@@ -1048,6 +1060,7 @@ function renderBMI(c) {
 }
 
 function renderMacros(c) {
+  if (!c.macros) { var _mb=document.getElementById("macroBreakdown"); if(_mb) _mb.innerHTML="<div style=\"text-align:center;padding:24px;color:var(--ink-f);font-size:13px\">No macro data available</div>"; return; }
   const m = c.macros;
   const rows = Object.entries(m).map(([name, d]) => {
     const pct = Math.min(d.actual / (d.target * 1.2) * 100, 100);
@@ -1064,6 +1077,7 @@ function renderMacros(c) {
 }
 
 function renderCalorieTrend(c) {
+  if (!c.calorie_trend || !c.calorie_trend.length) { if(calChart){calChart.destroy();calChart=null;} return; }
   if (calChart) calChart.destroy();
   const labels = Array.from({ length: 30 }, (_, i) => {
     const d = new Date(); d.setDate(d.getDate() - 29 + i);
@@ -1092,6 +1106,7 @@ function renderCalorieTrend(c) {
 
 function renderExerciseChart(c) {
   if (exChart) exChart.destroy();
+  if (!c.exercise || !c.exercise.length) { return; }
   const labels = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
   const ctx = document.getElementById('exerciseFreqChart').getContext('2d');
   exChart = new Chart(ctx, {
@@ -1112,6 +1127,7 @@ function renderExerciseChart(c) {
 }
 
 function renderScoreRing(c) {
+  if (!c.scores) { return; }
   const total = Math.round(Object.values(c.scores).reduce((a, b) => a + b, 0) / Object.keys(c.scores).length);
   const color = total >= 80 ? '#1e6b5e' : total >= 60 ? '#b8621f' : '#dc2626';
   const pct = total / 100;
@@ -1139,8 +1155,8 @@ function renderChat(c) {
     <div class="msg ${m.from === 'pro' ? 'sent' : 'recv'}">
       ${m.from === 'client' ? `<div class="msg-avatar" style="background:${c.color}">${c.initials}</div>` : ''}
       <div>
-        <div class="msg-bubble">${m.text}</div>
-        <div class="msg-time">${m.time}</div>
+        <div class="msg-bubble">${escapeHtml(m.text)}</div>
+        <div class="msg-time">${escapeHtml(m.time)}</div>
       </div>
       ${m.from === 'pro' ? `<div class="msg-avatar" style="background:var(--pro)">DR</div>` : ''}
     </div>`).join('');
@@ -1148,6 +1164,7 @@ function renderChat(c) {
 }
 
 function renderPlan(c) {
+  if (!c.plan && !c.meals) { var _mp=document.getElementById("mealPlanRows"); if(_mp) _mp.innerHTML="<div style=\"text-align:center;padding:24px;color:var(--ink-f);font-size:13px\">No fitness plan set yet</div>"; var _tp=document.getElementById("trainingPlanRows"); if(_tp) _tp.innerHTML=""; var _pt=document.getElementById("planTargets"); if(_pt) _pt.innerHTML=""; return; }
   const days = ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'];
   const mealColors = [c.color, '#7aaad4', '#b8621f', '#2f8f7f', '#7c3aed', '#e07b78', '#d4956a'];
   document.getElementById('mealPlanRows').innerHTML = days.map((d, i) =>
@@ -1165,24 +1182,24 @@ function renderPlan(c) {
     </div>`).join('');
 
   document.getElementById('planTargets').innerHTML = [
-    ['Daily Kcal', `${c.target_kcal} kcal`],
-    ['Protein', `${c.target_protein}g`],
-    ['Carbs', `${c.macros.carbs.target}g`],
-    ['Fat', `${c.macros.fat.target}g`]
+    ['Daily Kcal', `${c.target_kcal || '—'} kcal`],
+    ['Protein', `${c.target_protein || '—'}g`],
+    ['Carbs', c.macros && c.macros.carbs ? `${c.macros.carbs.target}g` : '—'],
+    ['Fat',   c.macros && c.macros.fat   ? `${c.macros.fat.target}g`   : '—']
   ].map(([l, v]) => `<div style="background:var(--paper);border-radius:8px;padding:8px 12px"><div style="font-family:'JetBrains Mono',monospace;font-size:8px;color:var(--ink-f);text-transform:uppercase;letter-spacing:.05em">${l}</div><div style="font-size:13px;font-weight:700;color:var(--ink);margin-top:2px">${v}</div></div>`).join('');
 
   document.getElementById('proNotes').textContent = c.notes;
 }
 
 function renderAppointments(c) {
-  document.getElementById('apptList').innerHTML = c.appointments.map(a =>
+  document.getElementById('apptList').innerHTML = (c.appointments||[]).map(a =>
     `<div class="appt-card">
       <div class="appt-time"><div class="at-hour">${a.time}</div><div class="at-label">${a.date}</div></div>
       <div class="appt-info"><div class="ai-name">${c.name}</div><div class="ai-type">${a.type}</div></div>
       <span class="appt-status ${a.status}">${a.status === 'confirmed' ? '✓ Confirmed' : '⏳ Pending'}</span>
     </div>`).join('');
 
-  document.getElementById('sessionHistory').innerHTML = c.history.map(h =>
+  document.getElementById('sessionHistory').innerHTML = (c.history||[]).map(h =>
     `<div style="display:flex;align-items:flex-start;gap:10px;padding:10px 0;border-bottom:1px solid var(--fog)">
       <div style="width:7px;height:7px;border-radius:50%;background:var(--teal-ll);flex-shrink:0;margin-top:4px"></div>
       <div style="font-size:12px;color:var(--ink-m)">${h}</div>
@@ -1224,9 +1241,9 @@ function fillMsg(text) {
 }
 
 function simulateUserMode() {
-  // Pass user=professional so dashboard loads Dr. Rivera's own data
-  // Also pass from=pro so the Switch Back button appears
-  window.location.replace('/COMP2850_final/dashboard.html?user=professional&from=pro');
+  // Mark as coming from pro dashboard, so dashboard shows a "Back to Pro" button
+  try { sessionStorage.setItem('nw-from-pro', '1'); } catch(e) {}
+  window.location.replace('dashboard.html');
 }
 
 // ── ONBOARDING TOUR ──
@@ -1241,15 +1258,15 @@ function proToast(msg, color) {
 }
 
 // ── Mail Panel ────────────────────────────────────────────────────────────────
-const mailMessages = {
+var mailMessages = {
   rose:  [{ text: 'Hi! Quick question about my protein targets...', time: '2h ago', unread: true }],
   james: [{ text: 'Completed all workouts this week! Feeling strong 💪', time: '5h ago', unread: false }],
   sara:  [{ text: 'Sorry I missed my sessions, been really busy at work', time: '1d ago', unread: true }],
   mike:  [{ text: 'Just checking in — all good this week!', time: '2d ago', unread: false }],
   priya: [{ text: 'Completed all my workouts this week! Looking forward to review 😊', time: '3d ago', unread: true }],
 };
-const clientColors = { rose:'#2f8f7f', james:'#7aaad4', sara:'#e07b78', mike:'#b8621f', priya:'#7c3aed' };
-const clientNames = { rose:'Rose C.', james:'James T.', sara:'Sara L.', mike:'Mike W.', priya:'Priya K.' };
+var clientColors = { rose:'#2f8f7f', james:'#7aaad4', sara:'#e07b78', mike:'#b8621f', priya:'#7c3aed' };
+var clientNames = { rose:'Rose C.', james:'James T.', sara:'Sara L.', mike:'Mike W.', priya:'Priya K.' };
 
 function openMailPanel() {
   const list = document.getElementById('mailList');
@@ -1262,7 +1279,7 @@ function openMailPanel() {
           <div class="mail-msg-name">${clientNames[id]}${m.unread ? ' <span style="width:6px;height:6px;border-radius:50%;background:#dc2626;display:inline-block;margin-left:4px"></span>' : ''}</div>
           <div class="mail-msg-time">${m.time}</div>
         </div>
-        <div class="mail-msg-preview">${m.text}</div>
+        <div class="mail-msg-preview">${escapeHtml(m.text)}</div>
       </div>
     </div>`;
   }).join('');
@@ -1350,15 +1367,15 @@ function toggleApptStatus(idx) {
 
 // Override renderAppointments to add toggle + delete
 function renderAppointments(c) {
-  document.getElementById('apptList').innerHTML = c.appointments.map((a, i) =>
+  document.getElementById('apptList').innerHTML = (c.appointments||[]).map((a, i) =>
     `<div class="appt-card" onclick="toggleApptStatus(${i})">
       <div class="appt-time"><div class="at-hour">${a.time}</div><div class="at-label">${a.date}</div></div>
       <div class="appt-info"><div class="ai-name">${c.name}</div><div class="ai-type">${a.type}</div></div>
       <span class="appt-status ${a.status}">${a.status === 'confirmed' ? '✓ Confirmed' : '⏳ Pending'}</span>
-      <span onclick="event.stopPropagation();deleteAppt(${i})" style="font-size:11px;color:var(--ink-f);cursor:pointer;margin-left:6px;opacity:.5" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=.5">✕</span>
+      <span tabindex="0" role="button" onclick="event.stopPropagation();deleteAppt(${i})" style="font-size:11px;color:var(--ink-f);cursor:pointer;margin-left:6px;opacity:.5" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=.5">✕</span>
     </div>`).join('');
 
-  document.getElementById('sessionHistory').innerHTML = c.history.map(h =>
+  document.getElementById('sessionHistory').innerHTML = (c.history||[]).map(h =>
     `<div style="display:flex;align-items:flex-start;gap:10px;padding:10px 0;border-bottom:1px solid var(--fog)">
       <div style="width:7px;height:7px;border-radius:50%;background:var(--teal-ll);flex-shrink:0;margin-top:4px"></div>
       <div style="font-size:12px;color:var(--ink-m)">${h}</div>
@@ -1376,10 +1393,18 @@ function deleteAppt(idx) {
 let editingPlanType = null; // 'meal' or 'training'
 
 function openEditPlan(btn) {
+  if (!currentClient || !clients[currentClient]) {
+    proToast('Select a client first', '#dc2626');
+    return;
+  }
   const card = btn.closest('.plan-block');
-  const isMeal = card.querySelector('#mealPlanRows') !== null;
+  if (!card) return;
+  const isMeal = card.querySelector('[id="mealPlanRows"]') !== null;
   editingPlanType = isMeal ? 'meal' : 'training';
   const c = clients[currentClient];
+  // Initialize empty plan arrays for bind clients with no plan yet
+  if (!c.meals) c.meals = ['', '', '', '', '', '', ''];
+  if (!c.training) c.training = ['', '', '', '', '', '', ''];
   const items = isMeal ? c.meals : c.training;
   const days = ['MON','TUE','WED','THU','FRI','SAT','SUN'];
 
@@ -1397,11 +1422,14 @@ function openEditPlan(btn) {
         <span class="plan-edit-day-label">${d}</span>
         <input class="plan-edit-input" data-idx="${i}" value="${items[i]}" placeholder="${isMeal ? 'e.g. Grilled chicken & rice' : 'e.g. Strength: Upper'}">
       </div>`).join('')}
-    <button onclick="savePlanEdit(this)" style="margin-top:10px;padding:8px 20px;background:var(--ink);color:#fff;border:none;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;width:100%">Save Plan</button>`;
+    <div style="display:flex;gap:8px;margin-top:10px">
+      <button onclick="savePlanEdit(this)" style="flex:1;padding:8px 20px;background:var(--ink);color:#fff;border:none;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer">Save Plan</button>
+      <button onclick="deletePlanEdit(this)" style="padding:8px 16px;background:transparent;color:#dc2626;border:1px solid #dc2626;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer" title="Delete this plan">🗑 Delete</button>
+    </div>`;
   card.appendChild(overlay);
 }
 
-function savePlanEdit(btn) {
+async function savePlanEdit(btn) {
   const overlay = btn.closest('.plan-edit-overlay');
   const card = overlay.parentElement;
   const inputs = overlay.querySelectorAll('.plan-edit-input');
@@ -1416,6 +1444,64 @@ function savePlanEdit(btn) {
   if (editBtn) editBtn.textContent = 'Edit Plan';
   renderPlan(c);
   proToast('✓ Plan saved', '#1e6b5e');
+
+  // Persist to backend API
+  var apiId = c._apiId;
+  if (apiId && typeof NW !== 'undefined' && NW.plans) {
+    try {
+      var days = editingPlanType === 'meal' ? c.meals : c.training;
+      var planData = {
+        planType: editingPlanType,
+        daysJson: JSON.stringify(days),
+        targetKcal: c.target_kcal || null,
+        targetProtein: c.target_protein || null,
+        targetCarbsPct: c.macros ? c.macros.carbs : null,
+        targetFatPct: c.macros ? c.macros.fat : null,
+        notes: c.notes || null
+      };
+      await NW.plans.save(apiId, planData);
+    } catch(e) {
+      console.warn('[NW] plan save failed:', e.message);
+      proToast('Plan saved locally (backend sync failed)', '#b8621f');
+    }
+  }
+}
+
+// ── Delete Plan ───────────────────────────────────────────────────────────────
+async function deletePlanEdit(btn) {
+  if (!currentClient || !clients[currentClient]) return;
+  if (!confirm('Delete this plan? This cannot be undone.')) return;
+  const overlay = btn.closest('.plan-edit-overlay');
+  const card = overlay.parentElement;
+  const isMeal = card.querySelector('[id="mealPlanRows"]') !== null;
+  const planType = isMeal ? 'meal' : 'training';
+  const c = clients[currentClient];
+  const apiId = c._apiId;
+
+  // Clear local plan data
+  if (isMeal) { c.meals = ['','','','','','','']; }
+  else { c.training = ['','','','','','','']; }
+  overlay.remove();
+  const editBtn = card.querySelector('.pb-edit');
+  if (editBtn) editBtn.textContent = 'Edit Plan';
+  renderPlan(c);
+  proToast('Plan deleted', '#dc2626');
+
+  // Delete from backend — find plan ID first
+  if (apiId && typeof NW !== 'undefined' && NW.plans) {
+    try {
+      var planList = await NW.plans.get(apiId);
+      if (Array.isArray(planList)) {
+        var plan = planList.find(function(p){ return p.planType === planType; });
+        if (plan && plan.id) {
+          await NW.plans.delete(plan.id);
+        }
+      }
+    } catch(e) {
+      console.warn('[NW] plan delete failed:', e.message);
+      proToast('Deleted locally (backend sync failed)', '#b8621f');
+    }
+  }
 }
 
 // ── Pro Notes Edit ────────────────────────────────────────────────────────────
@@ -1437,6 +1523,12 @@ function toggleNotesEdit() {
     btn.textContent = 'Edit';
     btn.style.background = ''; btn.style.color = ''; btn.style.borderColor = '';
     proToast('✓ Notes saved', '#1e6b5e');
+    // Sync notes to backend (save with meal plan)
+    var apiId = clients[currentClient] ? clients[currentClient]._apiId : null;
+    if (apiId && typeof NW !== 'undefined' && NW.plans) {
+      var meals = clients[currentClient].meals || ['','','','','','',''];
+      NW.plans.save(apiId, {planType:'meal', daysJson:JSON.stringify(meals), notes:textarea.value}).catch(function(e){console.warn('[NW] notes sync failed:',e.message);});
+    }
   }
 }
 
@@ -1485,6 +1577,7 @@ function toggleScoreDetail(key, el) {
 
 // ── Override renderScoreRing to add clickable rows ────────────────────────────
 function renderScoreRing(c) {
+  if (!c.scores) { return; }
   const total = Math.round(Object.values(c.scores).reduce((a, b) => a + b, 0) / Object.keys(c.scores).length);
   const color = total >= 80 ? '#1e6b5e' : total >= 60 ? '#b8621f' : '#dc2626';
   const pct = total / 100;
@@ -1499,7 +1592,7 @@ function renderScoreRing(c) {
   const labels = { nutrition: 'Nutrition Quality', consistency: 'Log Consistency', hydration: 'Hydration', exercise: 'Exercise' };
   const barColors = { nutrition: '#1e6b5e', consistency: '#7aaad4', hydration: '#d4956a', exercise: '#e07b78' };
   document.getElementById('scoreLabels').innerHTML = Object.entries(c.scores).map(([k, v]) =>
-    `<div class="sl-row" style="cursor:pointer" onclick="toggleScoreDetail('${k}', this)">
+    `<div class="sl-row" style="cursor:pointer" tabindex="0" role="button" onclick="toggleScoreDetail('${k}', this)">
       <span class="sl-name">${labels[k]}</span>
       <div class="sl-bar-wrap"><div class="sl-bar" style="width:${v}%;background:${barColors[k]}"></div></div>
       <span class="sl-score">${v}</span>
@@ -1526,15 +1619,15 @@ function renderScoreRing(c) {
     <div style="display:flex;flex-direction:column;gap:14px">
       <div>
         <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--ink-f);text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px">Date</div>
-        <input type="date" id="apptDate" style="width:100%;padding:9px 12px;border:1px solid var(--border);border-radius:8px;font-family:'Bricolage Grotesque',sans-serif;font-size:13px;color:var(--ink);outline:none">
+        <input aria-label="Appointment date" type="date" id="apptDate" style="width:100%;padding:9px 12px;border:1px solid var(--border);border-radius:8px;font-family:'Bricolage Grotesque',sans-serif;font-size:13px;color:var(--ink);outline:none">
       </div>
       <div>
         <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--ink-f);text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px">Time</div>
-        <input type="time" id="apptTime" value="09:00" style="width:100%;padding:9px 12px;border:1px solid var(--border);border-radius:8px;font-family:'Bricolage Grotesque',sans-serif;font-size:13px;color:var(--ink);outline:none">
+        <input aria-label="Appointment time" type="time" id="apptTime" value="09:00" style="width:100%;padding:9px 12px;border:1px solid var(--border);border-radius:8px;font-family:'Bricolage Grotesque',sans-serif;font-size:13px;color:var(--ink);outline:none">
       </div>
       <div>
         <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--ink-f);text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px">Type</div>
-        <select id="apptType" style="width:100%;padding:9px 12px;border:1px solid var(--border);border-radius:8px;font-family:'Bricolage Grotesque',sans-serif;font-size:13px;color:var(--ink);outline:none;background:var(--white)">
+        <select aria-label="Appointment type" id="apptType" style="width:100%;padding:9px 12px;border:1px solid var(--border);border-radius:8px;font-family:'Bricolage Grotesque',sans-serif;font-size:13px;color:var(--ink);outline:none;background:var(--white)">
           <option>Monthly Check-in</option>
           <option>Plan Review</option>
           <option>Initial Assessment</option>
@@ -1549,6 +1642,7 @@ function renderScoreRing(c) {
     </div>
   </div>
 </div>
+
 
 <!-- Toast -->
 <div id="proToast" style="position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(12px);background:var(--ink);color:#fff;padding:10px 22px;border-radius:10px;font-size:13px;font-weight:600;z-index:9999;opacity:0;transition:all .3s;pointer-events:none;white-space:nowrap;font-family:'Bricolage Grotesque',sans-serif"></div>
@@ -1581,11 +1675,11 @@ function renderScoreRing(c) {
           <div style="display:flex;flex-direction:column;gap:16px">
             <div>
               <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--ink-f);letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px">First Name</div>
-              <input type="text" value="Dr." style="width:100%;padding:10px 14px;border:1px solid var(--border);border-radius:8px;font-family:'Bricolage Grotesque',sans-serif;font-size:13px;color:var(--ink);outline:none" onfocus="this.style.boxShadow='0 1px 4px rgba(10,20,16,0.08)'" onblur="this.style.boxShadow='none'">
+              <input aria-label="Text input" type="text" value="Dr." style="width:100%;padding:10px 14px;border:1px solid var(--border);border-radius:8px;font-family:'Bricolage Grotesque',sans-serif;font-size:13px;color:var(--ink);outline:none" onfocus="this.style.boxShadow='0 1px 4px rgba(10,20,16,0.08)'" onblur="this.style.boxShadow='none'">
             </div>
             <div>
               <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--ink-f);letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px">Last Name</div>
-              <input type="text" value="Rivera" style="width:100%;padding:10px 14px;border:1px solid var(--border);border-radius:8px;font-family:'Bricolage Grotesque',sans-serif;font-size:13px;color:var(--ink);outline:none" onfocus="this.style.boxShadow='0 1px 4px rgba(10,20,16,0.08)'" onblur="this.style.boxShadow='none'">
+              <input aria-label="Text input" type="text" value="Rivera" style="width:100%;padding:10px 14px;border:1px solid var(--border);border-radius:8px;font-family:'Bricolage Grotesque',sans-serif;font-size:13px;color:var(--ink);outline:none" onfocus="this.style.boxShadow='0 1px 4px rgba(10,20,16,0.08)'" onblur="this.style.boxShadow='none'">
             </div>
             <div>
               <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--ink-f);letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px">Email Address</div>
@@ -1593,7 +1687,7 @@ function renderScoreRing(c) {
             </div>
             <div>
               <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--ink-f);letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px">Licence Number</div>
-              <input type="text" value="NW-PRO-2024-0042" style="width:100%;padding:10px 14px;border:1px solid var(--border);border-radius:8px;font-family:'Bricolage Grotesque',sans-serif;font-size:13px;color:var(--ink);outline:none" onfocus="this.style.boxShadow='0 1px 4px rgba(10,20,16,0.08)'" onblur="this.style.boxShadow='none'">
+              <input aria-label="Text input" type="text" value="NW-PRO-2024-0042" style="width:100%;padding:10px 14px;border:1px solid var(--border);border-radius:8px;font-family:'Bricolage Grotesque',sans-serif;font-size:13px;color:var(--ink);outline:none" onfocus="this.style.boxShadow='0 1px 4px rgba(10,20,16,0.08)'" onblur="this.style.boxShadow='none'">
             </div>
           </div>
           <button onclick="proSettingsSaved(this)" style="margin-top:20px;padding:11px 28px;background:var(--ink);color:#fff;border:none;border-radius:8px;font-family:'Bricolage Grotesque',sans-serif;font-size:13px;font-weight:600;cursor:pointer" onmouseover="this.style.background='var(--teal)'" onmouseout="this.style.background='var(--ink)'">Save Changes</button>
@@ -1614,11 +1708,11 @@ function renderScoreRing(c) {
               </div>
               <div>
                 <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--ink-f);letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px">Years of Experience</div>
-                <input type="number" value="12" style="width:100%;padding:10px 14px;border:1px solid var(--border);border-radius:8px;font-family:'Bricolage Grotesque',sans-serif;font-size:13px;color:var(--ink);outline:none">
+                <input aria-label="Enter number" type="number" value="12" style="width:100%;padding:10px 14px;border:1px solid var(--border);border-radius:8px;font-family:'Bricolage Grotesque',sans-serif;font-size:13px;color:var(--ink);outline:none">
               </div>
               <div style="grid-column:1/-1">
                 <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--ink-f);letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px">Max Clients</div>
-                <input type="number" value="20" style="width:100%;padding:10px 14px;border:1px solid var(--border);border-radius:8px;font-family:'Bricolage Grotesque',sans-serif;font-size:13px;color:var(--ink);outline:none">
+                <input aria-label="Enter number" type="number" value="20" style="width:100%;padding:10px 14px;border:1px solid var(--border);border-radius:8px;font-family:'Bricolage Grotesque',sans-serif;font-size:13px;color:var(--ink);outline:none">
               </div>
               <div style="grid-column:1/-1">
                 <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--ink-f);letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px">Bio / About</div>
@@ -1634,33 +1728,33 @@ function renderScoreRing(c) {
             <div style="display:flex;flex-direction:column;gap:10px">
               <div style="display:flex;align-items:center;gap:12px;padding:8px 0;border-bottom:1px solid var(--fog)">
                 <label style="display:flex;align-items:center;gap:6px;width:90px;font-size:12px;font-weight:600;color:var(--ink)"><input type="checkbox" checked style="accent-color:var(--teal)"> Mon</label>
-                <input type="time" value="09:00" style="padding:6px 10px;border:1px solid var(--border);border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--ink);outline:none">
+                <input aria-label="Select time" type="time" value="09:00" style="padding:6px 10px;border:1px solid var(--border);border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--ink);outline:none">
                 <span style="font-size:11px;color:var(--ink-f)">to</span>
-                <input type="time" value="17:00" style="padding:6px 10px;border:1px solid var(--border);border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--ink);outline:none">
+                <input aria-label="Select time" type="time" value="17:00" style="padding:6px 10px;border:1px solid var(--border);border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--ink);outline:none">
               </div>
               <div style="display:flex;align-items:center;gap:12px;padding:8px 0;border-bottom:1px solid var(--fog)">
                 <label style="display:flex;align-items:center;gap:6px;width:90px;font-size:12px;font-weight:600;color:var(--ink)"><input type="checkbox" checked style="accent-color:var(--teal)"> Tue</label>
-                <input type="time" value="09:00" style="padding:6px 10px;border:1px solid var(--border);border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--ink);outline:none">
+                <input aria-label="Select time" type="time" value="09:00" style="padding:6px 10px;border:1px solid var(--border);border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--ink);outline:none">
                 <span style="font-size:11px;color:var(--ink-f)">to</span>
-                <input type="time" value="17:00" style="padding:6px 10px;border:1px solid var(--border);border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--ink);outline:none">
+                <input aria-label="Select time" type="time" value="17:00" style="padding:6px 10px;border:1px solid var(--border);border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--ink);outline:none">
               </div>
               <div style="display:flex;align-items:center;gap:12px;padding:8px 0;border-bottom:1px solid var(--fog)">
                 <label style="display:flex;align-items:center;gap:6px;width:90px;font-size:12px;font-weight:600;color:var(--ink)"><input type="checkbox" checked style="accent-color:var(--teal)"> Wed</label>
-                <input type="time" value="09:00" style="padding:6px 10px;border:1px solid var(--border);border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--ink);outline:none">
+                <input aria-label="Select time" type="time" value="09:00" style="padding:6px 10px;border:1px solid var(--border);border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--ink);outline:none">
                 <span style="font-size:11px;color:var(--ink-f)">to</span>
-                <input type="time" value="17:00" style="padding:6px 10px;border:1px solid var(--border);border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--ink);outline:none">
+                <input aria-label="Select time" type="time" value="17:00" style="padding:6px 10px;border:1px solid var(--border);border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--ink);outline:none">
               </div>
               <div style="display:flex;align-items:center;gap:12px;padding:8px 0;border-bottom:1px solid var(--fog)">
                 <label style="display:flex;align-items:center;gap:6px;width:90px;font-size:12px;font-weight:600;color:var(--ink)"><input type="checkbox" checked style="accent-color:var(--teal)"> Thu</label>
-                <input type="time" value="09:00" style="padding:6px 10px;border:1px solid var(--border);border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--ink);outline:none">
+                <input aria-label="Select time" type="time" value="09:00" style="padding:6px 10px;border:1px solid var(--border);border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--ink);outline:none">
                 <span style="font-size:11px;color:var(--ink-f)">to</span>
-                <input type="time" value="17:00" style="padding:6px 10px;border:1px solid var(--border);border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--ink);outline:none">
+                <input aria-label="Select time" type="time" value="17:00" style="padding:6px 10px;border:1px solid var(--border);border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--ink);outline:none">
               </div>
               <div style="display:flex;align-items:center;gap:12px;padding:8px 0">
                 <label style="display:flex;align-items:center;gap:6px;width:90px;font-size:12px;font-weight:600;color:var(--ink)"><input type="checkbox" style="accent-color:var(--teal)"> Fri</label>
-                <input type="time" value="09:00" style="padding:6px 10px;border:1px solid var(--border);border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--ink);outline:none">
+                <input aria-label="Select time" type="time" value="09:00" style="padding:6px 10px;border:1px solid var(--border);border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--ink);outline:none">
                 <span style="font-size:11px;color:var(--ink-f)">to</span>
-                <input type="time" value="13:00" style="padding:6px 10px;border:1px solid var(--border);border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--ink);outline:none">
+                <input aria-label="Select time" type="time" value="13:00" style="padding:6px 10px;border:1px solid var(--border);border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--ink);outline:none">
               </div>
             </div>
             <button onclick="proSettingsSaved(this)" style="margin-top:16px;padding:11px 28px;background:var(--ink);color:#fff;border:none;border-radius:8px;font-family:'Bricolage Grotesque',sans-serif;font-size:13px;font-weight:600;cursor:pointer" onmouseover="this.style.background='var(--teal)'" onmouseout="this.style.background='var(--ink)'">Save Availability</button>
@@ -1723,11 +1817,11 @@ function renderScoreRing(c) {
             <div style="display:flex;flex-direction:column;gap:14px">
               <div>
                 <div style="display:flex;justify-content:space-between;margin-bottom:6px"><span style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--ink-f);text-transform:uppercase;letter-spacing:.08em">Flag if calories below (%)</span><span style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--teal);font-weight:600">70%</span></div>
-                <input type="range" min="50" max="90" value="70" style="width:100%;accent-color:var(--teal)">
+                <input aria-label="Adjust value" type="range" min="50" max="90" value="70" style="width:100%;accent-color:var(--teal)">
               </div>
               <div>
                 <div style="display:flex;justify-content:space-between;margin-bottom:6px"><span style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--ink-f);text-transform:uppercase;letter-spacing:.08em">Missed log days before alert</span><span style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--teal);font-weight:600">2 days</span></div>
-                <input type="range" min="1" max="7" value="2" style="width:100%;accent-color:var(--teal)">
+                <input aria-label="Adjust value" type="range" min="1" max="7" value="2" style="width:100%;accent-color:var(--teal)">
               </div>
             </div>
           </div>
@@ -1787,6 +1881,7 @@ function toggleProAvatarMenu() {
   const isOpen = menu.style.display === 'block';
   menu.style.display = isOpen ? 'none' : 'block';
   toggle.setAttribute('aria-expanded', !isOpen);
+  if (!isOpen) { var first = menu.querySelector('a'); if (first) setTimeout(function(){ first.focus(); }, 50); }
 }
 document.addEventListener('click', function(e) {
   const menu = document.getElementById('proAvatarMenu');
@@ -1804,145 +1899,60 @@ function proSettingsSaved(btn) {
 }
 </script>
 
-<svg class="tour-dim-svg" id="tSvg" style="position:fixed;inset:0;width:100%;height:100%;z-index:8000;display:none;pointer-events:all">
-  <defs><mask id="tMask"><rect width="100%" height="100%" fill="white"/><rect id="tHole" rx="12" fill="black"/></mask></defs>
-  <rect width="100%" height="100%" fill="rgba(10,20,16,0.82)" mask="url(#tMask)"/>
-</svg>
-<div class="tour-highlight" id="tHL"></div>
-<div class="tour-card" id="tCard" data-pos="bottom">
-  <div class="tour-step-label" id="tLabel"></div>
-  <div class="tour-card-title" id="tTitle"></div>
-  <div class="tour-card-body" id="tBody"></div>
-  <div class="tour-card-foot">
-    <div class="tour-progress" id="tPips"></div>
-    <div class="tour-actions">
-      <button class="tour-skip-btn" onclick="tEnd()">Skip</button>
-      <button class="tour-next-btn" id="tBtn" onclick="tNext()">Next <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M4.5 2.5L8 6l-3.5 3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-    </div>
-  </div>
-</div>
 <script>
-var tSteps=[
-  {title:'Welcome to NourishWell Pro 🌿',body:"You're in the professional dashboard — manage clients, track their progress, and provide personalised guidance. Let's take a quick tour.",sel:null,pos:'center',onEnter:null},
-  {title:'Your Client List',body:'All your clients are listed here with colour-coded status badges. You can search and click any name to open their full profile.',sel:'.side-nav',pos:'right',onEnter:null},
-  {title:'Client Snapshot',body:'This table gives you an at-a-glance overview — goals, average calories, protein intake, exercise frequency, and current status. Click any row to open that client.',sel:'.overview-grid',pos:'top',onEnter:null},
-  {title:'Client Profile',body:"We've opened Rose Campbell's profile. You can see her weight, height, goal, and age at a glance. Use the Message and Edit Plan buttons for quick actions.",sel:'#clientHeader',pos:'bottom',onEnter:function(){selectClientFromTable('rose');}},
-  {title:'Data Analysis',body:"The Data Analysis tab shows calorie trends, BMI gauge, macro breakdown, exercise frequency, and an overall health score — everything you need to monitor progress.",sel:'.tab-item:nth-child(1)',pos:'bottom',onEnter:function(){var t=document.querySelectorAll('.tab-item');switchTab('analytics',t[0]);}},
-  {title:'Messages & Quick Tags',body:"The Messages tab lets you send advice directly. Use quick-tag buttons like 'Great progress' or 'Protein reminder' — you can edit before sending.",sel:'.tab-item:nth-child(2)',pos:'bottom',onEnter:function(){var t=document.querySelectorAll('.tab-item');switchTab('chat',t[1]);}},
-  {title:'Fitness Plan',body:'The Fitness Plan tab lets you set personalised meal and training plans — calorie targets, exercise schedules, and dietary notes for each client.',sel:'.tab-item:nth-child(3)',pos:'bottom',onEnter:function(){var t=document.querySelectorAll('.tab-item');switchTab('plan',t[2]);}},
-  {title:'Appointments',body:'The Appointments tab lets you book and manage consultation sessions — upcoming, completed, and cancelled appointments are all tracked here.',sel:'.tab-item:nth-child(4)',pos:'bottom',onEnter:function(){var t=document.querySelectorAll('.tab-item');switchTab('appointments',t[3]);}},
-  {title:'Switch to User View',body:'Click here to switch to your own subscriber dashboard — see your personal food diary, nutritional trends, and meal plans as a regular user.',sel:'.switch-btn',pos:'bottom',onEnter:function(){selectClient('overview',document.querySelector('.sn-item'));}},
-  {title:'Help & Messages',body:"The Help button opens the full Q&A page. The envelope icon shows unread client messages. Replay this tour any time with the Tour button. You're all set!",sel:'#helpMailGroup',pos:'bottom',onEnter:null}
+(function(){
+var proSlides = [
+  { title:"Welcome to NourishWell Pro", body:"You are in the professional dashboard — manage clients, track their progress, and provide personalised guidance. Let us take a quick tour.",
+    illust:function(){return '<div style="display:flex;align-items:center;justify-content:center;gap:16px;padding:20px 0"><div style="font-size:40px">🌿</div><div style="text-align:left"><div style="font-family:Instrument Serif,serif;font-size:24px;font-style:italic;color:var(--ink)">Professional</div><div style="font-family:Instrument Serif,serif;font-size:24px;font-style:italic;color:#7c3aed"><em>Dashboard</em></div></div></div>';}},
+  { title:"Your Client List", body:"All your clients are listed in the sidebar with colour-coded status badges — green for on track, amber for warnings, red for missed days. Click any name to open their full profile.",
+    illust:function(){return '<div style="display:flex;flex-direction:column;gap:6px;padding:10px 0">'+mc("RC","Rose C.","#2f8f7f","Active")+mc("JT","James T.","#7aaad4","Bulking")+mc("SL","Sara L.","#e07b78","Missed 3d")+'</div>';}},
+  { title:"Client Snapshot", body:"The overview table gives you an at-a-glance summary — goals, average calories, protein intake, exercise frequency, and current status. Click any row to open that client.",
+    illust:function(){return '<div style="background:var(--white);border:1px solid var(--border);border-radius:10px;padding:12px 14px"><div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:6px;font-size:9px;font-family:JetBrains Mono,monospace;font-weight:700;color:var(--ink);margin-bottom:8px"><span>Client</span><span>Goal</span><span>Avg kcal</span><span>Status</span></div><div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:6px;font-size:9px;color:var(--ink-f)"><span>Rose C.</span><span>Weight loss</span><span>1,920</span><span style="color:#955018">Low protein</span></div><div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:6px;font-size:9px;color:var(--ink-f);margin-top:4px"><span>James T.</span><span>Muscle gain</span><span>2,850</span><span style="color:#1a7a6a">On track</span></div></div>';}},
+  { title:"Client Profile & Tabs", body:"Each client profile has four tabs: Data Analysis (calorie trends, BMI, macros), Messages (send advice with quick-tag buttons), Fitness Plan (meal and training plans), and Appointments (book and manage sessions).",
+    illust:function(){return '<div style="display:flex;gap:8px;justify-content:center;padding:10px 0;flex-wrap:wrap">'+mt("📊","Analysis")+mt("💬","Messages")+mt("📋","Plan")+mt("📅","Appts")+'</div>';}},
+  { title:"Community Hub", body:"Engage with the community — post expert advice, answer subscriber questions, and manage client connection requests. Your posts automatically get a PRO badge.",
+    illust:function(){return '<div style="display:flex;align-items:center;justify-content:center;gap:16px;padding:10px 0"><div style="width:42px;height:42px;border-radius:50%;background:#7c3aed;color:#fff;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700">DR</div><div style="flex:1;max-width:260px"><div style="background:var(--white);border:1px solid var(--border);border-left:3px solid var(--teal);border-radius:10px;padding:10px 14px;font-size:11px;color:var(--ink)">Great progress on your protein targets this week! Keep it up 💪</div></div></div>';}},
+  { title:"Bind Requests", body:"When a subscriber chooses you in Find a Pro, their request appears in the Bind Requests tab. Accept to add them as your client, or decline.",
+    illust:function(){return '<div style="display:flex;align-items:center;gap:14px;padding:10px 0;justify-content:center"><div style="width:48px;height:48px;border-radius:50%;background:#7aaad4;color:#fff;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700">AK</div><div><div style="font-size:13px;font-weight:700;color:var(--ink)">Alex Kim</div><div style="font-size:10px;color:var(--ink-f);font-family:JetBrains Mono,monospace">Requested 1h ago</div></div><div style="display:flex;gap:6px"><div style="padding:6px 14px;background:var(--teal);color:#fff;border-radius:6px;font-size:10px;font-weight:600">✓ Accept</div><div style="padding:6px 14px;border:1px solid var(--border);border-radius:6px;font-size:10px;color:var(--ink-f)">Decline</div></div></div>';}},
+  { title:"Switch to User View", body:"Click Switch to User View in the top bar to access your own subscriber dashboard. The first time you switch, you will set up your personal health profile.",
+    illust:function(){return '<div style="display:flex;align-items:center;justify-content:center;gap:12px;padding:20px 0"><div style="padding:10px 20px;background:var(--ink);color:#fff;border-radius:10px;font-size:12px;font-weight:600;display:flex;align-items:center;gap:8px;font-family:Bricolage Grotesque,sans-serif"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M1 4h9M7 1l3 3-3 3M13 10H4M7 7l-3 3 3 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Switch to User View</div></div>';}},
+  { title:"You are all set!", body:"Use the Help button for FAQs, the envelope icon for client messages, and replay this tour any time with the Tour button. Happy advising!",
+    illust:function(){return '<div style="text-align:center;padding:20px 0"><div style="font-size:48px;margin-bottom:8px">🎉</div><div style="font-family:Instrument Serif,serif;font-size:20px;font-style:italic;color:var(--ink)">Ready to go</div></div>';}}
 ];
-var tI=0,tBusy=false;
+function mc(ini,name,col,st){return '<div style="display:flex;align-items:center;gap:10px;background:var(--white);border:1px solid var(--border);border-radius:8px;padding:8px 12px"><div style="width:28px;height:28px;border-radius:50%;background:'+col+';color:#fff;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700">'+ini+'</div><div style="flex:1;font-size:11px;font-weight:600;color:var(--ink)">'+name+'</div><div style="font-size:9px;font-family:JetBrains Mono,monospace;color:var(--ink-f)">'+st+'</div></div>';}
+function mt(icon,label){return '<div style="background:var(--white);border:1px solid var(--border);border-radius:8px;padding:10px 14px;text-align:center;min-width:80px"><div style="font-size:18px;margin-bottom:4px">'+icon+'</div><div style="font-size:9px;font-weight:600;color:var(--ink)">'+label+'</div></div>';}
 
-function tClear(){
-  var hole=document.getElementById('tHole');
-  var hl=document.getElementById('tHL');
-  hole.setAttribute('width',0);hole.setAttribute('height',0);
-  hl.classList.remove('on');hl.style.display='none';
+var ptI=0,ptOverlay=null;
+function proTourKey(){var u=(typeof NW!=="undefined"&&NW.auth)?NW.auth.userId:"";return u?"nw-"+u+"-pro-tour-seen":"nw-pro-tour-seen";}
+
+window.startTour=function(){
+  if(document.getElementById("pro-tour-overlay"))return;
+  ptI=0;
+  ptOverlay=document.createElement("div");
+  ptOverlay.id="pro-tour-overlay";
+  ptOverlay.innerHTML='<div id="pro-tour-card"><div id="pro-tour-illust"></div><div id="pro-tour-body"><div id="pro-tour-title"></div><div id="pro-tour-text"></div></div><div id="pro-tour-footer"><div class="pro-tour-pips" id="pro-tour-pips"></div><div class="pro-tour-counter" style="font-family:JetBrains Mono,monospace;font-size:10px;color:var(--ink-f);letter-spacing:.04em" id="pro-tour-counter"></div><div style="display:flex;gap:12px;align-items:center"><button style="font-family:JetBrains Mono,monospace;font-size:10px;color:var(--ink-f);background:none;border:none;cursor:pointer;padding:6px 12px;border-radius:6px" id="pro-tour-skip">Skip tour</button><button style="font-size:12px;font-weight:600;padding:9px 22px;border-radius:8px;border:none;background:#7c3aed;color:#fff;cursor:pointer;display:flex;align-items:center;gap:6px" id="pro-tour-next">Next →</button></div></div></div>';
+  document.body.appendChild(ptOverlay);
+  document.getElementById("pro-tour-skip").addEventListener("click",ptClose);
+  document.getElementById("pro-tour-next").addEventListener("click",ptNext);
+  ptOverlay.addEventListener("click",function(e){if(e.target===ptOverlay)ptClose();});
+  ptRender();
+  requestAnimationFrame(function(){requestAnimationFrame(function(){ptOverlay.classList.add("visible");});});
 }
-
-function tPlace(){
-  var s=tSteps[tI];
-  var hl=document.getElementById('tHL');
-  var card=document.getElementById('tCard');
-  var hole=document.getElementById('tHole');
-
-  // Update text
-  document.getElementById('tLabel').textContent='Step '+(tI+1)+' of '+tSteps.length;
-  document.getElementById('tTitle').textContent=s.title;
-  document.getElementById('tBody').textContent=s.body;
-  document.getElementById('tBtn').innerHTML=tI===tSteps.length-1?'Done ✓':'Next <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M4.5 2.5L8 6l-3.5 3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>';
-  document.getElementById('tPips').innerHTML=tSteps.map(function(_,i){return '<div class="tour-pip'+(i<tI?' done':'')+(i===tI?' active':'')+'"></div>';}).join('');
-
-  if(s.sel){
-    var el=document.querySelector(s.sel);
-    if(el){
-      var r=el.getBoundingClientRect(),pad=8;
-      var hx=r.left-pad,hy=r.top-pad,hw=r.width+pad*2,hh=r.height+pad*2;
-      hole.setAttribute('x',hx);hole.setAttribute('y',hy);hole.setAttribute('width',hw);hole.setAttribute('height',hh);
-      hl.style.cssText='display:block;left:'+hx+'px;top:'+hy+'px;width:'+hw+'px;height:'+hh+'px';
-      hl.classList.add('on');
-      var cw=340,ch=card.offsetHeight||200,gap=16,vw=window.innerWidth,vh=window.innerHeight;
-      var cx,cy,pos=s.pos||'bottom';
-      if(pos==='right'&&r.right+gap+cw<vw){cx=r.right+gap;cy=Math.max(12,Math.min(r.top,vh-ch-12));}
-      else if(pos==='left'&&r.left-gap-cw>0){cx=r.left-gap-cw;cy=Math.max(12,Math.min(r.top,vh-ch-12));}
-      else if(pos==='top'&&r.top-gap-ch>60){cx=Math.max(12,Math.min(r.left,vw-cw-12));cy=r.top-gap-ch;}
-      else{cx=Math.max(12,Math.min(r.left,vw-cw-12));cy=r.bottom+gap;pos='bottom';}
-      card.setAttribute('data-pos',pos);
-      card.style.left=cx+'px';card.style.top=cy+'px';
-      card.style.transform='none';
-    } else {
-      tClear();
-      card.setAttribute('data-pos','center');
-      card.style.left='50%';card.style.top='50%';card.style.transform='translate(-50%,-50%)';
-    }
-  } else {
-    tClear();
-    card.setAttribute('data-pos','center');
-    card.style.left='50%';card.style.top='50%';card.style.transform='translate(-50%,-50%)';
-  }
+function ptRender(){
+  var s=proSlides[ptI];
+  document.getElementById("pro-tour-illust").innerHTML=s.illust();
+  document.getElementById("pro-tour-title").textContent=s.title;
+  document.getElementById("pro-tour-text").textContent=s.body;
+  document.getElementById("pro-tour-counter").textContent=(ptI+1)+" / "+proSlides.length;
+  var isLast=ptI===proSlides.length-1;
+  document.getElementById("pro-tour-next").innerHTML=isLast?"Get started ✓":"Next →";
+  document.getElementById("pro-tour-skip").style.display=isLast?"none":"block";
+  document.getElementById("pro-tour-pips").innerHTML=proSlides.map(function(_,i){var cls="pro-tour-pip";if(i<ptI)cls+=" done";if(i===ptI)cls+=" active";return '<div class="'+cls+'"></div>';}).join("");
 }
-
-function startTour(){
-  tI=0;
-  var card=document.getElementById('tCard');
-  // 1. Hide card completely
-  card.classList.remove('on');
-  card.style.visibility='hidden';
-  card.style.opacity='0';
-  tClear();
-  // 2. Reset page to overview
-  selectClient('overview',document.querySelector('.sn-item'));
-  window.scrollTo({top:0});
-  // 3. Show overlay
-  document.getElementById('tSvg').style.display='block';
-  document.body.style.overflow='hidden';
-  // 4. Wait for DOM to settle, then render step 1 and show
-  setTimeout(function(){
-    tPlace();
-    card.classList.add('on');
-    card.style.visibility='visible';
-    card.style.opacity='1';
-  },50);
-}
-
-function tNext(){
-  if(tI>=tSteps.length-1){tEnd();return;}
-  tI++;
-  var card=document.getElementById('tCard');
-  var s=tSteps[tI];
-  // 1. Hide card + highlight instantly
-  card.style.visibility='hidden';
-  tClear();
-  // 2. Execute onEnter (page navigation)
-  if(s.onEnter) s.onEnter();
-  window.scrollTo({top:0});
-  // 3. Wait for DOM to update, then position and show
-  setTimeout(function(){
-    tPlace();
-    card.style.visibility='visible';
-  },60);
-}
-
-function tEnd(){
-  var card=document.getElementById('tCard');
-  card.classList.remove('on');
-  card.style.visibility='hidden';
-  card.style.opacity='0';
-  document.getElementById('tSvg').style.display='none';
-  tClear();
-  document.body.style.overflow='';
-  selectClient('overview',document.querySelector('.sn-item'));
-  window.scrollTo({top:0});
-}
-
-document.getElementById('tSvg').addEventListener('click',function(e){
-  var card=document.getElementById('tCard');
-  var cr=card.getBoundingClientRect();
-  if(e.clientX<cr.left||e.clientX>cr.right||e.clientY<cr.top||e.clientY>cr.bottom) tEnd();
-});
+function ptNext(){if(ptI<proSlides.length-1){ptI++;ptRender();}else ptClose();}
+function ptClose(){localStorage.setItem(proTourKey(),"1");if(ptOverlay){ptOverlay.classList.remove("visible");setTimeout(function(){if(ptOverlay){ptOverlay.remove();ptOverlay=null;}},300);}}
+document.addEventListener("DOMContentLoaded",function(){setTimeout(function(){if(!localStorage.getItem(proTourKey()))startTour();},800);});
+})();
 </script>
 
 
@@ -1961,6 +1971,512 @@ document.addEventListener('keydown',function(e){
     var dd=document.querySelector('.tn-dropdown-wrap .tn-dropdown');
     if(dd)dd.classList.remove('open');
   }
+});
+</script>
+<script src="api.js"></script>
+<script src="patch_pro_dashboard.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  setTimeout(function() {
+    if (document.body.style.opacity !== '1') {
+      document.body.style.opacity = '1';
+    }
+  }, 800);
+});
+</script>
+
+<script>
+// ══════════════════════════════════════════════════════════════
+// NourishWell Pro — Community Hub (embedded in pro_dashboard)
+// Uses template literals (backticks) to avoid quote-escape issues.
+// ══════════════════════════════════════════════════════════════
+(function() {
+'use strict';
+
+var PRO_NAME = "Dr. Rivera";
+var PRO_INITIALS = "DR";
+var PRO_ID = "dr-rivera";
+var BIND_KEY = "nw-bind-requests";
+
+var NOW = Date.now();
+var PRO_POSTS = [
+  { id:"pp1", author:"Rose C.", initials:"RC", isPro:false, time:NOW-1800000,
+    text:"Just hit my protein target for the first time this week! 🎉 Any tips for keeping it consistent?",
+    likes:12, liked:false,
+    comments:[
+      {author:"Dr. Ana Rivera",initials:"AR",isPro:true,text:"Amazing progress Rose! Try prepping protein-rich snacks — boiled eggs, Greek yoghurt, or edamame. Consistency comes from removing friction.",time:NOW-1200000},
+      {author:"Tom W.",initials:"TW",isPro:false,text:"Same here! I started batch-cooking chicken on Sundays — game changer.",time:NOW-600000}
+    ]},
+  { id:"pp2", author:"Alex M.", initials:"AM", isPro:false, time:NOW-7200000,
+    text:"Struggling with sugar cravings in the evening. What healthier alternatives actually satisfy the craving?",
+    likes:8, liked:false,
+    comments:[
+      {author:"Sarah Kowalski",initials:"SK",isPro:true,text:"Evening cravings often signal you need more fibre and protein at dinner. Try dark chocolate (70%+) with nuts, or frozen banana ice cream.",time:NOW-5400000}
+    ]},
+  { id:"pp3", author:"Dr. James Chen", initials:"JC", isPro:true, time:NOW-18000000,
+    text:"📚 Quick tip: Fermented foods like kimchi, kefir, and sauerkraut can significantly improve gut diversity. Even a small daily serving makes a difference.",
+    likes:24, liked:false, comments:[]},
+  { id:"pp4", author:"Meera K.", initials:"MK", isPro:false, time:NOW-43200000,
+    text:"How accurate are calorie counts on food labels? Been meticulously tracking but the numbers seem off sometimes.",
+    likes:15, liked:false, comments:[]},
+  { id:"pp5", author:"Sam T.", initials:"ST", isPro:false, time:NOW-86400000,
+    text:"Made the Mediterranean Quinoa Bowl from the NourishWell recipes yesterday — absolutely delicious and so filling for only 420 kcal! 🥗",
+    likes:19, liked:false, comments:[]},
+  { id:"pp6", author:"Li W.", initials:"LW", isPro:false, time:NOW-172800000,
+    text:"Is it true that eating after 8pm leads to weight gain? I work late shifts and cannot really eat dinner before then.",
+    likes:11, liked:false,
+    comments:[
+      {author:"Dr. Ana Rivera",initials:"AR",isPro:true,text:"This is largely a myth. Total calorie intake matters more than timing. For shift workers, have your main meal before your shift and a lighter meal afterwards.",time:NOW-162000000}
+    ]}
+];
+
+var proActiveTab = "feed";
+var QUICK_REPLIES = [
+  "Great progress! Keep it up 💪",
+  "Consistency is more important than perfection",
+  "Remember to stay hydrated throughout the day",
+  "Focus on getting protein at every meal",
+  "Happy to discuss this at our next session",
+  "Your body needs adequate rest too — do not skip rest days"
+];
+
+function _ago(ms){var s=Math.floor((Date.now()-ms)/1000);if(s<60)return "just now";if(s<3600)return Math.floor(s/60)+"m ago";if(s<86400)return Math.floor(s/3600)+"h ago";return Math.floor(s/86400)+"d ago";}
+function _esc(s){var d=document.createElement("div");d.textContent=s;return d.innerHTML;}
+
+// ── Bind requests ──
+function loadBindRequests(){
+  try{
+    var saved=localStorage.getItem(BIND_KEY);
+    if(!saved){
+      var seed=[
+        {proId:PRO_ID,userId:"u-demo-1",userName:"Alex Kim",userInitials:"AK",userGoal:"Lose Weight",time:"1 hour ago",status:"pending"},
+        {proId:PRO_ID,userId:"u-demo-2",userName:"Jordan Taylor",userInitials:"JT",userGoal:"Gain Muscle",time:"3 hours ago",status:"pending"}
+      ];
+      localStorage.setItem(BIND_KEY,JSON.stringify(seed));
+      return seed;
+    }
+    return JSON.parse(saved).filter(function(r){return r.proId===PRO_ID;});
+  }catch(e){return [];}
+}
+function saveBindRequests(reqs){
+  try{
+    var saved=localStorage.getItem(BIND_KEY);
+    var all=saved?JSON.parse(saved):[];
+    var others=all.filter(function(r){return r.proId!==PRO_ID;});
+    localStorage.setItem(BIND_KEY,JSON.stringify(others.concat(reqs)));
+  }catch(e){}
+}
+function pendingBindCount(){return loadBindRequests().filter(function(r){return r.status==="pending";}).length;}
+
+function strToColor(s){
+  var p=["#2f8f7f","#7aaad4","#b8621f","#e07b78","#7c3aed","#d4956a"];
+  var h=0;
+  for(var i=0;i<s.length;i++) h=s.charCodeAt(i)+((h<<5)-h);
+  return p[Math.abs(h)%p.length];
+}
+
+window._proChTab = function(tab, btn) {
+  proActiveTab = tab;
+  document.querySelectorAll(".pro-ch-tab").forEach(function(t){t.classList.remove("active");});
+  if(btn) btn.classList.add("active");
+  renderProCommunity();
+};
+
+function renderProCommunity() {
+  var el = document.getElementById("pro-ch-content");
+  if (!el) return;
+  if (proActiveTab === "feed")     el.innerHTML = renderProFeed();
+  else if (proActiveTab === "askpro") el.innerHTML = renderProAskPro();
+  else if (proActiveTab === "clients") el.innerHTML = renderProClients();
+  else if (proActiveTab === "bind")   el.innerHTML = renderBindRequests();
+}
+
+function renderProFeed() {
+  var html = `
+    <div style="background:linear-gradient(135deg,#f5f3ff,var(--white));border:1.5px solid rgba(124,58,237,0.15);border-radius:16px;padding:18px 20px;margin-bottom:20px;box-shadow:0 4px 16px rgba(124,58,237,0.04)">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:#7c3aed;background:#ede9fe;border-radius:6px;padding:3px 8px;display:inline-block;margin-bottom:10px">✓ Posting as verified professional — your replies show a PRO badge</div>
+      <div style="display:flex;gap:12px;align-items:flex-start">
+        <div style="width:36px;height:36px;border-radius:50%;background:#7c3aed;color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0">${PRO_INITIALS}</div>
+        <textarea id="pro-ch-compose" placeholder="Share expert advice, a nutrition tip, or a weekly challenge..." rows="2" style="flex:1;border:1.5px solid rgba(124,58,237,0.2);border-radius:10px;padding:10px 14px;font-family:'Bricolage Grotesque',sans-serif;font-size:13px;color:var(--ink);resize:none;outline:none;background:var(--white)"></textarea>
+      </div>
+      <div style="display:flex;justify-content:flex-end;margin-top:10px">
+        <button onclick="window._proChPost()" style="padding:9px 22px;background:#7c3aed;color:#fff;border:none;border-radius:8px;font-family:'Bricolage Grotesque',sans-serif;font-size:12px;font-weight:600;cursor:pointer">Post as Pro →</button>
+      </div>
+    </div>`;
+  PRO_POSTS.forEach(function(p){html += renderProPost(p);});
+  return html;
+}
+
+function renderProAskPro() {
+  var filtered = PRO_POSTS.filter(function(p){return p.comments.some(function(c){return c.isPro;});});
+  if (!filtered.length) return `<div style="text-align:center;padding:48px 20px"><div style="font-size:42px;margin-bottom:8px">✅</div><div style="font-size:15px;font-weight:700;color:var(--ink);margin-bottom:4px">All caught up!</div><div style="font-size:12px;color:var(--ink-f)">No posts with expert replies yet.</div></div>`;
+  var html = "";
+  filtered.forEach(function(p){html += renderProPost(p);});
+  return html;
+}
+
+function renderProClients() {
+  var clientData = [
+    {name:"Rose Campbell",initials:"RC",color:"#2f8f7f",goal:"Weight loss"},
+    {name:"James Tang",initials:"JT",color:"#7aaad4",goal:"Muscle gain"},
+    {name:"Sara Lim",initials:"SL",color:"#e07b78",goal:"Fat cut"},
+    {name:"Mike Walsh",initials:"MW",color:"#b8621f",goal:"Maintain"},
+    {name:"Priya Kapoor",initials:"PK",color:"#7c3aed",goal:"Lean gain"}
+  ];
+  var html = "";
+  clientData.forEach(function(cl){
+    var posts = PRO_POSTS.filter(function(p){return p.initials===cl.initials && !p.isPro;});
+    html += `<div style="margin-bottom:24px">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;padding-bottom:10px;border-bottom:1px solid var(--fog)">
+        <div style="width:36px;height:36px;border-radius:50%;background:${cl.color};color:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700">${cl.initials}</div>
+        <div>
+          <div style="font-size:14px;font-weight:700;color:var(--ink)">${cl.name}</div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--ink-f)">${cl.goal} · ${posts.length} post${posts.length!==1?"s":""}</div>
+        </div>
+      </div>`;
+    if (!posts.length) html += `<div style="font-size:12px;color:var(--ink-f);font-style:italic;padding:8px 0">No community posts yet</div>`;
+    else posts.forEach(function(p){html += renderProPost(p);});
+    html += `</div>`;
+  });
+  return html;
+}
+
+function renderBindRequests() {
+  var reqs = loadBindRequests();
+  var pending = reqs.filter(function(r){return r.status==="pending";});
+  var handled = reqs.filter(function(r){return r.status!=="pending";});
+  var html = `<div style="background:#f5f3ff;border:1.5px solid rgba(124,58,237,0.15);border-radius:12px;padding:14px 18px;margin-bottom:20px;display:flex;align-items:center;gap:12px">
+    <span style="font-size:20px">🔗</span>
+    <div>
+      <div style="font-size:13px;font-weight:700;color:var(--ink)">Client bind requests</div>
+      <div style="font-size:11px;color:var(--ink-f);margin-top:2px">Users who chose you in Find a Pro. Accept to add them as your client.</div>
+    </div>
+  </div>`;
+  if (!reqs.length) return html + `<div style="text-align:center;padding:48px 20px"><div style="font-size:42px;margin-bottom:8px">🔗</div><div style="font-size:15px;font-weight:700;color:var(--ink);margin-bottom:4px">No requests yet</div><div style="font-size:12px;color:var(--ink-f)">When users choose you in Find a Pro, their requests appear here.</div></div>`;
+
+  function cardHtml(r){
+    var col = strToColor(r.userId);
+    var actions = "";
+    if (r.status === "pending") {
+      actions = `<div style="display:flex;flex-direction:column;gap:6px">
+        <button onclick="window._proAcceptBind('${r.userId}')" style="padding:8px 18px;background:var(--teal);color:#fff;border:none;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;font-family:'Bricolage Grotesque',sans-serif">✓ Accept</button>
+        <button onclick="window._proDeclineBind('${r.userId}')" style="padding:8px 18px;background:transparent;color:var(--ink-f);border:1px solid var(--border);border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;font-family:'Bricolage Grotesque',sans-serif">Decline</button>
+      </div>`;
+    } else if (r.status === "accepted") {
+      actions = `<div style="padding:8px 18px;background:var(--teal-lll);color:var(--teal);border:1px solid var(--teal-ll);border-radius:8px;font-size:12px;font-weight:600;font-family:'Bricolage Grotesque',sans-serif;text-align:center">✓ Client</div>`;
+    } else {
+      actions = `<div style="padding:8px 18px;font-size:12px;color:var(--ink-f);font-family:'Bricolage Grotesque',sans-serif">Declined</div>`;
+    }
+    return `<div style="background:var(--white);border:1px solid var(--border);border-radius:16px;padding:20px;margin-bottom:14px;box-shadow:0 4px 16px rgba(10,20,16,0.04);display:flex;align-items:center;gap:16px">
+      <div style="width:52px;height:52px;border-radius:50%;background:${col};color:#fff;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:700;flex-shrink:0">${_esc(r.userInitials)}</div>
+      <div style="flex:1">
+        <div style="font-size:14px;font-weight:700;color:var(--ink)">${_esc(r.userName)}</div>
+        <div style="font-size:11px;color:var(--ink-f);margin-top:3px;font-family:'JetBrains Mono',monospace">Requested ${_esc(r.time)}</div>
+        <span style="display:inline-block;margin-top:5px;font-size:10px;padding:2px 8px;border-radius:8px;background:var(--teal-lll);color:var(--teal);font-family:'JetBrains Mono',monospace">${_esc(r.userGoal)}</span>
+      </div>
+      ${actions}
+    </div>`;
+  }
+  if (pending.length) html += `<div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--ink-f);letter-spacing:.08em;text-transform:uppercase;margin-bottom:10px">${pending.length} pending</div>` + pending.map(cardHtml).join("");
+  if (handled.length) html += `<div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--ink-f);letter-spacing:.08em;text-transform:uppercase;margin:20px 0 10px">${handled.length} handled</div>` + handled.map(cardHtml).join("");
+  return html;
+}
+
+function renderProPost(p) {
+  var hasPro = p.comments.some(function(c){return c.isPro;});
+  var borderLeft = hasPro ? "3px solid var(--teal)" : "1px solid var(--border)";
+  var proBadge = p.isPro ? `<span style="font-family:'JetBrains Mono',monospace;font-size:8px;padding:2px 7px;border-radius:10px;background:var(--teal);color:#fff">PRO</span>` : "";
+  var repliedBadge = hasPro ? `<span style="font-family:'JetBrains Mono',monospace;font-size:8px;padding:2px 7px;border-radius:10px;background:var(--teal-lll);color:var(--teal)">✓ Pro replied</span>` : "";
+
+  var commentsHtml = "";
+  p.comments.forEach(function(cm){
+    var cmPro = cm.isPro ? `<span style="font-family:'JetBrains Mono',monospace;font-size:7px;padding:1px 5px;border-radius:8px;background:#7c3aed;color:#fff">PRO</span>` : "";
+    commentsHtml += `<div style="display:flex;gap:8px;padding:8px 0;border-bottom:1px solid var(--fog)">
+      <div style="width:26px;height:26px;border-radius:50%;background:${cm.isPro?"#7c3aed":"var(--ink-m)"};color:#fff;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;flex-shrink:0">${_esc(cm.initials)}</div>
+      <div>
+        <div style="font-size:11px;font-weight:700;color:var(--ink);display:flex;align-items:center;gap:4px">${_esc(cm.author)}${cmPro}</div>
+        <div style="font-size:12px;color:var(--ink-m);margin-top:2px">${_esc(cm.text)}</div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:8px;color:var(--ink-f);margin-top:2px">${_ago(cm.time)}</div>
+      </div>
+    </div>`;
+  });
+
+  var quickRepliesHtml = QUICK_REPLIES.map(function(qr){
+    return `<button onclick="window._proFillReply('${p.id}', this)" data-qr="${_esc(qr)}" style="font-size:11px;padding:4px 10px;border-radius:16px;border:1px solid rgba(124,58,237,0.2);background:#fff;color:var(--ink-m);cursor:pointer;font-family:'Bricolage Grotesque',sans-serif">${_esc(qr)}</button>`;
+  }).join("");
+
+  return `<div style="background:var(--white);border:1px solid var(--border);border-left:${borderLeft};border-radius:16px;padding:20px;margin-bottom:14px;box-shadow:0 2px 8px rgba(10,20,16,0.03)">
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
+      <div style="width:36px;height:36px;border-radius:50%;background:${p.isPro?"#7c3aed":"var(--ink)"};color:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700">${_esc(p.initials)}</div>
+      <div style="flex:1">
+        <div style="font-size:13px;font-weight:700;color:var(--ink);display:flex;align-items:center;gap:6px">${_esc(p.author)}${proBadge}</div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--ink-f)">${_ago(p.time)}</div>
+      </div>
+      ${repliedBadge}
+    </div>
+    <div style="font-size:14px;color:var(--ink);line-height:1.65;margin-bottom:14px">${_esc(p.text)}</div>
+    <div style="display:flex;gap:12px;padding-top:12px;border-top:1px solid var(--fog)">
+      <button style="display:flex;align-items:center;gap:5px;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--ink-f);background:none;border:none;cursor:pointer;padding:4px 8px;border-radius:6px"><span style="font-size:14px">${p.liked?"❤️":"🤍"}</span> ${p.likes}</button>
+      <button onclick="window._proToggleComments('${p.id}')" style="display:flex;align-items:center;gap:5px;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--ink-f);background:none;border:none;cursor:pointer;padding:4px 8px;border-radius:6px"><span style="font-size:14px">💬</span> ${p.comments.length}</button>
+      <button onclick="window._proOpenReply('${p.id}')" style="display:flex;align-items:center;gap:5px;font-family:'JetBrains Mono',monospace;font-size:10px;color:#7c3aed;background:#f5f3ff;border:none;cursor:pointer;padding:4px 10px;border-radius:6px;font-weight:600">✍️ Reply as Pro</button>
+    </div>
+    <div id="pro-comments-${p.id}" style="display:none;margin-top:12px;padding:12px 14px;background:var(--paper);border-radius:10px">
+      ${commentsHtml}
+      <div id="pro-reply-box-${p.id}" style="display:none;margin-top:10px">
+        <div style="background:#f5f3ff;border-radius:8px;padding:8px 12px;margin-bottom:8px;display:flex;flex-wrap:wrap;gap:5px">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:8px;color:#7c3aed;width:100%;margin-bottom:4px">Quick replies</div>
+          ${quickRepliesHtml}
+        </div>
+        <div style="display:flex;gap:8px">
+          <textarea id="pro-reply-inp-${p.id}" rows="2" placeholder="Write your professional reply..." style="flex:1;padding:8px 12px;border:1.5px solid rgba(124,58,237,0.2);border-radius:8px;font-family:'Bricolage Grotesque',sans-serif;font-size:12px;outline:none;resize:none;background:var(--white)"></textarea>
+          <button onclick="window._proSubmitReply('${p.id}')" style="padding:8px 16px;background:#7c3aed;color:#fff;border:none;border-radius:8px;font-size:11px;font-weight:600;cursor:pointer;align-self:flex-end;font-family:'Bricolage Grotesque',sans-serif">Reply as Pro</button>
+        </div>
+      </div>
+    </div>
+  </div>`;
+}
+
+window._proChPost = function() {
+  var inp = document.getElementById("pro-ch-compose");
+  var text = inp ? inp.value.trim() : "";
+  if (!text) return;
+  PRO_POSTS.unshift({id:"pro-"+Date.now(),author:PRO_NAME,initials:PRO_INITIALS,isPro:true,time:Date.now(),text:text,likes:0,liked:false,comments:[]});
+  renderProCommunity();
+  if(typeof proToast==="function") proToast("Posted as Pro ✓","#7c3aed");
+};
+
+window._proToggleComments = function(postId) {
+  var el = document.getElementById("pro-comments-"+postId);
+  if (el) el.style.display = el.style.display==="none" ? "block" : "none";
+};
+
+window._proOpenReply = function(postId) {
+  var comments = document.getElementById("pro-comments-"+postId);
+  if (comments) comments.style.display = "block";
+  var box = document.getElementById("pro-reply-box-"+postId);
+  if (box) {
+    box.style.display = box.style.display==="none" ? "block" : "none";
+    if (box.style.display==="block") {
+      var inp = document.getElementById("pro-reply-inp-"+postId);
+      if (inp) inp.focus();
+    }
+  }
+};
+
+window._proFillReply = function(postId, btnEl) {
+  var inp = document.getElementById("pro-reply-inp-"+postId);
+  if (inp && btnEl) { inp.value = btnEl.getAttribute("data-qr") || ""; inp.focus(); }
+};
+
+window._proSubmitReply = function(postId) {
+  var inp = document.getElementById("pro-reply-inp-"+postId);
+  var text = inp ? inp.value.trim() : "";
+  if (!text) return;
+  var post = PRO_POSTS.find(function(p){return p.id===postId;});
+  if (!post) return;
+  post.comments.push({author:PRO_NAME,initials:PRO_INITIALS,isPro:true,text:text,time:Date.now()});
+  renderProCommunity();
+  if(typeof proToast==="function") proToast("Reply posted ✓","#7c3aed");
+};
+
+window._proAcceptBind = async function(userId) {
+  var reqs = loadBindRequests();
+  var req = reqs.find(function(r){return r.userId===userId;});
+  if (!req) return;
+
+  // ── Persist binding to backend so /api/clients returns this user ──
+  if (typeof NW !== "undefined" && NW.clients && NW.clients.bind) {
+    try {
+      await NW.clients.bind(userId);
+    } catch (err) {
+      if (typeof proToast === "function") {
+        if (err && err.status === 409) proToast("⚠️ User already has a different professional", "#dc2626");
+        else if (err && err.status === 404) proToast("⚠️ User not found in backend", "#dc2626");
+        else proToast("⚠️ Bind failed: " + (err && err.message || "unknown"), "#dc2626");
+      }
+      console.warn("[NW] bind failed:", err);
+      return; // do not mark as accepted if backend bind failed
+    }
+  }
+
+  req.status = "accepted";
+  saveBindRequests(reqs);
+  try{
+    var acceptedList = JSON.parse(localStorage.getItem("nw-pro-accepted-clients")||"[]");
+    if(!acceptedList.find(function(c){return c.userId===userId;})){
+      acceptedList.push({userId:userId,name:req.userName,initials:req.userInitials,goal:req.userGoal,acceptedAt:new Date().toISOString()});
+      localStorage.setItem("nw-pro-accepted-clients",JSON.stringify(acceptedList));
+    }
+  }catch(e){}
+  updateBindDot();
+  renderProCommunity();
+  // ── Dynamically add new client to sidebar + clients object ──
+  var clientKey = "bind_" + userId;
+  var colors = ["#1a7a6a","#7aaad4","#b8621f","#7c3aed","#d4956a","#b5413e"];
+  var color = colors[Math.floor(Math.random()*colors.length)];
+  var ini = req.userInitials || (req.userName||"").split(" ").map(function(w){return (w[0]||"").toUpperCase();}).join("").substring(0,2) || "??";
+  if (typeof clients !== "undefined") {
+    clients[clientKey] = {
+      name: req.userName || "New Client",
+      initials: ini,
+      color: color,
+      weight: null,
+      height: null,
+      age: null,
+      goal: req.userGoal || "General",
+      stats: { goal: req.userGoal || "General", avg_kcal: 0, protein: "—", exercise_days: 0, bmi: "—", score: "—", status: "New" },
+      calorie_trend: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+      messages: [],
+      appointments: [],
+      _apiId: String(userId)
+    };
+  }
+  var sidebar = document.querySelector("aside");
+  if (sidebar) {
+    var newItem = document.createElement("a");
+    newItem.className = "sn-item";
+    newItem.setAttribute("data-client", clientKey);
+    newItem.setAttribute("href", "#");
+    newItem.setAttribute("onclick", "selectClient('" + clientKey + "', this)");
+    newItem.innerHTML = '<div class="sn-avatar" style="background:' + color + '" aria-hidden="true">' + ini + '</div>'
+      + '<div style="flex:1"><div class="sn-name">' + (req.userName||"New Client") + '</div>'
+      + '<div style="font-family:JetBrains Mono,monospace;font-size:8px;color:var(--ink-f)">' + (req.userGoal||"General") + '</div></div>'
+      + '<span class="sn-status ok">✓ New</span>';
+    sidebar.appendChild(newItem);
+  }
+  if(typeof proToast==="function") proToast("✓ "+req.userName+" added as your client","#1e6b5e");
+};
+
+window._proDeclineBind = async function(userId) {
+  // Try to unbind from backend (best effort, don't block on failure)
+  if (typeof NW !== "undefined" && NW.clients && NW.clients.unbind) {
+    try { await NW.clients.unbind(userId); } catch(e) { /* ignore */ }
+  }
+  var reqs = loadBindRequests();
+  var req = reqs.find(function(r){return r.userId===userId;});
+  if (!req) return;
+  req.status = "declined";
+  saveBindRequests(reqs);
+  updateBindDot();
+  renderProCommunity();
+  if(typeof proToast==="function") proToast("Request declined");
+};
+
+function updateBindDot() {
+  var n = pendingBindCount();
+  var dot = document.getElementById("pro-bind-dot");
+  if (dot) dot.style.display = n > 0 ? "inline-block" : "none";
+  var badge = document.getElementById("pro-bind-badge");
+  if (badge) { badge.textContent = n; badge.style.display = n > 0 ? "" : "none"; }
+}
+
+function initProCommunity() {
+  var page = document.getElementById("page-community");
+  if (!page || page.dataset.init) return;
+  page.dataset.init = "1";
+
+  // Only override if NW.auth has a professional-looking name (contains space)
+  // Otherwise keep the default "Dr. Rivera" / "DR"
+  if (typeof NW !== "undefined" && NW.auth && NW.auth.name && NW.auth.name.indexOf(" ") > 0) {
+    PRO_NAME = NW.auth.name;
+    PRO_INITIALS = PRO_NAME.split(" ").map(function(w){return(w[0]||"").toUpperCase();}).join("").substring(0,2) || "DR";
+  }
+
+  var pending = pendingBindCount();
+  var badgeHtml = pending > 0
+    ? `<span id="pro-bind-badge" style="background:#7c3aed;color:#fff;font-size:8px;padding:1px 6px;border-radius:10px;margin-left:4px">${pending}</span>`
+    : `<span id="pro-bind-badge" style="display:none;background:#7c3aed;color:#fff;font-size:8px;padding:1px 6px;border-radius:10px;margin-left:4px">0</span>`;
+
+  page.innerHTML = `<div class="page-header">
+    <div class="page-title" style="font-family:'Instrument Serif',serif;font-size:28px;font-style:italic;color:var(--ink);letter-spacing:-0.02em;display:flex;align-items:center;gap:12px">
+      Community <em>Hub</em>
+      <span style="font-family:'JetBrains Mono',monospace;font-size:9px;padding:4px 10px;border-radius:10px;background:#ede9fe;color:#7c3aed;font-style:normal">Pro View</span>
+    </div>
+    <div style="font-size:13px;color:var(--ink-f);margin-top:4px">Engage with the community, answer questions, and manage client requests</div>
+  </div>
+  <div style="display:flex;gap:4px;margin-bottom:24px;background:var(--white);border:1px solid var(--border);border-radius:12px;padding:4px;box-shadow:0 2px 8px rgba(10,20,16,0.03)">
+    <button class="pro-ch-tab active" onclick="window._proChTab('feed',this)" style="flex:1;padding:12px 16px;font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:500;border-radius:8px;cursor:pointer;border:none;background:transparent;text-align:center">📢 All Posts</button>
+    <button class="pro-ch-tab" onclick="window._proChTab('askpro',this)" style="flex:1;padding:12px 16px;font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:500;border-radius:8px;cursor:pointer;border:none;background:transparent;text-align:center">❓ Answered</button>
+    <button class="pro-ch-tab" onclick="window._proChTab('clients',this)" style="flex:1;padding:12px 16px;font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:500;border-radius:8px;cursor:pointer;border:none;background:transparent;text-align:center">👥 My Clients</button>
+    <button class="pro-ch-tab" onclick="window._proChTab('bind',this)" style="flex:1;padding:12px 16px;font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:500;border-radius:8px;cursor:pointer;border:none;background:transparent;text-align:center">🔗 Bind Requests ${badgeHtml}</button>
+  </div>
+  <div id="pro-ch-content"></div>`;
+
+  var style = document.createElement("style");
+  style.textContent = ".pro-ch-tab{color:var(--ink-f)}.pro-ch-tab.active{background:var(--ink)!important;color:#fff!important}";
+  document.head.appendChild(style);
+
+  renderProCommunity();
+}
+
+// Hook selectClient for community page
+var _origSelectClientPro = window.selectClient;
+window.selectClient = function(id, el) {
+  if (id === "community") {
+    document.querySelectorAll(".page").forEach(function(p){p.classList.remove("active");});
+    var pg = document.getElementById("page-community");
+    if (pg) pg.classList.add("active");
+    document.querySelectorAll(".sn-item").forEach(function(i){i.classList.remove("active");});
+    if (el) el.classList.add("active");
+    initProCommunity();
+    updateBindDot();
+    return;
+  }
+  if (_origSelectClientPro) _origSelectClientPro(id, el);
+};
+
+document.addEventListener("DOMContentLoaded", function() {
+  setTimeout(updateBindDot, 500);
+});
+
+})();
+</script>
+
+<script>
+// ── Load previously accepted bind clients into sidebar on page load ──
+document.addEventListener('DOMContentLoaded', function() {
+  setTimeout(function() {
+    try {
+      var accepted = JSON.parse(localStorage.getItem('nw-pro-accepted-clients') || '[]');
+      if (!accepted.length) return;
+      var sidebar = document.querySelector('aside');
+      if (!sidebar) return;
+      var existing = {};
+      document.querySelectorAll('.sn-item[data-client]').forEach(function(el) {
+        var name = (el.querySelector('.sn-name') || {}).textContent || '';
+        existing[name.toLowerCase()] = true;
+      });
+      var colors = ['#1a7a6a','#7aaad4','#b8621f','#7c3aed','#d4956a','#b5413e'];
+      accepted.forEach(function(ac, idx) {
+        if (existing[(ac.name||'').toLowerCase()]) return;
+        var clientKey = 'bind_' + ac.userId;
+        var color = colors[idx % colors.length];
+        var ini = ac.initials || (ac.name||'').split(' ').map(function(w){return (w[0]||'').toUpperCase();}).join('').substring(0,2) || '??';
+        if (typeof clients !== 'undefined') {
+          clients[clientKey] = {
+            name: ac.name || 'Client',
+            initials: ini,
+            color: color,
+            stats: { goal: ac.goal || 'General', avg_kcal: 0, protein: '—', exercise_days: 0, bmi: '—', score: '—', status: 'New' },
+            calorie_trend: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+            messages: [],
+            appointments: [],
+            _apiId: String(ac.userId)
+          };
+        }
+        var newItem = document.createElement('a');
+        newItem.className = 'sn-item';
+        newItem.setAttribute('data-client', clientKey);
+        newItem.setAttribute('href', '#');
+        newItem.setAttribute('onclick', "selectClient('" + clientKey + "', this)");
+        newItem.innerHTML = '<div class="sn-avatar" style="background:' + color + '" aria-hidden="true">' + ini + '</div>'
+          + '<div style="flex:1"><div class="sn-name">' + (ac.name||'Client') + '</div>'
+          + '<div style="font-family:JetBrains Mono,monospace;font-size:8px;color:var(--ink-f)">' + (ac.goal||'General') + '</div></div>'
+          + '<span class="sn-status ok">✓ New</span>';
+        sidebar.appendChild(newItem);
+      });
+    } catch(e) { console.warn('[NW] load accepted clients:', e); }
+  }, 500);
 });
 </script>
 </body>

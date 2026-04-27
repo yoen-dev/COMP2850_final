@@ -9,5 +9,10 @@ data class DiaryEntry(
     val quantity: String,
     val servings: Double,
     val mealType: MealType,
-    val diaryDate: LocalDate
+    val diaryDate: LocalDate,
+    val kcal: Int? = null,
+    val protein: Double? = null,
+    val carbs: Double? = null,
+    val fat: Double? = null,
+    val sugar: Double? = null
 )

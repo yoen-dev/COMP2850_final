@@ -22,5 +22,11 @@ data class CreateDiaryRequest(
 
     @field:NotNull(message = "diaryDate is required")
     @field:JsonFormat(pattern = "yyyy-MM-dd")
-    val diaryDate: LocalDate?
+    val diaryDate: LocalDate?,
+
+    val kcal: Int? = null,
+    val protein: Double? = null,
+    val carbs: Double? = null,
+    val fat: Double? = null,
+    val sugar: Double? = null
 )

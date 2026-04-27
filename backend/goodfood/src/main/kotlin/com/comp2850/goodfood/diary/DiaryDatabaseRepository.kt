@@ -44,7 +44,12 @@ class DiaryDatabaseRepository(
             quantity = this.quantity,
             servings = this.servings,
             mealType = this.mealType,
-            diaryDate = this.diaryDate
+            diaryDate = this.diaryDate,
+            kcal = this.kcal,
+            protein = this.protein,
+            carbs = this.carbs,
+            fat = this.fat,
+            sugar = this.sugar
         )
     }
 
@@ -56,7 +61,12 @@ class DiaryDatabaseRepository(
             quantity = this.quantity,
             servings = this.servings,
             mealType = this.mealType,
-            diaryDate = this.diaryDate
+            diaryDate = this.diaryDate,
+            kcal = this.kcal,
+            protein = this.protein,
+            carbs = this.carbs,
+            fat = this.fat,
+            sugar = this.sugar
         )
     }
 }

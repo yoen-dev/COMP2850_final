@@ -39,11 +39,13 @@ class ApiDiaryController(
         val entries = diaryService.getMyDiaryEntries(authentication, date)
 
         val meals = entries.map { entry ->
-            val nutrition = foodNutritionStore.findByFoodName(entry.foodName)
-
-            val kcal = ((nutrition?.calories ?: 0.0) * entry.servings).roundToInt()
-            val protein = round2((nutrition?.protein ?: 0.0) * entry.servings)
-            val sugar = round2((nutrition?.sugar ?: 0.0) * entry.servings)
+            // Use stored nutrition values; fall back to nutrition DB for legacy entries
+            val nutrition = if (entry.kcal == null) foodNutritionStore.findByFoodName(entry.foodName) else null
+            val kcal    = entry.kcal    ?: ((nutrition?.calories ?: 0.0) * entry.servings).roundToInt()
+            val protein = entry.protein ?: round2((nutrition?.protein ?: 0.0) * entry.servings)
+            val carbs   = entry.carbs   ?: 0.0
+            val fat     = entry.fat     ?: 0.0
+            val sugar   = entry.sugar   ?: round2((nutrition?.sugar ?: 0.0) * entry.servings)
 
             ApiDiaryMealResponse(
                 id = entry.id,
@@ -53,8 +55,8 @@ class ApiDiaryController(
                 foodName = entry.foodName,
                 kcal = kcal,
                 protein = protein,
-                carbs = 0.0,
-                fat = 0.0,
+                carbs = carbs,
+                fat = fat,
                 sugar = sugar,
                 quantity = entry.quantity,
                 servings = entry.servings
@@ -81,7 +83,12 @@ class ApiDiaryController(
             quantity = quantityValue,
             servings = servingsValue,
             mealType = parseMealType(request.mealType),
-            diaryDate = request.date
+            diaryDate = request.date,
+            kcal    = request.kcal?.toInt(),
+            protein = request.protein,
+            carbs   = request.carbs,
+            fat     = request.fat,
+            sugar   = request.sugar
         )
 
         val result = diaryService.createDiary(createRequest, authentication)
